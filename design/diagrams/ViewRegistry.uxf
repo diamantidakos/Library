@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>400</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>ViewRegistry
+--
+_-BorrowerListView borrowerListViewStub_
+_-BorrowerView borrowerViewStub_
+--
+_setBorrowerListView(borrowerListView : BorrowerListView)_
+_setBorrowerView(borrowerView : BorrowerView)_
+_getBorrowerListView() : BorrowerListView_
+_getBorrowerView() : BorrowerView_
+_void reset()_</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>10</x>
+      <y>80</y>
+      <w>240</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>
+BorrowerDAO
+--
+--
+find(borrowerNo : int) : Borrower
+save(entity : Borrower)
+delete(entity : Borrower)
+findAll() : List&lt;Borrower&gt; </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>200</x>
+      <y>230</y>
+      <w>170</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>ItemDAO
+--
+--
+find(itemNo : int) : Item
+save(entity : Item)
+delete(entity : Item)
+findAll() : List&lt;Item&gt; </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>310</x>
+      <y>70</y>
+      <w>200</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>LoanDAO
+--
+--
+findPending() : Loan
+findAllPending() : List&lt;Loan&gt; 
+save(entity : Loan)
+delete(entity : Loan)
+findAll() : List&lt;Loan&gt; </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>550</x>
+      <y>120</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>BorrowerDAOMemroy
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>630</x>
+      <y>220</y>
+      <w>140</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>ItemDAOMemory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>740</x>
+      <y>90</y>
+      <w>140</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>LoanDAOMemory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>90</x>
+      <y>120</y>
+      <w>550</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;60;30;270;530;270;530;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>250</x>
+      <y>220</y>
+      <w>470</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;110;30;210;450;210;450;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>400</x>
+      <y>90</y>
+      <w>440</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;110;30;360;420;360;420;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>0</x>
+      <y>20</y>
+      <w>520</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>Name</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>530</x>
+      <y>30</y>
+      <w>380</w>
+      <h>440</h>
+    </coordinates>
+    <panel_attributes>memorydao</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

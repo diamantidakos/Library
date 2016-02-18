@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>120</x>
+      <y>90</y>
+      <w>310</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>Item
+--
+- itemNumber :  int = 0
+- state : ItemState = ItemState.NEW
+--
++ Item() 
++ Item(itemNumber : int) 
++ setItemNumber(itemNumber : int)
++ getItemNumber() : int
++ setBook(book : Book) 
++ getBook() : Book 
++ getState() : ItemState 
+# setState(state:ItemState) 
++ borrow(Borrower borrower) : Loan 
++ available()
++ withdraw() 
++ lost()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>650</x>
+      <y>220</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Book</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>400</x>
+      <y>210</y>
+      <w>270</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+r1=-book</panel_attributes>
+    <additional_attributes>250;30;30;30</additional_attributes>
+  </element>
+</diagram>

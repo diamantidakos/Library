@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>0</x>
+      <y>70</y>
+      <w>320</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;value&gt;&gt;
+SimpleCalendar
+--
+- date : Calendar
+--
++ getYear() : int
++ getMonth() : int
++ getDayOfMonth() : int
++ getDayOfWeek() : int
++ after(other : SimpleCalendar) : boolean
++ before(other : SimpleCalendar) : boolean
++ addDays( days : int) : SimpleCalendar
++ durationInDays(other : SimpleCalendar) : int</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

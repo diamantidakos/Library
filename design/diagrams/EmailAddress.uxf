@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>700</x>
+      <y>240</y>
+      <w>120</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>EmailAddress</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>380</x>
+      <y>190</y>
+      <w>230</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>EmailMessage
+--
+-subject : String
+-body : String
+--
++setFrom(from : EmailAddress)
++getFrom() : EmailAddress 
++setTo(to : EmailAddress)
++getTo() : EmailAddress 
++setSubject(subject:String) 
++getSubject()  : String 
++setBody(body : String) 
++getBody() : String 
++appendToBody(text  : String) </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>580</x>
+      <y>220</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+r1=-from</panel_attributes>
+    <additional_attributes>120;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>580</x>
+      <y>260</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+r1=-to</panel_attributes>
+    <additional_attributes>120;30;30;30</additional_attributes>
+  </element>
+</diagram>
