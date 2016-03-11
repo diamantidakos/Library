@@ -1,4 +1,5 @@
 /build/
 /doc/
 /reports/
+/bin/
 /jacoco.exec
