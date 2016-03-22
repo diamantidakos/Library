@@ -148,6 +148,9 @@ public class Item {
      * Το αντίτυπο αποσύρεται και δεν είναι διαθέσιμο για δανεισμό.
      */
     public void withdraw() {
+    	if (! getState().equals(ItemState.AVAILABLE)) {
+    		throw new LibraryException();
+    	}
         setState(ItemState.WITHDRAWN);
     }
 
@@ -155,6 +158,10 @@ public class Item {
      * Το αντίτυπο έχει χαθεί και δεν είναι διαθέσιμο για δανεισμό.
      */
     public void lost() {
+    	if (! getState().equals(ItemState.LOANED)) {
+    		throw new LibraryException();
+    	}
+    	
         setState(ItemState.LOST);
     }
 

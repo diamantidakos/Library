@@ -101,15 +101,30 @@ public class ItemTest {
     
     @Test(expected=LibraryException.class)
     public void fromLostToAvailable() {
-        Item item = new Item(1);        
+        Borrower borrower = new Borrower();
+        Item item = new Item();
+        item.available();
+        Assert.assertEquals(ItemState.AVAILABLE, item.getState());
+                
+        BorrowerCategory category = new BorrowerCategory();
+        category.setMaxLendingItems(2);
+        borrower.setCategory(category);
+       
+        
+        Loan loan = item.borrow(borrower);
+        Assert.assertNotNull(loan);
+        
         item.lost();
+        Assert.assertEquals(ItemState.LOST, item.getState());
         item.available();
     }
     
     @Test(expected=LibraryException.class)
     public void fromWithdrawnToAvailable() {
-        Item item = new Item(1);
+        Item item = new Item(1);   
+    	item.available();
         item.withdraw();
+        Assert.assertEquals(ItemState.WITHDRAWN, item.getState());
         item.available();
     }
     
