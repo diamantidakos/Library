@@ -3,14 +3,12 @@ package com.mgiandia.library.ui.loan;
 import java.text.SimpleDateFormat;
 
 import com.mgiandia.library.dao.BorrowerDAO;
+import com.mgiandia.library.dao.DAOFactory;
 import com.mgiandia.library.dao.ItemDAO;
 import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.ItemDAOMemory;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
 
 /**
  * Ο presenter του δανεισμού 
@@ -34,9 +32,9 @@ public class LoanPresenter {
      */
     public LoanPresenter(LoanView view) {
         this.view = view;       
-        borrowerDao = new BorrowerDAOMemory();
-        itemDao = new ItemDAOMemory();
-        loanDao = new LoanDAOMemory();
+        borrowerDao = DAOFactory.getFactory().getBorrowerDAO();
+        itemDao = DAOFactory.getFactory().getItemDAO();
+        loanDao = DAOFactory.getFactory().getLoanDAO();
     }
    
 

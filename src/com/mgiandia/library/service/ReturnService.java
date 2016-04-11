@@ -2,7 +2,6 @@ package com.mgiandia.library.service;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
 import com.mgiandia.library.util.Money;
 import com.mgiandia.library.dao.*;
 
@@ -21,7 +20,7 @@ public class ReturnService {
      * αν δεν υπάρχει πρόστιμο.
      */
     public Money returnItem(int itemNo) {
-        LoanDAO loanDAO = new LoanDAOMemory();
+        LoanDAO loanDAO = DAOFactory.getFactory().getLoanDAO();
         Money fine = null;
 
         Loan loan = loanDAO.findPending(itemNo);

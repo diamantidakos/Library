@@ -8,9 +8,9 @@ import org.junit.Test;
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.contacts.EmailMessage;
 import com.mgiandia.library.dao.BorrowerDAO;
+import com.mgiandia.library.dao.DAOFactory;
 import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.util.SimpleCalendar;
 import com.mgiandia.library.util.SystemDateStub;
@@ -70,7 +70,7 @@ public class NotificationServiceTest {
         service.setProvider(provider);                        
         service.notifyBorrowers();
         
-        BorrowerDAO borrowerDao = new BorrowerDAOMemory();
+        BorrowerDAO borrowerDao = DAOFactory.getFactory().getBorrowerDAO();
         
         Borrower diamantidis = borrowerDao.find(Initializer.DIAMANTIDIS_ID);        
         Assert.assertEquals(1,provider.allMessages.size());

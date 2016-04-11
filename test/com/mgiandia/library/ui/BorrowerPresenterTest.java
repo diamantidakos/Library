@@ -6,10 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.mgiandia.library.dao.BorrowerDAO;
-
+import com.mgiandia.library.dao.DAOFactory;
 import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.ui.borrower.BorrowerPresenter;
 
@@ -30,7 +29,7 @@ public class BorrowerPresenterTest {
         dataHelper = new MemoryInitializer();
         dataHelper.prepareData();        
         
-        borrowerDao = new BorrowerDAOMemory();
+        borrowerDao = DAOFactory.getFactory().getBorrowerDAO();
         
         borrowerView = new BorrowerViewStub();
         presenter = new BorrowerPresenter(borrowerView);

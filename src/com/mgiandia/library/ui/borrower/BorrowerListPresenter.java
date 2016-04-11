@@ -3,8 +3,8 @@ package com.mgiandia.library.ui.borrower;
 import java.util.List;
 
 import com.mgiandia.library.dao.BorrowerDAO;
+import com.mgiandia.library.dao.DAOFactory;
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.ui.ViewRegistry;
 
 public class BorrowerListPresenter {
@@ -14,7 +14,7 @@ public class BorrowerListPresenter {
     
     public BorrowerListPresenter(BorrowerListView view) {
         this.view = view;
-        borrowerDao = new BorrowerDAOMemory();
+        borrowerDao = DAOFactory.getFactory().getBorrowerDAO();
     }
     
     public void start() {

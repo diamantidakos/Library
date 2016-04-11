@@ -1,8 +1,8 @@
 package com.mgiandia.library.ui.loan;
 
+import com.mgiandia.library.dao.DAOFactory;
 import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
 import com.mgiandia.library.util.Money;
 
 /**
@@ -22,7 +22,7 @@ public class ReturnPresenter {
      */
     public ReturnPresenter(ReturnView view) {
         this.view = view;
-        loanDao = new LoanDAOMemory();
+        loanDao = DAOFactory.getFactory().getLoanDAO();
     }
     
     /**

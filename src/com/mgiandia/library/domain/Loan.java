@@ -7,6 +7,7 @@ import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.util.Money;
 import com.mgiandia.library.util.SimpleCalendar;
 import com.mgiandia.library.util.SystemDate;
+import com.mgiandia.library.fines.FineStrategyFactory;
 
 
 /**
@@ -239,19 +240,10 @@ public class Loan {
      * Επιστέφει το πρόστιμο για την καθυστέρηση
      * της επιστροφής και αν πράγματι υπάρχει καθυστέρηση.
      * @return Το πρόστιμο καθυστέρησης
+     * @see com.mgiandia.library.fines.FineStrategy
      */
     public Money getFine() {
-        if (getDue() == null || getReturnDate() == null || getBorrower() == null) {
-            return Money.euros(0);
-        }
-        
-        long overdue = getDue().durationInDays(getReturnDate());
-
-        if (overdue <= 0) {
-            return Money.euros(0);
-        }
-        
-        return getBorrower().getDailyFine().times(overdue);
+        return FineStrategyFactory.getStrategy().calculateFine(this);
     }
 
 }

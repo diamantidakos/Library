@@ -2,13 +2,16 @@ package com.mgiandia.library.service;
 
 import java.util.List;
 
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.mgiandia.library.LibraryException;
-import com.mgiandia.library.dao.*;
+import com.mgiandia.library.dao.DAOFactory;
+import com.mgiandia.library.dao.Initializer;
+import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.domain.ItemState;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 
 
@@ -37,7 +40,7 @@ public class LoanServiceTest {
         loanService.findBorrower(Initializer.DIAMANTIDIS_ID);
         Assert.assertNotNull(loanService.borrow(Initializer.UML_DISTILLED_ID1));
         
-        LoanDAO loanDao = new LoanDAOMemory();
+        LoanDAO loanDao = DAOFactory.getFactory().getLoanDAO();
         List<Loan> loanList= loanDao.findAll();
         Loan loan = loanList.get(0);
         

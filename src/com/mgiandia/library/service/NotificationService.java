@@ -5,11 +5,11 @@ import java.util.List;
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.contacts.EmailAddress;
 import com.mgiandia.library.contacts.EmailMessage;
+import com.mgiandia.library.dao.DAOFactory;
 import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
 
 /**
  * Η υπηρεσία που ενημερώνει με μήνυμα ηλεκτρονικού
@@ -40,10 +40,10 @@ public class NotificationService {
             throw new LibraryException();
         }
 
-        LoanDAO loanDao = new LoanDAOMemory();
+        LoanDAO loanDao = DAOFactory.getFactory().getLoanDAO();
         List<Loan> allLoans = loanDao.findAllPending();
         for (Loan loan : allLoans) {
-            if (loan.isOverdue() && loan.getBorrower().getEmail()!=null &&
+            if (loan.isOverdue() && loan.getBorrower().getEmail() != null && 
             		loan.getBorrower().getEmail().isValid()) {
                 String message = composeMessage(loan.getItem().getBook(),
                         -loan.daysToDue());
@@ -56,6 +56,7 @@ public class NotificationService {
 
     private void sendEmail(Borrower borrower,
             String subject, String message) {
+    	
         EmailAddress eMail = borrower.getEmail();
         if (eMail == null || !eMail.isValid()) {
             return;
@@ -67,7 +68,7 @@ public class NotificationService {
         emailMessage.setBody(message);
         provider.sendEmail(emailMessage);
     }
-    
+
     private String composeMessage(Book book, long overdue) {
         String message = "Έχετε καθυστερήσει το βιβλίο με Τίτλο ";
         message += book.getTitle();

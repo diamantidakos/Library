@@ -3,15 +3,10 @@ package com.mgiandia.library.service;
 
 
 import com.mgiandia.library.LibraryException;
-import com.mgiandia.library.dao.BorrowerDAO;
-import com.mgiandia.library.dao.ItemDAO;
-import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.ItemDAOMemory;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
+import com.mgiandia.library.dao.*;
 import com.mgiandia.library.util.SimpleCalendar;
 
 /**
@@ -29,7 +24,8 @@ public class LoanService {
      * @return {@code true} αν βρεθεί ο δανειζόμενος
      */
     public Boolean findBorrower(int borrowerNo) {
-        BorrowerDAO borrowerDao = new BorrowerDAOMemory();
+        DAOFactory factory = DAOFactory.getFactory();
+        BorrowerDAO borrowerDao = factory.getBorrowerDAO();
         borrower = borrowerDao.find(borrowerNo);
         return borrower != null;
     }
@@ -49,10 +45,11 @@ public class LoanService {
         if (!borrower.canBorrow()) {
             return null;
         }
-        ItemDAO itemDao = new ItemDAOMemory();
+        DAOFactory factory = DAOFactory.getFactory();
+        ItemDAO itemDao = factory.getItemDAO();
         Item item = itemDao.find(itemNo);
         Loan loan = item.borrow(borrower);
-        LoanDAO loanDao = new LoanDAOMemory();
+        LoanDAO loanDao = factory.getLoanDAO();
         loanDao.save(loan);
         return loan.getDue();
     }

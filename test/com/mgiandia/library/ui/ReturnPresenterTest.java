@@ -6,15 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.mgiandia.library.dao.BorrowerDAO;
+import com.mgiandia.library.dao.DAOFactory;
 import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.dao.ItemDAO;
 import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.ItemDAOMemory;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.ui.loan.ReturnPresenter;
 import com.mgiandia.library.util.SimpleCalendar;
@@ -101,9 +99,9 @@ public class ReturnPresenterTest {
 
     
     private void loanUMLDistilledToDiamantidis() {
-    	BorrowerDAO borrowerDao = new BorrowerDAOMemory();
-    	ItemDAO itemDao = new ItemDAOMemory();
-    	LoanDAO loanDao = new LoanDAOMemory();
+    	BorrowerDAO borrowerDao = DAOFactory.getFactory().getBorrowerDAO();
+    	ItemDAO itemDao = DAOFactory.getFactory().getItemDAO();
+    	LoanDAO loanDao = DAOFactory.getFactory().getLoanDAO();
         Borrower borrower = borrowerDao.find(Initializer.DIAMANTIDIS_ID);
         Item item = itemDao.find(Initializer.UML_DISTILLED_ID1);
         Loan loan = item.borrow(borrower);

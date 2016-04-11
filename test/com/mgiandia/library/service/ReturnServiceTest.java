@@ -8,11 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.mgiandia.library.LibraryException;
+import com.mgiandia.library.dao.DAOFactory;
 import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.domain.ItemState;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.util.Money;
 import com.mgiandia.library.util.SimpleCalendar;
@@ -47,7 +47,7 @@ public class ReturnServiceTest {
         setSystemDateTo2ndMarch2007();        
         ReturnService service = new ReturnService();
         service.returnItem(Initializer.UML_USER_GUIDE_ID1); 
-        LoanDAO loanDao = new LoanDAOMemory();
+        LoanDAO loanDao = DAOFactory.getFactory().getLoanDAO();
         
         List<Loan> loanList = loanDao.findAll();                
         Loan loan = loanList.get(0);

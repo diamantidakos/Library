@@ -140,20 +140,20 @@ public class LoanTest {
     
     @Test
     public void testNoFineWithUniformFineStrategy() {
-        System.setProperty("finestrategy", "com.mgiandia.library.domain.fines.UniformFineStrategy");
+        System.setProperty("finestrategy", "com.mgiandia.library.fines.UniformFineStrategy");
         testNoFines();
     }
     
 
     @Test
     public void testNoFineWithRelaxedFineStrategy() {
-        System.setProperty("finestrategy", "com.mgiandia.library.domain.fines.RelaxedFineStrategy");
+        System.setProperty("finestrategy", "com.mgiandia.library.fines.RelaxedFineStrategy");
         testNoFines();
     }
     
     @Test
     public void testNoFineWithStrictFineStrategy() {
-        System.setProperty("finestrategy", "com.mgiandia.library.domain.fines.StrictFineStrategy");
+        System.setProperty("finestrategy", "com.mgiandia.library.fines.StrictFineStrategy");
         testNoFines();
     }
     

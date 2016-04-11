@@ -1,8 +1,8 @@
 package com.mgiandia.library.ui.borrower;
 
 import com.mgiandia.library.dao.BorrowerDAO;
+import com.mgiandia.library.dao.DAOFactory;
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 
 public class BorrowerPresenter {
     private BorrowerView view;
@@ -11,7 +11,7 @@ public class BorrowerPresenter {
     
     public BorrowerPresenter(BorrowerView view) {
         this.view = view;
-        borrowerDao = new BorrowerDAOMemory();
+        borrowerDao = DAOFactory.getFactory().getBorrowerDAO();
     }
 
 

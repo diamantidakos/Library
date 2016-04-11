@@ -29,8 +29,7 @@ public class ApplicationJFrame {
      * Launch the application.
      */
     public static void main(String[] args) {
-        //HACK αρχικοποιούμε τη βάση δεδομένων και μάλιστα με κώδικα που ανήκει
-        // στον κώδικα ελέγχου. Κανονικά δεν θα πρέπει να υπάρχει κάτι τέτοιο
+        // Αρχικοποιούμε τη βάση δεδομένων 
         Initializer dataHelper = new MemoryInitializer();
         dataHelper.prepareData();
  

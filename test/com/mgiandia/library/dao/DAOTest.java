@@ -3,18 +3,14 @@ package com.mgiandia.library.dao;
 
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.ISBN;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.ItemDAOMemory;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
+import com.mgiandia.library.memorydao.MemoryDAOFactory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 
 
@@ -42,17 +38,25 @@ public class DAOTest {
     
     
 
-    
+ 
     @Before
     public void setUp() {                
-    	Initializer dataHelper = new MemoryInitializer();
-    	dataHelper.prepareData();
-        borrowerDao = new BorrowerDAOMemory();
-        itemDao = new ItemDAOMemory();
-        loanDao = new LoanDAOMemory();
+        Initializer dataHelper = new MemoryInitializer();
+        dataHelper.prepareData();
+        borrowerDao = DAOFactory.getFactory().getBorrowerDAO();
+        itemDao = DAOFactory.getFactory().getItemDAO();
+        loanDao = DAOFactory.getFactory().getLoanDAO();
     }
     
     
+    /**
+     * Ορθή αρχικοποίηση αφηρημένου εργοστασίου 
+     */
+    @Test
+    public void factoryInitialization() {        
+        DAOFactory factory = DAOFactory.getFactory();
+        Assert.assertTrue(factory instanceof MemoryDAOFactory);        
+    }
     
     /**
      * Αναζήτηση δανειζομένου που υπάρχει στη βάση δεδομένων
