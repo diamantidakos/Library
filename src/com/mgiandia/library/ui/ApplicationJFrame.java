@@ -10,16 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-//import com.mgiandia.library.dao.Initializer;
-//import com.mgiandia.library.jpadao.JpaInitializer;
-import com.mgiandia.library.dao.Initializer;
-import com.mgiandia.library.memorydao.MemoryInitializer;
+import com.mgiandia.library.persistence.Initializer;
 import com.mgiandia.library.ui.borrower.BorrowerListJFrame;
 import com.mgiandia.library.ui.borrower.BorrowerListPresenter;
 import com.mgiandia.library.ui.loan.LoanJFrame;
 import com.mgiandia.library.ui.loan.LoanPresenter;
 import com.mgiandia.library.ui.loan.ReturnJFrame;
-
 import com.mgiandia.library.ui.loan.ReturnPresenter;
 
 public class ApplicationJFrame {
@@ -29,9 +25,10 @@ public class ApplicationJFrame {
      * Launch the application.
      */
     public static void main(String[] args) {
+        
         //HACK αρχικοποιούμε τη βάση δεδομένων και μάλιστα με κώδικα που ανήκει
         // στον κώδικα ελέγχου. Κανονικά δεν θα πρέπει να υπάρχει κάτι τέτοιο
-        Initializer dataHelper = new MemoryInitializer();
+        Initializer dataHelper = new Initializer();
         dataHelper.prepareData();
  
         EventQueue.invokeLater(new Runnable() {

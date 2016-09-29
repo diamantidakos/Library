@@ -3,7 +3,7 @@ package com.mgiandia.library.contacts;
 
 /**
  * Η διεύθυνση ηλεκτρονικού ταχυδρομείου.
- * Υλοποιείται ως αντικείμενο τιμή (value object)
+ * Υλοποιείται ως αντικείμενο τιμή (value object).
  * @author  Νίκος Διαμαντίδης
  *
  */

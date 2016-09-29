@@ -2,29 +2,31 @@ package com.mgiandia.library.ui.borrower;
 
 import java.util.List;
 
-import com.mgiandia.library.dao.BorrowerDAO;
+import javax.persistence.EntityManager;
+
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
+import com.mgiandia.library.persistence.JPAUtil;
 import com.mgiandia.library.ui.ViewRegistry;
 
 public class BorrowerListPresenter {
     private BorrowerListView view;
     private List<Borrower> borrowers;
-    private BorrowerDAO borrowerDao;
+    private EntityManager em;
     
     public BorrowerListPresenter(BorrowerListView view) {
         this.view = view;
-        borrowerDao = new BorrowerDAOMemory();
     }
     
     public void start() {
         view.setPresenter(this);
+        em = JPAUtil.createEntityManager();
         getBorrowerList();
         view.open();
     }
 
+	@SuppressWarnings("unchecked")
 	private void getBorrowerList() {
-		borrowers = borrowerDao.findAll();
+		borrowers = em.createQuery("select b from Borrower b").getResultList();
         view.setBorrowers(borrowers);
 	}
     
@@ -37,13 +39,15 @@ public class BorrowerListPresenter {
         BorrowerView borrowerView = ViewRegistry.getBorrowerView();
         BorrowerPresenter borrowerPresenter = new  BorrowerPresenter(borrowerView);
         borrowerPresenter.setBorrower(view.getSelectedBorrower());
+        borrowerPresenter.setEntityManager(em);
         borrowerPresenter.start();
     }
     
     public void addBorrower() {
     	BorrowerView borrowerView = ViewRegistry.getBorrowerView();
     	BorrowerPresenter borrowerPresenter = new  BorrowerPresenter(borrowerView);
-        borrowerPresenter.setBorrower(new Borrower());
+        borrowerPresenter.setEntityManager(em);
+    	borrowerPresenter.setBorrower(new Borrower());
         borrowerPresenter.start();
     }
     

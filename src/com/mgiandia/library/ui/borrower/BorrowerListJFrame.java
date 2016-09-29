@@ -24,12 +24,13 @@ import com.mgiandia.library.ui.DefaultJFrame;
 @SuppressWarnings("serial")
 public class BorrowerListJFrame extends DefaultJFrame implements BorrowerListView {
     private BorrowerListPresenter presenter;
+    @SuppressWarnings("unused")
+	private List<Borrower> borrowers;
     @SuppressWarnings("rawtypes")
 	private DefaultListModel borrowerModel;
     
     private JPanel contentPane;
-    @SuppressWarnings("rawtypes")
-	private JList borrowerJList;
+    private JList borrowerJList;
     private JButton btnAdd;
     private JButton btnRefresh;
 
@@ -52,7 +53,6 @@ public class BorrowerListJFrame extends DefaultJFrame implements BorrowerListVie
     /**
      * Create the frame.
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public BorrowerListJFrame() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -95,7 +95,7 @@ public class BorrowerListJFrame extends DefaultJFrame implements BorrowerListVie
         	}
         });
         
-        btnRefresh = new JButton("Refresh");
+        btnRefresh = new JButton("refresh");
         btnRefresh.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		presenter.refresh();
@@ -138,9 +138,9 @@ public class BorrowerListJFrame extends DefaultJFrame implements BorrowerListVie
         
     }
 
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public void setBorrowers(List<Borrower> borrowers) {
+        this.borrowers = borrowers;
         borrowerModel.clear();
         for(Borrower borrower : borrowers) {
             borrowerModel.addElement(borrower);

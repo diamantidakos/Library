@@ -1,48 +1,46 @@
 package com.mgiandia.library.service;
 
+import javax.persistence.EntityManager;
+
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.contacts.EmailMessage;
-import com.mgiandia.library.dao.BorrowerDAO;
-import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.MemoryInitializer;
+import com.mgiandia.library.persistence.Initializer;
+import com.mgiandia.library.persistence.JPAUtil;
 import com.mgiandia.library.util.SimpleCalendar;
 import com.mgiandia.library.util.SystemDateStub;
 
 public class NotificationServiceTest {
     
     
-    private EmailProviderStub provider;
+    private EmailProviderStub provider;    
+    private Initializer dataHelper;
     
- 
-    
-    @Before
+
     public void setUp() {
         provider = new EmailProviderStub();
-        
-        Initializer dataHelper = new MemoryInitializer();
         dataHelper.prepareData();
-     
     }
-    
+   
     @After
     public void tearDown() {
         SystemDateStub.reset();
     }
     
-    @Test(expected=LibraryException.class)
-    public void serviceWhenNotifierIsNull() {
-        NotificationService service = new NotificationService();
-        service.setProvider(null);
-        service.notifyBorrowers();
+
+    
+    public void setUpJpa() {
+        dataHelper = new Initializer();
+        setUp();
     }
     
+        
+
+    
+
     
     /**
      * Πραγματοποιούμε δύο δανεισμούς. Για τον πρώτο έχει παρέλθει η
@@ -51,7 +49,8 @@ public class NotificationServiceTest {
      * για τον πρώτο δανεισμό.
      */
     @Test
-    public void sendMessageOnOverdue() {
+    public void sendMessageOnOverdueJpa() { 
+        setUpJpa();
         // Ρυθμίζουμε την ημερομηνία του συστήματος για
         // την 1η Μαρτίου 2007 και δανείζουμε ένα αντίτυπο
 
@@ -68,14 +67,22 @@ public class NotificationServiceTest {
         setSystemDateTo1stNovember2007();                      
         NotificationService service = new NotificationService();        
         service.setProvider(provider);                        
-        service.notifyBorrowers();
+        service.notifyBorrowers();    
         
-        BorrowerDAO borrowerDao = new BorrowerDAOMemory();
+        EntityManager em = JPAUtil.createEntityManager();
         
-        Borrower diamantidis = borrowerDao.find(Initializer.DIAMANTIDIS_ID);        
+        
+        Borrower diamantidis = em.find(Borrower.class, Initializer.DIAMANTIDIS_ID);
+        em.close();
         Assert.assertEquals(1,provider.allMessages.size());
         EmailMessage message = provider.getAllEmails().get(0);
-        Assert.assertEquals(diamantidis.getEmail() , message.getTo());
+        Assert.assertEquals(diamantidis.getEmail() , message.getTo());       
+    }
+    
+    
+    
+    public void sendMessageOnOverdue() {
+ 
     }
     
     private void setSystemDateTo1stMarch2007() {        

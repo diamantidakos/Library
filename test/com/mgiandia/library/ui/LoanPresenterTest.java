@@ -4,8 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mgiandia.library.dao.Initializer;
-import com.mgiandia.library.memorydao.MemoryInitializer;
+import com.mgiandia.library.persistence.Initializer;
 import com.mgiandia.library.ui.loan.LoanPresenter;
 
 public class LoanPresenterTest {
@@ -15,7 +14,7 @@ public class LoanPresenterTest {
     
     @Before
     public void setUp() {
-        dataHelper = new MemoryInitializer();
+        dataHelper = new Initializer();
         dataHelper.prepareData();        
         loanView = new LoanViewStub();
         presenter = new LoanPresenter(loanView);
@@ -24,11 +23,12 @@ public class LoanPresenterTest {
         loanView.setLoanActionEnabled(false);
     }
     
-
     
     @Test
     public void wiring() {  
+
         presenter.start();
+        
         Assert.assertFalse(presenter.isBorrowerFound());
         Assert.assertFalse(presenter.isItemFound());
         Assert.assertSame(loanView.getPresenter(), presenter);
@@ -51,6 +51,7 @@ public class LoanPresenterTest {
     @Test
     public void findBorrowerWhenIdDoesNotExist() {
         loanView.setBorrowerNo(4711);
+        
         presenter.start();
         presenter.findBorrower();
         Assert.assertFalse(presenter.isBorrowerFound());        
@@ -63,8 +64,10 @@ public class LoanPresenterTest {
     @Test
     public void findBorrowerWhenIdExists() {
         loanView.setBorrowerNo(Initializer.DIAMANTIDIS_ID);
+        
         presenter.start();
         presenter.findBorrower();
+        
         Assert.assertTrue(presenter.isBorrowerFound());
         Assert.assertEquals(presenter.getBorrower().getBorrowerNo(), Initializer.DIAMANTIDIS_ID);
         Assert.assertEquals("Διαμαντίδης", loanView.getBorrowerLastName());
@@ -74,9 +77,11 @@ public class LoanPresenterTest {
     
     @Test
     public void findItemWhenIdDoesNotExist() {
+    
         loanView.setItemNumber(4711);
         presenter.start();
         presenter.findItem();
+        
         Assert.assertFalse(presenter.isItemFound());
         Assert.assertEquals("", loanView.getBookTitle());
         Assert.assertFalse(loanView.isLoanActionEnabled());
@@ -86,27 +91,37 @@ public class LoanPresenterTest {
     
     @Test
     public void findItemWhenIdExists() {
+
         loanView.setItemNumber(Initializer.UML_DISTILLED_ID1);
+        
         presenter.start();
         presenter.findItem();
+        
         Assert.assertTrue(presenter.isItemFound());
         Assert.assertEquals(Initializer.UML_DISTILLED_ID1, presenter.getItem().getItemNumber());
+        
         Assert.assertFalse("".equals(loanView.getBookTitle()));
         Assert.assertFalse(loanView.isLoanActionEnabled());
+        
+        
     }
 
     @Test
     public void performLoan() {       
         loanView.setBorrowerNo(Initializer.DIAMANTIDIS_ID);
         loanView.setItemNumber(Initializer.UML_DISTILLED_ID1);
+               
         
         presenter.start();
         presenter.findBorrower();
         presenter.findItem();
+        
         Assert.assertTrue(loanView.isLoanActionEnabled());
         
         presenter.borrowItem();
+        
         Assert.assertEquals(1, presenter.getBorrower().getLoans().size());
+        
         Assert.assertTrue(loanView.getInfoCount() > 0);
     }    
     

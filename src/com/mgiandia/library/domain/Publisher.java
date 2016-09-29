@@ -1,5 +1,6 @@
 package com.mgiandia.library.domain;
 
+import javax.persistence.*;
 
 import com.mgiandia.library.contacts.Address;
 import com.mgiandia.library.contacts.EmailAddress;
@@ -11,10 +12,28 @@ import com.mgiandia.library.contacts.TelephoneNumber;
  * @author Νίκος Διαμαντίδης
  *
  */
+@Entity
+@Table(name="publishers")
 public class Publisher {
+    @Id 
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @Column(name="name",length=50, nullable = false)
     private String name;
+    
+    @org.hibernate.annotations.Type(
+            type="com.mgiandia.library.persistence.TelphoneNumberCustomType")
+    @Column(name="phonenumber")
     private TelephoneNumber telephone;
+    
+    @org.hibernate.annotations.Type(
+            type="com.mgiandia.library.persistence.EMailCustomType")
+    @Column(name="email")
     private EmailAddress eMail;
+    
+    @Embedded
     private Address address;
 
     /**
@@ -23,8 +42,8 @@ public class Publisher {
     public Publisher() { }
 
     /**
-     * Βοηθητικός κατασκευαστής που
-     * αρχικοποιεί την κατάσταση ενός εκδοτικού οίκου.
+     * Βοηθητικός κατασκευαστής. 
+     * Αρχικοποιεί την κατάσταση ενός εκδοτικού οίκου.
      * @param name Όνομα εκδοτικού οίκου
      * @param address Ταχυδρομική διεύθυνση εκδοτικού οίκου
      * @param eMail Διεύθυνση ηλεκτρονικού ταχυδρομείου
@@ -38,6 +57,11 @@ public class Publisher {
         this.telephone = telephone;
     }
 
+    
+    public Integer getId() {
+        return id;
+    }
+    
     /**
      * Θέτει το όνομα.
      * @param name Το όνομα

@@ -1,7 +1,17 @@
-package com.mgiandia.library.dao;
+package com.mgiandia.library.persistence;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import com.mgiandia.library.contacts.EmailAddress;
-import com.mgiandia.library.domain.*;
+import com.mgiandia.library.domain.Author;
+import com.mgiandia.library.domain.Book;
+import com.mgiandia.library.domain.Borrower;
+import com.mgiandia.library.domain.BorrowerCategory;
+import com.mgiandia.library.domain.ISBN;
+import com.mgiandia.library.domain.Item;
+import com.mgiandia.library.domain.Publisher;
 import com.mgiandia.library.util.Money;
 
 
@@ -18,15 +28,15 @@ import com.mgiandia.library.util.Money;
  * <p>
  * Αντίτυπα 
  * <p>
- * 1 - The Unified Modeling Language User Guide
+ * 1 -> The Unified Modeling Language User Guide
  * <p>
- * 2 -  UML Distilled
+ * 2 ->  UML Distilled
  * <p>
- * 3 - Refactoring: Improving the Design of Existing Code
+ * 3 -> Refactoring: Improving the Design of Existing Code
  * <p>
- * 4 - The Unified Modeling Language User Guide
+ * 4 -> The Unified Modeling Language User Guide
  * <p>
- * 5 - UML Distilled
+ * 5 -> UML Distilled
  * <p>
  * Δανειζόμενοι
  * <p>
@@ -37,7 +47,7 @@ import com.mgiandia.library.util.Money;
  *@author Νίκος Διαμαντίδης
  *    
  */
-public abstract class Initializer  {
+public class Initializer  {
     public static final int GIAKOUMAKIS_ID = 1;
     public static final int DIAMANTIDIS_ID = 2;
     
@@ -48,12 +58,36 @@ public abstract class Initializer  {
     public static int UML_DISTILLED_ID2 = 5;
     
     //διαγράφουμε όλα τα δεδομένα στη βάση δεδομένων
-    protected abstract void eraseData();
+    public void  eraseData() {
+        EntityManager em = JPAUtil.getCurrentEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        
+        Query query = em.createNativeQuery("delete from \"loans\"");
+        query.executeUpdate();
+        query = em.createNativeQuery("delete from \"items\"");
+        query.executeUpdate();                
+        query = em.createNativeQuery("delete from \"bookauthors\"");
+        query.executeUpdate();         
+        query = em.createNativeQuery("delete from \"books\"");
+        query.executeUpdate();
+        query = em.createNativeQuery("delete from \"publishers\"");
+        query.executeUpdate();
+        query = em.createNativeQuery("delete from \"authors\"");
+        query.executeUpdate();
+        query = em.createNativeQuery("delete from \"borrowers\"");
+        query.executeUpdate();
+        query = em.createNativeQuery("delete \"borrowercategories\"");
+        query.executeUpdate();
+        tx.commit();
+        em.close();
+    }
     
     
   
     
     public void prepareData() {
+
         // πριν εισάγουμε τα δεδομένα διαγράφουμε ότι υπάρχει
         eraseData();                      
         Author booch = new Author("Booch", "Grady");
@@ -98,11 +132,15 @@ public abstract class Initializer  {
         umlDistilledItem5.setBook(umlDistilled);
         umlDistilledItem5.available();
         
-        getItemDAO().save(umlUserGuideItem1);
-        getItemDAO().save(umlDistilledItem2);                
-        getItemDAO().save(refactoringItem3);
-        getItemDAO().save(umlUserGuideItem4);
-        getItemDAO().save(umlDistilledItem5);
+        EntityManager em = JPAUtil.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        
+        em.persist(umlUserGuideItem1);
+        em.persist(umlDistilledItem2);
+        em.persist(refactoringItem3);
+        em.persist(umlUserGuideItem4);
+        em.persist(umlDistilledItem5);
         
         
         BorrowerCategory professor = new BorrowerCategory("Καθηγητής", 180 , 6, Money.euros(0));
@@ -114,13 +152,9 @@ public abstract class Initializer  {
         Borrower ndia = new Borrower(DIAMANTIDIS_ID, "Νίκος", "Διαμαντίδης",null, new EmailAddress("nad@aueb.gr"), null);
         ndia.setCategory(undergraduate);
         
-        getBorrowerDAO().save(mgia);
-        getBorrowerDAO().save(ndia);                                
+        em.persist(mgia);
+        em.persist(ndia);
+        tx.commit();
+        em.close();
     }    
-    
-    
-    protected abstract BorrowerDAO getBorrowerDAO();
-    protected abstract ItemDAO getItemDAO();
-    protected abstract LoanDAO getLoanDAO();
-    
 }

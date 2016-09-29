@@ -1,7 +1,7 @@
 package com.mgiandia.library.domain;
 
 
-
+import javax.persistence.*;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.util.Money;
@@ -15,11 +15,31 @@ import com.mgiandia.library.util.SystemDate;
  * @author Νίκος Διαμαντίδης
  *
  */
+@Entity
+@Table(name="loans")
 public class Loan {
-
+    
+    @Id 
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @org.hibernate.annotations.Type(
+            type="com.mgiandia.library.persistence.SimpleCalendarCustomType")
+    @Column(name="loandate")
     private SimpleCalendar loanDate = SystemDate.now();
+    
+    @org.hibernate.annotations.Type(
+            type="com.mgiandia.library.persistence.SimpleCalendarCustomType")
+    @Column(name="returndate")
     private SimpleCalendar returnDate;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="borrowerno")
     private Borrower borrower;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="itemno")
     private Item item;
 
     /**
@@ -41,6 +61,9 @@ public class Loan {
         this.loanDate = loanDate;
     }
 
+    public Integer getId() {
+        return id;
+    }
 
     /**
      * Θέτει την ημερομηνία δανεισμού.
@@ -157,8 +180,8 @@ public class Loan {
     }
 
     /**
-     * Επιστρέφει {@code true} εάν έχει καθυστερήσει η επιστροφή του
-     * αντιτύπου σε σχέση με την ημερομηνία του συστήματος.
+     * Επιστρέφει {@code true} εάν έχει καθυστερήσει η επιστροφή του αντιτύπου.
+     * Η καθυστέρηση εξετάζεται σε σχέση με την ημερομηνία του συστήματος.
      * Εάν το αντίτυπο έχει επιστραφεί τότε επιστρέφει
      * πάντα {@code false}
      * @return {@code true} εάν έχει καθυστερήσει η
@@ -174,8 +197,8 @@ public class Loan {
 
 
     /**
-     * Επιστρέφει τις ημέρες που υπολείπονται
-     * έως την προθεσμία επιστροφής τους αντιτύπου.
+     * Επιστρέφει τις ημέρες που υπολείπονται για την επιστροφή του αντιτύπου. 
+     * Είναι οι ημέρες έως την προθεσμία επιστροφής τους αντιτύπου.
      * Χρησιμοποιείται και για τον υπολογισμό των
      * ημερών κατά τον οποίο έχει γίνει
      * υπέρβαση της προθεσμίας επιστροφής.
@@ -202,8 +225,7 @@ public class Loan {
     }
 
     /**
-     * Επιστρέφει τον αριθμό ημερών καθυστέρησης
-     * κατά την επιστροφή του αντιτύπου.
+     * Επιστρέφει τον αριθμό ημερών καθυστέρησης κατά την επιστροφή του αντιτύπου.
      * <p>
      * Επιστρέφει {@code 0} αν η ημερομηνία δανεισμού
      * είναι {@code null} ή η ημερομηνία
@@ -236,8 +258,8 @@ public class Loan {
 
 
     /**
-     * Επιστέφει το πρόστιμο για την καθυστέρηση
-     * της επιστροφής και αν πράγματι υπάρχει καθυστέρηση.
+     * Επιστέφει το πρόστιμο για την καθυστέρηση της επιστροφής αντιτύπου.  
+     * Το πρόστιμο επιστρέφεται αν πράγματι υπάρχει καθυστέρηση.
      * @return Το πρόστιμο καθυστέρησης
      */
     public Money getFine() {

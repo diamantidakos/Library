@@ -1,23 +1,28 @@
 package com.mgiandia.library.ui.borrower;
 
-import com.mgiandia.library.dao.BorrowerDAO;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 
 public class BorrowerPresenter {
     private BorrowerView view;
     private Borrower borrower = new Borrower();
-    private BorrowerDAO borrowerDao;
+    private EntityManager entityManager;
+    
     
     public BorrowerPresenter(BorrowerView view) {
         this.view = view;
-        borrowerDao = new BorrowerDAOMemory();
     }
 
 
     public void setBorrower(Borrower borrower) {
         this.borrower = borrower;
         updateView();
+    }
+    
+    public void setEntityManager(EntityManager em) {
+    	entityManager = em;
     }
 
 
@@ -40,10 +45,15 @@ public class BorrowerPresenter {
     }
     
     public void save() {
+    	EntityTransaction tx = entityManager.getTransaction();
+    	tx.begin();
+    
     	borrower.setBorrowerNo(view.getBorrowerNo());
         borrower.setFirstName(view.getFirstName());
         borrower.setLastName(view.getLastName());
-        borrowerDao.save(borrower);
+        
+        entityManager.persist(borrower);
+        tx.commit();
         view.close();
     }
     

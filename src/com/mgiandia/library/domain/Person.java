@@ -1,11 +1,16 @@
 package com.mgiandia.library.domain;
 
+import javax.persistence.*;
 /**
  * Η βασική κλάση του προσώπου.
  * @author Νίκος Διαμαντίδης
  */
+
+@Embeddable
 class Person {
+    @Column(name="firstname", length=50, nullable = false)
     private String firstName;
+    @Column(name="lastname", length=50, nullable = false)
     private String lastName;
 
     /**

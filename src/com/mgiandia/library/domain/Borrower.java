@@ -4,6 +4,17 @@ package com.mgiandia.library.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import com.mgiandia.library.contacts.Address;
 import com.mgiandia.library.contacts.EmailAddress;
 import com.mgiandia.library.contacts.TelephoneNumber;
@@ -15,14 +26,36 @@ import com.mgiandia.library.util.SimpleCalendar;
  *
  */
 
-
+@Entity
+@Table(name="borrowers")
 public class Borrower  {
+
+    @Id
+    @Column(name="borrowerno")
     private int borrowerNo;
+    
+    @org.hibernate.annotations.Type(
+            type="com.mgiandia.library.persistence.TelphoneNumberCustomType")
+    @Column(name="phonenumber", length=20)
     private TelephoneNumber telephone;
+    
+    @org.hibernate.annotations.Type(
+            type="com.mgiandia.library.persistence.EMailCustomType")
+    @Column(name="email", length=40)
     private EmailAddress eMail;
+    
+    @Embedded
     private Address address;
+    
+    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.LAZY )
+    @JoinColumn(name="categoryid")
     private BorrowerCategory category;
+    
+    @Embedded
     private Person person = new Person();
+    
+    @OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, 
+            mappedBy="borrower", fetch=FetchType.LAZY)
     private Set<Loan> loans = new HashSet<Loan>();
 
 
@@ -33,8 +66,7 @@ public class Borrower  {
 
 
     /**
-     * Βοηθητικός κατασκευαστής που αρχικοποιεί
-     * τα βασικά στοιχεία του δανειζόμενου.
+     * Βοηθητικός κατασκευαστής που αρχικοποιεί τα βασικά στοιχεία του δανειζόμενου.
      * @param borrowerNo Αριθμός δανειζομένου
      * @param firstName Όνομα
      * @param lastName Επώνυμο
@@ -56,7 +88,8 @@ public class Borrower  {
 
 
     /**
-     * Επιστρέφει τον αριθμό δανειζομένου. Ο αριθμός δανειζομένου
+     * Επιστρέφει τον αριθμό δανειζομένου. 
+     * Ο αριθμός δανειζομένου
      * προσδιορίζει μοναδικά κάθε δανειζόμενο.
      * @return Τον αριθμό δανειζομένου
      */
@@ -66,7 +99,8 @@ public class Borrower  {
 
 
     /**
-     * Θέτει τον αριθμό δανειζομένου.  Ο αριθμός δανειζομένου
+     * Θέτει τον αριθμό δανειζομένου.  
+     * Ο αριθμός δανειζομένου
      * προσδιορίζει μοναδικά κάθε δανειζόμενο
      * @param borrowerNo Ο αριθμός δανειζομένου
      */
@@ -172,7 +206,7 @@ public class Borrower  {
 
 
     /**
-     * Επιστρέφει την ταχυδρομική διεύθυνση του δανειζομένου
+     * Επιστρέφει την ταχυδρομική διεύθυνση του δανειζομένου.
      * Επιστρέφει αντίγραφο της διεύθυνσης. Για να αλλάξετε τη διεύθυνση
      * Δημιουργήστε ένα αντικείμενο της κλάσης {@link Address}
      * και χρησιμοποιήστε τη μέθοδο {@link Borrower#setAddress(Address)}
@@ -202,8 +236,9 @@ public class Borrower  {
     }
 
     /**
-     * Επιστρέφει τον αριθμό των αντιτύπων που έχει δανειστεί ο
-     * δανειζόμενος και δεν έχει επιστρέψει.
+     * Επιστρέφει τον αριθμό των εκκρεμών αντιτύπων του δανειζομένου.
+     * Είναι ο αριθμός αντιτύπων που έχει δανειστεί ο δανειζόμενος 
+     * και δεν έχει επιστρέψει.
      * @return Ο αριθμός των αντιτύπων που δεν έχουν επιστραφεί.
      */
     private int countPendingItems() {
@@ -218,8 +253,7 @@ public class Borrower  {
 
 
     /**
-     * Επιστέφει {@code true} αν ο δανειζόμενος μπορεί
-     * να δανειστεί κάποιο αντίτυπο.
+     * Επιστέφει {@code true} αν ο δανειζόμενος μπορεί να δανειστεί κάποιο αντίτυπο.
      * Το αν ο δανειζόμενος μπορεί να δανειστεί κάποιο
      * αντίτυπο εξαρτάται από το μέγιστο αριθμό αντιτύπων
      * που μπορεί να δανειστεί και από τον αριθμό των
@@ -273,7 +307,6 @@ public class Borrower  {
         }
         return getCategory().getDailyFine();
     }
-
 
 
 }

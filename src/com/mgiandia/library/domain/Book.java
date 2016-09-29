@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-
+import javax.persistence.*;
 
 
 
@@ -13,14 +13,45 @@ import java.util.Set;
  * Το βιβλίο.
  * @author Νίκος Διαμαντίδης
  */
+@Entity
+@Table(name="books")
 public class Book {
-    private ISBN isbn;
+    @Id 
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;    
+    
+    @org.hibernate.annotations.Type(
+            type="com.mgiandia.library.persistence.ISBNCustomType")
+    @Column(name="isbn", length = 20, nullable=false)
+    private ISBN isbn;  
+    
+    @Column(name="title", length=200, nullable=false)
     private String title;
+    
+    @Column(name="publication", length=10)
     private String publication;
+    
+    @Column(name="pubyear")
     private int publicationyear;
+    
+    @ManyToOne(fetch=FetchType.LAZY, 
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name="publisherid")
     private Publisher publisher;
-
+    
+    
+    @OneToMany(orphanRemoval=true, 
+            cascade = CascadeType.ALL, 
+            mappedBy="book", fetch=FetchType.LAZY)    
     private Set<Item> items = new HashSet<Item>();
+    
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, 
+            fetch=FetchType.LAZY)
+    @JoinTable(name="bookauthors", 
+            joinColumns = {@JoinColumn(name="bookid")},
+            inverseJoinColumns = {@JoinColumn(name="authorid")}
+    )
     private Set<Author> authors = new HashSet<Author>();
 
     /**
@@ -46,6 +77,10 @@ public class Book {
     }
 
 
+    public Integer getId() {
+        return id;
+    }
+    
     /**
      * Θέτει τον τίτλο του βιβλίου.
      * @param title Ο τίτλος του βιβλίου
@@ -167,8 +202,7 @@ public class Book {
     }
 
     /**
-     * Απομάκρυνση ενός αντιτύπου ({@link Item}) από
-     * τη συλλογή αντιτύπων του βιβλίου.
+     * Απομάκρυνση ενός αντιτύπου ({@link Item}) από τη συλλογή αντιτύπων του βιβλίου.
      * @param item Το αντίτυπο
      */
     public void removeItem(Item item) {
@@ -196,8 +230,7 @@ public class Book {
     }
 
     /**
-     * Απομάκρυνση ενός συγγραφέα ({@link Author})
-     * από τους συγγραφείς του βιβλίου.
+     * Απομάκρυνση ενός συγγραφέα ({@link Author}) από τους συγγραφείς του βιβλίου.
      * @param author Ο συγγραφέας
      */
     public void removeAuthor(Author author) {
@@ -212,5 +245,29 @@ public class Book {
      */
     Set<Author> friendAuthors() {
         return authors;
+    }
+    
+    public boolean equals(Object other) {
+        if ( other == null) {
+            return false;
+        }
+        if (this == other) {
+            return true;
+        }
+        if (! (other instanceof Book)) {
+            return false;
+        }
+        
+        Book theBook = (Book) other;
+        if (! (getIsbn() == null ? theBook.getIsbn()
+                == null : getIsbn().equals(theBook.getIsbn()))) {
+            return false;
+        }   
+        
+        return true;
+    }
+    
+    public int hashCode() {
+        return isbn == null ? 0 : isbn.hashCode();
     }
  }

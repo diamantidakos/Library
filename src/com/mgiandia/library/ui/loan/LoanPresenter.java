@@ -2,15 +2,14 @@ package com.mgiandia.library.ui.loan;
 
 import java.text.SimpleDateFormat;
 
-import com.mgiandia.library.dao.BorrowerDAO;
-import com.mgiandia.library.dao.ItemDAO;
-import com.mgiandia.library.dao.LoanDAO;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.ItemDAOMemory;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
+import com.mgiandia.library.persistence.JPAUtil;
 
 /**
  * Ο presenter του δανεισμού 
@@ -23,20 +22,14 @@ public class LoanPresenter {
     private boolean itemFound;
     private Borrower borrower;
     private Item item;
-    
-    private BorrowerDAO borrowerDao;
-    private ItemDAO itemDao;
-    private LoanDAO loanDao;
+    private EntityManager em;
     
     /**
      * Κατασκευαστής που δέχεται την όψη την οποία και χειρίζεται
      * @param view Η όψη
      */
     public LoanPresenter(LoanView view) {
-        this.view = view;       
-        borrowerDao = new BorrowerDAOMemory();
-        itemDao = new ItemDAOMemory();
-        loanDao = new LoanDAOMemory();
+        this.view = view;        
     }
    
 
@@ -60,6 +53,7 @@ public class LoanPresenter {
      * Εκκινεί τον presenter
      */
     public void start() {
+    	em = JPAUtil.createEntityManager();
         view.setPresenter(this);
         view.open();     
         view.setLoanActionEnabled(false);
@@ -94,7 +88,12 @@ public class LoanPresenter {
      * Αναζητεί το δανειζόμενο
      */
     public void findBorrower() {
-        borrower = borrowerDao.find(view.getBorrowerNo());
+    	try {
+    		borrower = em.find(Borrower.class, view.getBorrowerNo());
+    	} catch (NoResultException ex) {
+    		borrower = null;
+    	}
+    	
         if (borrower == null) {
             view.showError("Borrower not found");
             showBorrower("","");            
@@ -111,7 +110,12 @@ public class LoanPresenter {
      * Αναζητεί το αντίτυπο
      */
     public void findItem() {
-        item = itemDao.find(view.getItemNumber()); 
+    	try {
+    		item = em.find(Item.class, view.getItemNumber());
+    	} catch (NoResultException ex) {
+    		item = null;
+    	}
+    	
         if (item == null ) {
             view.showError("Item not found");
             view.setBookTitle("");
@@ -143,8 +147,11 @@ public class LoanPresenter {
      */
     public void borrowItem() {
         if (borrower.canBorrow()) {
+        	EntityTransaction tx = em.getTransaction();
+        	tx.begin();
             Loan loan = item.borrow(borrower);
-            loanDao.save(loan);
+            em.persist(loan);
+            tx.commit();
             SimpleDateFormat sdf = new SimpleDateFormat();
             view.showInfo("Due Date " +  sdf.format(loan.getDue().getJavaCalendar().getTime()));
         }

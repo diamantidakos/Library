@@ -1,17 +1,28 @@
 package com.mgiandia.library.contacts;
 
+import javax.persistence.*;
 
 /**
  * Η ταχυδρομική διεύθυνση.
  * @author Νίκος Διαμαντίδης
  *
  */
-
+@Embeddable
 public class Address {
+    @Column(name="street", length=50)
     private String street;
+    
+    @Column(name="number", length = 10)
     private String number;
+    
+    @Column(name="city", length = 50)
     private String city;
+    
+    @org.hibernate.annotations.Type(
+            type="com.mgiandia.library.persistence.ZipCodeCustomType")
     private ZipCode zipcode;
+    
+    @Column(name="country", length=50)
     private String country = "Ελλάδα";
 
     /**
@@ -20,8 +31,7 @@ public class Address {
     public Address() { }
 
     /**
-     * Βοηθητικός κατασκευαστής που αντιγράφει την κατάσταση.
-     * κάποιας άλλης διεύθυνσης
+     * Βοηθητικός κατασκευαστής που αντιγράφει κάποιας άλλη διεύθυνση.
      * @param address Η άλλη διεύθυνση
      */
     public Address(Address address) {

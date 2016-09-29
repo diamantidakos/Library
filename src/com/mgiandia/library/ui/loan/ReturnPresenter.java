@@ -1,8 +1,12 @@
 package com.mgiandia.library.ui.loan;
 
-import com.mgiandia.library.dao.LoanDAO;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
+import com.mgiandia.library.persistence.JPAUtil;
 import com.mgiandia.library.util.Money;
 
 /**
@@ -14,7 +18,7 @@ public class ReturnPresenter {
     private ReturnView view;
     private boolean loanFound;
     private Loan loan;
-    private LoanDAO loanDao;
+    private EntityManager em;
     
     /**
      * Κατασκευαστής που δέχεται την όψη ως παράμετρο
@@ -22,7 +26,6 @@ public class ReturnPresenter {
      */
     public ReturnPresenter(ReturnView view) {
         this.view = view;
-        loanDao = new LoanDAOMemory();
     }
     
     /**
@@ -45,6 +48,7 @@ public class ReturnPresenter {
      * Εκκινεί τον presenter
      */
     public void start() {
+    	em = JPAUtil.createEntityManager();
         view.setPresenter(this);
         view.open();       
     }
@@ -60,14 +64,25 @@ public class ReturnPresenter {
      * Πραγματοποιεί την επιστροφή και εμφανίζει το πρόστιμο αν υπάρχει
      */
     public void returnItem() {
-        loan = loanDao.findPending(view.getItemNumber());
+        String jpql = "select l from Loan l where l.item.itemNumber = :itemid and l.returnDate is null";
+        Query query = em.createQuery(jpql)
+        	.setParameter("itemid", view.getItemNumber());
+        
+        try {
+        	loan = (Loan) query.getSingleResult();
+        } catch (NoResultException ex) {
+        	loan = null;
+        }
         
         if (loan==null) {
             loanFound = false;
             view.showError("Loan not found");
         } else {
+        	EntityTransaction tx = em.getTransaction();
+        	tx.begin();
             loanFound = true;
             loan.returnItem();
+            tx.commit();
             
             if (loan.getOverdue() > 0 ) {
                 Money fine = loan.getFine();
@@ -76,8 +91,6 @@ public class ReturnPresenter {
             } else {
                 view.showInfo("Item returned");
             }
-            
-            loanDao.save(loan);
         }
     }
     

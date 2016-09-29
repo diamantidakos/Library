@@ -1,16 +1,15 @@
 package com.mgiandia.library.ui;
 
 
+import javax.persistence.EntityManager;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mgiandia.library.dao.BorrowerDAO;
-
-import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.MemoryInitializer;
+import com.mgiandia.library.persistence.Initializer;
+import com.mgiandia.library.persistence.JPAUtil;
 import com.mgiandia.library.ui.borrower.BorrowerPresenter;
 
 public class BorrowerPresenterTest {
@@ -18,7 +17,6 @@ public class BorrowerPresenterTest {
     private BorrowerPresenter presenter;
     private BorrowerViewStub borrowerView;
     private Borrower borrower;
-    private BorrowerDAO borrowerDao;
   
     @Before
     public void setUp() {
@@ -27,17 +25,17 @@ public class BorrowerPresenterTest {
         borrower.setLastName("kostas");
         borrower.setFirstName("karakostas");
         
-        dataHelper = new MemoryInitializer();
+        
+        dataHelper = new Initializer();
         dataHelper.prepareData();        
         
-        borrowerDao = new BorrowerDAOMemory();
         
         borrowerView = new BorrowerViewStub();
         presenter = new BorrowerPresenter(borrowerView);
        
     }
     
-
+    
     @Test
     public void wiring() {
     	 
@@ -48,8 +46,10 @@ public class BorrowerPresenterTest {
     
     @Test
     public void setBorrowerAndSave() {
-        
-        presenter.setBorrower(borrower);        
+        EntityManager em = JPAUtil.createEntityManager();
+    	
+        presenter.setBorrower(borrower);     
+        presenter.setEntityManager(em);
         
         presenter.start();
         assertBorrower(borrower.getBorrowerNo(), 
@@ -58,9 +58,13 @@ public class BorrowerPresenterTest {
         
         presenter.save();
         
-        int allBorrowers = borrowerDao.findAll().size();
+        em.close();
+        
+        int allBorrowers = countBorrowers();
         Assert.assertEquals(3, allBorrowers);
     }
+
+
 
     
     @Test
@@ -69,17 +73,18 @@ public class BorrowerPresenterTest {
         presenter.start();
         presenter.cancel();
         
-        int allBorrowers = borrowerDao.findAll().size();
+        int allBorrowers = countBorrowers();
         Assert.assertEquals(2, allBorrowers);
     }
     
     @Test
     public void changeBorrowerInfoAndSave() {
+        EntityManager em = JPAUtil.createEntityManager();
         
-    	borrower = borrowerDao.find(Initializer.DIAMANTIDIS_ID);
-    	
-    	
+        borrower = em.find(Borrower.class, Initializer.DIAMANTIDIS_ID);
         presenter.setBorrower(borrower);
+        presenter.setEntityManager(em);
+        
         presenter.start();
         
         borrowerView.setFirstName("nikos");
@@ -87,7 +92,11 @@ public class BorrowerPresenterTest {
         
         presenter.save();
         
-        borrower = borrowerDao.find(Initializer.DIAMANTIDIS_ID);
+        em.close();
+        
+        em = JPAUtil.createEntityManager();
+        
+        borrower = em.find(Borrower.class, Initializer.DIAMANTIDIS_ID);
         
         Assert.assertEquals("nikos", borrower.getFirstName());
         Assert.assertEquals("karanikos", borrower.getLastName());
@@ -101,5 +110,16 @@ public class BorrowerPresenterTest {
     	Assert.assertEquals(firstName, borrowerView.getFirstName());
     	Assert.assertEquals(lastName, borrowerView.getLastName());
     }
+    
+	private int countBorrowers() {
+		EntityManager em;
+		em = JPAUtil.createEntityManager();
+        int allBorrowers = em.createQuery("select b from Borrower b")
+        		.getResultList().size();
+        
+        em.close();
+		return allBorrowers;
+	}
+
 
 }

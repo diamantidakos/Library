@@ -1,21 +1,18 @@
 package com.mgiandia.library.ui;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mgiandia.library.dao.BorrowerDAO;
-import com.mgiandia.library.dao.Initializer;
-import com.mgiandia.library.dao.ItemDAO;
-import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.ItemDAOMemory;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
-import com.mgiandia.library.memorydao.MemoryInitializer;
+import com.mgiandia.library.persistence.Initializer;
+import com.mgiandia.library.persistence.JPAUtil;
 import com.mgiandia.library.ui.loan.ReturnPresenter;
 import com.mgiandia.library.util.SimpleCalendar;
 import com.mgiandia.library.util.SystemDateStub;
@@ -27,7 +24,7 @@ public class ReturnPresenterTest {
     
     @Before
     public void setUp() {
-        dataHelper = new MemoryInitializer();
+        dataHelper = new Initializer();
         dataHelper.prepareData();        
         returnView = new ReturnViewStub();
         presenter = new ReturnPresenter(returnView);
@@ -101,13 +98,15 @@ public class ReturnPresenterTest {
 
     
     private void loanUMLDistilledToDiamantidis() {
-    	BorrowerDAO borrowerDao = new BorrowerDAOMemory();
-    	ItemDAO itemDao = new ItemDAOMemory();
-    	LoanDAO loanDao = new LoanDAOMemory();
-        Borrower borrower = borrowerDao.find(Initializer.DIAMANTIDIS_ID);
-        Item item = itemDao.find(Initializer.UML_DISTILLED_ID1);
+        EntityManager em = JPAUtil.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        Borrower borrower = em.find(Borrower.class, Initializer.DIAMANTIDIS_ID); 
+        Item item = em.find(Item.class,Initializer.UML_DISTILLED_ID1 );
         Loan loan = item.borrow(borrower);
-        loanDao.save(loan);
+        em.persist(loan);
+        tx.commit();
+        em.close();
     }
     
     

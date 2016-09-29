@@ -3,3 +3,5 @@
 /reports/
 /bin/
 /jacoco.exec
+/test.h2.db
+/test.trace.db

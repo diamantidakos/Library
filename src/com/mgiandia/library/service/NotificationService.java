@@ -2,16 +2,19 @@ package com.mgiandia.library.service;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.contacts.EmailAddress;
 import com.mgiandia.library.contacts.EmailMessage;
-import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
+import com.mgiandia.library.persistence.JPAUtil;
 
 /**
+ * Υπηρεσία ενημέρωσης καθυστερημένων επιστροφών.
  * Η υπηρεσία που ενημερώνει με μήνυμα ηλεκτρονικού
  * ταχυδρομείου όσους δανειζομένους
  * έχουν καθυστερήσει την επιστροφή κάποιων
@@ -21,7 +24,8 @@ import com.mgiandia.library.memorydao.LoanDAOMemory;
  */
 public class NotificationService {
     private EmailProvider provider;
-
+    
+    
     /**
      * Θέτει τον πάροχο του ηλεκτρονικού ταχυδρομείου.
      * @param provider Ο πάροχος ηλεκτρονικού ταχυδρομείου.
@@ -35,13 +39,19 @@ public class NotificationService {
      * έχουν καθυστερήσει της επιστροφή.
      * κάποιου αντιτύπου.
      */
-    public void notifyBorrowers() {
+    @SuppressWarnings("unchecked")
+	public void notifyBorrowers() {
         if (provider == null) {
             throw new LibraryException();
         }
 
-        LoanDAO loanDao = new LoanDAOMemory();
-        List<Loan> allLoans = loanDao.findAllPending();
+        EntityManager em  = JPAUtil.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        
+        List<Loan> allLoans = em.createQuery("select l from Loan l where l.returnDate is null")
+        	.getResultList();
+        
         for (Loan loan : allLoans) {
             if (loan.isOverdue() && loan.getBorrower().getEmail()!=null &&
             		loan.getBorrower().getEmail().isValid()) {
@@ -51,12 +61,15 @@ public class NotificationService {
                         "Καθυστέρηση Αντιτύπου", message);
             }
         }
+        
+        tx.commit();
+        em.close();
     }
 
 
     private void sendEmail(Borrower borrower,
             String subject, String message) {
-        EmailAddress eMail = borrower.getEmail();
+        EmailAddress eMail  = borrower.getEmail();
         if (eMail == null || !eMail.isValid()) {
             return;
         }
@@ -67,7 +80,7 @@ public class NotificationService {
         emailMessage.setBody(message);
         provider.sendEmail(emailMessage);
     }
-    
+
     private String composeMessage(Book book, long overdue) {
         String message = "Έχετε καθυστερήσει το βιβλίο με Τίτλο ";
         message += book.getTitle();

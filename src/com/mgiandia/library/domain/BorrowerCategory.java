@@ -3,19 +3,40 @@ package com.mgiandia.library.domain;
 import com.mgiandia.library.util.Money;
 import com.mgiandia.library.util.SimpleCalendar;
 
+import javax.persistence.*;
 
+import org.hibernate.annotations.Columns;
 
 /**
  * Η κατηγορία δανειζομένου.
  * @author Νίκος Διαμαντίδης
  *
  */
-
+@Entity
+@Table(name="borrowercategories")
 public class BorrowerCategory {
-
+    
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id; 
+    
+    @Column(name="description", length = 50, nullable = false)
     private String description;
+    
+    @Column(name="lendingitems")
     private int maxLendingItems;
+    
+    @Column(name="lendingdays")
     private int maxLendingDays;
+    
+
+    @org.hibernate.annotations.Type(
+            type="com.mgiandia.library.persistence.MoneyCustomType")
+    @Columns(columns = {
+            @Column(name="dailyfineamount"),
+            @Column(name="dailyfinecurrency", length=5)
+    })
     private Money dailyFine;
 
     /**
@@ -24,8 +45,8 @@ public class BorrowerCategory {
     public BorrowerCategory() { }
 
     /**
-     * Βοηθητικός κατασκευαστής που αρχικοποιεί
-     * τα βασικά στοιχεία της κατηγορίας δανειζομένου.
+     * Βοηθητικός κατασκευαστής.
+     * Aρχικοποιεί τα βασικά στοιχεία της κατηγορίας δανειζομένου.
      * @param description Περιγραφή κατηγορίας
      * @param maxLendingDays Μέγιστος αριθμός ημερών δανεισμού
      * @param maxLendingItems Μέγιστος αριθμός αντιτύπων
@@ -41,6 +62,11 @@ public class BorrowerCategory {
     }
 
 
+    public Integer getId() {
+        return id;
+    }
+    
+    
     /**
      * Θέτει την περιγραφή της κατηγορίας δανειζομένου.
      * @param description Η περιγραφή της κατηγορίας δανειζομένου.

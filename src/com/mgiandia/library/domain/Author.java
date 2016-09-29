@@ -2,7 +2,7 @@ package com.mgiandia.library.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-
+import javax.persistence.*;
 
 
 
@@ -12,10 +12,19 @@ import java.util.Set;
  * @author Νίκος Διαμαντίδης
  *
  */
-
+@Entity
+@Table(name="authors")
 public class Author {
-
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @Embedded
     private Person person = new Person();
+    
+    @ManyToMany(mappedBy="authors",fetch=FetchType.LAZY, 
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Set<Book> books = new HashSet<Book>();
 
     /**
@@ -34,6 +43,10 @@ public class Author {
     }
 
 
+    public Integer getId() {
+        return id;
+    }
+    
     /**
      * Θέτει το όνομα του συγγραφέα.
      * @param firstName Το όνομα του συγγραφέα
@@ -79,8 +92,7 @@ public class Author {
     }
 
     /**
-     * Προσθέτει ένα βιβλίο στη συλλογή των βιβλίων
-     * στα οποία συμμετέχει ο συγγραφέας.
+     * Προσθέτει ένα βιβλίο στη συλλογή των βιβλίων που συμμετέχει ο συγγραφέας.
      * @param book Το βιβλίο
      */
     public void addBook(Book book) {
@@ -91,8 +103,7 @@ public class Author {
     }
 
     /**
-     * Απομακρύνει ένα βιβλίο από τη συλλογή των βιβλίων στα
-     * οποία συμμετέχει ο συγγραφέας.
+     * Απομακρύνει ένα βιβλίο από τη συλλογή των βιβλίων του συγγραφέα.    
      * @param book Το βιβλίο
      */
     public void removeBook(Book book) {
@@ -100,5 +111,40 @@ public class Author {
             book.friendAuthors().remove(this);
             this.books.remove(book);
         }
+    }
+    
+    public boolean equals(Object other) {       
+        if ( other == null) {
+            return false;
+        }
+        if (this == other) {
+            return true;
+        }
+        if (! (other instanceof Author)) {
+            return false;
+        }
+        
+        Author theAuthor = (Author ) other;
+        if (! (getLastName() == null ? theAuthor.getLastName() 
+                == null : getLastName().equals(theAuthor.getLastName()))) {
+            return false;
+        }   
+        if (! (getFirstName() == null ? theAuthor.getFirstName()
+                == null : getFirstName().equals(theAuthor.getFirstName()))) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    
+    public int hashCode() { 
+        if (getLastName() ==null && getFirstName() == null) {
+            return 0;
+        }
+        int result = 0;
+        result = getLastName() == null ? result : 13 * result + getLastName().hashCode(); 
+        result = getFirstName() == null ? result : 13 * result + getFirstName().hashCode();
+        return result;
     }
 }

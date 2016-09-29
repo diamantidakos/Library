@@ -1,5 +1,6 @@
 package com.mgiandia.library.domain;
 
+import javax.persistence.*;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.util.SystemDate;
@@ -9,10 +10,21 @@ import com.mgiandia.library.util.SystemDate;
  * @author Νίκος Διαμαντίδης
  *
  */
+@Entity
+@Table(name="items")
 public class Item {
-
+    @Id
+    @Column(name="itemno")
     private int itemNumber = 0;
+    
+    @ManyToOne(fetch=FetchType.LAZY, 
+            cascade= {CascadeType.PERSIST, CascadeType.MERGE}    
+            ) 
+    @JoinColumn(name="bookno")
     private Book book;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name="itemstate")
     private ItemState state = ItemState.NEW;
 
     /**
@@ -22,7 +34,8 @@ public class Item {
 
 
     /**
-     * Βοηθητικός κατασκευαστής που δέχεται τον αριθμό εισαγωγής ως παράμετρο.
+     * Βοηθητικός κατασκευαστής.
+     * Δέχεται τον αριθμό εισαγωγής ως παράμετρο.
      * @param itemNumber Ο αριθμός εισαγωγής
      */
     public Item(int itemNumber) {
@@ -148,6 +161,7 @@ public class Item {
      * Το αντίτυπο αποσύρεται και δεν είναι διαθέσιμο για δανεισμό.
      */
     public void withdraw() {
+    	
     	if (! getState().equals(ItemState.AVAILABLE)) {
     		throw new LibraryException();
     	}
@@ -161,7 +175,6 @@ public class Item {
     	if (! getState().equals(ItemState.LOANED)) {
     		throw new LibraryException();
     	}
-    	
         setState(ItemState.LOST);
     }
 

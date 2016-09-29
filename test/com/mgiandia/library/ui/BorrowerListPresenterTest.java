@@ -1,18 +1,17 @@
 package com.mgiandia.library.ui;
 
-import org.junit.Assert;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mgiandia.library.dao.BorrowerDAO;
-
-import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.MemoryInitializer;
-import com.mgiandia.library.ui.ViewRegistry;
+import com.mgiandia.library.persistence.Initializer;
+import com.mgiandia.library.persistence.JPAUtil;
 import com.mgiandia.library.ui.borrower.BorrowerListPresenter;
 
 public class BorrowerListPresenterTest {
@@ -23,7 +22,7 @@ public class BorrowerListPresenterTest {
     
     @Before
     public void setUp() {
-        dataHelper = new MemoryInitializer();
+        dataHelper = new Initializer();
         dataHelper.prepareData();        
         
         borrowerListView = new BorrowerListViewStub();
@@ -96,14 +95,21 @@ public class BorrowerListPresenterTest {
 
          presenter.start();
          Assert.assertEquals(2, presenter.getBorrowers().size());
-
-         BorrowerDAO borrowerDao = new BorrowerDAOMemory();
+         
+         EntityManager em = JPAUtil.createEntityManager();
+         EntityTransaction tx = em.getTransaction();
+         tx.begin();
+         
          Borrower borrower = new Borrower();
          borrower.setBorrowerNo(999);
          borrower.setLastName("karakostas");
          borrower.setFirstName("kostas");
          
-         borrowerDao.save(borrower);
+         
+         em.persist(borrower);
+         
+         tx.commit();
+         em.close();
          
          presenter.refresh();
          Assert.assertEquals(3, presenter.getBorrowers().size());

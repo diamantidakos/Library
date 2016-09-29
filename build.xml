@@ -55,8 +55,15 @@
            <delete dir="${doc.dir}"/>	
 	  </target>
 	
+	  <target name="copymeta">
+	  	   <copy todir="${build.dir}">
+	  	   	  <fileset dir="${src.dir}">
+	  	   	  	  <patternset refid = "meta.files"/>
+	  	   	  </fileset>
+	  	   </copy>
+	  </target>
 	
-	  <target name="compile" depends="init" description="Compiles the code.">
+	  <target name="compile" depends="init, copymeta" description="Compiles the code.">
 	    <javac srcdir="${src.dir}" 
 	    	  destdir="${build.dir}"  
 	    	encoding="UTF-8" 
@@ -64,7 +71,6 @@
 	    	includeAntRuntime="no">
 	      <classpath refid="compile.classpath" />
 	      <compilerarg value="-Xlint:all" />
-	      <compilerarg value="-Werror" />
 	    </javac>
 	  </target>
 	
