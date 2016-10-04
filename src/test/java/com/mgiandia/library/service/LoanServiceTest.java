@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.mgiandia.library.LibraryException;
@@ -15,28 +17,13 @@ import com.mgiandia.library.persistence.JPAUtil;
 
 
 
-public class LoanServiceTest {
+public class LoanServiceTest extends LibraryServiceTest {
 
-    Initializer dataHelper;
-    
-    public void setUp() {                
-        dataHelper.prepareData();
-    }
- 
-    
-
-    
-    public void setUpJpa() {
-        dataHelper = new Initializer();
-        setUp();
-    }
-    
-   
     
     @Test(expected=LibraryException.class)
     public void noBorrowerJpa() { 
-        setUpJpa();
-        LoanService loanService = new LoanService();
+
+    	LoanService loanService = new LoanService(em);
         loanService.findBorrower(99999);
         loanService.borrow(Initializer.UML_DISTILLED_ID1);    }
     
@@ -45,8 +32,8 @@ public class LoanServiceTest {
     @SuppressWarnings("unchecked")
 	@Test
     public void testBorrowJpa() { 
-        setUpJpa();
-        LoanService loanService = new LoanService();
+
+    	LoanService loanService = new LoanService(em);
         loanService.findBorrower(Initializer.DIAMANTIDIS_ID);
         Assert.assertNotNull(loanService.borrow(Initializer.UML_DISTILLED_ID1));
         
@@ -60,15 +47,14 @@ public class LoanServiceTest {
         Assert.assertEquals(Initializer.UML_DISTILLED_ID1, loan.getItem().getItemNumber());
         Assert.assertEquals(ItemState.LOANED, loan.getItem().getState());
         
-        em.close();
     }
     
  
     
     @Test
     public void borrowDataBaseJpa() { 
-        setUpJpa();
-        LoanService loanService = new LoanService();
+        
+        LoanService loanService = new LoanService(em);
         loanService.findBorrower(Initializer.DIAMANTIDIS_ID);
         
         Assert.assertNotNull(loanService.borrow(Initializer.UML_USER_GUIDE_ID1));

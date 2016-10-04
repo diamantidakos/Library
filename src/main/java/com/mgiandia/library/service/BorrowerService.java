@@ -11,8 +11,8 @@ public class BorrowerService {
 
 	private EntityManager em;
 
-	public BorrowerService() {
-		em = JPAUtil.getCurrentEntityManager();
+	public BorrowerService(EntityManager em) {
+		this.em = em;
 	}
 
 	@SuppressWarnings("unchecked")

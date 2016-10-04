@@ -6,42 +6,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
-import com.mgiandia.library.persistence.Initializer;
-import com.mgiandia.library.persistence.JPAUtil;
 
-public class CatalogServiceTest {
+public class CatalogServiceTest extends LibraryServiceTest {
 
-	Initializer dataHelper;
-	
-	EntityManager em;
-	
-	public void setUp() {
-		dataHelper.prepareData();
-	}
-
-
-	@Before
-	public void setUpJpa() {
-		dataHelper = new Initializer();
-		setUp();
-		
-		em = JPAUtil.getCurrentEntityManager();
-	}
-
-	@After
-	public void tearDown(){
-		em.close();
-	}
-	
-	
 	@Test
 	public void testFindAllBooks() {
 		

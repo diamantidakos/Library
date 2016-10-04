@@ -7,8 +7,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -16,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
@@ -36,7 +39,7 @@ public class BookResource extends AbstractResource {
 		List<Book> books = catalogService.findAllBooks();
 
 		List<BookInfo> bookInfo = BookInfo.wrap(books);
-		
+
 		em.close();
 		return bookInfo;
 
@@ -58,7 +61,7 @@ public class BookResource extends AbstractResource {
 		return bookInfo;
 
 	}
-	
+
 	@GET
 	@Path("search")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -69,7 +72,7 @@ public class BookResource extends AbstractResource {
 		List<Book> books = catalogService.findBooksByTitle(title);
 
 		List<BookInfo> booksInfo = BookInfo.wrap(books);
-		
+
 		em.close();
 		return booksInfo;
 
@@ -83,16 +86,61 @@ public class BookResource extends AbstractResource {
 
 		Book book = bookInfo.getBook(em);
 		// TODO: should validate book
-		
+
 		CatalogService catalogService = new CatalogService(em);
 		book = catalogService.save(book);
 
 		UriBuilder ub = uriInfo.getAbsolutePathBuilder();
-		URI newTransactionUri = ub.path(Integer.toString(book.getId())).build();
+		URI newBookUri = ub.path(Integer.toString(book.getId())).build();
 
 		em.close();
+
+		return Response.created(newBookUri).build();
+	}
+
+	/**
+	 * Update a specific book
+	 * 
+	 * @param bookInfo
+	 *            A full representation of the book, including its id should be
+	 *            submitted
+	 * @return
+	 */
+	@PUT
+	@Path("{bookId:[0-9]*}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateBook(BookInfo bookInfo) {
+
+		EntityManager em = getEntityManager();
+
+		Book book = bookInfo.getBook(em);
+		// TODO: should validate book
+
+		CatalogService catalogService = new CatalogService(em);
+		book = catalogService.save(book);
+
+		em.close();
+
+		return Response.ok().build();
+	}
+
+	@DELETE
+	@Path("{bookId:[0-9]*}")
+	public Response deleteBook(@PathParam("bookId") int bookId) {
+
+		EntityManager em = getEntityManager();
 		
-		return Response.created(newTransactionUri).build();
+		CatalogService service = new CatalogService(em);
+		boolean result = service.deleteBook(bookId);
+		
+		if (!result) {
+			em.close();
+			return Response.status(Status.NOT_FOUND).build();
+		}
+
+		em.close();
+		return Response.ok().build();
+
 	}
 
 }

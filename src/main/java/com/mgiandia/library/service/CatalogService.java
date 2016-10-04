@@ -3,6 +3,7 @@ package com.mgiandia.library.service;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 
@@ -23,7 +24,7 @@ public class CatalogService {
 		tx.begin();
 		if (book.getId() != null) {
 			// beware, always use the result of merge
-			return em.merge(book);
+			book = em.merge(book);
 		} else {
 			em.persist(book);
 		}
@@ -80,7 +81,7 @@ public class CatalogService {
 		tx.begin();
 		List<Book> results = null;
 
-		results = em.createQuery("select b from Book b where b.title like :title")
+		results = em.createQuery("select b from Book b join fetch b.publisher p where b.title like :title")
 				// "select b from Book b left join fetch b.authors where b.title
 				// like :title")
 				.setParameter("title", "%" + title + "%").getResultList();
@@ -108,6 +109,25 @@ public class CatalogService {
 		}
 		tx.commit();
 		return false;
+
+	}
+
+	public boolean deleteBook(int bookId) {
+		
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		try {
+			Book book = em.getReference(Book.class, bookId);
+			em.remove(book);
+		} catch (EntityNotFoundException e) {
+			tx.rollback();
+			return false;
+		}
+
+		tx.commit();
+
+		return true;
 
 	}
 

@@ -16,6 +16,12 @@ import com.mgiandia.library.util.Money;
  */
 public class ReturnService {
 
+	private EntityManager em;
+	
+	public ReturnService(EntityManager em) {
+		this.em = em;
+	}
+	
     /**
      * Πραγματοποιεί την επιστροφή ενός αντιτύπου. 
      * Επιστρέφει το τυχόν πρόστιμο που πρέπει να καταβληθεί.
