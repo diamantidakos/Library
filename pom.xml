@@ -74,38 +74,7 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-
-			<!-- Open H2 browser with the help of the exec:java task mvn exec:java 
-				-Dexec.mainClass="org.h2.tools.Server" -Dexec.args="-browser -web" or in 
-				case that the configuration element is filled through mvn exec:java -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>java</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<!-- <mainClass>pes642.service.JaxRsServicePublisher</mainClass> -->
-					<mainClass>org.h2.tools.Server</mainClass>
-					<arguments>
-						<!-- Start also UI -->
-						<argument>-web</argument>
-
-						<!-- db is available via tcp <argument>-tcp</argument> -->
-						<!-- local file is present in project <argument>-baseDir</argument> 
-							<argument>${basedir}/${local-h2-directory}</argument> -->
-						<!-- Other computers can connect to this db <argument>-webAllowOthers</argument> 
-							<argument>-webPort</argument> <argument>${h2database.port}</argument> -->
-						<!-- uncomment if you want to open h2 UI automatically -->
-						<argument>-browser</argument>
-					</arguments>
-				</configuration>
-			</plugin>
+			<!--  JUnit testing plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
