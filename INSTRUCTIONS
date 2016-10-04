@@ -1,4 +1,4 @@
-You can use the following Maven 3 commands:
+You can use the following Maven commands:
 
 # Run all tests
 mvn clean test
