@@ -1,0 +1,29 @@
+You can use the following Maven 3 commands:
+
+# Run all tests
+mvn clean test
+
+# Generate coverage report. Code coverage results are available in target/site/jacoco/index.html
+mvn jacoco:report
+
+# Open h2 browser
+mvn exec:java -Dexec.mainClass="org.h2.tools.Server" -Dexec.args="-browser -web"
+
+# Performs Checkstyle analysis and generates a report on violations in target/site/checkstyle.html
+mvn checkstyle:checkstyle 
+
+# Use apache ant for technical documentation generation
+# Generates all technical documentation
+ant technical-doc
+# Cleans generated artifacts from diagrams
+ant clean-diagrams
+
+# Converts Design UML diagram files to images
+ant design-umlet
+
+# Converts Requirements UML diagram files to images
+ant req-umlet
+
+# Builds Technical Documentation
+ant technical-doc
+
