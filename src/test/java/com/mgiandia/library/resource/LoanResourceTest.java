@@ -36,7 +36,7 @@ public class LoanResourceTest extends LibraryResourceTest {
 
 		Borrower ndia = foundBorrowers.get(0);
 
-		LoanInfo loanInfo = new LoanInfo(Initializer.UML_REFACTORING_ID, ndia.getBorrowerNo());
+		LoanRequestInfo loanInfo = new LoanRequestInfo(Initializer.UML_REFACTORING_ID, ndia.getBorrowerNo());
 
 		Response response = target(LibraryUri.LOANS).request()
 				.post(Entity.entity(loanInfo, MediaType.APPLICATION_JSON));
@@ -63,7 +63,7 @@ public class LoanResourceTest extends LibraryResourceTest {
 
 		Borrower ndia = foundBorrowers.get(0);
 
-		LoanInfo loanInfo = new LoanInfo(Initializer.UML_REFACTORING_ID, ndia.getBorrowerNo());
+		LoanRequestInfo loanInfo = new LoanRequestInfo(Initializer.UML_REFACTORING_ID, ndia.getBorrowerNo());
 
 		Response response = target(LibraryUri.LOANS).request()
 				.post(Entity.entity(loanInfo, MediaType.APPLICATION_JSON));

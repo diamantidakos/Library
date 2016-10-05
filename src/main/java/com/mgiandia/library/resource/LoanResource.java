@@ -32,7 +32,7 @@ public class LoanResource extends AbstractResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createLoan(LoanInfo loanInfo) {
+	public Response createLoan(LoanRequestInfo loanRequestInfo) {
 
 		EntityManager em = getEntityManager();
 
@@ -41,10 +41,10 @@ public class LoanResource extends AbstractResource {
 		Response response = null;
 
 		try {
-			loanService.loanItem(loanInfo.getItemId(), loanInfo.getBorrowerNo());
+			loanService.loanItem(loanRequestInfo.getItemId(), loanRequestInfo.getBorrowerNo());
 
 			UriBuilder ub = uriInfo.getAbsolutePathBuilder();
-			URI newLoanUri = ub.path(LibraryUri.loanUri(Integer.toString(loanInfo.getItemId()))).build();
+			URI newLoanUri = ub.path(LibraryUri.loanUri(Integer.toString(loanRequestInfo.getItemId()))).build();
 			// newLoanUri -> /loans/{itemId}
 			response = Response.created(newLoanUri).build();
 
