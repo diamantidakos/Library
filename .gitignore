@@ -5,3 +5,8 @@
 /jacoco.exec
 /test.h2.db
 /test.trace.db
+/target/
+/.settings
+test.mv.db
+test.trace.db
+
