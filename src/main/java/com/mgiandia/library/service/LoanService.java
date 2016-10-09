@@ -100,6 +100,7 @@ public class LoanService {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Loan> findPendingLoans(boolean overdueOnly) {
 		List<Loan> allLoans = new ArrayList<Loan>();
 

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.persistence.JPAUtil;
 
 public class BorrowerService {
 
