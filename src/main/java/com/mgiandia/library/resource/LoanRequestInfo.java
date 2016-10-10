@@ -3,15 +3,15 @@ package com.mgiandia.library.resource;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class LoanInfo {
+public class LoanRequestInfo {
 	
 	private int itemId;
 	private int borrowerNo;
 
-	public LoanInfo() {
+	public LoanRequestInfo() {
 	}
 	
-	public LoanInfo(int itemId, int borrowerNo) {
+	public LoanRequestInfo(int itemId, int borrowerNo) {
 		
 		this.itemId = itemId;
 		this.borrowerNo = borrowerNo;
