@@ -14,7 +14,7 @@ import com.mgiandia.library.service.LoanService;
 import com.mgiandia.library.service.ReturnService;
 import com.mgiandia.library.util.Money;
 
-@WebService(endpointInterface = "com.mgiandia.library.service.ws.LibraryService")
+@WebService(endpointInterface = "com.mgiandia.library.soap.LibraryService")
 public class LibraryServiceImpl implements LibraryService {
 
     public Calendar loanItem(int borrowerNo, int itemNo)
