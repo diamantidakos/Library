@@ -11,7 +11,7 @@ public class Address {
     private String street;
     private String number;
     private String city;
-    private ZipCode zipcode;
+    private ZipCode zip;
     private String country = "Ελλάδα";
 
     /**
@@ -28,7 +28,7 @@ public class Address {
         this.street = address.getStreet();
         this.number = address.getNumber();
         this.city = address.getCity();
-        this.zipcode = address.getZipCode();
+        this.zip = address.getZipCode();
         this.country = address.getCountry();
     }
 
@@ -86,7 +86,7 @@ public class Address {
      * @param zipcode Ο ταχυδρομικός κώδικας
      */
     public void setZipCode(ZipCode zipcode) {
-        this.zipcode = zipcode;
+        this.zip = zipcode;
     }
 
     /**
@@ -94,7 +94,7 @@ public class Address {
      * @return Ο ταχυδρομικός κώδικας
      */
     public ZipCode getZipCode() {
-        return zipcode;
+        return zip;
     }
 
     /**
@@ -143,8 +143,8 @@ public class Address {
                 == null : city.equals(theAddress.city))) {
             return false;
         }
-        if (!(zipcode == null ? theAddress.zipcode
-                == null : zipcode.equals(theAddress.zipcode))) {
+        if (!(zip == null ? theAddress.zip
+                == null : zip.equals(theAddress.zip))) {
             return false;
         }
         if (!(country == null ? theAddress.country
@@ -158,7 +158,7 @@ public class Address {
     @Override
     public int hashCode() {
         if (street == null && number == null && city == null
-                && zipcode == null && country == null) {
+                && zip == null && country == null) {
             return 0;
         }
 
@@ -166,7 +166,7 @@ public class Address {
         result = street == null ? result : 13 * result + street.hashCode(); 
         result = number == null ? result : 13 * result + number.hashCode();
         result = city == null ? result : 13 * result + city.hashCode();
-        result = zipcode == null ? result : 13 * result + zipcode.hashCode();
+        result = zip == null ? result : 13 * result + zip.hashCode();
         result = country == null ? result : 13 * result + country.hashCode();
         return result;
     }
