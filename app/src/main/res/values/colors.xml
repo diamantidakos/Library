@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="topBar">#111111</color><!-- top android bar color, usually black -->
+
+    <color name="colorPrimary">#e84d3c</color><!-- buttons and header color -->
+    <color name="colorDarkBG">#393939</color><!-- background color -->
+
+    <color name="colorWhite">#FFFFFF</color><!-- primary text color, used a ton on text views and titles -->
+    <color name="colorSemiWhite">#CACACA</color><!-- secondary text color, used a ton next to primary -->
+
+    <!-- not important --><color name="colorMediumSemiWhite">#CACACA</color><!-- spinner default view color, can be same as colorSemiWhite -->
+
+    <!-- bellow are colors of small images -->
+    <color name="colorSmallBlue">#0067b4</color>
+    <color name="colorSmallGreen">#1EA33E</color>
+    <color name="colorSmallOrange">#f8a100</color>
+</resources>

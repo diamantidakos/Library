@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorDarkBG"
+        android:paddingTop="12dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="18dp"
+            android:id="@+id/basic_title_text_view"
+            android:text="@string/basic_info"
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/basic_title_text_view"
+            android:textColor="@color/colorSemiWhite"
+            android:textSize="14dp"
+            android:id="@+id/text_view_book_title"
+            android:text="@string/book_title"
+            android:gravity="center_vertical|left"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:paddingTop="10dp" />
+
+        <EditText
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/basic_title_text_view"
+            android:textColor="@color/colorSemiWhite"
+            android:id="@+id/edit_text_book_title"
+            android:backgroundTint="@color/colorSemiWhite"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/text_view_book_title"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:textColor="@color/colorSemiWhite"
+            android:textSize="14dp"
+            android:id="@+id/text_view_publisher"
+            android:text="@string/book_publisher"
+            android:gravity="center_vertical|left"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/text_view_book_title"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="16dp"
+            android:paddingTop="10dp" />
+
+        <Spinner
+            android:layout_marginTop="22dp"
+            android:layout_below="@+id/text_view_book_title"
+            android:textColor="@color/colorSemiWhite"
+            android:id="@+id/edit_text_publisher"
+            android:backgroundTint="@color/colorSemiWhite"
+            android:layout_width="fill_parent"
+            android:layout_height="34dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/text_view_publisher"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorMediumSemiWhite"/>
+
+        <TextView
+            android:textColor="@color/colorSemiWhite"
+            android:textSize="14dp"
+            android:id="@+id/text_view_isbn"
+            android:text="@string/book_isbn"
+            android:gravity="center_vertical|left"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/text_view_publisher"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="16dp"
+            android:paddingTop="10dp" />
+
+        <EditText
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/text_view_publisher"
+            android:textColor="@color/colorSemiWhite"
+            android:id="@+id/edit_text_isbn"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/text_view_isbn"
+            android:backgroundTint="@color/colorSemiWhite"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:textColor="@color/colorSemiWhite"
+            android:textSize="14dp"
+            android:id="@+id/text_view_publication"
+            android:text="@string/book_publication"
+            android:gravity="center_vertical|left"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/text_view_isbn"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="16dp"
+            android:paddingTop="10dp" />
+
+        <EditText
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/text_view_isbn"
+            android:textColor="@color/colorSemiWhite"
+            android:id="@+id/edit_text_publication"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/colorSemiWhite"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/text_view_publication"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:textColor="@color/colorSemiWhite"
+            android:textSize="14dp"
+            android:id="@+id/text_view_publicationyear"
+            android:text="@string/book_publicationyear"
+            android:gravity="center_vertical|left"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/text_view_publication"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="16dp"
+            android:paddingTop="10dp" />
+
+        <EditText
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/text_view_publication"
+            android:textColor="@color/colorSemiWhite"
+            android:id="@+id/edit_text_publicationyear"
+            android:backgroundTint="@color/colorSemiWhite"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/text_view_publicationyear"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:textColor="@color/colorSemiWhite"
+            android:textSize="14dp"
+            android:id="@+id/text_view_authors"
+            android:text="@string/authors_title_text"
+            android:gravity="center_vertical|left"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/edit_text_publicationyear"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="16dp"
+            android:paddingTop="10dp" />
+
+        <com.mgiandia.library.view.Util.MultiSelectSpinner
+            android:layout_marginTop="22dp"
+            android:layout_below="@+id/text_view_publicationyear"
+            android:textColor="@color/colorSemiWhite"
+            android:id="@+id/edit_text_authors"
+            android:backgroundTint="@color/colorSemiWhite"
+            android:layout_width="fill_parent"
+            android:layout_height="34dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/text_view_authors"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorMediumSemiWhite"/>
+
+        <Button
+            android:textSize="15dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:textColor="@color/colorWhite"
+            android:layout_centerHorizontal="true"
+            android:text="@string/complete_registration"
+            android:textAllCaps="false"
+            android:id="@+id/complete_registration_button"
+            android:layout_width="140dp"
+            android:layout_height="55dp"
+            android:layout_below="@+id/text_view_authors" />
+
+    </RelativeLayout>
+</ScrollView>
