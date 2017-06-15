@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.Borrower.ManageBorrowers.ManageBorrowersActivity">
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="7dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:textColor="@color/colorWhite"
+        android:textSize="16dp"
+        android:id="@+id/item_name"
+        android:layout_width="174dp"
+        android:layout_height="22dp"
+        app:layout_constraintLeft_toRightOf="@+id/item_image"
+        android:layout_marginLeft="22dp"
+        app:layout_constraintTop_toTopOf="@+id/item_image"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_image"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.514" />
+
+    <TextView
+        android:textColor="@color/colorSemiWhite"
+        android:textSize="12dp"
+        android:id="@+id/item_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/item_name"
+        app:layout_constraintLeft_toRightOf="@+id/item_image"
+        android:layout_marginLeft="22dp" />
+
+    <TextView
+        android:textColor="@color/colorWhite"
+        android:textSize="25dp"
+        android:text=">"
+        android:id="@+id/item_view_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="6dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:textColor="@color/colorWhite"
+        android:textSize="16dp"
+        android:id="@+id/item_lastname"
+        android:layout_width="174dp"
+        android:layout_height="22dp"
+        app:layout_constraintTop_toTopOf="@+id/item_image"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/item_image"
+        android:layout_marginLeft="22dp" />
+
+    <TextView
+        android:textColor="@color/colorWhite"
+        android:id="@+id/image_text"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:textSize="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.500" />
+
+</android.support.constraint.ConstraintLayout>

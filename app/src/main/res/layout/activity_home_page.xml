@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorDarkBG"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/colorDarkBG"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_horizontal"
+        >
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="167dp"
+                android:layout_height="124dp"
+                android:src="@drawable/ic_bookshelf"
+                android:layout_alignParentTop="true" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/welcome_message_text"
+                android:text="@string/welcome_message"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorWhite"
+                android:textSize="17dp"
+                android:layout_below="@+id/imageView"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="25dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <Button
+                    android:id="@+id/manage_borrowers_button"
+                    android:text="@string/manage_borrowers"
+                    android:layout_width="150dp"
+                    android:layout_height="55dp"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/manage_books_button"
+                android:text="@string/manage_books"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:layout_marginRight="5dp"
+                android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/manage_items_button"
+                android:text="@string/manage_items"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:layout_marginLeft="5dp"
+                android:textSize="15dp" />
+
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <Button
+                    android:id="@+id/manage_loans_button"
+                    android:text="@string/manage_loans"
+                    android:layout_width="150dp"
+                    android:layout_height="55dp"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:id="@+id/manage_returns_button"
+                    android:text="@string/manage_returns"
+                    android:layout_width="150dp"
+                    android:layout_height="55dp"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <Button
+                    android:id="@+id/manage_authors_button"
+                    android:text="@string/manage_authors"
+                    android:layout_width="150dp"
+                    android:layout_height="55dp"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:id="@+id/manage_publishers_button"
+                    android:text="@string/manage_publishers"
+                    android:layout_width="150dp"
+                    android:layout_height="55dp"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+        </TableRow>
+
+    </TableLayout>
+
+    </RelativeLayout>
+</ScrollView>

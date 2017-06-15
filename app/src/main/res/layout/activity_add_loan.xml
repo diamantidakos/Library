@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorDarkBG"
+        android:paddingTop="12dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="18dp"
+            android:id="@+id/basic_title_text_view"
+            android:text="@string/basic_info"
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/basic_title_text_view"
+            android:textColor="@color/colorSemiWhite"
+            android:textSize="14dp"
+            android:id="@+id/text_view_borrower"
+            android:text="@string/borrower"
+            android:gravity="center_vertical|left"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:textSize="14dp"
+            android:gravity="center_vertical|left"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/basic_title_text_view"
+            android:textColor="@color/colorSemiWhite"
+            android:id="@+id/edit_text_borrower"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/text_view_borrower"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:paddingTop="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:textColor="@color/colorSemiWhite"
+            android:textSize="14dp"
+            android:id="@+id/text_view_book"
+            android:text="@string/book"
+            android:gravity="center_vertical|left"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/text_view_borrower"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="16dp"
+            android:paddingTop="10dp" />
+
+        <Spinner
+            android:layout_marginTop="22dp"
+            android:layout_below="@+id/text_view_borrower"
+            android:textColor="@color/colorSemiWhite"
+            android:id="@+id/edit_text_book"
+            android:backgroundTint="@color/colorSemiWhite"
+            android:layout_width="fill_parent"
+            android:layout_height="34dp"
+            android:background="@color/colorMediumSemiWhite"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/text_view_book"
+            android:layout_marginRight="10dp"/>
+
+        <Button
+            android:textSize="15dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:textColor="@color/colorWhite"
+            android:layout_centerHorizontal="true"
+            android:text="@string/complete_registration"
+            android:textAllCaps="false"
+            android:id="@+id/complete_registration_button"
+            android:layout_width="140dp"
+            android:layout_height="55dp"
+            android:layout_below="@+id/edit_text_book" />
+
+    </RelativeLayout>
+</ScrollView>
+
+

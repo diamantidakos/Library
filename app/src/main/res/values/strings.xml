@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">Βιβλιοθήκη Ο.Π.Α.</string>
+    <string name="welcome_message">Καλωσορίσατε στη Βιβλιοθήκη μας!</string>
+    <string name="ok">OK</string>
+    <string name="yes_delete">ΟΚ, ΔΙΑΓΡΑΦΗ</string>
+    <string name="cancel">ΑΚΥΡΩΣΗ</string>
+    <string name="do_loan_event">Πραγματοποίηση Δανεισμού</string>
+
+    <string name="add_new_item">Προσθήκη</string>
+
+    <string name="borrower_add">Εγγραφή Δανειζομένου</string>
+    <string name="borrower_details">Πληροφορίες Δανειζομένου</string>
+
+    <string name="borrower">Δανειζόμενος</string>
+    <string name="book">Βιβλίο</string>
+    <string name="manage_borrowers">Δανειζομένοι</string>
+    <string name="manage_books">Βιβλία</string>
+    <string name="manage_publishers">Εκδοτικοί Οίκοι</string>
+    <string name="manage_authors">Συγγραφείς</string>
+    <string name="manage_items">Αντίτυπα</string>
+    <string name="manage_loans">Δάνεια</string>
+    <string name="manage_returns">Επιστροφές</string>
+
+    <string name="first_name">Όνομα</string>
+    <string name="last_name">Επώνυμο</string>
+    <string name="user_id">Κωδικός</string>
+    <string name="category">Κατηγορία</string>
+    <string name="telephone">Τηλέφωνο</string>
+    <string name="email">E-mail</string>
+
+    <string name="country">Χώρα</string>
+    <string name="city">Πόλη</string>
+    <string name="street">Οδός</string>
+    <string name="number">Αριθμός</string>
+    <string name="zip">Τ.Κ.</string>
+
+    <string name="author_add">Εγγραφή Συγγραφέα</string>
+    <string name="publisher_add">Εγγραφή Εκδοτικού Οίκου</string>
+
+    <string name="basic_info">Βασικές Πληροφορίες</string>
+    <string name="address">Πληροφορίες Διεύθυνσης</string>
+    <string name="loan_info">Πληροφορίες Δανισμών</string>
+    <string name="actions">Δυνατές Ενέργειες</string>
+    <string name="complete_registration">Αποθήκευση</string>
+
+    <string name="edit_user">Επεξεργασία</string>
+    <string name="delete_user">Διαγραφή</string>
+
+    <string name="edit_loans">Εμφάνιση Δανισμών</string>
+
+    <string name="search">Αναζήτηση</string>
+
+
+    <string name="books_loaned">Χρωστάει</string>
+    <string name="books_returned">Επέστρεψε</string>
+    <string name="books_lost">Έχασε</string>
+
+    <string name="display_loans">Δάνεια Δανειζομένου</string>
+
+
+    <string name="gen_actions">Δυνατές Ενέργειες</string>
+    <string name="book_details">Πληροφορίες Βιβλίων</string>
+    <string name="s_book_details">Πληροφορίες Βιβλίου</string>
+    <string name="show_books">Εμφάνιση Βιβλίων</string>
+    <string name="books_published">Έκδωσε</string>
+    <string name="books_written">Έγραψε</string>
+    <string name="books">Βιβλία</string>
+
+
+    <string name="book_title">Τίτλος</string>
+    <string name="book_publisher">Εκδότης</string>
+    <string name="book_isbn">ISBN</string>
+    <string name="book_publication">Δημοσίευση</string>
+    <string name="book_publicationyear">Έτος</string>
+    <string name="book_copies">Αντίτυπα</string>
+    <string name="authors_title_text">Συγγραφείς</string>
+    <string name="author_1_text">Πρώτος</string>
+    <string name="author_2_text">Δεύτερος</string>
+    <string name="author_3_text">Τρίτος</string>
+    <string name="author_4_text">Τέταρτος</string>
+    <string name="author_5_text">Πέμπτος</string>
+    <string name="add_edit_book_label">Εγγραφή Βιβλίου</string>
+
+    <string name="show_copies">Αντίτυπα</string>
+</resources>
