@@ -8,7 +8,7 @@
 Οικοδόμηση
 ----------
 
-1) Εγκαθιστούμε το Android Studio από εδώ https://developer.android.com/studio/index.html και μετά ορίζουμε τη μεταβλητή περιβάλλοντος ANDROID_HOME τρέχοντας στο command line την εντολή <code>setx ANDROID_HOME C:\Users\%username%\AppData\Local\Android\sdk</code>. Αν έχετε εγκαταστήσει το android sdk σε άλλο φάκελο πρέπει να εισάγεται αυτόν και να βεβαιωθείτε ότι υπάρχει.
+1) Εγκαθιστούμε το Android Studio από εδώ https://developer.android.com/studio/index.html και μετά ορίζουμε τη μεταβλητή περιβάλλοντος ANDROID_HOME τρέχοντας στο command line την εντολή <code>setx ANDROID_HOME C:\\Users\\%username%\\AppData\\Local\\Android\\sdk</code>. Αν έχετε εγκαταστήσει το android sdk σε άλλο φάκελο πρέπει να εισάγεται αυτόν και να βεβαιωθείτε ότι υπάρχει.
 
 2) Κατεβάζουμε τον κώδικα από το GitHub και τον τοποθετούμε σε ένα φάκελο.
 
