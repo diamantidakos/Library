@@ -84,11 +84,12 @@
        <path id="wikitext.classpath">
 			<fileset dir="${lib.dir}">
 				<include name="org.eclipse.mylyn.wikitext.*core*.jar"/>
+				<include name="guava*.jar"/>
 			</fileset>
 		</path>
 
 		<taskdef classpathref="wikitext.classpath" 
-			resource="org/eclipse/mylyn/wikitext/core/util/anttask/tasks.properties" />
+			resource="org/eclipse/mylyn/wikitext/core/ant/tasks.properties" />
 	
 
 		<target name="design-doc" depends="design-umlet">
@@ -96,9 +97,9 @@
 			<delete dir="${design.doc.dir}"/>
 		    <mkdir dir="${design.doc.dir}"/>
 
-			<wikitext-to-html markupLanguage="Textile" sourceEncoding="UTF-8">
+			<wikitext-to-html markupLanguage="Markdown" sourceEncoding="UTF-8">
 						<fileset dir="${basedir}/design">
-			    				<include name="*.textile"/>
+			    				<include name="*.md"/>
 						</fileset>
 						<stylesheet url="styles/main.css"/>
 		    </wikitext-to-html>
@@ -140,9 +141,9 @@
 			<delete dir="${req.doc.dir}"/>
 		    <mkdir dir="${req.doc.dir}"/>
 	
-			<wikitext-to-html markupLanguage="Textile" sourceEncoding="UTF-8">
+			<wikitext-to-html markupLanguage="Markdown" sourceEncoding="UTF-8">
 						<fileset dir="${req.dir}">
-			    			<include name="*.textile"/>
+			    			<include name="*.md"/>
 						</fileset>
 						<stylesheet url="styles/main.css"/>
 		    </wikitext-to-html>

@@ -1,4 +1,11 @@
 ant.importBuild '../build.xml'
+
+tasks.whenTaskAdded { task ->
+    if (task.name.equals("lint")) {
+        task.enabled = false
+    }
+}
+
 apply plugin: 'com.android.application'
 apply from: 'jacoco.gradle'//gradlew testReleaseUnitTestCoverage
 apply from: 'javadoc.gradle'//gradlew generateReleaseJavadoc
