@@ -1,0 +1,34 @@
+apply plugin: 'jacoco'
+
+jacoco
+{ 
+    toolVersion = "0.7.5.201505241946" 
+}
+
+task testReleaseUnitTestCoverage(type: JacocoReport, dependsOn: 'testReleaseUnitTest') {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports"
+
+    def coverageSourceDirs = ['src/main/java']
+
+    classDirectories = fileTree(
+            dir: "${buildDir}/intermediates/classes/release",
+            excludes: ['**/R.class',
+                       '**/R$*.class',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*',
+                       'com/android/**/*.class',
+                       '**/*Activity*',//exclude all files that contain the word "Activity"
+                       'com/mgiandia/library/view/Util/**'//exclude all files in package com.mgiandia.library.view.Util
+					   ]
+    )
+
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files("${buildDir}/jacoco/testReleaseUnitTest.exec")
+
+    reports {
+        xml.enabled false
+		csv.enabled false
+		html.destination "../reports/coverage"
+    }
+}

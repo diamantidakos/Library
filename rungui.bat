@@ -1,1 +1,0 @@
-java -classpath build;lib/* com.mgiandia.library.ui.ApplicationJFrame

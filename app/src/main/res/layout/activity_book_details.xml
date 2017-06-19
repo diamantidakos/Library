@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorDarkBG"
+    android:fillViewport="true">
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/colorDarkBG"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/basic_info"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="18dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/user_id"
+                android:layout_width="0dp"
+                android:layout_weight="0.75"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+            <TextView
+                android:id="@+id/text_book_id"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorSemiWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/book_title"
+                android:layout_width="0dp"
+                android:layout_weight="0.75"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+            <TextView
+                android:id="@+id/text_book_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorSemiWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/book_publisher"
+                android:layout_width="0dp"
+                android:layout_weight="0.75"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+            <TextView
+                android:id="@+id/text_book_publisher"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorSemiWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/book_isbn"
+                android:layout_width="0dp"
+                android:layout_weight="0.75"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+            <TextView
+                android:id="@+id/text_book_isbn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorSemiWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/book_publication"
+                android:layout_width="0dp"
+                android:layout_weight="0.75"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+            <TextView
+                android:id="@+id/text_book_publication"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorSemiWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/book_publicationyear"
+                android:layout_width="0dp"
+                android:layout_weight="0.75"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+            <TextView
+                android:id="@+id/text_book_publicationyear"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorSemiWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/book_copies"
+                android:layout_width="0dp"
+                android:layout_weight="0.75"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+            <TextView
+                android:id="@+id/text_book_copies"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/colorSemiWhite"
+                android:textSize="16dp"
+                android:paddingRight="20dp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="12dp"
+            android:paddingLeft="12dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="24dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/authors_title_text"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="18dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="0dp">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:id="@+id/author_parent_layout">
+            </TableLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="24dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/gen_actions"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="18dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingBottom="32dp"
+            android:gravity="center">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/edit_book_button"
+                    android:text="@string/edit_user"
+                    android:textAllCaps="false"
+                    android:layout_width="160dp"
+                    android:layout_height="55dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp"/>
+
+            </RelativeLayout>
+        </TableRow>
+
+    </TableLayout>
+</ScrollView>

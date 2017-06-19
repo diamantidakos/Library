@@ -1,0 +1,2 @@
+mylyn-wikitext: https://bintray.com/jmini/maven/mylyn-wikitext
+guava: https://github.com/google/guava/wiki/Release22
