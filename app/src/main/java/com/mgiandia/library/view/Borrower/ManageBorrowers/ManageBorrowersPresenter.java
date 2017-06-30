@@ -19,6 +19,11 @@ public class ManageBorrowersPresenter
     private ManageBorrowersView view;
     private BorrowerDAO borrowers;
 
+    /**
+     * Επιστρέφει τα δεδομένα για μία λίστα από δανιζόμενους.
+     * @param borrowers Οι δανιζόμενοι στους οποίους θα επιστραφούν τα δεδομένα
+     * @return Μία λίστα με τις λεπτομέριες των δανιζόμενων
+     */
     private List<Quadruple> createDataSource(List<Borrower> borrowers)
     {
         List<Quadruple> triplets = new ArrayList<>();
@@ -29,6 +34,11 @@ public class ManageBorrowersPresenter
         return triplets;
     }
 
+    /**
+     * Αρχικοποεί τον Presenter.
+     * @param view Ένα instance του view
+     * @param borrowers Ένα instance του borrower
+     */
     public ManageBorrowersPresenter(ManageBorrowersView view, BorrowerDAO borrowers)
     {
         this.view = view;
@@ -37,6 +47,11 @@ public class ManageBorrowersPresenter
         onLoadSource();
     }
 
+    /**
+     * Μεταφερει τον χρήστη στο activity BorrowerDetailsActivity
+     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
+     * @param uid To μοναδικό id του δανιζόμενου
+     */
     void onClickItem(int uid)
     {
         if(view.shouldLoadLoansOnClick())
@@ -47,16 +62,27 @@ public class ManageBorrowersPresenter
             view.clickItem(uid);
     }
 
+    /**
+     * Ξεκινάει το activity AddEditBorrowerActivity
+     */
     void onStartAddNew()
     {
         view.startAddNew();
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     void onShowToast(String value)
     {
         view.showToast(value);
     }
 
+    /**
+     * Φορτώνει την λίστα με τους δανιζόμενους.
+     */
     void onLoadSource()
     {
         view.loadSource(createDataSource(borrowers.findAll()));

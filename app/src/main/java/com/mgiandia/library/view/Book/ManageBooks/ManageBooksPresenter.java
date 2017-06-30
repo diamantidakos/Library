@@ -26,6 +26,11 @@ public class ManageBooksPresenter
 
     private Integer attachedAuthorID, attachedPublisherID;
 
+    /**
+     * Επιστρέφει τα δεδομένα για μία λίστα από βιβλία books.
+     * @param books Τα βιβλία στα οποία θα επιστραφούν τα δεδομένα
+     * @return Μία λίστα με τις λεπτομέριες των βιβλίων books
+     */
     private List<Quadruple> createDataSource(List<Book> books)
     {
         List<Quadruple> triplets = new ArrayList<>();
@@ -36,6 +41,13 @@ public class ManageBooksPresenter
         return triplets;
     }
 
+    /**
+     * Αρχικοποεί τον Presenter.
+     * @param view Ένα instance του view
+     * @param books Ένα instance του book
+     * @param authors Ένα instance του author
+     * @param publishers Ένα instance του publisher
+     */
     public ManageBooksPresenter(ManageBooksView view, BookDAO books, AuthorDAO authors, PublisherDAO publishers)
     {
         this.view = view;
@@ -54,6 +66,12 @@ public class ManageBooksPresenter
         onLoadSource();
     }
 
+
+    /**
+     * Αποφασίζει από ποιο activity πραγαμτοποιήθηκε
+     * το click.
+     * @param uid To μοναδικό id
+     */
     void onClickItem(int uid)
     {
         if(!view.shouldLoadItemsOnClick())
@@ -62,16 +80,27 @@ public class ManageBooksPresenter
             view.clickItemList(uid);
     }
 
+    /**
+     * Ξεκινάει το activity AddEditBookActivity
+     */
     void onStartAddNew()
     {
         view.startAddNew();
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     void onShowToast(String value)
     {
         view.showToast(value);
     }
 
+    /**
+     * Φορτώνει την λίστα με τα βιβλία
+     */
     void onLoadSource()
     {
         List<Book> toReturn;

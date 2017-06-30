@@ -127,6 +127,10 @@ public class Money {
         return new Money(amount.divide(BigDecimal.valueOf(divisor)), currency);
     }
 
+    /**
+     * Ελέγχει αν υπάρχει διαφορετική νομισματική μονάδα.
+     * @param other Το άλλο αντικείμενο προς έλεγχο
+     */
     private void checkForSameCurrencies(Money other) {
         if (!currency.equals(other.currency)) {
             throw new IllegalArgumentException("Διαφορετικά Νομίσματα");
@@ -138,7 +142,6 @@ public class Money {
      * @param amount Το ποσό
      * @return Το αντικείμενο με το ποσό και νομισματική μονάδα ευρώ
      */
-
     public static Money euros(BigDecimal amount) {
         return new Money(amount, Currency.getInstance("EUR"));
     }
@@ -171,6 +174,11 @@ public class Money {
         return dollars(BigDecimal.valueOf(amount));
     }
 
+    /**
+     * Επαληθεύει to instance ενός χρηματικού ποσού.
+     * @param other Το άλλο αντικείμενο προς έλεγχο
+     * @return Το χρηματικό ποσό
+     */
     @Override
     public boolean equals(Object other) {
         if (other == null) {
@@ -199,11 +207,19 @@ public class Money {
                 : (amount.compareTo(theMoney.amount) == 0);
     }
 
+    /**
+     * Το HashCode του χρηματικού ποσού.
+     * @return Το HashCode
+     */
     @Override
     public int hashCode() {
         return amount == null ? 0 : amount.hashCode();
     }
 
+    /**
+     * Το χρηματικό ποσό με την μορφή string.
+     * @return Το χρηματικό ποσό
+     */
     @Override
     public String toString() {
         return amount.toString() + " " + currency.getSymbol();

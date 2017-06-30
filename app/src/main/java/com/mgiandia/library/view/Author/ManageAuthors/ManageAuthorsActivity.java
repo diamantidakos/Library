@@ -35,6 +35,12 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
     private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
+
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState το Instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -72,6 +78,11 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
         });
     }
 
+    /**
+     * Τροποποιεί το κείμενο του συγγραφέα.
+     * @param text Το κείμενο που θα τροποποιηθεί
+     * @return true
+     */
     public boolean onQueryTextChange(String text)
     {
         if (TextUtils.isEmpty(text))
@@ -82,11 +93,20 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
         return true;
     }
 
+    /**
+     * Υποβάλλει το κείμενο του συγγραφέα.
+     * @param query Θέτει το κείμενο ως query
+     * @return false
+     */
     public boolean onQueryTextSubmit(String query)
     {
         return false;
     }
 
+    /**
+     * Αδείαζει το κείμενο που βρίσκεται
+     * μέσα στην μπάρα αναζήτησης.
+     */
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
@@ -94,6 +114,12 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
         presenter.onLoadSource();
     }
 
+    /**
+     * Αδείαζει την μπάρα αναζήτησης
+     * @param requestCode Ο ζητούμενος κώδικος
+     * @param resultCode Ο κωδικός του αποτελέσματος
+     * @param data Tο intent
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -113,11 +139,20 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
         }
     }
 
+    /**
+     * Φορτώνει την λίστα με τους συγγραφείς
+     * @param input Η λιστα που θα φορτώσει
+     */
     public void loadSource(List<Quadruple> input)
     {
         adapter.loadSource(input);
     }
 
+    /**
+     * Μεταφερει τον χρήστη στο activity AuthorDetailsActivity
+     * όταν γίνει click πάνω στον συγγραφέα με id uid.
+     * @param uid To μοναδικό id του συγγραφέα
+     */
     public void clickItem(int uid)
     {
         Intent intent = new Intent(this, AuthorDetailsActivity.class);
@@ -125,12 +160,20 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * Ξεκινάει το activity AddEditAuthorActivity
+     */
     public void startAddNew()
     {
         Intent intent = new Intent(this, AddEditAuthorActivity.class);
         startActivityForResult(intent, 0);
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     public void showToast(String value)
     {
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();

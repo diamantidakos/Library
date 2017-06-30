@@ -27,6 +27,14 @@ public class AddLoansPresenter {
     private LoanDAO loans;
     Borrower attachedBorrower;
 
+    /**
+     * Αρχικοποεί τον Presenter έτσι ώστε
+     * αργότερα να πραγματοποιηθούν οι δανισμοί.
+     * @param view Ένα instance του view
+     * @param books Ένα instance του book
+     * @param borrowers Ένα instance του borrower
+     * @param loans Ένα instance του loan
+     */
     public AddLoansPresenter(AddLoansView view, BookDAO books, BorrowerDAO borrowers, LoanDAO loans)
     {
         this.view = view;
@@ -46,6 +54,12 @@ public class AddLoansPresenter {
         view.setBookList(booksNames);
     }
 
+    /**
+     * Κατα την αποθήκευση γινεται
+     * ενημέρωση κατα πόσον πραγματοποίηθηκε το
+     * αντίτυπο ή αν για κάποιο λόγω ο δανισμός
+     * δεν ήταν εφικτός.
+     */
     public void onSaveLoan()
     {
         Book selectedBook = books.find(view.getSelectedBookId());

@@ -53,7 +53,12 @@ public class NotificationService {
         }
     }
 
-
+    /**
+     * Στέλνει το μήνυμα ηλεκτρονικού ταχυδρομείου.
+     * @param borrower Ο δανιζόμενος
+     * @param subject Το θέμα του μηνύματος
+     * @param message Το περιεχόμενο του μηνύματοςσ
+     */
     private void sendEmail(Borrower borrower,
             String subject, String message) {
         EmailAddress eMail = borrower.getEmail();
@@ -67,7 +72,14 @@ public class NotificationService {
             provider.sendEmail(emailMessage);
         }
     }
-    
+
+    /**
+     * Δημιουργεί το μήνυμα ενημερώνοντας
+     * τον χρήστη κατα πόσο εχει καθυστερήση
+     * και για ποιο βιβλίο.
+     * @param book Ο δανιζόμενος
+     * @param overdue Το θέμα του μηνήματος
+     */
     private String composeMessage(Book book, long overdue) {
         String message = "Έχετε καθυστερήσει το βιβλίο με Τίτλο ";
         message += book.getTitle();

@@ -49,6 +49,11 @@ public class ISBN {
         return true;
     }
 
+    /**
+     * Επαληθεύει to instanceof του ISBN.
+     * @param other Το άλλο αντικείμενο προς έλεγχο
+     * @return Το ISBN
+     */
     @Override
     public boolean equals(Object other) {
         if (other == null) {
@@ -68,13 +73,19 @@ public class ISBN {
                 : value.equals(otherisbn.value);
     }
 
-
+    /**
+     * Το HashCode ενός ISBN.
+     * @return Το HashCode
+     */
     @Override
     public int hashCode() {
         return value == null ? 0 : value.hashCode();
     }
 
-
+    /**
+     * Το ISBN με την μορφή string.
+     * @return Το ISBN
+     */
     @Override
     public String toString() {
         return value;

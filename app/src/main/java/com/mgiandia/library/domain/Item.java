@@ -165,8 +165,10 @@ public class Item {
         setState(ItemState.LOST);
     }
 
-
-
+    /**
+     * Το αντίτυπο με την μορφή string.
+     * @return Το αντίτυπο
+     */
     @Override
     public String toString() {
         return String.valueOf(itemNumber);

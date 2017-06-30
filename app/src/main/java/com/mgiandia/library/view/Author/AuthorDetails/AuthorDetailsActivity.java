@@ -24,6 +24,11 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
 {
     AuthorDetailsPresenter presenter;
 
+    /**
+     * Ξεκινάει το activity ManageBooksActivity
+     * με παράμετρο το id του συγγραφέα.
+     * @param authorID Το id του συγγραφέα
+     */
     public void startShowBooks(int authorID)
     {
         Intent intent = new Intent(this, ManageBooksActivity.class);
@@ -31,6 +36,11 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
         startActivityForResult(intent, 100);
     }
 
+    /**
+     * Ξεκινάει το activity AddEditAuthorActivity
+     * με παράμετρο το id του συγγραφέα.
+     * @param authorID Το id του συγγραφέα
+     */
     public void startEdit(int authorID)
     {
         Intent intent = new Intent(this, AddEditAuthorActivity.class);
@@ -38,41 +48,75 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
         startActivityForResult(intent, 2);
     }
 
+    /**
+     * Επιστρέφει το id του συγγραφέα.
+     * @return Το id του συγγραφέα
+     */
     public int getAttachedAuthorID()
     {
         return this.getIntent().hasExtra("author_id") ? this.getIntent().getExtras().getInt("author_id") : null;
     }
 
+    /**
+     * Θέτει το id.
+     * @param value To id value
+     */
     public void setID(String value)
     {
         ((TextView)findViewById(R.id.text_user_id)).setText(value);
     }
 
+    /**
+     * Θέτει το πρώτο όνομα του συγγραφέα.
+     * @param value Το πρώτο όνομα του συγγραφέα
+     */
     public void setFirstName(String value)
     {
         ((TextView)findViewById(R.id.text_first_name)).setText(value);
     }
 
+    /**
+     * Θέτει το επώνυμο του συγγραφέα.
+     * @param value Το επώνυμο του συγγραφέα
+     */
     public void setLastName(String value)
     {
         ((TextView)findViewById(R.id.text_last_name)).setText(value);
     }
 
+    /**
+     * Θέτει τα βιβλία.
+     * @param value Το βιβλίο.
+     */
     public void setBooksWritten(String value)
     {
         ((TextView)findViewById(R.id.books_published_text)).setText(value);
     }
 
+    /**
+     * Θέτει το όνομα της σελίδας.
+     * @param value το όνομα της σελίδας
+     */
     public void setPageName(String value)
     {
         getSupportActionBar().setTitle(value);
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     public void showToast(String value)
     {
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState Το αποθηκευμένο instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -95,6 +139,15 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
         });
     }
 
+    /**
+     * Ξανα δημιουργεί το activity με νεό instance.
+     * Σε περίπτωση που ο ζητούμενος κώδικος είναι
+     * 2 και ο κωδικός του αποτελέσματος ειναι ok,
+     * εμφανίζει ενα toast.
+     * @param requestCode Ο ζητούμενος κώδικος
+     * @param resultCode Ο κωδικός του αποτελέσματος
+     * @param data Tο intent
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {

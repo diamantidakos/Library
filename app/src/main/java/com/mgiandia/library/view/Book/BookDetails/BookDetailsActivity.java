@@ -28,6 +28,11 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
 {
     BookDetailsPresenter presenter;
 
+    /**
+     * Ξεκινάει να τροποποιεί το βιβλίο με
+     * id bookID
+     * @param bookID Το id του βιβλίου που θα τροποποιηθεί
+     */
     public void startEdit(int bookID)
     {
         Intent intent = new Intent(this, AddEditBookActivity.class);
@@ -35,46 +40,83 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
         startActivityForResult(intent, 2);
     }
 
+    /**
+     * Επιστρέφει το id του βιβλίου.
+     * @return Το id του βιβλίου
+     */
     public int getAttachedBookID()
     {
         return this.getIntent().hasExtra("book_id") ? this.getIntent().getExtras().getInt("book_id") : null;
     }
 
+    /**
+     * Θέτει το id του βιβλίου.
+     * @param value Το id του βιβλίου.
+     */
     public void setID(String value)
     {
         ((TextView)findViewById(R.id.text_book_id)).setText(value);
     }
 
+    /**
+     * Θέτει τον τιτλο του βιβλίου.
+     * @param value Ο τιτλος του βιβλίου.
+     */
     public void setBookTitle(String value)
     {
         ((TextView)findViewById(R.id.text_book_title)).setText(value);
     }
 
+    /**
+     * Θέτει τον εκδότη του βιβλίου.
+     * @param value Ο εκδότης του βιβλίου.
+     */
     public void setPublisher(String value)
     {
         ((TextView)findViewById(R.id.text_book_publisher)).setText(value);
     }
 
+    /**
+     * Θέτει το ISBN του βιβλίου.
+     * @param value Το ISBN του βιβλίου.
+     */
     public void setISBN(String value)
     {
         ((TextView)findViewById(R.id.text_book_isbn)).setText(value);
     }
 
+    /**
+     * Θέτει το έτος δημοσίευσης του βιβλίου.
+     * @param value Το έτος δημοσίευσης του βιβλίου
+     */
     public void setPublication(String value)
     {
         ((TextView)findViewById(R.id.text_book_publication)).setText(value);
     }
 
+    /**
+     * Θέτει το έτος δημοσίευσης του βιβλίου.
+     * @param value Το έτος δημοσίευσης του βιβλίου
+     */
     public void setYear(String value)
     {
         ((TextView)findViewById(R.id.text_book_publicationyear)).setText(value);
     }
 
+    /**
+     * Θέτει τον αριθμό του βιβλίου.
+     * @param value Ο αριθμός του βιβλίου
+     */
     public void setItemsNo(String value)
     {
         ((TextView)findViewById(R.id.text_book_copies)).setText(value);
     }
 
+    /**
+     * Θέτει τους συγγραφείς του βιβλίου.
+     * @param author_ids Τα id των συγγραφέων
+     * @param author_names Τα ονόματα των συγγραφέων
+     */
     public void setAuthors(List<String> author_ids, List<String> author_names)
     {
         TableLayout table = (TableLayout)findViewById(R.id.author_parent_layout);
@@ -84,16 +126,30 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
             table.addView(add_author_to_table(author_ids.get(i), author_names.get(i)));
     }
 
+    /**
+     * Θέτει το όνομα της σελίδας.
+     * @param value Το όνομα της σελίδας
+     */
     public void setPageName(String value)
     {
         getSupportActionBar().setTitle(value);
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     public void showToast(String value)
     {
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState το Instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -109,6 +165,15 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
         });
     }
 
+    /**
+     * Ξανα δημιουργεί το activity με νεό instance.
+     * Σε περίπτωση που ο ζητούμενος κώδικος είναι
+     * 2 και ο κωδικός του αποτελέσματος ειναι ok,
+     * εμφανίζει ενα toast.
+     * @param requestCode Ο ζητούμενος κώδικος
+     * @param resultCode Ο κωδικός του αποτελέσματος
+     * @param data Tο intent
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -123,6 +188,14 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
             recreate();
     }
 
+    /**
+     * Δημιουργεί το κείμενο το οποίο εμφανίζεται στις λεπτομέριες
+     * του βιβλίου.
+     * @param text Το κείμενο το οποίο εμφανίζεται
+     * @param weight Το πόσο έντονο θα είναι το κείμενο
+     * @param color_resource Το χρώμα το οποίο θα είναι
+     * @return Το textview
+     */
     private TextView create_plain_text_view(String text, double weight, int color_resource)
     {
         TextView tx = new TextView(this);
@@ -137,6 +210,12 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
         return tx;
     }
 
+    /**
+     * Προσθέτει συγγραφέις στο βιβλίο
+     * @param title Ο αριθμός μπροστά από τον συγγραφέα
+     * @param details Το όνομα του συγγραφέα
+     * @return Το tablerow
+     */
     private TableRow add_author_to_table(String title, String details)
     {
         TableRow tr = new TableRow(this);

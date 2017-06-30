@@ -36,6 +36,11 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState το Instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +73,11 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
         });
     }
 
+    /**
+     * Τροποποιεί το κείμενο του δανιζόμενου.
+     * @param text Το κείμενο που θα τροποποιηθεί
+     * @return true
+     */
     public boolean onQueryTextChange(String text) {
         if (TextUtils.isEmpty(text))
             itemListView.clearTextFilter();
@@ -77,16 +87,31 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
         return true;
     }
 
+    /**
+     * Υποβάλλει το κείμενο του συγγραφέα.
+     * @param query Θέτει το κείμενο ως query
+     * @return false
+     */
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
 
+    /**
+     * Αδείαζει το κείμενο που βρίσκεται
+     * μέσα στην μπάρα αναζήτησης.
+     */
     private void clear_search_bar() {
         searchListView.setQuery("", false);
         searchListView.clearFocus();
         presenter.onLoadSource();
     }
 
+    /**
+     * Αδείαζει την μπάρα αναζήτησης
+     * @param requestCode Ο ζητούμενος κώδικος
+     * @param resultCode Ο κωδικός του αποτελέσματος
+     * @param data Tο intent
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -102,10 +127,19 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
         }
     }
 
+    /**
+     * Φορτώνει την λίστα με τους δανιζόμενους.
+     * @param input Η λιστα που θα φορτώσει
+     */
     public void loadSource(List<Quadruple> input) {
         adapter.loadSource(input);
     }
 
+    /**
+     * Μεταφερει τον χρήστη στο activity ManageLoansActivity
+     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
+     * @param uid To μοναδικό id του δανιζόμενου
+     */
     public void clickItemLoans(int uid)
     {
         Intent intent = new Intent(this, ManageLoansActivity.class);
@@ -113,6 +147,11 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * Μεταφερει τον χρήστη στο activity ManageReturnsActivity
+     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
+     * @param uid To μοναδικό id του δανιζόμενου
+     */
     public void clickItemReturns(int uid)
     {
         Intent intent = new Intent(this, ManageReturnsActivity.class);
@@ -120,6 +159,11 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * Μεταφερει τον χρήστη στο activity BorrowerDetailsActivity
+     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
+     * @param uid To μοναδικό id του δανιζόμενου
+     */
     public void clickItem(int uid)
     {
         Intent intent = new Intent(this, BorrowerDetailsActivity.class);
@@ -127,22 +171,38 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * Ξεκινάει το activity AddEditBorrowerActivity
+     */
     public void startAddNew()
     {
         Intent intent = new Intent(this, AddEditBorrowerActivity.class);
         startActivityForResult(intent, 0);
     }
 
+    /**
+     * Αν πρέπει να επιστρέψει τα δάνια
+     * @return Τα επιστραφόμενα δάνια
+     */
     public boolean shouldLoadLoansOnClick()
     {
         return this.getIntent().hasExtra("should_load_loans");
     }
 
+    /**
+     * Αν πρέπει να επιστρέψει τις επιστροφές
+     * @return Οι επιστροφές
+     */
     public boolean shouldLoadReturnsOnClick()
     {
         return this.getIntent().hasExtra("should_load_returns");
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     public void showToast(String value)
     {
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();

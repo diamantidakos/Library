@@ -150,7 +150,11 @@ public class SimpleCalendar implements  Comparable<SimpleCalendar> {
         return date.compareTo(other.date);
     }
 
-
+    /**
+     * Η ισότητα βασίζεται σε όλα τα πεδία της διεύθυνσης.
+     * @param other Το άλλο αντικείμενο προς έλεγχο
+     * @return  {@code true} αν τα αντικείμενα είναι ίσα
+     */
     @Override
     public boolean equals(Object other) {
         if (other == null) {
@@ -182,6 +186,10 @@ public class SimpleCalendar implements  Comparable<SimpleCalendar> {
         return true;
     }
 
+    /**
+     * Το HashCode μίας ημερομηνίας
+     * @return Το HashCode
+     */
     @Override
     public int hashCode() {
         return date == null ? 0 : date.hashCode();

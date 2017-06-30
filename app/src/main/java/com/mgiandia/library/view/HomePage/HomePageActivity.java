@@ -23,6 +23,11 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
 {
     private static boolean initialized = false;
 
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState το Instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,30 +84,51 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
         }
     }
 
+    /**
+     * Όταν πραγματοποιείται click στο ManageBorrowersActivity activity
+     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     */
     public void manageBorrowers()
     {
         Intent intent = new Intent(HomePageActivity.this, ManageBorrowersActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Όταν πραγματοποιείται click στο ManageBooksActivity activity
+     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     */
     public void manageBooks()
     {
         Intent intent = new Intent(HomePageActivity.this, ManageBooksActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Όταν πραγματοποιείται click στο ManageAuthorsActivity activity
+     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     */
     public void manageAuthors()
     {
         Intent intent = new Intent(HomePageActivity.this, ManageAuthorsActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Όταν πραγματοποιείται click στο ManagePublishersActivity activity
+     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     */
     public void managePublishers()
     {
         Intent intent = new Intent(HomePageActivity.this, ManagePublishersActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Όταν πραγματοποιείται click στο ManageBooksActivity activity
+     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
+     * ελέχεται αν πρέπει να φορτωθούν τα βιβλία.
+     */
     public void manageItems()
     {
         Intent intent = new Intent(HomePageActivity.this, ManageBooksActivity.class);
@@ -110,6 +136,11 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
         startActivity(intent);
     }
 
+    /**
+     * Όταν πραγματοποιείται click στο ManageBorrowersActivity activity
+     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
+     * ελέχεται αν πρέπει να φορτωθούν τα δάνια.
+     */
     public void manageLoans()
     {
         Intent intent = new Intent(HomePageActivity.this, ManageBorrowersActivity.class);
@@ -117,6 +148,11 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
         startActivity(intent);
     }
 
+    /**
+     * Όταν πραγματοποιείται click στο ManageBorrowersActivity activity
+     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
+     * ελέχεται αν πρέπει να φορτωθούν οι επιστροφές.
+     */
     public void manageReturns()
     {
         Intent intent = new Intent(HomePageActivity.this, ManageBorrowersActivity.class);

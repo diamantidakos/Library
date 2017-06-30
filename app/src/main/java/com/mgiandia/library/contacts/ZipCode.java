@@ -32,6 +32,11 @@ public class ZipCode {
         return true;
     }
 
+    /**
+     * Επαληθεύει to instanceof ενός ταχυδρομικού κώδικα.
+     * @param other Το άλλο αντικείμενο προς έλεγχο
+     * @return Τον ταχυδρομικό κώδικα
+     */
     @Override
     public boolean equals(Object other) {
         if (other == null) {
@@ -52,12 +57,19 @@ public class ZipCode {
             : zipcode.equals(theZipCode.zipcode);
     }
 
-
+    /**
+     * Το HashCode ενός ταχυδρομικού κώδικα.
+     * @return Το HashCode
+     */
     @Override
     public int hashCode() {
         return zipcode == null ? 0 : zipcode.hashCode();
     }
 
+    /**
+     * Ο ταχυδρομικός κώδικας με την μορφή string.
+     * @return Ο ταχυδρομικός κώδικας
+     */
     @Override
     public String toString() {
         return zipcode;

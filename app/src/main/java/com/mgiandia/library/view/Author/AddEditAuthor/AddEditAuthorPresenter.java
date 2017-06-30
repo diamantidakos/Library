@@ -16,6 +16,13 @@ public class AddEditAuthorPresenter {
     private AuthorDAO authors;
     Author attachedAuthor;
 
+    /**
+     * Αρχικοποεί τον Presenter έτσι ώστε
+     * αργότερα να προσθέθει ή να τροποποιήθει
+     * ο συγγραφέας.
+     * @param view Ένα instance του view
+     * @param authors Ένα instance του author
+     */
     public AddEditAuthorPresenter(AddEditAuthorView view, AuthorDAO authors) {
         this.view = view;
         this.authors = authors;
@@ -31,6 +38,13 @@ public class AddEditAuthorPresenter {
         }
     }
 
+    /**
+     * Κατα την αποθήκευση του συγγραφέα ελέγχει
+     * αν το όνομα και το επώνυμο ειναι πάνω από
+     * 2 χαρακτήρες και κάτω απο 15. Αν είναι
+     * εμφανίζει μήνυμα ότι ήταν επιτυχείς η
+     * εγγραφή ή η τροποποίηση.
+     */
     public void onSaveAuthor()
     {
         String

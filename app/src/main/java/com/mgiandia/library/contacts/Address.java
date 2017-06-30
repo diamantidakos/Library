@@ -170,7 +170,10 @@ public class Address {
         return true;
     }
 
-
+    /**
+     * Το HashCode της Ταχυδρομικής Διεύθυνσης.
+     * @return Το HashCode
+     */
     @Override
     public int hashCode() {
         if (street == null && number == null && city == null

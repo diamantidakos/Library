@@ -25,11 +25,22 @@ import com.mgiandia.library.memorydao.LoanDAOMemory;
 
 public class AddLoansActivity extends AppCompatActivity implements AddLoansView
 {
+    /**
+     * Εμφανίζει ενα μήνυμα τύπου alert με
+     * τίτλο title και μήνυμα message.
+     * @param title Ο τίτλος του μηνύματος
+     * @param message Το περιεχόμενο του μηνύματος
+     */
     public void showErrorMessage(String title, String message)
     {
         new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(message).setPositiveButton(R.string.ok, null).create().show();
     }
 
+    /**
+     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+     * επιτυχώς ένα activity.
+     * @param message Το μήνυμα που θα εμφανίσει
+     */
     public void successfullyAddLoanAndFinishActivity(String message)
     {
         Intent retData = new Intent();
@@ -38,16 +49,30 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
         finish();
     }
 
+    /**
+     * Επιστρέφει το id tου επιλεγόμενου βιβλίου.
+     * @return Το id tου επιλεγόμενου βιβλίου
+     */
     public int getSelectedBookId()
     {
         return ((Spinner)findViewById(R.id.edit_text_book)).getSelectedItemPosition()+1;
     }
 
+    /**
+     * Θέτει το id του δανιζόμενου για
+     * το επιλεγόμενο βιβλίο.
+     * @param value Το id του δανιζόμενου
+     */
     public void setBorrowerId(String value)
     {
         ((TextView)findViewById(R.id.edit_text_borrower)).setText(value);
     }
 
+    /**
+     * Θέτει την λίστα με τα ονόματα που
+     * θα εμφανίζονται.
+     * @param names Η λίστα με τα ονόματα
+     */
     public void setBookList(List<String> names)
     {
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, names);
@@ -55,21 +80,41 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
         ((Spinner) findViewById(R.id.edit_text_book)).setAdapter(adapter);
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα τύπου alert
+     * με τίτλο title και περιεχόμενο
+     * message.
+     * @param title Ο τίτλος του μηνύματος
+     * @param message Το περιεχόμενο του μηνύματος
+     */
     public void showAlert(String title, String message)
     {
         new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(message).setPositiveButton(R.string.ok, null).create().show();
     }
 
+    /**
+     * Επιστρέφει το id του βιβλίου.
+     * @return Το id του βιβλίου
+     */
     public int getAttachedBorrowerID()
     {
         return this.getIntent().getExtras().getInt("borrower_id");
     }
 
+    /**
+     * Θέτει το όνομα της σελίδας.
+     * @param value το όνομα της σελίδας
+     */
     public void setPageName(String value)
     {
         getSupportActionBar().setTitle(value);
     }
 
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState το Instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

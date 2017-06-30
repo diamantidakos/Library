@@ -15,6 +15,11 @@ public class AuthorDetailsPresenter
     private AuthorDetailsView view;
     private Author attachedAuthor;
 
+    /**
+     * Αρχικοποεί τον Presenter.
+     * @param view Ένα instance του view
+     * @param authors Ένα instance του author
+     */
     public AuthorDetailsPresenter(AuthorDetailsView view, AuthorDAO authors)
     {
         this.view = view;
@@ -31,16 +36,28 @@ public class AuthorDetailsPresenter
         view.setBooksWritten(booksWritten+" "+(booksWritten == 1 ? "Βιβλίο" : "Βιβλία"));
     }
 
+    /**
+     * Εμφανίζει το κουμπί της επεξεργασίας του
+     * συγγραφέα.
+     */
     void onStartEditButtonClick()
     {
         view.startEdit(attachedAuthor.getId());
     }
 
+    /**
+     * Το κουμπί που θα εμφανίσει όλα
+     * τα βιβλία του συγγραφέα.
+     */
     void onStartShowBooksButtonClick()
     {
         view.startShowBooks(attachedAuthor.getId());
     }
 
+    /**
+     * Εμφανίζει ενα μήνυμα με περιεχόμενο value.
+     * @param value To περιεχόμενο του μηνύματος
+     */
     void onShowToast(String value)
     {
         view.showToast(value);

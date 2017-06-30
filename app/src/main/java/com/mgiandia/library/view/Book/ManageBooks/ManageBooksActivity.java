@@ -38,6 +38,11 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
     private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState το Instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -75,6 +80,11 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
         });
     }
 
+    /**
+     * Τροποποιεί το κείμενο του βιβλίου.
+     * @param text Το κείμενο που θα τροποποιηθεί
+     * @return true
+     */
     public boolean onQueryTextChange(String text)
     {
         if (TextUtils.isEmpty(text))
@@ -85,11 +95,20 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
         return true;
     }
 
+    /**
+     * Υποβάλλει το κείμενο του βιβλίου.
+     * @param query Θέτει το κείμενο ως query
+     * @return false
+     */
     public boolean onQueryTextSubmit(String query)
     {
         return false;
     }
 
+    /**
+     * Αδείαζει το κείμενο που βρίσκεται
+     * μέσα στην μπάρα αναζήτησης.
+     */
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
@@ -97,6 +116,12 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
         presenter.onLoadSource();
     }
 
+    /**
+     * Αδείαζει την μπάρα αναζήτησης
+     * @param requestCode Ο ζητούμενος κώδικος
+     * @param resultCode Ο κωδικός του αποτελέσματος
+     * @param data Tο intent
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -116,11 +141,20 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
         }
     }
 
+    /**
+     * Φορτώνει την λίστα με τα βιβλία
+     * @param input Η λιστα που θα φορτώσει
+     */
     public void loadSource(List<Quadruple> input)
     {
         adapter.loadSource(input);
     }
 
+    /**
+     * Μεταφερει τον χρήστη στο activity BookDetailsActivity
+     * όταν γίνει click πάνω στο βιβλίο με id uid.
+     * @param uid To μοναδικό id του βιβλίου
+     */
     public void clickItem(int uid)
     {
         Intent intent = new Intent(this, BookDetailsActivity.class);
@@ -128,6 +162,11 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * Μεταφερει τον χρήστη στο activity ManageItemsActivity
+     * όταν γίνει click πάνω στο βιβλίο με id uid.
+     * @param uid To μοναδικό id του βιβλίου
+     */
     public void clickItemList(int uid)
     {
         Intent intent = new Intent(this, ManageItemsActivity.class);
@@ -135,32 +174,57 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * Ξεκινάει το activity AddEditBookActivity
+     */
     public void startAddNew()
     {
         Intent intent = new Intent(this, AddEditBookActivity.class);
         startActivityForResult(intent, 0);
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     public void showToast(String value)
     {
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Θέτει το όνομα της σελίδας.
+     * @param value το όνομα της σελίδας
+     */
     public void setPageName(String value)
     {
         getSupportActionBar().setTitle(value);
     }
 
+    /**
+     * Επιστρέφει το id του συγγραφέα.
+     * @return Το id του συγγραφέα
+     */
     public Integer getAttachedAuthorID()
     {
         return this.getIntent().hasExtra("author_id") ? this.getIntent().getExtras().getInt("author_id") : null;
     }
 
+    /**
+     * Επιστρέφει το id του εκδότη.
+     * @return Το id του εκδότη
+     */
     public Integer getAttachedPublisherID()
     {
         return this.getIntent().hasExtra("publisher_id") ? this.getIntent().getExtras().getInt("publisher_id") : null;
     }
 
+    /**
+     * Αποφασίζει με ποιο με τρόπο θα φορτώσει τα
+     * αντικείμενα.
+     * @return Τον τρόπο που θα φορτώσει τα αντικείμενα
+     */
     public boolean shouldLoadItemsOnClick()
     {
         return this.getIntent().hasExtra("should_load_items");
