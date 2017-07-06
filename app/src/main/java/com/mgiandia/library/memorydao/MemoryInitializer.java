@@ -19,6 +19,9 @@ import com.mgiandia.library.domain.Publisher;
 
 public class MemoryInitializer extends Initializer {
 
+    /**
+     * Διαγράφει τα αποθηκευμένα δεδομένα.
+     */
     @Override
     protected void eraseData() {
 
@@ -51,45 +54,77 @@ public class MemoryInitializer extends Initializer {
         }
     }
 
+    /**
+     * Επιστρέφει το DAO των συγγραφέων.
+     * @return Το DAO των συγγραφέων
+     */
     @Override
     public AuthorDAO getAuthorDAO()
     {
         return new AuthorDAOMemory();
     }
 
+    /**
+     * Επιστρέφει το DAO των βιβλίων.
+     * @return Το DAO των βιβλίων
+     */
     @Override
     public BookDAO getBookDAO()
     {
         return new BookDAOMemory();
     }
 
+    /**
+     * Επιστρέφει το DAO των κατηγοριών δανειζομένων.
+     * @return Το DAO των κατηγοριών δανειζομένων
+     */
     @Override
     public BorrowerCategoryDAO getBorrowerCategoryDAO()
     {
         return new BorrowerCategoryDAOMemory();
     }
 
+    /**
+     * Επιστρέφει το DAO των δανειζομένων.
+     * @return Το DAO των δανειζομένων
+     */
     @Override
     public BorrowerDAO getBorrowerDAO() {
         return new BorrowerDAOMemory();
     }
 
+    /**
+     * Επιστρέφει το DAO των αντιτύπων.
+     * @return Το DAO των αντιτύπων
+     */
     @Override
     public ItemDAO getItemDAO() {
         return new ItemDAOMemory();
     }
 
+    /**
+     * Επιστρέφει το DAO των δανείων.
+     * @return Το DAO των δανείων
+     */
     @Override
     public LoanDAO getLoanDAO() {
         return new LoanDAOMemory();
     }
 
+    /**
+     * Επιστρέφει το DAO των εκδοτικών οίκων.
+     * @return Το DAO των εκδοτικών οίκων
+     */
     @Override
     public PublisherDAO getPublisherDAO()
     {
         return new PublisherDAOMemory();
     }
 
+    /**
+     * Επιστρέφει το DAO των χωρών.
+     * @return Το DAO των χωρών
+     */
     @Override
     public CountryDAO getCountryDAO()
     {

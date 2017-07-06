@@ -27,6 +27,12 @@ public class AddEditPublisherPresenter
 
     private Publisher attachedPublisher;
 
+    /**
+     * Επαληθεύει την διεύθυνση ηλεκτρονικού ταχυδρομείου.
+     * @param email Η διεύθυνση ηλεκτρονικού ταχυδρομείου
+     * @return Ένα boolean αναλόγα με το αν ήταν
+     * η διεύθυνση ηλεκτρονικού ταχυδρομείου
+     */
     private boolean validateEmail(String email)
     {
         Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
@@ -34,6 +40,13 @@ public class AddEditPublisherPresenter
         return m.matches();
     }
 
+    /**
+     * Επαληθεύει αν η παράμετρος in αποτελείται
+     * μόνο απο αριθμούς.
+     * @param in Το κείμενο προς επαλήθευση
+     * @return Επιστρέφει ενα boolean αναλόγα με το
+     * αν ήταν αριθμός ή όχι
+     */
     private boolean verifyOnlyDigits(String in)
     {
         for(int i = 0; i < in.length(); i++)
@@ -43,6 +56,14 @@ public class AddEditPublisherPresenter
         return true;
     }
 
+    /**
+     * Αρχικοποεί τον Presenter έτσι ώστε
+     * αργότερα να προσθέθει ή να τροποποιήθει
+     * ο δανειζόμενος.
+     * @param view Ένα instance του view
+     * @param publishers Ένα instance του publisher
+     * @param countries Ένα instance του country
+     */
     public AddEditPublisherPresenter(AddEditPublisherView view, PublisherDAO publishers, List<String> countries)
     {
         this.view = view;
@@ -69,6 +90,16 @@ public class AddEditPublisherPresenter
         }
     }
 
+    /**
+     * Κατα την αποθήκευση του δανειζόμενου ελέγχει
+     * αν το όνομα, η πόλη, η όδος και το επώνυμο ειναι πάνω από
+     * 2 χαρακτήρες και κάτω απο 15. Επίσης ελέγχει
+     * αν ήταν ορθή η διεύθυνση ηλεκτρονικού ταχυδρομείου
+     * και υπαρχούν 2 εώς 10 αριθμητικά ψηφία στον αριθμό και
+     * στον ταχυδρομικό κώδικα. Τέλος μφανίζει μήνυμα ότι
+     * ήταν επιτυχείς η εγγραφή ή η τροποποίηση αν πληρήθηκαν
+     * οι από πάνω έλεγχοι.
+     */
     public void onSavePublisher()
     {
         String

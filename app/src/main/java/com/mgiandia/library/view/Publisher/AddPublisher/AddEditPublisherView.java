@@ -19,22 +19,81 @@ public interface AddEditPublisherView
     String getAddressStreet();
     String getAddressNumber();
     String getAddressPostalCode();
-
     Integer getAttachedPublisherID();
 
+    /**
+     * Θέτει το όνομα του εκδότη.
+     * @param value Το όνομα του εκδότη
+     */
     void setName(String value);
+
+    /**
+     * Θέτει τον αρι8μό του εκδότη.
+     * @param value Ο αρι8μός του εκδότη
+     */
     void setPhone(String value);
+
+    /**
+     * Θέτει τον αριθμό ηλελτρονικό ταχυδρομίου του εκδότη.
+     * @param value Ο αρι8μός του ηλελτρονικό ταχυδρομίου του εκδότη.
+     */
     void setEmail(String value);
+
+    /**
+     * Θέτει την θέση της χώρας του εκδότη.
+     * @param value Ο αριθμός της θέσης του εκδότη
+     */
     void setCountryPosition(Integer value);
+
+    /**
+     * Θέτει την πόλη του εκδότη.
+     * @param value Η πόλη του εκδότη
+     */
     void setAddressCity(String value);
+
+    /**
+     * Θέτει την οδό του εκδότη.
+     * @param value Η οδός του εκδότη
+     */
     void setAddressStreet(String value);
+
+    /**
+     * Θέτει τον αριθμό του εκδότη.
+     * @param value Ο αριθμός του εκδότη
+     */
     void setAddressNumber(String value);
+
+    /**
+     * Θέτει τον ταχυδρομικό κώδικα.
+     * @param value Ο ταχυδρομικός κώδικας
+     */
     void setAddressPostalCode(String value);
 
+    /**
+     * Θέτει το όνομα της σελίδας.
+     * @param value το όνομα της σελίδας
+     */
     void setPageName(String value);
 
+    /**
+     * Θέτει από την λίστα με τα ονόματα των χωρών
+     * το όνομα.
+     * @param names Η λίστα με τα ονόματα των χωρων
+     */
     void setCountryList(List<String> names);
 
+    /**
+     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+     * επιτυχώς ένα activity.
+     * @param message Το μήνυμα που θα εμφανίσει
+     */
     void successfullyFinishActivity(String message);
+
+    /**
+     * Εμφανίζει ενα μήνυμα τύπου alert με
+     * τίτλο title και μήνυμα message.
+     * @param title Ο τίτλος του μηνύματος
+     * @param message Το περιεχόμενο του μηνύματος
+     */
     void showErrorMessage(String title, String message);
 }

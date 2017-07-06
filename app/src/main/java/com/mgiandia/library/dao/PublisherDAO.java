@@ -13,10 +13,35 @@ import com.mgiandia.library.domain.Publisher;
 
 public interface PublisherDAO
 {
-    Publisher find(int author_id);
+    /**
+     * Βρίσκει έναν εκδοτικό οίκο με βάση τον κωδικό του.
+     * @param publisherΙd Ο κωδικός του εκδοτικού οίκου
+     * @return Ο εκδοτικός οίκος που βρέθηκε ή null
+     */
+    Publisher find(int publisherΙd);
+
+
+    /**
+     * Επιστρέφει όλους τους εκδοτικούς οίκους.
+     * @return Οι εκδοτικοί οίκοι
+     */
     List<Publisher> findAll();
+
+    /**
+     * Αποθηκεύει έναν εκδοτικό οίκο.
+     * @param entity Ο εκδοτικός οίκος
+     */
     void save(Publisher entity);
+
+    /**
+     * Διαγράφει έναν εκδοτικό οίκο.
+     * @param entity Ο εκδοτικός οίκος
+     */
     void delete(Publisher entity);
 
+    /**
+     * Επιστρέφει τον επώμενο κωδικό που μπορέι να αποδοθεί σε έναν εκδοτικό οίκο.
+     * @return Ο κωδικός του εκδοτικού οίκου
+     */
     int nextId();
 }

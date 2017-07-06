@@ -23,6 +23,11 @@ public class ManageReturnsPresenter
     private LoanDAO loans;
     private Borrower borrower;
 
+    /**
+     * Επιστρέφει τα δεδομένα για μία λίστα από δανιζόμενα βιβλία.
+     * @param loans Τα δανιζόμενα βιβλία στα οποία θα επιστραφούν τα δεδομένα
+     * @return Μία λίστα με τις λεπτομέριες των δανιζόμενων βιβλίων
+     */
     private List<Quadruple> createDataSource(List<Loan> loans)
     {
         List<Quadruple> triplets = new ArrayList<>();
@@ -34,6 +39,14 @@ public class ManageReturnsPresenter
         return triplets;
     }
 
+    /**
+     * Επιστρέφει τα δανιζόμενα βιβλία για τον δανιζόμενο
+     * borrower.
+     * @param loans Tα δανιζόμενα βιβλία στα οποία θα
+     * επιστραφούν τα δεδομένα
+     * @param borrower O δανιζόμενος
+     * @return Τα βιβλία του δανιζόμενου
+     */
     private ArrayList<Loan> filterLoans(LoanDAO loans, Borrower borrower)
     {
         ArrayList<Loan> tmp = new ArrayList<>();
@@ -45,6 +58,13 @@ public class ManageReturnsPresenter
         return tmp;
     }
 
+    /**
+     * Αρχικοποεί τον Presenter έτσι ώστε
+     * αργότερα να πραγματοποιηθούν οι επιστροφές.
+     * @param view Ένα instance του view
+     * @param borrowers Ένα instance του borrower
+     * @param loans Ένα instance του loan
+     */
     public ManageReturnsPresenter(ManageReturnsView view, LoanDAO loans, BorrowerDAO borrowers)
     {
         this.view = view;
@@ -56,12 +76,24 @@ public class ManageReturnsPresenter
         onLoadSource();
     }
 
+    /**
+     * Πριν πραγματοποιηθεί η τροποποίηση του βιβλίου με id uid
+     * εμφανίζεται το παρακάτω μήνυμα.
+     * @param uid Το μοναδικό id του βιβλίου
+     */
     void onClickItem(int uid)
     {
         Borrower borrower = loans.find(uid).getBorrower();
         view.newLoanStateSelectAlert(uid, "Τροποποίηση κατάστασης αντιτύπου", "Θέλετε να τροποποιήσετε την κατάσταση του αντιτύπου; Αυτή τι στιγμή είναι δανεισμένο στον δανειζόμενο '"+borrower.getLastName()+" "+borrower.getFirstName()+"';");
     }
 
+    /**
+     * Κατα την αλλαγή της κατάστασης ενός δανιζομένου
+     * βιβλίου αλλάζετε η κατάσταση του ως επιστραμένο ή
+     * χαμένο και εμφανίζετε ανάλογο μήνυμα.
+     * @param uid Το μοναδικό id του βιβλίου
+     * @param returnedElseLost Ένα boolean με την κατάσταση του βιβλίου
+     */
     void onChangeItemState(int uid, boolean returnedElseLost)
     {
         Loan loan = loans.find(uid);
@@ -83,11 +115,17 @@ public class ManageReturnsPresenter
         }
     }
 
+    /**
+     * Εμφανίζει ενα μήνυμα alert.
+     */
     void onAddNewItem()
     {
         view.showAlert("Επιστροφή Αντιτύπου", "Επιλέξτε ένα αντίτυπο από τη λίστα προκειμένου να το επιστρέψετε ή να το σημειώσετε ως χαμένο.");
     }
 
+    /**
+     * Φορτώνει την λίστα με τους δανιζόμενους.
+     */
     void onLoadSource()
     {
         view.loadSource(createDataSource(filterLoans(loans, borrower)));

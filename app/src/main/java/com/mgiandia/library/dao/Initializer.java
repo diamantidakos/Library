@@ -52,10 +52,16 @@ public abstract class Initializer
     public static final int UML_USER_GUIDE_ID2 = 4;
     public static final int UML_DISTILLED_ID2 = 2;
 
-
-    //διαγράφουμε όλα τα δεδομένα στη βάση δεδομένων
+    /**
+     * Διαγράφει τα αποθηκευμένα δεδομένα.
+     */
     protected abstract void eraseData();
 
+    /**
+     * Προσθέτει ένα αντίτυπο ενός συγκεκριμένου βιβλίου.
+     * @param book Το βιβλίο
+     * @return Το αντίτυπο που προστέθηκε
+     */
     private Item addOneBookCopy(Book book)
     {
         ItemDAO item = getItemDAO();
@@ -65,6 +71,11 @@ public abstract class Initializer
         return itemTmp;
     }
 
+    /**
+     * Αλλάζει την κατάσταση ενός συγκεκριμένου αντιτύπου σε καινούργιο.
+     * @param item Το αντίτυπο
+     * @return Το αντίτυπο
+     */
     public Item makeAvailable(Item item)
     {
         if(item.getState() == ItemState.NEW)
@@ -73,6 +84,9 @@ public abstract class Initializer
         return item;
     }
 
+    /**
+     * Εισάγει τα δοκιμαστικά δεδομένα.
+     */
     public void prepareData()
     {
         // πριν εισάγουμε τα δεδομένα διαγράφουμε ότι υπάρχει
@@ -190,12 +204,51 @@ public abstract class Initializer
         loans.save(makeAvailable(addOneBookCopy(bookDao.find(1))).borrow(borrowerDao.find(1), getLoanDAO().nextId()));
     }
 
+    /**
+     * Επιστρέφει το DAO των συγγραφέων.
+     * @return Το DAO των συγγραφέων
+     */
     public abstract AuthorDAO getAuthorDAO();
+
+    /**
+     * Επιστρέφει το DAO των βιβλίων.
+     * @return Το DAO των βιβλίων
+     */
     public abstract BookDAO getBookDAO();
+
+    /**
+     * Επιστρέφει το DAO των κατηγοριών δανειζομένων.
+     * @return Το DAO των κατηγοριών δανειζομένων
+     */
     public abstract BorrowerCategoryDAO getBorrowerCategoryDAO();
+
+    /**
+     * Επιστρέφει το DAO των δανειζομένων.
+     * @return Το DAO των δανειζομένων
+     */
     public abstract BorrowerDAO getBorrowerDAO();
+
+    /**
+     * Επιστρέφει το DAO των αντιτύπων.
+     * @return Το DAO των αντιτύπων
+     */
     public abstract ItemDAO getItemDAO();
+
+    /**
+     * Επιστρέφει το DAO των δανείων.
+     * @return Το DAO των δανείων
+     */
     public abstract LoanDAO getLoanDAO();
+
+    /**
+     * Επιστρέφει το DAO των εκδοτικών οίκων.
+     * @return Το DAO των εκδοτικών οίκων
+     */
     public abstract PublisherDAO getPublisherDAO();
+
+    /**
+     * Επιστρέφει το DAO των χωρών.
+     * @return Το DAO των χωρών
+     */
     public abstract CountryDAO getCountryDAO();
 }

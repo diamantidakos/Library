@@ -11,5 +11,9 @@ import java.util.List;
 
 public interface CountryDAO
 {
+    /**
+     * Επιστρέφει όλες τις χώρες. Η κάθε χώρα είναι σε μορφή String.
+     * @return Οι χώρες
+     */
     List<String> getCountries();
 }

@@ -19,6 +19,11 @@ public class ManagePublishersPresenter
     private ManagePublishersView view;
     private PublisherDAO publishers;
 
+    /**
+     * Επιστρέφει τα δεδομένα για μία λίστα από εκδότες.
+     * @param publishers Οι εκδότες στους οποίους θα επιστραφούν τα δεδομένα
+     * @return Μία λίστα με τις λεπτομέριες των εκδοτών
+     */
     private List<Quadruple> createDataSource(List<Publisher> publishers)
     {
         List<Quadruple> triplets = new ArrayList<>();
@@ -29,6 +34,11 @@ public class ManagePublishersPresenter
         return triplets;
     }
 
+    /**
+     * Αρχικοποεί τον Presenter.
+     * @param view Ένα instance του view
+     * @param publishers Ένα instance του publisher
+     */
     public ManagePublishersPresenter(ManagePublishersView view, PublisherDAO publishers)
     {
         this.view = view;
@@ -37,21 +47,38 @@ public class ManagePublishersPresenter
         onLoadSource();
     }
 
+    /**
+     * Μεταφερει τον χρήστη στο activity PublisherDetailsActivity
+     * όταν γίνει click πάνω στον εκδότη με id uid.
+     * @param uid To μοναδικό id του εκδότη
+     */
     void onClickItem(int uid)
     {
         view.clickItem(uid);
     }
 
+    /**
+     * Ξεκινάει το activity AddEditPublisherActivity
+     */
     void onStartAddNew()
     {
         view.startAddNew();
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     void onShowToast(String value)
     {
         view.showToast(value);
     }
 
+    /**
+     * Φορτώνει την λίστα με τους εκδότες.
+     * @param input Η λιστα που θα φορτώσει
+     */
     void onLoadSource()
     {
         view.loadSource(createDataSource(publishers.findAll()));

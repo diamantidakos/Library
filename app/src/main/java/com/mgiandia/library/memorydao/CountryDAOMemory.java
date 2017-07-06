@@ -222,6 +222,10 @@ public class CountryDAOMemory implements CountryDAO
             "Χονγκ Κονγκ"
     );
 
+    /**
+     * Επιστρέφει όλες τις χώρες. Η κάθε χώρα είναι σε μορφή String.
+     * @return Οι χώρες
+     */
     public List<String> getCountries()
     {
         return entities;
