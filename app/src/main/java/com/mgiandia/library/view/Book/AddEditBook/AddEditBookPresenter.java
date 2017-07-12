@@ -31,6 +31,13 @@ public class AddEditBookPresenter {
 
     private Book attachedBook;
 
+    /**
+     * Επαληθεύει ότι ενα κείμενο περιέχει
+     * μόνο αριθμούς.
+     * @param in To text που θα επαληθευτεί
+     * @return true αν περιέχει μόνο αριθμόυς
+     * αλλιώς false.
+     */
     private boolean verifyOnlyDigits(String in)
     {
         for(int i = 0; i < in.length(); i++)
@@ -40,6 +47,15 @@ public class AddEditBookPresenter {
         return true;
     }
 
+    /**
+     * Αρχικοποεί τον Presenter έτσι ώστε
+     * αργότερα να προσθέσει ή να τροποποιήσει.
+     * @param view Ένα instance του view
+     * @param books Ένα instance του book
+     * @param publishers Ένα instance του publisher
+     * @param authors Ένα instance του author
+     * @param items Ένα instance του Item
+     */
     public AddEditBookPresenter(AddEditBookView view, BookDAO books, PublisherDAO publishers, AuthorDAO authors, ItemDAO items)
     {
         this.view = view;
@@ -78,6 +94,12 @@ public class AddEditBookPresenter {
         }
     }
 
+    /**
+     * Αποθηκεύει το βιβλίο. Ελέγχει αν ο τίτλος, το ISBN και η δημοσίευση
+     * ειναι από 2 εώς 15 χαρακτήρες. Επίσης ελέγχει αν έχει επιλεγθει
+     * εκδοτικός οίκος και συγγραφέας. Τέλος ενημερώνει αν ήταν
+     * επιτυχής η εισαγωγή ή η τροποποίηση του βιβλίου.
+     */
     public void onSaveBook()
     {
         String

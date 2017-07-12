@@ -36,6 +36,11 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
     private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState το Instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -73,6 +78,11 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
         });
     }
 
+    /**
+     * Τροποποιεί το κείμενο.
+     * @param text Το κείμενο που θα τροποποιηθεί
+     * @return true
+     */
     public boolean onQueryTextChange(String text)
     {
         if (TextUtils.isEmpty(text))
@@ -83,11 +93,20 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
         return true;
     }
 
+    /**
+     * Υποβάλλει το κείμενο.
+     * @param query Θέτει το κείμενο ως query
+     * @return false
+     */
     public boolean onQueryTextSubmit(String query)
     {
         return false;
     }
 
+    /**
+     * Αδείαζει το κείμενο που βρίσκεται
+     * μέσα στην μπάρα αναζήτησης.
+     */
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
@@ -95,21 +114,39 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
         presenter.onLoadSource();
     }
 
+    /**
+     * Φορτώνει την λίστα με τους δανιζόμενους.
+     * @param input Η λιστα που θα φορτώσει
+     */
     public void loadSource(List<Quadruple> input)
     {
         adapter.loadSource(input);
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     public void showToast(String value)
     {
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Εμφανίζει ενα μήνυμα σε μορφή alert
+     * με περιεχόμενο message και τίτλο title.
+     * @param title Ο τίτλος του μηνύματος
+     * @param message Το περιεχόμενο του μηνύματος
+     */
     public void showAlert(String title, String message)
     {
         new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(message).setPositiveButton(R.string.ok, null).create().show();
     }
 
+    /**
+     * Ξεκινάει το activity AddLoansActivity
+     */
     public void startAddNew(int uid)
     {
         Intent intent = new Intent(this, AddLoansActivity.class);
@@ -117,16 +154,30 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
         startActivityForResult(intent, 0);
     }
 
+    /**
+     * Επιστρέφει το id του δανιζόμενου
+     * @return Το id του δανιζόμενου
+     */
     public int getAttachedBorrowerID()
     {
         return this.getIntent().getExtras().getInt("borrower_id");
     }
 
+    /**
+     * Θέτει το όνομα της σελίδας.
+     * @param value το όνομα της σελίδας
+     */
     public void setPageName(String value)
     {
         getSupportActionBar().setTitle(value);
     }
 
+    /**
+     * Αδείαζει την μπάρα αναζήτησης
+     * @param requestCode Ο ζητούμενος κώδικος
+     * @param resultCode Ο κωδικός του αποτελέσματος
+     * @param data Tο intent
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {

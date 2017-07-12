@@ -15,6 +15,13 @@ import android.widget.ImageView;
 
 public class PixelUtils
 {
+    /**
+     * Σχεδιάζει ένα oval σχήμα ενός χρώματος και δύο γράμματα στο κέντρο του.
+     * @param context Το context που αφορά το συγκεκριμένο activity
+     * @param iv Το ImageView πάνω στο οποίο θα τοποθετηθεί η εικόνα
+     * @param name Το string από το οποίο θα εξαχθούν τα δύο γράμματα
+     * @param colorResourceList Τα πιθανά χρώματα του oval
+     */
     public static void drawInitialsImage(Context context, ImageView iv, String name, int[] colorResourceList)
     {
         int viewWidth = iv.getLayoutParams().width;

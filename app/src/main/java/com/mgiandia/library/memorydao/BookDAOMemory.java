@@ -16,20 +16,37 @@ import com.mgiandia.library.domain.Book;
 public class BookDAOMemory implements BookDAO {
     protected static ArrayList<Book> entities = new ArrayList<Book>();
 
+    /**
+     * Διαγράφει ένα βιβλίο.
+     * @param entity Το βιβλίο
+     */
     public void delete(Book entity) {
         entities.remove(entity);
     }
 
+    /**
+     * Επιστρέφει όλα τα βιβλία.
+     * @return Τα βιβλία
+     */
     public List<Book> findAll() {
         ArrayList<Book> result = new ArrayList<Book>();
         result.addAll(entities);
         return result;
     }
 
-    public void save(Book book) {
-        entities.add(book);
+    /**
+     * Αποθηκεύει ένα βιβλίο.
+     * @param entity Το βιβλίο
+     */
+    public void save(Book entity) {
+        entities.add(entity);
     }
 
+    /**
+     * Βρίσκει ένα βιβλίο με βάση τον κωδικό του.
+     * @param uid Ο κωδικός του βιβλίο
+     * @return Το βιβλίο που βρέθηκε ή null
+     */
     public Book find(int uid)
     {
         for(Book now : entities)
@@ -39,6 +56,10 @@ public class BookDAOMemory implements BookDAO {
         return null;
     }
 
+    /**
+     * Επιστρέφει τον επώμενο κωδικό που μπορέι να αποδοθεί σε ένα βιβλίο.
+     * @return Ο κωδικός του βιβλίου
+     */
     @Override
     public int nextId()
     {

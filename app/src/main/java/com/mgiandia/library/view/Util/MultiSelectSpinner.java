@@ -21,19 +21,40 @@ public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinn
     private boolean[] selectedIndexes;
     int selectedNo;
 
+    /**
+     * Κατασκευαστής με παράμετρο το Context.
+     * @param arg0 Το Context που αφορά το συγκεκριμένο activity
+     */
     public MultiSelectSpinner(Context arg0)
     {
         super(arg0);
     }
 
+    /**
+     * Κατασκευαστής με παράμετρο το Context και το AttributeSet.
+     * @param arg0 Το Context που αφορά το συγκεκριμένο activity
+     * @param arg1 Το AttributeSet
+     */
     public MultiSelectSpinner(Context arg0, AttributeSet arg1) {
         super(arg0, arg1);
     }
 
+    /**
+     * Κατασκευαστής με παράμετρο το Context, το AttributeSet και έναν ακέραιο.
+     * @param arg0 Το Context που αφορά το συγκεκριμένο activity
+     * @param arg1 Το AttributeSet
+     * @param arg2 Ένας ακέραιος
+     */
     public MultiSelectSpinner(Context arg0, AttributeSet arg1, int arg2) {
         super(arg0, arg1, arg2);
     }
 
+    /**
+     * Καλείται όταν γίνει click σε κάποιο item του Spinner.
+     * @param dialog Το DialogInterface
+     * @param index Το index όπου έγινε το click
+     * @param checked Αν το γεγονός είναι check ή un-check
+     */
     @Override
     public void onClick(DialogInterface dialog, int index, boolean checked)
     {
@@ -43,6 +64,10 @@ public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinn
         selectedIndexes[index] = checked;
     }
 
+    /**
+     * Καλείται όταν το Dialog γίνει cancel.
+     * @param dialog Το DialogInterface
+     */
     @Override
     public void onCancel(DialogInterface dialog)
     {
@@ -52,6 +77,10 @@ public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinn
         this.onItemsSelected(selectedIndexes);
     }
 
+    /**
+     * Καλείται όταν γίνει click για να εμφανιστεί ο spinner με τις επιλογές.
+     * @return Αν η ενεργοποίηση εκτελέστηκε επιτυχώς
+     */
     @Override
     public boolean performClick()
     {
@@ -71,6 +100,10 @@ public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinn
         return true;
     }
 
+    /**
+     * Ορίζει ως επιλεγμένα κάποια συγκεκριμένα αντικείμενα.
+     * @param indexes Τα indexes των αντικειμένων
+     */
     public void setSelectedItems(List<Integer> indexes)
     {
 
@@ -80,6 +113,10 @@ public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinn
         onCancel(null);
     }
 
+    /**
+     * Ορίζει τα ονόματα των αντικειμένων.
+     * @param items Τα ονόματα με τη μορφή String
+     */
     public void setItems(List<String> items)
     {
         this.items = items;
@@ -87,16 +124,28 @@ public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinn
         this.selectedNo = 0;
     }
 
+    /**
+     * Επιστρέφει ποια από τα αντικείμενα έχουν επιλεγεί.
+     * @return Για κάθε αντικείμενο ένας boolean που συμβολίζει αν είναι επιλεγμένο ή όχι το αντικείμενο
+     */
     public boolean[] getItemsIndexes()
     {
         return selectedIndexes;
     }
 
+    /**
+     * Επιστρέφει πόσα αντικείμενα έχουν επιλεγεί συνολικά.
+     * @return Ο αριθμός των επιλεγμένων αντικειμένων
+     */
     public int getItemsIndexesNo()
     {
         return selectedNo;
     }
 
+    /**
+     * Δεν χρησιμοποιείται
+     * @param selected boolean array
+     */
     public void onItemsSelected(boolean[] selected)
     {
 

@@ -34,6 +34,11 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
     private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState το Instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -71,6 +76,11 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
         });
     }
 
+    /**
+     * Τροποποιεί το κείμενο.
+     * @param text Το κείμενο που θα τροποποιηθεί
+     * @return true
+     */
     public boolean onQueryTextChange(String text)
     {
         if (TextUtils.isEmpty(text))
@@ -81,11 +91,20 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
         return true;
     }
 
+    /**
+     * Υποβάλλει το κείμενο.
+     * @param query Θέτει το κείμενο ως query
+     * @return false
+     */
     public boolean onQueryTextSubmit(String query)
     {
         return false;
     }
 
+    /**
+     * Αδείαζει το κείμενο που βρίσκεται
+     * μέσα στην μπάρα αναζήτησης.
+     */
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
@@ -93,11 +112,22 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
         presenter.onLoadSource();
     }
 
+    /**
+     * Φορτώνει την λίστα με τις επιστροφές.
+     * @param input Η λιστα που θα φορτώσει
+     */
     public void loadSource(List<Quadruple> input)
     {
         adapter.loadSource(input);
     }
 
+    /**
+     * Κατα την αλλαγή της κατάστασης ενός δανίου
+     * εμφανίζεται ένα μήνυμα μορφής alert.
+     * @param uid To μοναδικό id του δανιζόμενου
+     * @param title Ο τίτλος του μηνύματος
+     * @param message Το περιεχόμενο του μηνύματος
+     */
     public void newLoanStateSelectAlert(int uid, String title, String message)
     {
         final int tmp = uid;
@@ -130,26 +160,49 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
             }).create().show();
     }
 
+    /**
+     * Κατα την ανανέωση της σελίδας
+     * διαγράφετε η μπάρα αναζήτησης
+     */
     public void refresh()
     {
         clear_search_bar();
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     public void showToast(String value)
     {
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value σε μορφή alert.
+     * @param title O τίτλος του μηνύματος
+     * @param message Το περιεχόμενο του μηνύματος
+     */
     public void showAlert(String title, String message)
     {
         new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(message).setPositiveButton(R.string.ok, null).create().show();
     }
 
+    /**
+     * Επιστρέφει το id του δανιζόμενου.
+     * @return Το id του δανιζόμενου
+     */
     public int getAttachedBorrowerID()
     {
         return this.getIntent().getExtras().getInt("borrower_id");
     }
 
+    /**
+     * Θέτει το όνομα της σελίδας.
+     * @param value το όνομα της σελίδας
+     */
     public void setPageName(String value)
     {
         getSupportActionBar().setTitle(value);

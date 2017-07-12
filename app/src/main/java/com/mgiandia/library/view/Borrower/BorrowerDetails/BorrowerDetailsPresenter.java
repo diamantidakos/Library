@@ -19,6 +19,12 @@ public class BorrowerDetailsPresenter
     private BorrowerDAO borrowers;
     private Borrower attachedBorrower;
 
+    /**
+     * Αρχικοποεί τον Presenter.
+     * @param view Ένα instance του view
+     * @param borrowers Ένα instance του borrower
+     * @param loans Ένα instance του loan
+     */
     public BorrowerDetailsPresenter(BorrowerDetailsView view, BorrowerDAO borrowers, LoanDAO loans)
     {
         this.view = view;
@@ -43,16 +49,29 @@ public class BorrowerDetailsPresenter
         view.setAddressPostalCode(attachedBorrower.getAddress().getZipCode().getCode());
     }
 
+    /**
+     * Εμφανίζει το κουμπί της επεξεργασίας του
+     * δανιζόμενου.
+     */
     public void onStartEditButtonClick()
     {
         view.startEdit(attachedBorrower.getBorrowerNo());
     }
 
+    /**
+     * Εμφανίζει το κουμπί της διαγραφής του
+     * δανιζόμενου.
+     */
     public void onStartDeleteButtonClick()
     {
         view.startDelete("Διαγραφή Δανειζομένου;", "Όλα τα βιβλία που δεν έχουν επιστραφεί θα σημειωθούν ως χαμένα.");
     }
 
+    /**
+     * Κατα την διαγραφή του δανιζόμενου
+     * το μήνυμα που εμφανίζεται καθώς και
+     * η ολοκλήρωση της διαγραφής του.
+     */
     void onDoDeleteAndFinish()
     {
         String msg = "Επιτυχής διαγραφή του δανειζόμενου '"+attachedBorrower.getLastName()+" "+ attachedBorrower.getFirstName()+"'!";
@@ -69,6 +88,10 @@ public class BorrowerDetailsPresenter
         view.doDeleteAndFinish(msg);
     }
 
+    /**
+     * Εμφανίζει ενα μήνυμα με περιεχόμενο value.
+     * @param value To περιεχόμενο του μηνύματος
+     */
     public void onShowToast(String value)
     {
         view.showToast(value);

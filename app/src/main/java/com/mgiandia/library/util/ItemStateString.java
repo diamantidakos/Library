@@ -11,6 +11,12 @@ import com.mgiandia.library.domain.ItemState;
 
 public class ItemStateString
 {
+    /**
+     * Επιστρέφει την κατάσταση των βιβλίων
+     * σε μορφή string array.
+     * @param state Η κατάσταση του βιβλίου
+     * @return Η κατάσταση του βιβλίου ως string array
+     */
     public static String[] convert(ItemState[] state)
     {
         String[] values = new String[state.length];
@@ -21,6 +27,12 @@ public class ItemStateString
         return values;
     }
 
+    /**
+     * Επιστρέφει την κατάσταση του βιβλίου
+     * σε μορφή string.
+     * @param state Η κατάσταση του βιβλίου
+     * @return Η κατάσταση του βιβλίου ως string
+     */
     public static String convert(ItemState state)
     {
         if(state == ItemState.NEW)

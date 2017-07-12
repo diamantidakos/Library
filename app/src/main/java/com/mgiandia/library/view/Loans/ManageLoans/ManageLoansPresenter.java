@@ -22,6 +22,11 @@ public class ManageLoansPresenter
     private LoanDAO loans;
     private Borrower borrower;
 
+    /**
+     * Επιστρέφει τα δεδομένα για μία λίστα από δάνεια.
+     * @param loans Τα δάνια στα οποίοα θα επιστραφούν τα δεδομένα
+     * @return Μία λίστα με τις λεπτομέριες των δανείων
+     */
     private List<Quadruple> createDataSource(List<Loan> loans)
     {
         List<Quadruple> triplets = new ArrayList<>();
@@ -33,6 +38,14 @@ public class ManageLoansPresenter
         return triplets;
     }
 
+    /**
+     * Δέχεται μία λίστα με δάνια και δανιζόμενους
+     * και επιστρέφει τους δανιζόμενους που έχουν
+     * αυτά τα δάνια.
+     * @param loans Ένα instance του loan
+     * @param borrower Ένα instance του borrower
+     * @return Μία λιστα με τους δανειζόμενους
+     */
     private ArrayList<Loan> filterLoans(LoanDAO loans, Borrower borrower)
     {
         ArrayList<Loan> tmp = new ArrayList<>();
@@ -43,7 +56,12 @@ public class ManageLoansPresenter
 
         return tmp;
     }
-
+    /**
+     * Αρχικοποεί τον Presenter.
+     * @param view Ένα instance του view
+     * @param loans Ένα instance του loan
+     * @param borrowers Ένα instance του borrower
+     */
     public ManageLoansPresenter(ManageLoansView view, LoanDAO loans, BorrowerDAO borrowers)
     {
         this.view = view;
@@ -55,20 +73,36 @@ public class ManageLoansPresenter
         onLoadSource();
     }
 
+    /**
+     * Ξεκινάει το activity AddLoansActivity
+     */
     void onAddNewItem()
     {
         view.startAddNew(view.getAttachedBorrowerID());
     }
 
+    /**
+     * Εμφανίζει ενα μήνυμα μορφής toast
+     * @param uid To μοναδικό id του δανιζόμενου
+     */
     void onClickItem(int uid)
     {
         view.showAlert("Τροποποίηση κατάστασης αντιτύπου", "Για να τροποποιήσετε την κατάσταση του αντιτύπου χρησιμοποιήστε την Περίπτωση Χρήσης 'Αντίτυπα'. Για να το επιστρέψετε χρησιμοποιήστε την περίπτωση χρήσης 'Επιστροφές'.");
     }
 
+    /**
+     * Φορτώνει την λίστα με τους δανιζόμενους.
+     */
     void onLoadSource()
     {
         view.loadSource(createDataSource(filterLoans(loans, borrower)));
     }
+
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     void onShowToast(String value)
     {
         view.showToast(value);

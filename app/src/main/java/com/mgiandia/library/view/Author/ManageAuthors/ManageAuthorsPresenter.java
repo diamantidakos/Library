@@ -19,6 +19,11 @@ public class ManageAuthorsPresenter
     private ManageAuthorsView view;
     private AuthorDAO authors;
 
+    /**
+     * Δημιουργεί την λίστα με τους συγγραφείς
+     * @param authors Η λιστα με τους συγγραφείς
+     * @return Επιστρεφει την λίστα
+     */
     private List<Quadruple> createDataSource(List<Author> authors)
     {
         List<Quadruple> triplets = new ArrayList<>();
@@ -29,6 +34,14 @@ public class ManageAuthorsPresenter
         return triplets;
     }
 
+    /**
+     * Αρχικοποιεί τον presenter και θέτει ως
+     * ManageAuthorsView το view kai AuthorDAO
+     * το authors. Τελος φορτώνει την λίστα με
+     * τους συγγραφείς.
+     * @param view Το ManageAuthorsView
+     * @param authors Οι authors που θα αρχικοποιηθούν.
+     */
     public ManageAuthorsPresenter(ManageAuthorsView view, AuthorDAO authors)
     {
         this.view = view;
@@ -37,21 +50,37 @@ public class ManageAuthorsPresenter
         onLoadSource();
     }
 
+    /**
+     * Μεταφερει τον χρήστη στο activity AuthorDetailsActivity
+     * όταν γίνει click πάνω στον συγγραφέα με id uid.
+     * @param uid To μοναδικό id του συγγραφέα
+     */
     void onClickItem(int uid)
     {
         view.clickItem(uid);
     }
 
+    /**
+     * Ξεκινάει το activity AddEditAuthorActivity
+     */
     void onStartAddNew()
     {
         view.startAddNew();
     }
 
+    /**
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο
+     * value.
+     * @param value To περιεχόμενο που θα εμφανιστεί
+     */
     void onShowToast(String value)
     {
         view.showToast(value);
     }
 
+    /**
+     * Φορτώνει την λίστα με τους συγγραφείς
+     */
     void onLoadSource()
     {
         view.loadSource(createDataSource(authors.findAll()));

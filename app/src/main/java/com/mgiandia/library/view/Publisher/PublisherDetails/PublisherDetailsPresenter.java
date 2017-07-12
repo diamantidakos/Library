@@ -15,6 +15,11 @@ public class PublisherDetailsPresenter
     private PublisherDetailsView view;
     private Publisher attachedPublisher;
 
+    /**
+     * Αρχικοποεί τον Presenter.
+     * @param view Ένα instance του view
+     * @param publishers Ένα instance του publisher
+     */
     public PublisherDetailsPresenter(PublisherDetailsView view, PublisherDAO publishers)
     {
         this.view = view;
@@ -38,16 +43,28 @@ public class PublisherDetailsPresenter
         view.setAddressPostalCode(attachedPublisher.getAddress().getZipCode().getCode());
     }
 
+    /**
+     * Εμφανίζει το κουμπί της επεξεργασίας του
+     * εκδότη.
+     */
     void onStartEditButtonClick()
     {
         view.startEdit(attachedPublisher.getId());
     }
 
+    /**
+     * Εμφανίζει το κουμπί της εμφάνισης του
+     * εκδότη.
+     */
     void onStartShowBooksButtonClick()
     {
         view.startShowBooks(attachedPublisher.getId());
     }
 
+    /**
+     * Εμφανίζει ενα μήνυμα με περιεχόμενο value.
+     * @param value To περιεχόμενο του μηνύματος
+     */
     void onShowToast(String value)
     {
         view.showToast(value);

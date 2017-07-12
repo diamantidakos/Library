@@ -35,6 +35,11 @@ public class TelephoneNumber {
         return true;
     }
 
+    /**
+     * Επαληθεύει to instanceof ενός αριθμού τηλεφώνου.
+     * @param other Το άλλο αντικείμενο προς έλεγχο
+     * @return Τον αριθμού τηλεφώνου.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == null) {
@@ -55,13 +60,19 @@ public class TelephoneNumber {
                 : phonenumber.equals(thePhoneNumber.getTelephoneNumber());
     }
 
-
+    /**
+     * Το HashCode ενός αριθμού τηλεφώνου.
+     * @return Το HashCode
+     */
     @Override
     public int hashCode() {
         return phonenumber == null ? 0 : phonenumber.hashCode();
     }
 
-
+    /**
+     * Ο αριθμός τηλεφώνου με την μορφή string.
+     * @return Ο αριθμός τηλεφώνου
+     */
     @Override
     public String toString() {
         return phonenumber;

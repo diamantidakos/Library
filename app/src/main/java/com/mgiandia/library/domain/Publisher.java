@@ -117,10 +117,18 @@ public class Publisher {
         return this.address == null ? null : new Address(address);
     }
 
+    /**
+     * Επιστρέφει το βιβλίο.
+     * @return Το βιβλίο
+     */
     public Set<Book> getBooks() {
         return new HashSet<Book>(books);
     }
 
+    /**
+     * Προσθέτει το βιβλίο.
+     * @param book το βιβλίο
+     */
     public void addBook(Book book)
     {
         if (book != null)
@@ -129,6 +137,10 @@ public class Publisher {
         }
     }
 
+    /**
+     * Αφαιρεί το βιβλίο.
+     * @param book το βιβλίο
+     */
     public void removeBook(Book book)
     {
         if (book != null) {

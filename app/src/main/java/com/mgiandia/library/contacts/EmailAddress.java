@@ -34,6 +34,11 @@ public class EmailAddress {
         return true;
     }
 
+    /**
+     * Επαληθεύει to instance μιας διεύθυνσης ηλεκτρονικού ταχυδρομείου.
+     * @param other Το άλλο αντικείμενο προς έλεγχο
+     * @return Η διεύθυνσης ηλεκτρονικού ταχυδρομείου.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == null) {
@@ -53,11 +58,19 @@ public class EmailAddress {
                 : value.equals(theEmail.getAddress());
     }
 
+    /**
+     * Το HashCode της διεύθυνσης ηλεκτρονικού ταχυδρομείου.
+     * @return Το HashCode
+     */
     @Override
     public int hashCode() {
         return value == null ? 0 : value.hashCode();
     }
 
+    /**
+     * H διεύθυνση ηλεκτρονικού ταχυδρομείου με την μορφή string.
+     * @return H διεύθυνση ηλεκτρονικού ταχυδρομείου
+     */
     @Override
     public String toString() {
         return value;

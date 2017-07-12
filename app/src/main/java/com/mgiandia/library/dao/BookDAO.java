@@ -13,10 +13,34 @@ import com.mgiandia.library.domain.Book;
 
 public interface BookDAO
 {
-    Book find(int book_id);
-    List<Book> findAll();
-    void save(Book entity);
+    /**
+     * Διαγράφει ένα βιβλίο.
+     * @param entity Το βιβλίο
+     */
     void delete(Book entity);
 
+    /**
+     * Επιστρέφει όλα τα βιβλία.
+     * @return Τα βιβλία
+     */
+    List<Book> findAll();
+
+    /**
+     * Αποθηκεύει ένα βιβλίο.
+     * @param entity Το βιβλίο
+     */
+    void save(Book entity);
+
+    /**
+     * Βρίσκει ένα βιβλίο με βάση τον κωδικό του.
+     * @param uid Ο κωδικός του βιβλίο
+     * @return Το βιβλίο που βρέθηκε ή null
+     */
+    Book find(int uid);
+
+    /**
+     * Επιστρέφει τον επώμενο κωδικό που μπορέι να αποδοθεί σε ένα βιβλίο.
+     * @return Ο κωδικός του βιβλίου
+     */
     int nextId();
 }

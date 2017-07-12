@@ -18,6 +18,12 @@ public class BookDetailsPresenter
     private BookDetailsView view;
     private Book attachedBook;
 
+    /**
+     * Δημιουργεί τις λεπτομέριες των βιβλίων
+     * books.
+     * @param view Ένα instance του view
+     * @param books Ένα instance του book
+     */
     public BookDetailsPresenter(BookDetailsView view, BookDAO books)
     {
         this.view = view;
@@ -47,11 +53,18 @@ public class BookDetailsPresenter
         view.setAuthors(author_ids, author_names);
     }
 
+    /**
+     * Ξεκινάει να τροποποιεί το βιβλίο
+     */
     public void onStartEditButtonClick()
     {
         view.startEdit(attachedBook.getId());
     }
 
+    /**
+     * Εμφανίζει ενα μήνυμα με περιεχόμενο value.
+     * @param value To περιεχόμενο του μηνύματος
+     */
     public void onShowToast(String value)
     {
         view.showToast(value);
