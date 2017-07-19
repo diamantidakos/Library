@@ -15,7 +15,7 @@ public interface ManageLoansView
 {
     /**
      * @param input Η πηγή ως List.
-     * Φορτώνει την λίστα με τους δανιζόμενους.
+     * Φορτώνει την λίστα με τους δανειζομένους.
      */
     void loadSource(List<Quadruple> input);
 
@@ -26,7 +26,7 @@ public interface ManageLoansView
     void startAddNew(int uid);
 
     /**
-     * Εμφανίζει ενα μήνυμα σε μορφή alert
+     * Εμφανίζει ένα μήνυμα σε μορφή alert
      * με περιεχόμενο message και τίτλο title.
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
@@ -34,15 +34,14 @@ public interface ManageLoansView
     void showAlert(String title, String message);
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void showToast(String value);
 
     /**
-     * Επιστρέφει το id του δανιζόμενου
-     * @return Το id του δανιζόμενου
+     * Επιστρέφει το id του δανειζόμενου
+     * @return Το id του δανειζόμενου
      */
     int getAttachedBorrowerID();
 

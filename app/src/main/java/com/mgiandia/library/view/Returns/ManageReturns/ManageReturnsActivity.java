@@ -102,7 +102,7 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
     }
 
     /**
-     * Αδείαζει το κείμενο που βρίσκεται
+     * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
     private void clear_search_bar()
@@ -122,9 +122,9 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
     }
 
     /**
-     * Κατα την αλλαγή της κατάστασης ενός δανίου
+     * Κατά την αλλαγή της κατάστασης ενός δανείου
      * εμφανίζεται ένα μήνυμα μορφής alert.
-     * @param uid To μοναδικό id του δανιζόμενου
+     * @param uid Το μοναδικό id του δανειζόμενου
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
      */
@@ -161,7 +161,7 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
     }
 
     /**
-     * Κατα την ανανέωση της σελίδας
+     * Κατά την ανανέωση της σελίδας
      * διαγράφετε η μπάρα αναζήτησης
      */
     public void refresh()
@@ -170,9 +170,8 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     public void showToast(String value)
     {
@@ -180,8 +179,7 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value σε μορφή alert.
+     * Εμφανίζει ένα alert.
      * @param title O τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
      */
@@ -191,8 +189,8 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
     }
 
     /**
-     * Επιστρέφει το id του δανιζόμενου.
-     * @return Το id του δανιζόμενου
+     * Επιστρέφει το id του δανειζόμενου.
+     * @return Το id του δανειζόμενου
      */
     public int getAttachedBorrowerID()
     {

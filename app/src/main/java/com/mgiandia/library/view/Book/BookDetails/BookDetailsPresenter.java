@@ -19,7 +19,7 @@ public class BookDetailsPresenter
     private Book attachedBook;
 
     /**
-     * Δημιουργεί τις λεπτομέριες των βιβλίων
+     * Δημιουργεί τις λεπτομέρειες των βιβλίων
      * books.
      * @param view Ένα instance του view
      * @param books Ένα instance του book
@@ -62,8 +62,8 @@ public class BookDetailsPresenter
     }
 
     /**
-     * Εμφανίζει ενα μήνυμα με περιεχόμενο value.
-     * @param value To περιεχόμενο του μηνύματος
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο value.
+     * @param value Το περιεχόμενο του μηνύματος
      */
     public void onShowToast(String value)
     {

@@ -24,7 +24,7 @@ public class NotificationService {
 
     /**
      * Θέτει τον πάροχο του ηλεκτρονικού ταχυδρομείου.
-     * @param provider Ο πάροχος ηλεκτρονικού ταχυδρομείου.
+     * @param provider Ο πάρωρος ηλεκτρονικού ταχυδρομείου.
      */
     public void setProvider(EmailProvider provider) {
         this.provider = provider;
@@ -55,9 +55,9 @@ public class NotificationService {
 
     /**
      * Στέλνει το μήνυμα ηλεκτρονικού ταχυδρομείου.
-     * @param borrower Ο δανιζόμενος
+     * @param borrower Ο δανειζόμενος
      * @param subject Το θέμα του μηνύματος
-     * @param message Το περιεχόμενο του μηνύματοςσ
+     * @param message Το περιεχόμενο του μηνύματος
      */
     private void sendEmail(Borrower borrower,
             String subject, String message) {
@@ -75,10 +75,10 @@ public class NotificationService {
 
     /**
      * Δημιουργεί το μήνυμα ενημερώνοντας
-     * τον χρήστη κατα πόσο εχει καθυστερήση
+     * τον χρήστη κατά πόσο έχει καθυστερήσει
      * και για ποιο βιβλίο.
-     * @param book Ο δανιζόμενος
-     * @param overdue Το θέμα του μηνήματος
+     * @param book Ο δανειζόμενος
+     * @param overdue Το θέμα του μηνύματος
      */
     private String composeMessage(Book book, long overdue) {
         String message = "Έχετε καθυστερήσει το βιβλίο με Τίτλο ";

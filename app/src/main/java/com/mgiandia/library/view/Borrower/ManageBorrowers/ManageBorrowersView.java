@@ -14,23 +14,23 @@ import com.mgiandia.library.util.Quadruple;
 public interface ManageBorrowersView
 {
     /**
-     * Μεταφερει τον χρήστη στο activity BorrowerDetailsActivity
-     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
-     * @param uid To μοναδικό id του δανιζόμενου
+     * Μεταφέρει τον χρήστη στο activity BorrowerDetailsActivity
+     * όταν γίνει click πάνω στον δανειζόμενο με id uid.
+     * @param uid Το μοναδικό id του δανειζόμενου
      */
     void clickItem(int uid);
 
     /**
-     * Μεταφερει τον χρήστη στο activity ManageLoansActivity
-     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
-     * @param uid To μοναδικό id του δανιζόμενου
+     * Μεταφέρει τον χρήστη στο activity ManageLoansActivity
+     * όταν γίνει click πάνω στον δανειζόμενο με id uid.
+     * @param uid Το μοναδικό id του δανειζόμενου
      */
     void clickItemLoans(int uid);
 
     /**
      * Μεταφερει τον χρήστη στο activity ManageReturnsActivity
-     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
-     * @param uid To μοναδικό id του δανιζόμενου
+     * όταν γίνει click πάνω στον δανειζόμενο με id uid.
+     * @param uid Το μοναδικό id του δανειζόμενου
      */
     void clickItemReturns(int uid);
 
@@ -40,14 +40,14 @@ public interface ManageBorrowersView
     void startAddNew();
 
     /**
-     * Φορτώνει την λίστα με τους δανιζόμενους.
-     * @param input Η λίστα με τους δανιζόμενους σε μορφή List.
+     * Φορτώνει την λίστα με τους δανειζομένους.
+     * @param input Η λίστα με τους δανειζομένους σε μορφή List.
      */
     void loadSource(List<Quadruple> input);
 
     /**
-     * Αν πρέπει να επιστρέψει τα δάνια
-     * @return Τα επιστραφόμενα δάνια
+     * Αν πρέπει να επιστρέψει τα δάνεια
+     * @return Τα επιστρεφόμενα δάνεια
      */
     boolean shouldLoadLoansOnClick();
 
@@ -58,9 +58,8 @@ public interface ManageBorrowersView
     boolean shouldLoadReturnsOnClick();
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void showToast(String value);
 }

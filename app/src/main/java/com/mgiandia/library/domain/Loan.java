@@ -93,7 +93,7 @@ public class Loan {
 
     /**
      * Θέτει την ημερομηνία επιστροφής του αντιτύπου.
-     * @param returnDate Η ημερομηνία επιστοφής.
+     * @param returnDate Η ημερομηνία επιστροφής.
      */
     protected void setReturnDate(SimpleCalendar returnDate) {
         this.returnDate = returnDate;

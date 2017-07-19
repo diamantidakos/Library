@@ -85,8 +85,8 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
     }
 
     /**
-     * Θέτει τον αριθμό ηλελτρονικό ταχυδρομίου του εκδότη.
-     * @param value Ο αρι8μός του ηλελτρονικό ταχυδρομίου του εκδότη.
+     * Θέτει τον αριθμό ηλεκτρονικού ταχυδρομείου του εκδότη.
+     * @param value Ο αρι8μός του ηλεκτρονικού ταχυδρομείου του εκδότη.
      */
     public void setEmail(String value)
     {
@@ -157,8 +157,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
+     * Εμφανίζει ένα Toast.
      * @param value To περιεχόμενο που θα εμφανιστεί
      */
     public void showToast(String value)
@@ -194,13 +193,13 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
     }
 
     /**
-     * Ξανα δημιουργεί το activity με νεό instance.
-     * Σε περίπτωση που ο ζητούμενος κώδικος είναι
-     * 2 και ο κωδικός του αποτελέσματος ειναι ok,
-     * εμφανίζει ενα toast.
-     * @param requestCode Ο ζητούμενος κώδικος
+     * Ξανά δημιουργεί το activity με νεό instance.
+     * Σε περίπτωση που ο ζητούμενος κωδικός είναι
+     * 2 και ο κωδικός του αποτελέσματος είναι ok,
+     * εμφανίζει ένα toast.
+     * @param requestCode Ο ζητούμενος κωδικός
      * @param resultCode Ο κωδικός του αποτελέσματος
-     * @param data Tο intent
+     * @param data Το intent
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)

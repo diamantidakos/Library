@@ -86,7 +86,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
 
     /**
      * Όταν πραγματοποιείται click στο ManageBorrowersActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα.
      */
     public void manageBorrowers()
     {
@@ -96,7 +96,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
 
     /**
      * Όταν πραγματοποιείται click στο ManageBooksActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα.
      */
     public void manageBooks()
     {
@@ -106,7 +106,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
 
     /**
      * Όταν πραγματοποιείται click στο ManageAuthorsActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα.
      */
     public void manageAuthors()
     {
@@ -116,7 +116,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
 
     /**
      * Όταν πραγματοποιείται click στο ManagePublishersActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα.
      */
     public void managePublishers()
     {
@@ -126,8 +126,8 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
 
     /**
      * Όταν πραγματοποιείται click στο ManageBooksActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
-     * ελέχεται αν πρέπει να φορτωθούν τα βιβλία.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
+     * ελέγχεται αν πρέπει να φορτωθούν τα βιβλία.
      */
     public void manageItems()
     {
@@ -138,8 +138,8 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
 
     /**
      * Όταν πραγματοποιείται click στο ManageBorrowersActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
-     * ελέχεται αν πρέπει να φορτωθούν τα δάνια.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
+     * ελέγχεται αν πρέπει να φορτωθούν τα δάνεια.
      */
     public void manageLoans()
     {
@@ -150,8 +150,8 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
 
     /**
      * Όταν πραγματοποιείται click στο ManageBorrowersActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
-     * ελέχεται αν πρέπει να φορτωθούν οι επιστροφές.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
+     * ελέγχεται αν πρέπει να φορτωθούν οι επιστροφές.
      */
     public void manageReturns()
     {

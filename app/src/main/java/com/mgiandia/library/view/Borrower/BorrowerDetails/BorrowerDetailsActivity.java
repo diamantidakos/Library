@@ -28,8 +28,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
 
     /**
      * Ξεκινάει το activity AddEditAuthorActivity
-     * με παράμετρο το id του δανιζόμενου.
-     * @param borrowerID Το id του δανιζόμενου
+     * με παράμετρο το id του δανειζόμενου.
+     * @param borrowerID Το id του δανειζόμενου
      */
     public void startEdit(int borrowerID)
     {
@@ -39,9 +39,9 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Διαγράφη του δανιζόμενου.
-     * @param title Τίτλος του εμαφανιζόμενου μηνύματος
-     * @param message Το περιεχόμενο του εμαφανιζόμενου μηνύματος
+     * Διαγραφή του δανειζόμενου.
+     * @param title Τίτλος του εμφανιζόμενου μηνύματος
+     * @param message Το περιεχόμενο του εμφανιζόμενου μηνύματος
      */
     public void startDelete(String title, String message)
     {
@@ -57,7 +57,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Το μήνυμα που εμφανίζεται κατα την
+     * Το μήνυμα που εμφανίζεται κατά την
      * ολοκλήρωση της διαγραφής.
      * @param message Το περιεχόμενο του μηνύματος
      */
@@ -70,8 +70,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Επιστρέφει το id του δανιζόμενου.
-     * @return Το id του δανιζόμενου
+     * Επιστρέφει το id του δανειζόμενου.
+     * @return Το id του δανειζόμενου
      */
     public int getAttachedBorrowerID()
     {
@@ -79,8 +79,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Θέτει το id του δανιζόμενου.
-     * @param value Tο id του δανιζόμενου.
+     * Θέτει το id του δανειζόμενου.
+     * @param value Tο id του δανειζόμενου
      */
     public void setID(String value)
     {
@@ -88,8 +88,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Θέτει το πρώτο όνομα του δανιζόμενου.
-     * @param value Το πρώτο όνομα του δανιζόμενου
+     * Θέτει το πρώτο όνομα του δανειζόμενου.
+     * @param value Το πρώτο όνομα του δανειζόμενου
      */
     public void setFirstName(String value)
     {
@@ -97,8 +97,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Θέτει το επώνυμο του δανιζόμενου.
-     * @param value Το επώνυμο του δανιζόμενου
+     * Θέτει το επώνυμο του δανειζόμενου.
+     * @param value Το επώνυμο του δανειζόμενου
      */
     public void setLastName(String value)
     {
@@ -106,8 +106,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Θέτει την κατηγορία του δανιζόμενου.
-     * @param value Η κατηγορία του δανιζόμενου
+     * Θέτει την κατηγορία του δανειζόμενου.
+     * @param value Η κατηγορία του δανειζόμενου
      */
     public void setCategory(String value)
     {
@@ -115,8 +115,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Θέτει τον αρι8μό του δανιζόμενου.
-     * @param value Ο αρι8μός του δανιζόμενου
+     * Θέτει τον αρι8μό του δανειζόμενου.
+     * @param value Ο αρι8μός του δανειζόμενου
      */
     public void setPhone(String value)
     {
@@ -124,8 +124,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Θέτει τον αριθμό ηλελτρονικό ταχυδρομίου του δανιζόμενου.
-     * @param value Ο αρι8μός του ηλελτρονικό ταχυδρομίου του δανιζόμενου.
+     * Θέτει τον αριθμό ηλεκτρονικού ταχυδρομείου του δανειζόμενου.
+     * @param value Ο αρι8μός του ηλεκτρονικού ταχυδρομείου του δανειζόμενου.
      */
     public void setEmail(String value)
     {
@@ -133,8 +133,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Θέτει την χώρα του δανιζόμενου.
-     * @param value Η χώρα του δανιζόμενου
+     * Θέτει την χώρα του δανειζόμενου.
+     * @param value Η χώρα του δανειζόμενου
      */
     public void setCountry(String value)
     {
@@ -142,8 +142,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Θέτει την πόλη του δανιζόμενου.
-     * @param value Η πόλη του δανιζόμενου
+     * Θέτει την πόλη του δανειζόμενου.
+     * @param value Η πόλη του δανειζόμενου
      */
     public void setAddressCity(String value)
     {
@@ -151,8 +151,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Θέτει την οδό του δανιζόμενου.
-     * @param value Η οδός του δανιζόμενου
+     * Θέτει την οδό του δανειζόμενου.
+     * @param value Η οδός του δανειζόμενου
      */
     public void setAddressStreet(String value)
     {
@@ -160,8 +160,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Θέτει τον αριθμό του δανιζόμενου.
-     * @param value Ο αριθμός του δανιζόμενου
+     * Θέτει τον αριθμό του δανειζόμενου.
+     * @param value Ο αριθμός του δανειζόμενου
      */
     public void setAddressNumber(String value)
     {
@@ -187,9 +187,8 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     public void showToast(String value)
     {
@@ -197,7 +196,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     }
 
     /**
-     * Δημιουργεί to layout και αρχικοποιεί
+     * Δημιουργεί το layout και αρχικοποιεί
      * το activity.
      * @param savedInstanceState το Instance state
      */
@@ -225,12 +224,12 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
 
     /**
      * Ξανα δημιουργεί το activity με νεό instance.
-     * Σε περίπτωση που ο ζητούμενος κώδικος είναι
-     * 2 και ο κωδικός του αποτελέσματος ειναι ok,
-     * εμφανίζει ενα toast.
-     * @param requestCode Ο ζητούμενος κώδικος
+     * Σε περίπτωση που ο ζητούμενος κωδικός είναι
+     * 2 και ο κωδικός του αποτελέσματος είναι ok,
+     * εμφανίζει ένα toast.
+     * @param requestCode Ο ζητούμενος κωδικός
      * @param resultCode Ο κωδικός του αποτελέσματος
-     * @param data Tο intent
+     * @param data Το intent
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)

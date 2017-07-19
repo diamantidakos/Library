@@ -16,14 +16,14 @@ public interface ManageBooksView
     /**
      * Μεταφερει τον χρήστη στο activity BookDetailsActivity
      * όταν γίνει click πάνω στο βιβλίο με id uid.
-     * @param uid To μοναδικό id του βιβλίου
+     * @param uid Το μοναδικό id του βιβλίου
      */
     void clickItem(int uid);
 
     /**
      * Μεταφερει τον χρήστη στο activity ManageItemsActivity
      * όταν γίνει click πάνω στο βιβλίο με id uid.
-     * @param uid To μοναδικό id του βιβλίου
+     * @param uid Το μοναδικό id του βιβλίου
      */
     void clickItemList(int uid);
 
@@ -34,7 +34,7 @@ public interface ManageBooksView
 
     /**
      * Φορτώνει την λίστα με τα βιβλία
-     * @param input Η λιστα που θα φορτώσει
+     * @param input Η λίστα που θα φορτώσει
      */
     void loadSource(List<Quadruple> input);
 
@@ -45,9 +45,8 @@ public interface ManageBooksView
     void setPageName(String value);
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void showToast(String value);
 

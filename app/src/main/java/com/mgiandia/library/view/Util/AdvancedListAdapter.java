@@ -77,7 +77,7 @@ public class AdvancedListAdapter extends BaseAdapter implements Filterable
     /**
      * Δημιουργεί ένα view δοθείσας της θέσης ενός αντικειμένου.
      * @param position Η θέση του αντικειμένου
-     * @param convertView Δε χρησημοποιείται
+     * @param convertView Δε χρησιμοποιείται
      * @param parent Ο γονέας του view
      * @return Το view
      */

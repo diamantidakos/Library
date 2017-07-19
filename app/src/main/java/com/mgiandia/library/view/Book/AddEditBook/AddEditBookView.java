@@ -39,14 +39,14 @@ public interface AddEditBookView
     void setISBN(String value);
 
     /**
-     * Θέτει το ημερομηνία εξέδωσης του βιβλίου
-     * @param value Η ημερομηνία εξέδωσης του βιβλίου
+     * Θέτει το ημερομηνία έκδοσης του βιβλίου
+     * @param value Η ημερομηνία έκδοσης του βιβλίου
      */
     void setPublication(String value);
 
     /**
-     * Θέτει το ετος του βιβλίου
-     * @param value Η το ετος του βιβλίου
+     * Θέτει το έτος του βιβλίου
+     * @param value Η το έτος του βιβλίου
      */
     void setYear(String value);
 
@@ -76,14 +76,14 @@ public interface AddEditBookView
     void setPublisherList(List<String> names, String defaultName);
 
     /**
-     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+     * Το μήνυμα που εμφανίζεται όταν τελειώνει
      * επιτυχώς ένα activity.
      * @param message Το μήνυμα που θα εμφανίσει
      */
     void successfullyFinishActivity(String message);
 
     /**
-     * Το μηνύμα που εμφανίζεται σε
+     * Το μήνυμα που εμφανίζεται σε
      * περίπτωση error.
      * @param title O τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος

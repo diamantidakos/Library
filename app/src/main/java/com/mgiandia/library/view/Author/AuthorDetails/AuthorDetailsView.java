@@ -44,21 +44,20 @@ public interface AuthorDetailsView
     /**
      * Ξεκινάει να τροποποιεί τον συγγραφέα με
      * id authorID.
-     * @param authorID To id του συγγραφέα
+     * @param authorID Το id του συγγραφέα
      */
     void startEdit(int authorID);
 
     /**
      * Εμφανίζει τα βιβλία του συγγραφέα με
      * id authorID.
-     * @param authorID To id του συγγραφέα
+     * @param authorID Το id του συγγραφέα
      */
     void startShowBooks(int authorID);
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void showToast(String value);
 }

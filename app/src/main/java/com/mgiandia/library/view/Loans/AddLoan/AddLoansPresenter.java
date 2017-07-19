@@ -28,8 +28,8 @@ public class AddLoansPresenter {
     Borrower attachedBorrower;
 
     /**
-     * Αρχικοποεί τον Presenter έτσι ώστε
-     * αργότερα να πραγματοποιηθούν οι δανισμοί.
+     * Αρχικοποιεί τον Presenter έτσι ώστε
+     * αργότερα να πραγματοποιηθούν οι δανεισμοί.
      * @param view Ένα instance του view
      * @param books Ένα instance του book
      * @param borrowers Ένα instance του borrower
@@ -55,9 +55,9 @@ public class AddLoansPresenter {
     }
 
     /**
-     * Κατα την αποθήκευση γινεται
-     * ενημέρωση κατα πόσον πραγματοποίηθηκε το
-     * αντίτυπο ή αν για κάποιο λόγω ο δανισμός
+     * Κατά την αποθήκευση γίνεται
+     * ενημέρωση κατά πόσον πραγματοποιήθηκε το
+     * αντίτυπο ή αν για κάποιο λόγω ο δανεισμός
      * δεν ήταν εφικτός.
      */
     public void onSaveLoan()

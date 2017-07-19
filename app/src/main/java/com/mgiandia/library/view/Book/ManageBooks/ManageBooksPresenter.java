@@ -29,7 +29,7 @@ public class ManageBooksPresenter
     /**
      * Επιστρέφει τα δεδομένα για μία λίστα από βιβλία books.
      * @param books Τα βιβλία στα οποία θα επιστραφούν τα δεδομένα
-     * @return Μία λίστα με τις λεπτομέριες των βιβλίων books
+     * @return Μία λίστα με τις λεπτομέρειες των βιβλίων books
      */
     private List<Quadruple> createDataSource(List<Book> books)
     {
@@ -68,7 +68,7 @@ public class ManageBooksPresenter
 
 
     /**
-     * Αποφασίζει από ποιο activity πραγαμτοποιήθηκε
+     * Αποφασίζει από ποιο activity πραγματοποιήθηκε
      * το click.
      * @param uid To μοναδικό id
      */
@@ -89,9 +89,8 @@ public class ManageBooksPresenter
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void onShowToast(String value)
     {

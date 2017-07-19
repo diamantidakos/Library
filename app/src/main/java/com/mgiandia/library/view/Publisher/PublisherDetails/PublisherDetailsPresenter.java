@@ -62,8 +62,8 @@ public class PublisherDetailsPresenter
     }
 
     /**
-     * Εμφανίζει ενα μήνυμα με περιεχόμενο value.
-     * @param value To περιεχόμενο του μηνύματος
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο value.
+     * @param value Το περιεχόμενο του μηνύματος
      */
     void onShowToast(String value)
     {

@@ -12,8 +12,8 @@ import java.util.List;
 public interface AddLoansView
 {
     /**
-     * Επιστρέφει το id tου επιλεγόμενου βιβλίου.
-     * @return Το id tου επιλεγόμενου βιβλίου
+     * Επιστρέφει το id του επιλεγόμενου βιβλίου.
+     * @return Το id του επιλεγόμενου βιβλίου
      */
     int getSelectedBookId();
 
@@ -24,9 +24,9 @@ public interface AddLoansView
     int getAttachedBorrowerID();
 
     /**
-     * Θέτει το id του δανιζόμενου για
+     * Θέτει το id του δανειζόμενου για
      * το επιλεγόμενο βιβλίο.
-     * @param value Το id του δανιζόμενου
+     * @param value Το id του δανειζόμενου
      */
     void setBorrowerId(String value);
 
@@ -37,14 +37,14 @@ public interface AddLoansView
     void setPageName(String value);
 
     /**
-     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+     * Το μήνυμα που εμφανίζεται όταν τελειώνει
      * επιτυχώς ένα activity.
      * @param message Το μήνυμα που θα εμφανίσει
      */
     void successfullyAddLoanAndFinishActivity(String message);
 
     /**
-     * Εμφανίζει ενα μήνυμα τύπου alert με
+     * Εμφανίζει ένα μήνυμα τύπου alert με
      * τίτλο title και μήνυμα message.
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος

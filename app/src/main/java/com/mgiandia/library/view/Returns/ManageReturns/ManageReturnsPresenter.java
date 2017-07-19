@@ -24,9 +24,9 @@ public class ManageReturnsPresenter
     private Borrower borrower;
 
     /**
-     * Επιστρέφει τα δεδομένα για μία λίστα από δανιζόμενα βιβλία.
-     * @param loans Τα δανιζόμενα βιβλία στα οποία θα επιστραφούν τα δεδομένα
-     * @return Μία λίστα με τις λεπτομέριες των δανιζόμενων βιβλίων
+     * Επιστρέφει τα δεδομένα για μία λίστα από δανειζόμενα βιβλία.
+     * @param loans Τα δανειζόμενα βιβλία στα οποία θα επιστραφούν τα δεδομένα
+     * @return Μία λίστα με τις λεπτομέρειες των εμφανιζόμενων βιβλίων
      */
     private List<Quadruple> createDataSource(List<Loan> loans)
     {
@@ -40,12 +40,11 @@ public class ManageReturnsPresenter
     }
 
     /**
-     * Επιστρέφει τα δανιζόμενα βιβλία για τον δανιζόμενο
-     * borrower.
-     * @param loans Tα δανιζόμενα βιβλία στα οποία θα
+     * Επιστρέφει τα δανειζόμενα βιβλία για τον δανειζόμενο.
+     * @param loans Tα δανειζόμενα βιβλία στα οποία θα
      * επιστραφούν τα δεδομένα
-     * @param borrower O δανιζόμενος
-     * @return Τα βιβλία του δανιζόμενου
+     * @param borrower O δανειζόμενος
+     * @return Τα βιβλία του δανειζόμενου
      */
     private ArrayList<Loan> filterLoans(LoanDAO loans, Borrower borrower)
     {
@@ -59,7 +58,7 @@ public class ManageReturnsPresenter
     }
 
     /**
-     * Αρχικοποεί τον Presenter έτσι ώστε
+     * Αρχικοποιεί τον Presenter έτσι ώστε
      * αργότερα να πραγματοποιηθούν οι επιστροφές.
      * @param view Ένα instance του view
      * @param borrowers Ένα instance του borrower
@@ -88,7 +87,7 @@ public class ManageReturnsPresenter
     }
 
     /**
-     * Κατα την αλλαγή της κατάστασης ενός δανιζομένου
+     * Κατά την αλλαγή της κατάστασης ενός δανειζομένου
      * βιβλίου αλλάζετε η κατάσταση του ως επιστραμένο ή
      * χαμένο και εμφανίζετε ανάλογο μήνυμα.
      * @param uid Το μοναδικό id του βιβλίου
@@ -116,7 +115,7 @@ public class ManageReturnsPresenter
     }
 
     /**
-     * Εμφανίζει ενα μήνυμα alert.
+     * Εμφανίζει ένα μήνυμα alert.
      */
     void onAddNewItem()
     {
@@ -124,7 +123,7 @@ public class ManageReturnsPresenter
     }
 
     /**
-     * Φορτώνει την λίστα με τους δανιζόμενους.
+     * Φορτώνει την λίστα με τους δανειζομένους.
      */
     void onLoadSource()
     {

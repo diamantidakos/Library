@@ -14,13 +14,13 @@ import com.mgiandia.library.util.Quadruple;
 public interface ManageItemsView
 {
     /**
-     * Φορτώνει την λίστα με τους δανιζόμενους.
-     * @param input Η λιστα που θα φορτώσει
+     * Φορτώνει την λίστα με τους δανειζομένους.
+     * @param input Η λίστα που θα φορτώσει
      */
     void loadSource(List<Quadruple> input);
 
     /**
-     * Δημιουργει ενα μήνυμα τύπου alert
+     * Δημιουργεί ένα μήνυμα τύπου alert
      * @param uid Το id του αντικειμένου
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
@@ -28,14 +28,14 @@ public interface ManageItemsView
     void newItemStateSelectAlert(int uid, String title, String message);
 
     /**
-     * Δημιουργει ενα μήνυμα τύπου alert
+     * Δημιουργεί ένα μήνυμα τύπου alert
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
      */
     void newItemAddAlert(String title, String message);
 
     /**
-     * Εμφανίζει ενα μήνυμα σε μορφή alert
+     * Εμφανίζει ένα μήνυμα σε μορφή alert
      * με περιεχόμενο message και τίτλο title.
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
@@ -43,15 +43,15 @@ public interface ManageItemsView
     void showAlert(String title, String message);
 
     /**
-     * Εμφανίζει ενα μήνυμα σε μορφή Toast
+     * Εμφανίζει ένα μήνυμα σε μορφή Toast
      * με περιεχόμενο message.
      * @param value Το περιεχόμενο του μηνύματος
      */
     void showToast(String value);
 
     /**
-     * Αδείαζει το κείμενο που βρίσκεται
-     * μέσα στην μπάρα αναζήτησης κατα την
+     * Αδειάζει το κείμενο που βρίσκεται
+     * μέσα στην μπάρα αναζήτησης κατά την
      * ανανέωση της σελίδας
      */
     void refresh();

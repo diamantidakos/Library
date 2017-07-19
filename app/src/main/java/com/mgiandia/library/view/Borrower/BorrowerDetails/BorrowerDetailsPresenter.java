@@ -51,7 +51,7 @@ public class BorrowerDetailsPresenter
 
     /**
      * Εμφανίζει το κουμπί της επεξεργασίας του
-     * δανιζόμενου.
+     * δανειζόμενου.
      */
     public void onStartEditButtonClick()
     {
@@ -60,7 +60,7 @@ public class BorrowerDetailsPresenter
 
     /**
      * Εμφανίζει το κουμπί της διαγραφής του
-     * δανιζόμενου.
+     * δανειζόμενου.
      */
     public void onStartDeleteButtonClick()
     {
@@ -68,7 +68,7 @@ public class BorrowerDetailsPresenter
     }
 
     /**
-     * Κατα την διαγραφή του δανιζόμενου
+     * Κατά την διαγραφή του δανειζόμενου
      * το μήνυμα που εμφανίζεται καθώς και
      * η ολοκλήρωση της διαγραφής του.
      */
@@ -89,8 +89,8 @@ public class BorrowerDetailsPresenter
     }
 
     /**
-     * Εμφανίζει ενα μήνυμα με περιεχόμενο value.
-     * @param value To περιεχόμενο του μηνύματος
+     * Εμφανίζει ένα μήνυμα με περιεχόμενο value.
+     * @param value Το περιεχόμενο του μηνύματος
      */
     public void onShowToast(String value)
     {

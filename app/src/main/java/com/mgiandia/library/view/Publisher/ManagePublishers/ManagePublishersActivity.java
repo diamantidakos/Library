@@ -36,7 +36,7 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
     private AdvancedListAdapter adapter;
 
     /**
-     * Δημιουργεί to layout και αρχικοποιεί
+     * Δημιουργεί το layout και αρχικοποιεί
      * το activity.
      * @param savedInstanceState το Instance state
      */
@@ -103,7 +103,7 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
     }
 
     /**
-     * Αδείαζει το κείμενο που βρίσκεται
+     * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
     private void clear_search_bar()
@@ -114,10 +114,10 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
     }
 
     /**
-     * Αδείαζει την μπάρα αναζήτησης
-     * @param requestCode Ο ζητούμενος κώδικος
+     * Αδειάζει την μπάρα αναζήτησης
+     * @param requestCode Ο ζητούμενος κωδικός
      * @param resultCode Ο κωδικός του αποτελέσματος
-     * @param data Tο intent
+     * @param data Το intent
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -140,7 +140,7 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
 
     /**
      * Φορτώνει την λίστα με τους εκδότες.
-     * @param input Η λιστα που θα φορτώσει
+     * @param input Η λίστα που θα φορτώσει
      */
     public void loadSource(List<Quadruple> input)
     {
@@ -148,9 +148,9 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
     }
 
     /**
-     * Μεταφερει τον χρήστη στο activity PublisherDetailsActivity
+     * Μεταφέρει τον χρήστη στο activity PublisherDetailsActivity
      * όταν γίνει click πάνω στον εκδότη με id uid.
-     * @param uid To μοναδικό id του εκδότη
+     * @param uid Το μοναδικό id του εκδότη
      */
     public void clickItem(int uid)
     {
@@ -169,9 +169,8 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     public void showToast(String value)
     {
