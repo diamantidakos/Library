@@ -155,7 +155,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     }
 
     /**
-     * Θέτει το ημερομηνία έκδοσης του βιβλίου
+     * Θέτει την ημερομηνία έκδοσης του βιβλίου
      * @param value Η ημερομηνία έκδοσης του βιβλίου
      */
     public void setPublication(String value)

@@ -24,7 +24,7 @@ public class NotificationService {
 
     /**
      * Θέτει τον πάροχο του ηλεκτρονικού ταχυδρομείου.
-     * @param provider Ο πάρωρος ηλεκτρονικού ταχυδρομείου.
+     * @param provider Ο πάροχος ηλεκτρονικού ταχυδρομείου.
      */
     public void setProvider(EmailProvider provider) {
         this.provider = provider;

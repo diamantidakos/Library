@@ -39,7 +39,7 @@ public interface AddEditBookView
     void setISBN(String value);
 
     /**
-     * Θέτει το ημερομηνία έκδοσης του βιβλίου
+     * Θέτει την ημερομηνία έκδοσης του βιβλίου
      * @param value Η ημερομηνία έκδοσης του βιβλίου
      */
     void setPublication(String value);
