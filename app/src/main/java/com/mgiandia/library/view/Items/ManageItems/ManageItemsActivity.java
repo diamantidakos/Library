@@ -102,7 +102,7 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
     }
 
     /**
-     * Αδείαζει το κείμενο που βρίσκεται
+     * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
     private void clear_search_bar()
@@ -113,8 +113,8 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
     }
 
     /**
-     * Φορτώνει την λίστα με τους δανιζόμενους.
-     * @param input Η λιστα που θα φορτώσει
+     * Φορτώνει την λίστα με τους δανειζομένους.
+     * @param input Η λίστα που θα φορτώσει
      */
     public void loadSource(List<Quadruple> input)
     {
@@ -122,7 +122,7 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
     }
 
     /**
-     * Δημιουργει ενα μήνυμα τύπου alert
+     * Δημιουργεί ένα μήνυμα τύπου alert
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
      * @param hasCancel Το κουμπί ακύρωσης
@@ -136,7 +136,7 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
     }
 
     /**
-     * Δημιουργει ενα μήνυμα τύπου alert
+     * Δημιουργεί ένα μήνυμα τύπου alert
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
      */
@@ -151,7 +151,7 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
     }
 
     /**
-     * Δημιουργει ενα μήνυμα τύπου alert
+     * Δημιουργεί ένα μήνυμα τύπου alert
      * @param uid Το id του αντικειμένου
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
@@ -169,8 +169,8 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
     }
 
     /**
-     * Αδείαζει το κείμενο που βρίσκεται
-     * μέσα στην μπάρα αναζήτησης κατα την
+     * Αδειάζει το κείμενο που βρίσκεται
+     * μέσα στην μπάρα αναζήτησης κατά την
      * ανανέωση της σελίδας
      */
     public void refresh()
@@ -179,7 +179,7 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
     }
 
     /**
-     * Εμφανίζει ενα μήνυμα σε μορφή Toast
+     * Εμφανίζει ένα μήνυμα σε μορφή Toast
      * με περιεχόμενο message.
      * @param value Το περιεχόμενο του μηνύματος
      */
@@ -189,7 +189,7 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
     }
 
     /**
-     * Εμφανίζει ενα μήνυμα σε μορφή alert
+     * Εμφανίζει ένα μήνυμα σε μορφή alert
      * με περιεχόμενο message και τίτλο title.
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος

@@ -59,8 +59,8 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
     }
 
     /**
-     * Θέτει τον τιτλο του βιβλίου.
-     * @param value Ο τιτλος του βιβλίου.
+     * Θέτει τον τίτλο του βιβλίου.
+     * @param value Ο τίτλος του βιβλίου.
      */
     public void setBookTitle(String value)
     {
@@ -136,8 +136,7 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
+     * Εμφανίζει ένα Toast.
      * @param value To περιεχόμενο που θα εμφανιστεί
      */
     public void showToast(String value)
@@ -166,11 +165,11 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
     }
 
     /**
-     * Ξανα δημιουργεί το activity με νεό instance.
-     * Σε περίπτωση που ο ζητούμενος κώδικος είναι
-     * 2 και ο κωδικός του αποτελέσματος ειναι ok,
-     * εμφανίζει ενα toast.
-     * @param requestCode Ο ζητούμενος κώδικος
+     * Ξανά δημιουργεί το activity με νέο instance.
+     * Σε περίπτωση που ο ζητούμενος κωδικός είναι
+     * 2 και ο κωδικός του αποτελέσματος είναι ok,
+     * εμφανίζει ένα toast.
+     * @param requestCode Ο ζητούμενος κωδικός
      * @param resultCode Ο κωδικός του αποτελέσματος
      * @param data Tο intent
      */
@@ -189,7 +188,7 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
     }
 
     /**
-     * Δημιουργεί το κείμενο το οποίο εμφανίζεται στις λεπτομέριες
+     * Δημιουργεί το κείμενο το οποίο εμφανίζεται στις λεπτομέρειες
      * του βιβλίου.
      * @param text Το κείμενο το οποίο εμφανίζεται
      * @param weight Το πόσο έντονο θα είναι το κείμενο
@@ -211,7 +210,7 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
     }
 
     /**
-     * Προσθέτει συγγραφέις στο βιβλίο
+     * Προσθέτει συγγραφέα στο βιβλίο
      * @param title Ο αριθμός μπροστά από τον συγγραφέα
      * @param details Το όνομα του συγγραφέα
      * @return Το tablerow

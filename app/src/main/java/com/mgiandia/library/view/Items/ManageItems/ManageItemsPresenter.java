@@ -25,9 +25,9 @@ public class ManageItemsPresenter
     private Book book;
 
     /**
-     * Επιστρέφει τα δεδομένα για μία λίστα από αντιτυπα.
-     * @param items Τα αντιτυπα στα οποία θα επιστραφούν τα δεδομένα
-     * @return Μία λίστα με τις λεπτομέριες των αντιτυπων
+     * Επιστρέφει τα δεδομένα για μία λίστα από αντίτυπα.
+     * @param items Τα αντίτυπα στα οποία θα επιστραφούν τα δεδομένα
+     * @return Μία λίστα με τις λεπτομέρειες των αντίτυπων
      */
     private List<Quadruple> createDataSource(List<Item> items)
     {
@@ -40,7 +40,7 @@ public class ManageItemsPresenter
     }
 
     /**
-     * Αρχικοποεί τον Presenter.
+     * Αρχικοποιεί τον Presenter.
      * @param view Ένα instance του view
      * @param books Ένα instance του books
      * @param items Ένα instance του item
@@ -70,8 +70,8 @@ public class ManageItemsPresenter
      * Τροποποιεί την κατάσταση ενός αντίτυπου. Έπειτα ανανεώνει
      * την κατάσταση του αντίτυπου.
      * @param uid Το μοναδικό id του αντίτυπου
-     * @param oldState Η παλία κατάσταση πριν τροποποιηθεί
-     * @param newState Η νέα κατάσταση μετά την τροποποιηση
+     * @param oldState Η παλιά κατάσταση πριν τροποποιηθεί
+     * @param newState Η νέα κατάσταση μετά την τροποποίηση
      */
     private void showStateChange(int uid, ItemState oldState, ItemState newState)
     {
@@ -80,8 +80,8 @@ public class ManageItemsPresenter
     }
 
     /**
-     * Κατα την πραγματοποίηση click επάνω
-     * στο αντίτυπο εμφανίζεται μηνυμα ανάλογο
+     * Κατά την πραγματοποίηση click επάνω
+     * στο αντίτυπο εμφανίζεται μήνυμα ανάλογο
      * με την κατάσταση του.
      * @param uid Το μοναδικό id του αντιτύπου
      */
@@ -105,7 +105,7 @@ public class ManageItemsPresenter
     /**
      * Αλλάζει την κατάσταση του αντίτυπου με
      * id uid και την θέτει σε διαθέσιμη ή όχι.
-     * @param uid To μοναδικό id του αντίτυπου προς
+     * @param uid Το μοναδικό id του αντίτυπου προς
      * αλλαγή
      */
     void onChangeItemState(int uid)
@@ -125,7 +125,7 @@ public class ManageItemsPresenter
     }
 
     /**
-     * Κατα την πρόσθεση ενός νέου αντιτύπου
+     * Κατά την πρόσθεση ενός νέου αντιτύπου
      * ανανεώνεται η λίστα και εμφανίζεται
      * κατάλληλο μήνυμα. Τέλος προστίθεται το
      * αντικείμενο.
@@ -138,7 +138,7 @@ public class ManageItemsPresenter
     }
 
     /**
-     * Κατα την πρόσθεση ενός νέου αντιτύπου
+     * Κατά την πρόσθεση ενός νέου αντιτύπου
      * εμφανίζεται κατάλληλο μήνυμα.
      */
     void onAddNewItem()

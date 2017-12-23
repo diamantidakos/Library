@@ -104,7 +104,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
     }
 
     /**
-     * Αδείαζει το κείμενο που βρίσκεται
+     * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
     private void clear_search_bar()
@@ -115,8 +115,8 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
     }
 
     /**
-     * Φορτώνει την λίστα με τους δανιζόμενους.
-     * @param input Η λιστα που θα φορτώσει
+     * Φορτώνει την λίστα με τους δανειζομένους.
+     * @param input Η λίστα που θα φορτώσει
      */
     public void loadSource(List<Quadruple> input)
     {
@@ -124,9 +124,8 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     public void showToast(String value)
     {
@@ -134,7 +133,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
     }
 
     /**
-     * Εμφανίζει ενα μήνυμα σε μορφή alert
+     * Εμφανίζει ένα μήνυμα σε μορφή alert
      * με περιεχόμενο message και τίτλο title.
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
@@ -155,8 +154,8 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
     }
 
     /**
-     * Επιστρέφει το id του δανιζόμενου
-     * @return Το id του δανιζόμενου
+     * Επιστρέφει το id του δανειζόμενου
+     * @return Το id του δανειζόμενου
      */
     public int getAttachedBorrowerID()
     {
@@ -173,10 +172,10 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
     }
 
     /**
-     * Αδείαζει την μπάρα αναζήτησης
-     * @param requestCode Ο ζητούμενος κώδικος
+     * Αδειάζει την μπάρα αναζήτησης
+     * @param requestCode Ο ζητούμενος κωδικός
      * @param resultCode Ο κωδικός του αποτελέσματος
-     * @param data Tο intent
+     * @param data Το intent
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)

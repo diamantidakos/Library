@@ -15,8 +15,8 @@ public class BorrowerCategoryDAOMemory implements BorrowerCategoryDAO
     protected static List<BorrowerCategory> entities = new ArrayList<>();
 
     /**
-     * Αποθηκεύει μία κατηγορία δανιζομένου.
-     * @param entity Η κατηγορία δανιζομένου
+     * Αποθηκεύει μία κατηγορία δανειζομένου.
+     * @param entity Η κατηγορία δανειζομένου
      */
     public void save(BorrowerCategory entity)
     {
@@ -25,8 +25,8 @@ public class BorrowerCategoryDAOMemory implements BorrowerCategoryDAO
     }
 
     /**
-     * Διαγράφει μία κατηγορία δανιζομένου.
-     * @param entity Η κατηγορία δανιζομένου
+     * Διαγράφει μία κατηγορία δανειζομένου.
+     * @param entity Η κατηγορία δανειζομένου
      */
     public void delete(BorrowerCategory entity)
     {
@@ -34,9 +34,9 @@ public class BorrowerCategoryDAOMemory implements BorrowerCategoryDAO
     }
 
     /**
-     * Βρίσκει μία κατηγορία δανιζομένου με βάση τον κωδικό του.
+     * Βρίσκει μία κατηγορία δανειζομένου με βάση τον κωδικό του.
      * @param uid Ο κωδικός της κατηγορίας
-     * @return Η κατηγορία δανιζομένου
+     * @return Η κατηγορία δανειζομένου
      */
     public BorrowerCategory find(int uid)
     {
@@ -50,8 +50,8 @@ public class BorrowerCategoryDAOMemory implements BorrowerCategoryDAO
     }
 
     /**
-     * Επιστρέφει όλες τις κατηγορίες δανιζομένων.
-     * @return Οι κατηγορίες δανιζομένων
+     * Επιστρέφει όλες τις κατηγορίες δανειζομένων.
+     * @return Οι κατηγορίες δανειζομένων
      */
     public List<BorrowerCategory> findAll()
     {
@@ -59,7 +59,7 @@ public class BorrowerCategoryDAOMemory implements BorrowerCategoryDAO
     }
 
     /**
-     * Επιστρέφει τον επώμενο κωδικό που μπορέι να αποδοθεί σε μία κατηγορία δανιζομένων.
+     * Επιστρέφει τον επόμενο κωδικό που μπορεί να αποδοθεί σε μία κατηγορία δανειζομένων.
      * @return Ο κωδικός
      */
     public int nextId()

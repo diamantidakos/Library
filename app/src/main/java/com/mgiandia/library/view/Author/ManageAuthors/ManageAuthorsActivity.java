@@ -104,7 +104,7 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
     }
 
     /**
-     * Αδείαζει το κείμενο που βρίσκεται
+     * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
     private void clear_search_bar()
@@ -116,9 +116,9 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
 
     /**
      * Αδείαζει την μπάρα αναζήτησης
-     * @param requestCode Ο ζητούμενος κώδικος
+     * @param requestCode Ο ζητούμενος κωδικός
      * @param resultCode Ο κωδικός του αποτελέσματος
-     * @param data Tο intent
+     * @param data Το intent
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -141,7 +141,7 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
 
     /**
      * Φορτώνει την λίστα με τους συγγραφείς
-     * @param input Η λιστα που θα φορτώσει
+     * @param input Η λίστα που θα φορτώσει
      */
     public void loadSource(List<Quadruple> input)
     {
@@ -149,9 +149,9 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
     }
 
     /**
-     * Μεταφερει τον χρήστη στο activity AuthorDetailsActivity
+     * Μεταφέρει τον χρήστη στο activity AuthorDetailsActivity
      * όταν γίνει click πάνω στον συγγραφέα με id uid.
-     * @param uid To μοναδικό id του συγγραφέα
+     * @param uid Το μοναδικό id του συγγραφέα
      */
     public void clickItem(int uid)
     {
@@ -170,9 +170,8 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     public void showToast(String value)
     {

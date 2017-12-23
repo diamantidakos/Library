@@ -40,7 +40,7 @@ public interface AddEditAuthorView
     void successfullyFinishActivity(String message);
 
     /**
-     * Το μηνύμα που εμφανίζεται σε
+     * Το μήνυμα που εμφανίζεται σε
      * περίπτωση error.
      * @param title O τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος

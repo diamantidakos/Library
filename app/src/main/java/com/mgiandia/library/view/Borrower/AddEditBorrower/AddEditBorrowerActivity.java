@@ -26,7 +26,7 @@ import com.mgiandia.library.memorydao.CountryDAOMemory;
 public class AddEditBorrowerActivity extends AppCompatActivity implements AddEditBorrowerView
 {
     /**
-     * Εμφανίζει ενα μήνυμα τύπου alert με
+     * Εμφανίζει ένα μήνυμα τύπου alert με
      * τίτλο title και μήνυμα message.
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
@@ -41,7 +41,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+     * Το μήνυμα που εμφανίζεται όταν τελειώνει
      * επιτυχώς ένα activity.
      * @param message Το μήνυμα που θα εμφανίσει
      */
@@ -54,8 +54,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Επιστρέφει το πρώτο όνομα του δανιστή.
-     * @return Το πρώτο όνομα του δανιστή
+     * Επιστρέφει το πρώτο όνομα του δανειστή.
+     * @return Το πρώτο όνομα του δανειστή
      */
     public String getFirstName()
     {
@@ -63,8 +63,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Επιστρέφει το επώνυμο του δανιστή.
-     * @return Το επώνυμο του δανιστή
+     * Επιστρέφει το επώνυμο του δανειστή.
+     * @return Το επώνυμο του δανειστή
      */
     public String getLastName()
     {
@@ -81,8 +81,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Επιστρέφει τον αριθμό του δανιστή.
-     * @return Ο αριθμός του δανιστή
+     * Επιστρέφει τον αριθμό του δανειστή.
+     * @return Ο αριθμός του δανειστή
      */
     public String getPhone()
     {
@@ -99,7 +99,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Επιστρέφει την θέση της χώρας του δανιζόμενου.
+     * Επιστρέφει την θέση της χώρας του δανειζόμενου.
      * @return Η θέση της χώρας
      */
     public Integer getCountryPosition()
@@ -144,8 +144,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Επιστρέφει το id του δανιστή.
-     * @return Το id του δανιστή
+     * Επιστρέφει το id του δανειστή.
+     * @return Το id του δανειστή
      */
     public Integer getAttachedBorrowerID()
     {
@@ -153,8 +153,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Θέτει το πρώτο όνομα του δανιστή.
-     * @param value Το πρώτο όνομα του δανιστή
+     * Θέτει το πρώτο όνομα του δανειστή.
+     * @param value Το πρώτο όνομα του δανειστή
      */
     public void setFirstName(String value)
     {
@@ -180,8 +180,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Θέτει τον αρι8μό του δανιζόμενου.
-     * @param value Ο αρι8μός του δανιζόμενου
+     * Θέτει τον αρι8μό του δανειζόμενου.
+     * @param value Ο αρι8μός του δανειζόμενου
      */
     public void setPhone(String value)
     {
@@ -189,8 +189,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Θέτει τον αριθμό ηλελτρονικό ταχυδρομίου του δανιζόμενου.
-     * @param value Ο αρι8μός του ηλελτρονικό ταχυδρομίου του δανιζόμενου.
+     * Θέτει τον αριθμό ηλεκτρονικού ταχυδρομείου του δανειζόμενου.
+     * @param value Ο αρι8μός του ηλεκτρονικού ταχυδρομείου του δανειζόμενου
      */
     public void setEmail(String value)
     {
@@ -198,8 +198,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Θέτει την θέση της χώρας του δανιζόμενου.
-     * @param value Ο αριθμός της θέσης του δανιζόμενου
+     * Θέτει την θέση της χώρας του δανειζόμενου.
+     * @param value Ο αριθμός της θέσης του δανειζόμενου
      */
     public void setCountryPosition(Integer value)
     {
@@ -207,8 +207,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Θέτει την πόλη του δανιζόμενου.
-     * @param value Η πόλη του δανιζόμενου
+     * Θέτει την πόλη του δανειζόμενου.
+     * @param value Η πόλη του δανειζόμενου
      */
     public void setAddressCity(String value)
     {
@@ -216,8 +216,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Θέτει την οδό του δανιζόμενου.
-     * @param value Η οδός του δανιζόμενου
+     * Θέτει την οδό του δανειζόμενου.
+     * @param value Η οδός του δανειζόμενου
      */
     public void setAddressStreet(String value)
     {
@@ -225,8 +225,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
     /**
-     * Θέτει τον αριθμό του δανιζόμενου.
-     * @param value Ο αριθμός του δανιζόμενου
+     * Θέτει τον αριθμό του δανειζόμενου.
+     * @param value Ο αριθμός του δανειζόμενου
      */
     public void setAddressNumber(String value)
     {
@@ -266,7 +266,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     /**
      * Θέτει από την λίστα με τα ονόματα των χωρών
      * το όνομα.
-     * @param names Η λίστα με τα ονόματα των χωρων
+     * @param names Η λίστα με τα ονόματα των χωρών
      */
     public void setCountryList(List<String> names)
     {

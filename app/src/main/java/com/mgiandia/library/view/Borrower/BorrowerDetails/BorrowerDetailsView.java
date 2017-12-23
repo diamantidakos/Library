@@ -15,56 +15,56 @@ public interface BorrowerDetailsView
     void setID(String value);
 
     /**
-     * Θέτει το πρώτο όνομα του δανιζόμενου.
-     * @param value Το πρώτο όνομα του δανιζόμενου
+     * Θέτει το πρώτο όνομα του δανειζόμενου.
+     * @param value Το πρώτο όνομα του δανειζόμενου
      */
     void setFirstName(String value);
 
     /**
-     * Θέτει το επώνυμο του δανιζόμενου.
-     * @param value Το επώνυμο του δανιζόμενου
+     * Θέτει το επώνυμο του δανειζόμενου.
+     * @param value Το επώνυμο του δανειζόμενου
      */
     void setLastName(String value);
 
     /**
-     * Θέτει την κατηγορία του δανιζόμενου.
-     * @param value Η κατηγορία του δανιζόμενου
+     * Θέτει την κατηγορία του δανειζόμενου.
+     * @param value Η κατηγορία του δανειζόμενου
      */
     void setCategory(String value);
 
     /**
-     * Θέτει τον αρι8μό του δανιζόμενου.
-     * @param value Ο αρι8μός του δανιζόμενου
+     * Θέτει τον αρι8μό του δανειζόμενου.
+     * @param value Ο αρι8μός του δανειζόμενου
      */
     void setPhone(String value);
 
     /**
-     * Θέτει τον αριθμό ηλελτρονικό ταχυδρομίου του δανιζόμενου.
-     * @param value Ο αρι8μός του ηλελτρονικό ταχυδρομίου του δανιζόμενου.
+     * Θέτει τον αριθμό ηλεκτρονικού ταχυδρομείου του δανειζόμενου.
+     * @param value Ο αρι8μός του ηλεκτρονικού ταχυδρομείου του δανειζόμενου.
      */
     void setEmail(String value);
 
     /**
-     * Θέτει την χώρα του δανιζόμενου.
-     * @param value Η χώρα του δανιζόμενου
+     * Θέτει την χώρα του δανειζόμενου.
+     * @param value Η χώρα του δανειζόμενου
      */
     void setCountry(String value);
 
     /**
-     * Θέτει την πόλη του δανιζόμενου.
-     * @param value Η πόλη του δανιζόμενου
+     * Θέτει την πόλη του δανειζόμενου.
+     * @param value Η πόλη του δανειζόμενου
      */
     void setAddressCity(String value);
 
     /**
-     * Θέτει την οδό του δανιζόμενου.
-     * @param value Η οδός του δανιζόμενου
+     * Θέτει την οδό του δανειζόμενου.
+     * @param value Η οδός του δανειζόμενου
      */
     void setAddressStreet(String value);
 
     /**
-     * Θέτει τον αριθμό του δανιζόμενου.
-     * @param value Ο αριθμός του δανιζόμενου
+     * Θέτει τον αριθμό του δανειζόμενου.
+     * @param value Ο αριθμός του δανειζόμενου
      */
     void setAddressNumber(String value);
 
@@ -82,20 +82,20 @@ public interface BorrowerDetailsView
 
     /**
      * Ξεκινάει το activity AddEditAuthorActivity
-     * με παράμετρο το id του δανιζόμενου.
-     * @param borrowerID Το id του δανιζόμενου
+     * με παράμετρο το id του δανειζόμενου.
+     * @param borrowerID Το id του δανειζόμενου
      */
     void startEdit(int borrowerID);
 
     /**
-     * Διαγράφη του δανιζόμενου.
-     * @param title Τίτλος του εμαφανιζόμενου μηνύματος
-     * @param message Το περιεχόμενο του εμαφανιζόμενου μηνύματος
+     * Διαγράφει τον δανειζόμενο
+     * @param title Τίτλος του εμφανιζόμενου μηνύματος
+     * @param message Το περιεχόμενο του εμφανιζόμενου μηνύματος
      */
     void startDelete(String title, String message);
 
     /**
-     * Κατα την διαγραφή του δανιζόμενου
+     * Κατά την διαγραφή του δανειζόμενου
      * το μήνυμα που εμφανίζεται καθώς και
      * η ολοκλήρωση της διαγραφής του.
      * @param message Το μήνυμα
@@ -103,9 +103,8 @@ public interface BorrowerDetailsView
     void doDeleteAndFinish(String message);
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void showToast(String value);
 }

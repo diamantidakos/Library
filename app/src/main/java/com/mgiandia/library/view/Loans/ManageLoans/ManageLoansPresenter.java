@@ -24,8 +24,8 @@ public class ManageLoansPresenter
 
     /**
      * Επιστρέφει τα δεδομένα για μία λίστα από δάνεια.
-     * @param loans Τα δάνια στα οποίοα θα επιστραφούν τα δεδομένα
-     * @return Μία λίστα με τις λεπτομέριες των δανείων
+     * @param loans Τα δάνεια στα οποίο θα επιστραφούν τα δεδομένα
+     * @return Μία λίστα με τις λεπτομέρειες των δανείων
      */
     private List<Quadruple> createDataSource(List<Loan> loans)
     {
@@ -39,12 +39,12 @@ public class ManageLoansPresenter
     }
 
     /**
-     * Δέχεται μία λίστα με δάνια και δανιζόμενους
-     * και επιστρέφει τους δανιζόμενους που έχουν
-     * αυτά τα δάνια.
+     * Δέχεται μία λίστα με δάνεια και δανειζομένους
+     * και επιστρέφει τους δανειζομένους που έχουν
+     * αυτά τα δάνεια.
      * @param loans Ένα instance του loan
      * @param borrower Ένα instance του borrower
-     * @return Μία λιστα με τους δανειζόμενους
+     * @return Μία λίστα με τους δανειζομένους
      */
     private ArrayList<Loan> filterLoans(LoanDAO loans, Borrower borrower)
     {
@@ -57,7 +57,7 @@ public class ManageLoansPresenter
         return tmp;
     }
     /**
-     * Αρχικοποεί τον Presenter.
+     * Αρχικοποιεί τον Presenter.
      * @param view Ένα instance του view
      * @param loans Ένα instance του loan
      * @param borrowers Ένα instance του borrower
@@ -82,8 +82,8 @@ public class ManageLoansPresenter
     }
 
     /**
-     * Εμφανίζει ενα μήνυμα μορφής toast
-     * @param uid To μοναδικό id του δανιζόμενου
+     * Εμφανίζει ένα μήνυμα μορφής toast
+     * @param uid Το μοναδικό id του δανειζόμενου
      */
     void onClickItem(int uid)
     {
@@ -91,7 +91,7 @@ public class ManageLoansPresenter
     }
 
     /**
-     * Φορτώνει την λίστα με τους δανιζόμενους.
+     * Φορτώνει την λίστα με τους δανειζομένους.
      */
     void onLoadSource()
     {
@@ -99,9 +99,8 @@ public class ManageLoansPresenter
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void onShowToast(String value)
     {

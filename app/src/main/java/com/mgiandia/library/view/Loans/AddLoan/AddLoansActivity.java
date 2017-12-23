@@ -26,7 +26,7 @@ import com.mgiandia.library.memorydao.LoanDAOMemory;
 public class AddLoansActivity extends AppCompatActivity implements AddLoansView
 {
     /**
-     * Εμφανίζει ενα μήνυμα τύπου alert με
+     * Εμφανίζει ένα μήνυμα τύπου alert με
      * τίτλο title και μήνυμα message.
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
@@ -37,7 +37,7 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
     }
 
     /**
-     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+     * Το μήνυμα που εμφανίζεται όταν τελειώνει
      * επιτυχώς ένα activity.
      * @param message Το μήνυμα που θα εμφανίσει
      */
@@ -50,8 +50,8 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
     }
 
     /**
-     * Επιστρέφει το id tου επιλεγόμενου βιβλίου.
-     * @return Το id tου επιλεγόμενου βιβλίου
+     * Επιστρέφει το id του επιλεγόμενου βιβλίου.
+     * @return Το id του επιλεγόμενου βιβλίου
      */
     public int getSelectedBookId()
     {
@@ -59,9 +59,9 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
     }
 
     /**
-     * Θέτει το id του δανιζόμενου για
+     * Θέτει το id του εμφανιζόμενου για
      * το επιλεγόμενο βιβλίο.
-     * @param value Το id του δανιζόμενου
+     * @param value Το id του δανειζόμενου
      */
     public void setBorrowerId(String value)
     {

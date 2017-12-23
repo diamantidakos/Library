@@ -15,36 +15,34 @@ public interface ManageReturnsView
 {
     /**
      * Φορτώνει την λίστα με τις επιστροφές.
-     * @param input Η λιστα που θα φορτώσει
+     * @param input Η λίστα που θα φορτώσει
      */
     void loadSource(List<Quadruple> input);
 
     /**
-     * Κατα την αλλαγή της κατάστασης ενός δανίου
+     * Κατά την αλλαγή της κατάστασης ενός δανείου
      * εμφανίζεται ένα μήνυμα μορφής alert.
-     * @param uid To μοναδικό id του δανιζόμενου
+     * @param uid To μοναδικό id του δανειζόμενου
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
      */
     void newLoanStateSelectAlert(int uid, String title, String message);
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value σε μορφή alert.
+     * Εμφανίζει ένα alert.
      * @param title O τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
      */
     void showAlert(String title, String message);
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void showToast(String value);
 
     /**
-     * Κατα την ανανέωση της σελίδας
+     * Κατά την ανανέωση της σελίδας
      * διαγράφετε η μπάρα αναζήτησης
      */
     void refresh();

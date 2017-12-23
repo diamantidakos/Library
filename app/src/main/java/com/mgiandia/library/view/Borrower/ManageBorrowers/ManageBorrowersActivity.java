@@ -37,7 +37,7 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     private AdvancedListAdapter adapter;
 
     /**
-     * Δημιουργεί to layout και αρχικοποιεί
+     * Δημιουργεί το layout και αρχικοποιεί
      * το activity.
      * @param savedInstanceState το Instance state
      */
@@ -74,7 +74,7 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     }
 
     /**
-     * Τροποποιεί το κείμενο του δανιζόμενου.
+     * Τροποποιεί το κείμενο του δανειζόμενου.
      * @param text Το κείμενο που θα τροποποιηθεί
      * @return true
      */
@@ -97,7 +97,7 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     }
 
     /**
-     * Αδείαζει το κείμενο που βρίσκεται
+     * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
     private void clear_search_bar() {
@@ -107,10 +107,10 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     }
 
     /**
-     * Αδείαζει την μπάρα αναζήτησης
-     * @param requestCode Ο ζητούμενος κώδικος
+     * Αδειάζει την μπάρα αναζήτησης
+     * @param requestCode Ο ζητούμενος κωδικός
      * @param resultCode Ο κωδικός του αποτελέσματος
-     * @param data Tο intent
+     * @param data Το intent
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -128,17 +128,17 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     }
 
     /**
-     * Φορτώνει την λίστα με τους δανιζόμενους.
-     * @param input Η λιστα που θα φορτώσει
+     * Φορτώνει την λίστα με τους δανειζομένους.
+     * @param input Η λίστα που θα φορτώσει
      */
     public void loadSource(List<Quadruple> input) {
         adapter.loadSource(input);
     }
 
     /**
-     * Μεταφερει τον χρήστη στο activity ManageLoansActivity
-     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
-     * @param uid To μοναδικό id του δανιζόμενου
+     * Μεταφέρει τον χρήστη στο activity ManageLoansActivity
+     * όταν γίνει click πάνω στον δανειζόμενο με id uid.
+     * @param uid Το μοναδικό id του δανειζόμενου
      */
     public void clickItemLoans(int uid)
     {
@@ -148,9 +148,9 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     }
 
     /**
-     * Μεταφερει τον χρήστη στο activity ManageReturnsActivity
-     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
-     * @param uid To μοναδικό id του δανιζόμενου
+     * Μεταφέρει τον χρήστη στο activity ManageReturnsActivity
+     * όταν γίνει click πάνω στον δανειζόμενο με id uid.
+     * @param uid Το μοναδικό id του δανειζόμενου
      */
     public void clickItemReturns(int uid)
     {
@@ -160,9 +160,9 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     }
 
     /**
-     * Μεταφερει τον χρήστη στο activity BorrowerDetailsActivity
-     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
-     * @param uid To μοναδικό id του δανιζόμενου
+     * Μεταφέρει τον χρήστη στο activity BorrowerDetailsActivity
+     * όταν γίνει click πάνω στον δανειζόμενο με id uid.
+     * @param uid Το μοναδικό id του δανειζόμενου
      */
     public void clickItem(int uid)
     {
@@ -181,8 +181,8 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     }
 
     /**
-     * Αν πρέπει να επιστρέψει τα δάνια
-     * @return Τα επιστραφόμενα δάνια
+     * Αν πρέπει να επιστρέψει τα δάνεια
+     * @return Τα επιστρεφόμενα δάνεια
      */
     public boolean shouldLoadLoansOnClick()
     {
@@ -199,9 +199,8 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     public void showToast(String value)
     {

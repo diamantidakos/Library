@@ -12,7 +12,7 @@ public class HomePagePresenter
     private HomePageView view;
 
     /**
-     * Αρχικοποεί τον Presenter.
+     * Αρχικοποιεί τον Presenter.
      * @param view Ένα instance του view
      */
     public HomePagePresenter(HomePageView view)
@@ -22,7 +22,7 @@ public class HomePagePresenter
 
     /**
      * Όταν πραγματοποιείται click στο ManageBorrowersActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα.
      */
     void onManageBorrowers()
     {
@@ -31,7 +31,7 @@ public class HomePagePresenter
 
     /**
      * Όταν πραγματοποιείται click στο ManageBooksActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα.
      */
     void onManageBooks()
     {
@@ -40,7 +40,7 @@ public class HomePagePresenter
 
     /**
      * Όταν πραγματοποιείται click στο ManageAuthorsActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα.
      */
     void onManageAuthors()
     {
@@ -49,7 +49,7 @@ public class HomePagePresenter
 
     /**
      * Όταν πραγματοποιείται click στο ManagePublishersActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα.
      */
     void onManagePublishers()
     {
@@ -58,8 +58,8 @@ public class HomePagePresenter
 
     /**
      * Όταν πραγματοποιείται click στο ManageBooksActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
-     * ελέχεται αν πρέπει να φορτωθούν τα βιβλία.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
+     * ελέγχεται αν πρέπει να φορτωθούν τα βιβλία.
      */
     void onManageItems()
     {
@@ -68,8 +68,8 @@ public class HomePagePresenter
 
     /**
      * Όταν πραγματοποιείται click στο ManageBorrowersActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
-     * ελέχεται αν πρέπει να φορτωθούν τα δάνια.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
+     * ελέγχεται αν πρέπει να φορτωθούν τα δάνεια.
      */
     void onManageLoans()
     {
@@ -78,8 +78,8 @@ public class HomePagePresenter
 
     /**
      * Όταν πραγματοποιείται click στο ManageBorrowersActivity activity
-     * ο χρηστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
-     * ελέχεται αν πρέπει να φορτωθούν οι επιστροφές.
+     * ο χρήστης μεταφέρεται σε αυτό από την αρχική σελίδα. Επίσης αν
+     * ελέγχεται αν πρέπει να φορτωθούν οι επιστροφές.
      */
     void onManageReturns()
     {

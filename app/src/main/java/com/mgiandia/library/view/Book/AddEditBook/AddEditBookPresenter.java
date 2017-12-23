@@ -35,7 +35,7 @@ public class AddEditBookPresenter {
      * Επαληθεύει ότι ενα κείμενο περιέχει
      * μόνο αριθμούς.
      * @param in To text που θα επαληθευτεί
-     * @return true αν περιέχει μόνο αριθμόυς
+     * @return true αν περιέχει μόνο αριθμούς
      * αλλιώς false.
      */
     private boolean verifyOnlyDigits(String in)

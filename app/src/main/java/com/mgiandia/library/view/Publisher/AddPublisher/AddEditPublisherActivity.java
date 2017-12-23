@@ -25,7 +25,7 @@ import com.mgiandia.library.memorydao.PublisherDAOMemory;
 public class AddEditPublisherActivity extends AppCompatActivity implements AddEditPublisherView
 {
     /**
-     * Εμφανίζει ενα μήνυμα τύπου alert με
+     * Εμφανίζει ένα μήνυμα τύπου alert με
      * τίτλο title και μήνυμα message.
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
@@ -40,7 +40,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
     }
 
     /**
-     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+     * Το μήνυμα που εμφανίζεται όταν τελειώνει
      * επιτυχώς ένα activity.
      * @param message Το μήνυμα που θα εμφανίσει
      */
@@ -152,8 +152,8 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
     }
 
     /**
-     * Θέτει τον αριθμό ηλελτρονικό ταχυδρομίου του εκδότη.
-     * @param value Ο αρι8μός του ηλελτρονικό ταχυδρομίου του εκδότη.
+     * Θέτει τον αριθμό ηλεκτρονικού ταχυδρομείου του εκδότη.
+     * @param value Ο αρι8μός του ηλεκτρονικού ταχυδρομείου του εκδότη.
      */
     public void setEmail(String value)
     {
@@ -217,7 +217,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
     /**
      * Θέτει από την λίστα με τα ονόματα των χωρών
      * το όνομα.
-     * @param names Η λίστα με τα ονόματα των χωρων
+     * @param names Η λίστα με τα ονόματα των χωρών
      */
     public void setCountryList(List<String> names)
     {

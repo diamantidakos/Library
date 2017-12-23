@@ -20,9 +20,9 @@ public class ManageBorrowersPresenter
     private BorrowerDAO borrowers;
 
     /**
-     * Επιστρέφει τα δεδομένα για μία λίστα από δανιζόμενους.
-     * @param borrowers Οι δανιζόμενοι στους οποίους θα επιστραφούν τα δεδομένα
-     * @return Μία λίστα με τις λεπτομέριες των δανιζόμενων
+     * Επιστρέφει τα δεδομένα για μία λίστα από δανειζομένους.
+     * @param borrowers Οι δανειζόμενοι στους οποίους θα επιστραφούν τα δεδομένα
+     * @return Μία λίστα με τις λεπτομέρειες των δανειζομένων
      */
     private List<Quadruple> createDataSource(List<Borrower> borrowers)
     {
@@ -48,9 +48,9 @@ public class ManageBorrowersPresenter
     }
 
     /**
-     * Μεταφερει τον χρήστη στο activity BorrowerDetailsActivity
-     * όταν γίνει click πάνω στον δανιζόμενο με id uid.
-     * @param uid To μοναδικό id του δανιζόμενου
+     * Μεταφέρει τον χρήστη στο activity BorrowerDetailsActivity
+     * όταν γίνει click πάνω στον δανειζόμενο με id uid.
+     * @param uid To μοναδικό id του δανειζόμενου
      */
     void onClickItem(int uid)
     {
@@ -71,9 +71,8 @@ public class ManageBorrowersPresenter
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void onShowToast(String value)
     {
@@ -81,7 +80,7 @@ public class ManageBorrowersPresenter
     }
 
     /**
-     * Φορτώνει την λίστα με τους δανιζόμενους.
+     * Φορτώνει την λίστα με τους δανειζομένους.
      */
     void onLoadSource()
     {

@@ -22,7 +22,7 @@ public class ManagePublishersPresenter
     /**
      * Επιστρέφει τα δεδομένα για μία λίστα από εκδότες.
      * @param publishers Οι εκδότες στους οποίους θα επιστραφούν τα δεδομένα
-     * @return Μία λίστα με τις λεπτομέριες των εκδοτών
+     * @return Μία λίστα με τις λεπτομέρειες των εκδοτών
      */
     private List<Quadruple> createDataSource(List<Publisher> publishers)
     {
@@ -35,7 +35,7 @@ public class ManagePublishersPresenter
     }
 
     /**
-     * Αρχικοποεί τον Presenter.
+     * Αρχικοποιεί τον Presenter.
      * @param view Ένα instance του view
      * @param publishers Ένα instance του publisher
      */
@@ -48,9 +48,9 @@ public class ManagePublishersPresenter
     }
 
     /**
-     * Μεταφερει τον χρήστη στο activity PublisherDetailsActivity
+     * Μεταφέρει τον χρήστη στο activity PublisherDetailsActivity
      * όταν γίνει click πάνω στον εκδότη με id uid.
-     * @param uid To μοναδικό id του εκδότη
+     * @param uid Το μοναδικό id του εκδότη
      */
     void onClickItem(int uid)
     {
@@ -66,9 +66,8 @@ public class ManagePublishersPresenter
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void onShowToast(String value)
     {
@@ -77,7 +76,6 @@ public class ManagePublishersPresenter
 
     /**
      * Φορτώνει την λίστα με τους εκδότες.
-     * @param input Η λιστα που θα φορτώσει
      */
     void onLoadSource()
     {

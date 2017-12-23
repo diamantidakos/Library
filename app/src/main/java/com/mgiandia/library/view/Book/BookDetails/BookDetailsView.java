@@ -20,8 +20,8 @@ public interface BookDetailsView
     void setID(String value);
 
     /**
-     * Θέτει τον τιτλο του βιβλίου.
-     * @param value Ο τιτλος του βιβλίου.
+     * Θέτει τον τίτλο του βιβλίου.
+     * @param value Ο τίτλος του βιβλίου.
      */
     void setBookTitle(String value);
 
@@ -71,14 +71,13 @@ public interface BookDetailsView
     /**
      * Ξεκινάει να τροποποιεί το βιβλίο
      * με id bookID.
-     * @param bookID To id του βιβλίου που θα τροποποιηθεί
+     * @param bookID Το id του βιβλίου που θα τροποποιηθεί
      */
     void startEdit(int bookID);
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void showToast(String value);
 }

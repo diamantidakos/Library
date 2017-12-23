@@ -14,9 +14,9 @@ import com.mgiandia.library.util.Quadruple;
 public interface ManagePublishersView
 {
     /**
-     * Μεταφερει τον χρήστη στο activity PublisherDetailsActivity
+     * Μεταφέρει τον χρήστη στο activity PublisherDetailsActivity
      * όταν γίνει click πάνω στον εκδότη με id uid.
-     * @param uid To μοναδικό id του εκδότη
+     * @param uid Το μοναδικό id του εκδότη
      */
     void clickItem(int uid);
 
@@ -27,14 +27,13 @@ public interface ManagePublishersView
 
     /**
      * Φορτώνει την λίστα με τους εκδότες.
-     * @param input Η λιστα που θα φορτώσει
+     * @param input Η λίστα που θα φορτώσει
      */
     void loadSource(List<Quadruple> input);
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void showToast(String value);
 }

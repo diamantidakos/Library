@@ -29,7 +29,7 @@ import com.mgiandia.library.view.Util.MultiSelectSpinner;
 public class AddEditBookActivity extends AppCompatActivity implements AddEditBookView
 {
     /**
-     * Εμφανίζει ενα μήνυμα τύπου alert με
+     * Εμφανίζει ένα μήνυμα τύπου alert με
      * τίτλο title και μήνυμα message.
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
@@ -44,7 +44,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     }
 
     /**
-     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+     * Το μήνυμα που εμφανίζεται όταν τελειώνει
      * επιτυχώς ένα activity.
      * @param message Το μήνυμα που θα εμφανίσει
      */
@@ -155,8 +155,8 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     }
 
     /**
-     * Θέτει το ημερομηνία εξέδωσης του βιβλίου
-     * @param value Η ημερομηνία εξέδωσης του βιβλίου
+     * Θέτει την ημερομηνία έκδοσης του βιβλίου
+     * @param value Η ημερομηνία έκδοσης του βιβλίου
      */
     public void setPublication(String value)
     {
@@ -164,8 +164,8 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     }
 
     /**
-     * Θέτει το ετος του βιβλίου
-     * @param value Η το ετος του βιβλίου
+     * Θέτει το έτος του βιβλίου
+     * @param value Η το έτος του βιβλίου
      */
     public void setYear(String value)
     {

@@ -25,8 +25,8 @@ public interface AddEditBorrowerView
     Integer getAttachedBorrowerID();
 
     /**
-     * Θέτει το πρώτο όνομα του δανιστή.
-     * @param value Το πρώτο όνομα του δανιστή
+     * Θέτει το πρώτο όνομα του δανειστή.
+     * @param value Το πρώτο όνομα του δανειστή
      */
     void setFirstName(String value);
 
@@ -43,38 +43,38 @@ public interface AddEditBorrowerView
     void setCategoryPosition(Integer value);
 
     /**
-     * Θέτει τον αρι8μό του δανιζόμενου.
-     * @param value Ο αρι8μός του δανιζόμενου
+     * Θέτει τον αρι8μό του δανειζόμενου.
+     * @param value Ο αρι8μός του δανειζόμενου
      */
     void setPhone(String value);
 
     /**
-     * Θέτει τον αριθμό ηλελτρονικό ταχυδρομίου του δανιζόμενου.
-     * @param value Ο αρι8μός του ηλελτρονικό ταχυδρομίου του δανιζόμενου.
+     * Θέτει τον αριθμό ηλεκτρονικού ταχυδρομείου του δανειζόμενου.
+     * @param value Ο αρι8μός του ηλεκτρονικού ταχυδρομείου του δανειζόμενου.
      */
     void setEmail(String value);
 
     /**
-     * Θέτει την θέση της χώρας του δανιζόμενου.
-     * @param value Ο αριθμός της θέσης του δανιζόμενου
+     * Θέτει την θέση της χώρας του δανειζόμενου.
+     * @param value Ο αριθμός της θέσης του δανειζόμενου
      */
     void setCountryPosition(Integer value);
 
     /**
-     * Θέτει την πόλη του δανιζόμενου.
-     * @param value Η πόλη του δανιζόμενου
+     * Θέτει την πόλη του δανειζόμενου.
+     * @param value Η πόλη του δανειζόμενου
      */
     void setAddressCity(String value);
 
     /**
-     * Θέτει την οδό του δανιζόμενου.
-     * @param value Η οδός του δανιζόμενου
+     * Θέτει την οδό του δανειζόμενου.
+     * @param value Η οδός του δανειζόμενου
      */
     void setAddressStreet(String value);
 
     /**
-     * Θέτει τον αριθμό του δανιζόμενου.
-     * @param value Ο αριθμός του δανιζόμενου
+     * Θέτει τον αριθμό του δανειζόμενου.
+     * @param value Ο αριθμός του δανειζόμενου
      */
     void setAddressNumber(String value);
 
@@ -100,19 +100,19 @@ public interface AddEditBorrowerView
     /**
      * Θέτει από την λίστα με τα ονόματα των χωρών
      * το όνομα.
-     * @param names Η λίστα με τα ονόματα των χωρων
+     * @param names Η λίστα με τα ονόματα των χωρών
      */
     void setCountryList(List<String> names);
 
     /**
-     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+     * Το μήνυμα που εμφανίζεται όταν τελειώνει
      * επιτυχώς ένα activity.
      * @param message Το μήνυμα που θα εμφανίσει
      */
     void successfullyFinishActivity(String message);
 
     /**
-     * Το μηνύμα που εμφανίζεται σε
+     * Το μήνυμα που εμφανίζεται σε
      * περίπτωση error.
      * @param title O τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος

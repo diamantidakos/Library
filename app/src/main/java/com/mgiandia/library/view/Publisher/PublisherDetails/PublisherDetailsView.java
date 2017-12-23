@@ -30,8 +30,8 @@ public interface PublisherDetailsView
     void setPhone(String value);
 
     /**
-     * Θέτει τον αριθμό ηλελτρονικό ταχυδρομίου του εκδότη.
-     * @param value Ο αρι8μός του ηλελτρονικό ταχυδρομίου του εκδότη.
+     * Θέτει τον αριθμό ηλεκτρονικού ταχυδρομείου του εκδότη.
+     * @param value Ο αρι8μός του ηλεκτρονικού ταχυδρομείου του εκδότη.
      */
     void setEmail(String value);
 
@@ -92,9 +92,8 @@ public interface PublisherDetailsView
     void startShowBooks(int publisherID);
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     void showToast(String value);
 }

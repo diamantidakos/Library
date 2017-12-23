@@ -117,10 +117,10 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
     }
 
     /**
-     * Αδείαζει την μπάρα αναζήτησης
-     * @param requestCode Ο ζητούμενος κώδικος
+     * Αδειάζει την μπάρα αναζήτησης
+     * @param requestCode Ο ζητούμενος κωδικός
      * @param resultCode Ο κωδικός του αποτελέσματος
-     * @param data Tο intent
+     * @param data Το intent
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -151,9 +151,9 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
     }
 
     /**
-     * Μεταφερει τον χρήστη στο activity BookDetailsActivity
+     * Μεταφέρει τον χρήστη στο activity BookDetailsActivity
      * όταν γίνει click πάνω στο βιβλίο με id uid.
-     * @param uid To μοναδικό id του βιβλίου
+     * @param uid Το μοναδικό id του βιβλίου
      */
     public void clickItem(int uid)
     {
@@ -163,9 +163,9 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
     }
 
     /**
-     * Μεταφερει τον χρήστη στο activity ManageItemsActivity
+     * Μεταφέρει τον χρήστη στο activity ManageItemsActivity
      * όταν γίνει click πάνω στο βιβλίο με id uid.
-     * @param uid To μοναδικό id του βιβλίου
+     * @param uid Το μοναδικό id του βιβλίου
      */
     public void clickItemList(int uid)
     {
@@ -184,9 +184,8 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
     }
 
     /**
-     * Εμφανίζει ένα μήνυμα με περιεχόμενο
-     * value.
-     * @param value To περιεχόμενο που θα εμφανιστεί
+     * Εμφανίζει ένα Toast.
+     * @param value Το περιεχόμενο που θα εμφανιστεί
      */
     public void showToast(String value)
     {

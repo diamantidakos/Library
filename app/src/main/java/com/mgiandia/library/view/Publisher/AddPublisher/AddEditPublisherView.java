@@ -34,8 +34,8 @@ public interface AddEditPublisherView
     void setPhone(String value);
 
     /**
-     * Θέτει τον αριθμό ηλελτρονικό ταχυδρομίου του εκδότη.
-     * @param value Ο αρι8μός του ηλελτρονικό ταχυδρομίου του εκδότη.
+     * Θέτει τον αριθμό ηλεκτρονικού ταχυδρομείου του εκδότη.
+     * @param value Ο αρι8μός του ηλεκτρονικού ταχυδρομείου του εκδότη.
      */
     void setEmail(String value);
 
@@ -78,19 +78,19 @@ public interface AddEditPublisherView
     /**
      * Θέτει από την λίστα με τα ονόματα των χωρών
      * το όνομα.
-     * @param names Η λίστα με τα ονόματα των χωρων
+     * @param names Η λίστα με τα ονόματα των χωρών
      */
     void setCountryList(List<String> names);
 
     /**
-     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+     * Το μήνυμα που εμφανίζεται όταν τελειώνει
      * επιτυχώς ένα activity.
      * @param message Το μήνυμα που θα εμφανίσει
      */
     void successfullyFinishActivity(String message);
 
     /**
-     * Εμφανίζει ενα μήνυμα τύπου alert με
+     * Εμφανίζει ένα μήνυμα τύπου alert με
      * τίτλο title και μήνυμα message.
      * @param title Ο τίτλος του μηνύματος
      * @param message Το περιεχόμενο του μηνύματος
