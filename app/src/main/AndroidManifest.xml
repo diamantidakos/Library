@@ -6,8 +6,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:theme="@style/SecondaryTheme"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:theme="@style/SecondaryTheme">
         <activity
             android:name=".view.HomePage.HomePageActivity"
             android:label="@string/app_name"
@@ -16,6 +16,7 @@
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -115,5 +116,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/SecondaryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".view.reservation.BookReservationActivity"></activity>
     </application>
+
 </manifest>
