@@ -1,5 +1,6 @@
 package com.mgiandia.library.view.reservation;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +41,7 @@ public class BookReservationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String bookTitle = edtBookTitle.getText().toString();
                 String authorName = edtAuthorName.getText().toString();
+                showBookSearchResults();
                 // κλήση μεθόδου searchBook στον presenter με παραμέτρους
                 // τα στοιχεία αναζήτησης
             }
@@ -55,5 +57,11 @@ public class BookReservationActivity extends AppCompatActivity {
         });
 
     }
+
+    public void showBookSearchResults(){
+        Intent intent = new Intent(this, BookSearchActivity.class);
+        startActivity(intent);
+    }
+
 }
 

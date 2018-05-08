@@ -128,7 +128,7 @@ public abstract class Initializer
 
         borrowerDao.save(new Borrower(borrowerDao.nextId(), "Μανόλης", "Γιακουμάκης",
                 new Address("Αιόλου", "11", "Αθήνα", new ZipCode("119"), "Ελλάδα"),
-                new EmailAddress("mgia@aueb.gr"), new TelephoneNumber("2108203292"), borrowerCategoryDao.find(5/*"Καθηγητής"*/)));
+                new EmailAddress("mgia@aueb.group"), new TelephoneNumber("2108203292"), borrowerCategoryDao.find(5/*"Καθηγητής"*/)));
 
         borrowerDao.save(new Borrower(borrowerDao.nextId(), "Βασίλης", "Δραγούμης",
                 new Address("Ερμού", "100", "Αθήνα", new ZipCode("150"), "Ελλάδα"),
@@ -152,7 +152,7 @@ public abstract class Initializer
 
         borrowerDao.save(new Borrower(borrowerDao.nextId(), "Νίκος", "Διαμαντίδης",
                 new Address("Πανεπιστημίου", "27", "Αθήνα", new ZipCode("1229"), "Ελλάδα"),
-                new EmailAddress("nad@aueb.gr"), new TelephoneNumber("2108203292"), borrowerCategoryDao.find(5/*"Προπτυχιακός Φοιτητής"*/)));
+                new EmailAddress("nad@aueb.group"), new TelephoneNumber("2108203292"), borrowerCategoryDao.find(5/*"Προπτυχιακός Φοιτητής"*/)));
 
         BookDAO bookDao = getBookDAO();
 
