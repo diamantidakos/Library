@@ -6,7 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.mgiandia.library.R;
+import com.mgiandia.library.dao.BookDAO;
+import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.domain.Book;
+import com.mgiandia.library.memorydao.BookDAOMemory;
+import com.mgiandia.library.memorydao.MemoryInitializer;
 
 import java.util.ArrayList;
 
@@ -31,8 +35,12 @@ public class BookSearchActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
 
+        Initializer initializer = new MemoryInitializer();
+        initializer.prepareData();
+        BookDAO bookDAO = new BookDAOMemory();
         // specify an adapter (see also next example)
-        mAdapter = new BookAdapter(new ArrayList<Book>());
+        mAdapter = new BookAdapter(bookDAO.findAll());
+
         recyclerView.setAdapter(mAdapter);
 
     }
