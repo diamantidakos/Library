@@ -14,12 +14,13 @@ import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.memorydao.BookDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.presenter.BookSearchPresenter;
+import com.mgiandia.library.presenter.ItemSelectionListener;
 
 import java.util.ArrayList;
 import java.util.Set;
 
 public class BookSearchActivity extends AppCompatActivity
-        implements BookAdapter.ItemSelectionListener<Book> {
+        implements ItemSelectionListener<Book> {
 
     public static final String BOOK_ID_EXTRA = "book_id";
     public static final String BOOK_DESCRIPTION_EXTRA = "book_description";
