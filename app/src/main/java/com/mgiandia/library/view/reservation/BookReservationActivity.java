@@ -13,7 +13,8 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.presenter.BookReservationPresenter;
 import com.mgiandia.library.presenter.BookReservationView;
 
-public class BookReservationActivity extends AppCompatActivity implements BookReservationView {
+public class BookReservationActivity extends AppCompatActivity
+        implements BookReservationView {
 
     public static final String BOOK_TITLE_EXTRA = "book_title";
     public static final String AUTHOR_NAME_EXTRA = "author_name";

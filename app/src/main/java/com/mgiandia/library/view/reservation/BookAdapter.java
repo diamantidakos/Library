@@ -6,16 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Book;
+import com.mgiandia.library.presenter.ItemSelectionListener;
 
 import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
-    private List<Book> mDataset;
+    private List<Book> itemList;
 
     /**
      * A reference to a listener for book selection events.
@@ -24,16 +24,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
      * that implements the interface).
      */
     private ItemSelectionListener<Book> bookSelectionListener;
-
-    /**
-     * This interface should be implemented by the Activity that hosts the RecyclerView
-     * in order to be notified of item selection
-     * @param <T>
-     */
-    public interface ItemSelectionListener<T> {
-
-        void onItemSelected(T item);
-    }
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -54,7 +44,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public BookAdapter(List<Book> myDataset) {
-        mDataset = myDataset;
+        itemList = myDataset;
     }
 
     /**
@@ -82,7 +72,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         // - get element from your dataset at this position
-        final Book bookAtPosition = mDataset.get(position);
+        final Book bookAtPosition = itemList.get(position);
 
         // - replace the contents of the view with data from the dataset item at this position
         holder.txtBookTitle.setText(bookAtPosition.getTitle());
@@ -101,6 +91,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return itemList.size();
     }
 }

@@ -43,4 +43,8 @@ public interface BookDAO
      * @return Ο κωδικός του βιβλίου
      */
     int nextId();
+
+    List<Book> findByTitle(String title);
+
+    List<Book> findByAuthorName(String authorName);
 }
