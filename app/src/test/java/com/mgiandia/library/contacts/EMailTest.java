@@ -17,15 +17,15 @@ public class EMailTest {
         
         equalsTester.bothObjectsHaveNoState(new EmailAddress(null));
         
-        equalsTester.setObjectUnderTest(new EmailAddress("a@b.gr"));
+        equalsTester.setObjectUnderTest(new EmailAddress("a@b.listItem"));
         equalsTester.otherObjectIsNull();
         equalsTester.otherObjectsHasNoState(new EmailAddress(null));        
         equalsTester.objectsHaveDifferentState(new EmailAddress("123@123.com"));        
-        equalsTester.bothObjectsHaveSameState(new EmailAddress("a@b.gr"));
+        equalsTester.bothObjectsHaveSameState(new EmailAddress("a@b.listItem"));
 
         EmailAddress email2 = equalsTester.getObjectUnderTest();
         equalsTester.sameReferences(email2);
 
-        Assert.assertEquals("a@b.gr", new EmailAddress("a@b.gr").toString());
+        Assert.assertEquals("a@b.listItem", new EmailAddress("a@b.listItem").toString());
     }
 }

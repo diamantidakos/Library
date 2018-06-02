@@ -224,4 +224,24 @@ public class Book {
     Set<Author> friendAuthors() {
         return authors;
     }
- }
+
+    @Override
+    public String toString() {
+        if (authors.size() == 0){
+            return title;
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(title);
+
+        for(Author author: authors){
+            buffer.append(", ");
+            buffer.append(author.getLastName())
+                    .append(" ")
+                    .append(author.getFirstName());
+        }
+
+        return buffer.toString();
+
+    }
+}

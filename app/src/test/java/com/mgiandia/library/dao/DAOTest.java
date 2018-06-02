@@ -135,7 +135,7 @@ public class DAOTest {
     public void saveBorrower() {        
         Borrower borrower = new Borrower(borrowerDao.nextId(), "Νίκος", "Σαραντινός",
                 new Address("Πανεπιστημίου", "27", "Αθήνα", new ZipCode("1229"), "Ελλάδα"),
-                new EmailAddress("nsar@aueb.gr"), new TelephoneNumber("2108203292"), borrowerCategoryDao.find(5/*"Καθηγητής"*/));
+                new EmailAddress("nsar@aueb.listItem"), new TelephoneNumber("2108203292"), borrowerCategoryDao.find(5/*"Καθηγητής"*/));
 
         borrowerDao.save(borrower);
         Assert.assertEquals(INITIAL_BORROWER_COUNT + 1, borrowerDao.findAll().size());
