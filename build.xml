@@ -1,11 +1,11 @@
-<project name="Library" default="compile" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
+<project name="Library" default="technical-doc" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
 	    
 	  <property name="system.name" value="Library" />
 	  
-	  <property name="src.dir" location="${basedir}/src" />
+	  <property name="src.dir" location="${basedir}/src/main/java" />
 	  <property name="lib.dir" location="${basedir}/lib" />
 	  <property name="build.dir" location="${basedir}/build" />
-	  <property name="test.dir" location="${basedir}/test" />
+	  <property name="test.dir" location="${basedir}/test/main/java" />
 	  <property name="doc.dir" location="${basedir}/doc"/>
 	  <property name="testdoc.dir" location="${basedir}/doc"/>
 	  <property name="reports.dir" location="${basedir}/reports"/>
@@ -25,7 +25,8 @@
 	  <patternset id = "meta.files">
 	  	 <include name="**/*.xml"/>
 	  </patternset>
-		  
+	
+	<!--
 	  <path id="compile.classpath">
 	    <fileset dir ="${lib.dir}">
 	    	<include name ="**/*.jar"/>
@@ -33,12 +34,12 @@
 	    </fileset>
 	  </path>
 
-	  <target name="init" description="Initialises Build.">
+	  <target name="init">
 	       <mkdir dir="${build.dir}" />
 	  	   <mkdir dir="${reports.dir}" />
 	  	   <mkdir dir="${doc.dir}"/>
 	  </target>
-
+-->
 	  <target name="clean-diagrams">
 	  	  <delete>
 	  	    <fileset dir="${design.diagrams.dir}" includes="**/*.png"/>
@@ -49,7 +50,9 @@
 		  </delete>
 	  </target>
 	
-	  <target name="clean" description="Delete build directory.">
+	<!--
+	
+	  <target name="clean" >
 	       <delete dir="${build.dir}" />
            <delete dir="${reports.dir}" />
            <delete dir="${doc.dir}"/>	
@@ -63,7 +66,7 @@
 	  	   </copy>
 	  </target>
 	
-	  <target name="compile" depends="init, copymeta" description="Compiles the code.">
+	  <target name="compile" depends="init, copymeta" >
 	    <javac srcdir="${src.dir}" 
 	    	  destdir="${build.dir}"  
 	    	encoding="UTF-8" 
@@ -74,7 +77,7 @@
 	    </javac>
 	  </target>
 	
-    <target name="compile-test" depends = "compile" description="Compiles the Tests.">       
+    <target name="compile-test" depends = "compile" >       
         <javac srcdir="${test.dir}" 
         	destdir="${build.dir}" 
         	encoding="UTF-8" 
@@ -91,7 +94,7 @@
 	<property name="junit.dir" location="${reports.dir}/junit" />
 	
 	
-	 <target name="test" depends="compile, compile-test" description="Run JUnit tests.">
+	 <target name="test" depends="compile, compile-test" >
 	 	<delete dir="${junit.dir}"/>
 	 	<mkdir dir="${junit.dir}" />
 	    
@@ -108,7 +111,7 @@
 	  </target>
 	
 	
-	  <target name="testreport" depends = "test" description="HTML report for JUnit.">
+	  <target name="testreport" depends = "test" >
 	    <taskdef name="junitreport"
 	             classname="org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator" />
 	    <junitreport todir="${junit.dir}">
@@ -138,7 +141,7 @@
 			
 	 	</target>
 	
-	  <target name="coverage-report" depends="coverage">
+	  <target name="coverage-report" >
 		<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
 			        <classpath path="${lib.dir}/jacocoant.jar"/>
 			    </taskdef>
@@ -159,6 +162,7 @@
 			   <html destdir="${coverage.dir}"/>
 			</jacoco:report>
 	  </target>
+	
 	
 	
 	  <property name="checkstyle.dir" location="${reports.dir}/checkstyle"/>
@@ -191,7 +195,7 @@
 
 	  </target>
 
-	  <target name="javadoc" depends="compile" description="Generate JavaDoc.">
+	  <target name="javadoc" depends="compile" >
 	  	<delete dir="${api.doc.dir}"/>
 	    <mkdir dir="${api.doc.dir}"/>
 	    <javadoc classpathref="compile.classpath"
@@ -207,7 +211,7 @@
 	             failonerror="true"/>
 	  </target>
 		
-
+-->
 	  <target name="design-umlet" description="Converts Design UML diagram files to images">
 	   	 <available file="${umlet.home.dir}/umlet.jar" property="umletExists"/>
 	  	  <fail unless="umletExists" message="UMLet is not installed"/>
@@ -310,8 +314,7 @@
 	    </target>
 
 	
-	    <target name="all" 
-	    	depends="clean, compile, test, testreport, coverage-report, javadoc, checkstyle, technical-doc"/>
+	    <target name="all"	depends="technical-doc"/>
 		
 
 	
