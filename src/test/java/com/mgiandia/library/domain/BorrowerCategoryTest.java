@@ -1,16 +1,19 @@
 package com.mgiandia.library.domain;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.mgiandia.library.domain.BorrowerCategory;
-import com.mgiandia.library.util.SimpleCalendar;
 
 public class BorrowerCategoryTest {
 
     BorrowerCategory category;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         category = new BorrowerCategory();
     }
@@ -20,42 +23,43 @@ public class BorrowerCategoryTest {
     
     @Test
     public void dueWhenLoanDateisNull() {        
-        Assert.assertNull(category.getLoanDue(null));        
+    	Assertions.assertNull(category.getLoanDue(null));        
     }
     
     @Test
     public void dueWhenLendingDaysAre0() {
         category.setMaxLendingDays(0);
-        SimpleCalendar loanDate = get1stMarchOf2007();
-        Assert.assertEquals(loanDate, category.getLoanDue(loanDate));
+        LocalDate loanDate = get1stMarchOf2007();
+        Assertions.assertEquals(loanDate, category.getLoanDue(loanDate));
     }
     
     
     @Test
     public void dueWhenLendingDaysGreaterThan0() {
         category.setMaxLendingDays(4);
-        SimpleCalendar loanDate = get1stMarchOf2007();
-        SimpleCalendar expectedDue = get5thMarchOf2007();  
-        Assert.assertEquals(expectedDue, category.getLoanDue(loanDate));
+        LocalDate loanDate = get1stMarchOf2007();
+        LocalDate expectedDue = get5thMarchOf2007();  
+        Assertions.assertEquals(expectedDue, category.getLoanDue(loanDate));
     }
     
 
     @Test
     public void canBorrow() {
         category.setMaxLendingItems(10);
-        Assert.assertTrue(category.canBorrow(9));
-        Assert.assertFalse(category.canBorrow(10));
-        Assert.assertFalse(category.canBorrow(11));
+        Assertions.assertTrue(category.canBorrow(9));
+        Assertions.assertFalse(category.canBorrow(10));
+        Assertions.assertFalse(category.canBorrow(11));
     }
 
     
-    private SimpleCalendar get1stMarchOf2007() {
-        return new SimpleCalendar(2007,3,1);
+    private LocalDate get1stMarchOf2007() {
+    	
+        return LocalDate.of(2007, 3, 1);
     }
     
     
-    private SimpleCalendar get5thMarchOf2007() {        
-        return new SimpleCalendar(2007, 3, 5);
+    private LocalDate get5thMarchOf2007() {        
+        return LocalDate.of(2007, 3, 5);
     }
     
 }

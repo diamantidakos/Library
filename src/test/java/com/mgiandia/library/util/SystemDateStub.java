@@ -1,10 +1,10 @@
 package com.mgiandia.library.util;
 
-
+import java.time.LocalDate;
 
 public class SystemDateStub {
 
-    public static void setStub(SimpleCalendar stub) {
+    public static void setStub(LocalDate stub) {
         SystemDate.setStub(stub);
     }
     

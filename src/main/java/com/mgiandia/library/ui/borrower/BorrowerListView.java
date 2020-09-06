@@ -7,6 +7,6 @@ import com.mgiandia.library.ui.View;
 
 public interface BorrowerListView extends View {
     void setPresenter(BorrowerListPresenter presenter);
-    void setBorrowers(List<Borrower> borrowers);
+    void setBorrowers(List<Borrower> borrowers); 
     Borrower getSelectedBorrower();
 }

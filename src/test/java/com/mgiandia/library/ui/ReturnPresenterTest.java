@@ -1,5 +1,7 @@
 package com.mgiandia.library.ui;
 
+import java.time.LocalDate;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,7 +19,6 @@ import com.mgiandia.library.memorydao.ItemDAOMemory;
 import com.mgiandia.library.memorydao.LoanDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.ui.loan.ReturnPresenter;
-import com.mgiandia.library.util.SimpleCalendar;
 import com.mgiandia.library.util.SystemDateStub;
 
 public class ReturnPresenterTest {
@@ -112,12 +113,12 @@ public class ReturnPresenterTest {
     
     
     private void setSystemDateTo1stMarch2007() {        
-        SystemDateStub.setStub(new SimpleCalendar(2007, 3, 1));
+        SystemDateStub.setStub(LocalDate.of(2007, 3, 1));
     }
     
 
     
     private void setSystemDateTo30thMarch2007() {        
-        SystemDateStub.setStub(new SimpleCalendar(2007, 3, 30));
+        SystemDateStub.setStub(LocalDate.of(2007, 3, 30));
     }
 }

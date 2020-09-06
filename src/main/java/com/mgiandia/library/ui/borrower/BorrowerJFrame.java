@@ -166,8 +166,8 @@ public class BorrowerJFrame extends DefaultJFrame implements BorrowerView {
 	public int getBorrowerNo() {
 		return Integer.parseInt(borrwerNoJText.getText()); 
 	}
-
-	@Override
+ 
+//	@Override
 	public void setBorrowerNo(int borrowerNo) {
 		borrwerNoJText.setText(String.valueOf(borrowerNo));
 	}

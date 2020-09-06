@@ -1,5 +1,7 @@
 package com.mgiandia.library.service;
 
+import java.time.LocalDate;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,7 +14,6 @@ import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
-import com.mgiandia.library.util.SimpleCalendar;
 import com.mgiandia.library.util.SystemDateStub;
 
 public class NotificationServiceTest {
@@ -79,17 +80,17 @@ public class NotificationServiceTest {
     }
     
     private void setSystemDateTo1stMarch2007() {        
-        SystemDateStub.setStub(new SimpleCalendar(2007, 3, 1));
+        SystemDateStub.setStub(LocalDate.of(2007, 3, 1));
     }
     
     
     private void setSystemDateTo1stNovember2007() {
-        SystemDateStub.setStub(new SimpleCalendar(2007, 11, 1));
+        SystemDateStub.setStub(LocalDate.of(2007, 11, 1));
     }
     
     
     private void setSystemDateTo1stSeptember2007() {
-        SystemDateStub.setStub(new SimpleCalendar(2007, 9, 1));
+        SystemDateStub.setStub(LocalDate.of(2007, 9, 1));
     }
     
     private void borrowUMLUserGuideToDiamantidis() {

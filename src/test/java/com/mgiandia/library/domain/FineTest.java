@@ -1,8 +1,7 @@
 package com.mgiandia.library.domain;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.mgiandia.library.util.Money;
 
@@ -21,7 +20,7 @@ public class FineTest {
     private Loan loan;
     
     
-    @Before
+    @BeforeEach
     public void setUp() {
         FineTestCalendar.get1stMarchOf2007();
         dailyFine = Money.euros(5);
@@ -39,7 +38,7 @@ public class FineTest {
     public void noDueDate() {
         loan.setReturnDate(FineTestCalendar.get1stMarchOf2007());
         Money fine = loan.getFine(); 
-        Assert.assertEquals(Money.euros(0),fine);        
+        Assertions.assertEquals(Money.euros(0),fine);        
         
     }
     
@@ -47,7 +46,7 @@ public class FineTest {
     public void noReturnDate() {
         loan.setLoanDate(FineTestCalendar.get1stMarchOf2007());
         Money fine = loan.getFine();
-        Assert.assertEquals(Money.euros(0),fine);        
+        Assertions.assertEquals(Money.euros(0),fine);        
         
     }
     
@@ -56,7 +55,7 @@ public class FineTest {
         loan.setLoanDate(FineTestCalendar.get1stMarchOf2007());
         loan.setReturnDate(FineTestCalendar.get1stMarchOf2007());
         Money fine = loan.getFine();
-        Assert.assertEquals(Money.euros(0),fine);        
+        Assertions.assertEquals(Money.euros(0),fine);        
     }
     
     
@@ -65,7 +64,7 @@ public class FineTest {
         loan.setLoanDate(FineTestCalendar.get1stMarchOf2007());
         loan.setReturnDate(FineTestCalendar.get28thFebruaryOf2007());
         Money fine = loan.getFine();
-        Assert.assertEquals(Money.euros(0),fine);
+        Assertions.assertEquals(Money.euros(0),fine);
     }
     
     @Test
@@ -73,7 +72,7 @@ public class FineTest {
         loan.setLoanDate(FineTestCalendar.get1stMarchOf2007());
         loan.setReturnDate(FineTestCalendar.get2ndMarchOf2007());
     	Money fine = loan.getFine();    
-        Assert.assertEquals(dailyFine, fine);
+        Assertions.assertEquals(dailyFine, fine);
     }
     
     @Test
@@ -81,7 +80,7 @@ public class FineTest {
         loan.setLoanDate(FineTestCalendar.get1stMarchOf2007());
         loan.setReturnDate(FineTestCalendar.get4thMarchOf2007());
         Money fine = loan.getFine();    
-        Assert.assertEquals(dailyFine.times(3), fine);
+        Assertions.assertEquals(dailyFine.times(3), fine);
         
     }
     
@@ -90,7 +89,7 @@ public class FineTest {
         loan.setLoanDate(FineTestCalendar.get1stMarchOf2007());
         loan.setReturnDate(FineTestCalendar.get5thMarchOf2007());
         Money fine = loan.getFine();
-        Assert.assertEquals(dailyFine.times(4), fine);        
+        Assertions.assertEquals(dailyFine.times(4), fine);        
     }
     
     
@@ -99,6 +98,6 @@ public class FineTest {
         loan.setLoanDate(FineTestCalendar.get1stMarchOf2007());
         loan.setReturnDate(FineTestCalendar.get11thMarchOf2007());
     	Money fine = loan.getFine();    
-        Assert.assertEquals(dailyFine.times(10), fine);                
+        Assertions.assertEquals(dailyFine.times(10), fine);                
     }
 }

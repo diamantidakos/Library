@@ -2,6 +2,8 @@ package com.mgiandia.library.service;
 
 
 
+import java.time.LocalDate;
+
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.dao.BorrowerDAO;
 import com.mgiandia.library.dao.ItemDAO;
@@ -12,7 +14,6 @@ import com.mgiandia.library.domain.Loan;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.ItemDAOMemory;
 import com.mgiandia.library.memorydao.LoanDAOMemory;
-import com.mgiandia.library.util.SimpleCalendar;
 
 /**
  * Η υπηρεσία του δανεισμού. Αναλαμβάνει την αναζήτηση
@@ -42,7 +43,7 @@ public class LoanService {
      * να δανειστεί αντίτυπο.
      * @throws LibraryException Εάν δεν υπάρχει δανειζόμενος
      */
-    public SimpleCalendar borrow(int itemNo) {
+    public LocalDate borrow(int itemNo) {
         if (borrower == null) {
             throw new LibraryException();
         }

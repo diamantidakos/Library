@@ -1,6 +1,12 @@
 package com.mgiandia.library.domain;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.domain.Borrower;
@@ -12,15 +18,15 @@ import com.mgiandia.library.util.*;
 
 public class ItemTest {
 
-    SimpleCalendar nowStub;
+    LocalDate nowStub;
     
-    @Before 
+    @BeforeEach 
     public void setUpTests() {
-        nowStub = new SimpleCalendar(2007,3,1);
+        nowStub = LocalDate.of(2007,3,1);
         SystemDateStub.setStub(nowStub);
     }
     
-    @After
+    @AfterEach
     public void resetTests() {
         SystemDateStub.reset();
         
@@ -29,14 +35,14 @@ public class ItemTest {
     @Test
     public void getState() {
         Item item = new Item();
-        Assert.assertEquals(ItemState.NEW, item.getState());
+        Assertions.assertEquals(ItemState.NEW, item.getState());
     }
 
     @Test
     public void borrowNoBorrower() {
         Item item = new Item();
-        Assert.assertNull(item.borrow(null));
-        Assert.assertEquals(ItemState.NEW, item.getState());
+        Assertions.assertNull(item.borrow(null));
+        Assertions.assertEquals(ItemState.NEW, item.getState());
     }
     
     @Test
@@ -44,8 +50,8 @@ public class ItemTest {
         Borrower borrower = new Borrower();
         Item item = new Item();
         item.available();
-        Assert.assertFalse(borrower.canBorrow());
-        Assert.assertNull(item.borrow(borrower));        
+        Assertions.assertFalse(borrower.canBorrow());
+        Assertions.assertNull(item.borrow(borrower));        
     }
 
     
@@ -53,28 +59,28 @@ public class ItemTest {
     public void borrow() {
         Borrower borrower = new Borrower();
         Item item = new Item();
-        Assert.assertEquals(ItemState.NEW, item.getState());
+        Assertions.assertEquals(ItemState.NEW, item.getState());
         item.available();
         BorrowerCategory category = new BorrowerCategory();
         category.setMaxLendingItems(2);
         borrower.setCategory(category);        
-        Assert.assertTrue(borrower.canBorrow());        
+        Assertions.assertTrue(borrower.canBorrow());        
         Loan loan = item.borrow(borrower);
-        Assert.assertNotNull(loan);        
-        SimpleCalendar now = SystemDate.now();
-        Assert.assertEquals(ItemState.LOANED, item.getState());        
-        Assert.assertEquals(now, loan.getLoanDate());            
-        Assert.assertSame(borrower, loan.getBorrower());
-        Assert.assertSame(item, loan.getItem());        
+        Assertions.assertNotNull(loan);        
+        LocalDate now = SystemDate.now();
+        Assertions.assertEquals(ItemState.LOANED, item.getState());        
+        Assertions.assertEquals(now, loan.getLoanDate());            
+        Assertions.assertSame(borrower, loan.getBorrower());
+        Assertions.assertSame(item, loan.getItem());        
     }
 
     
     @Test
     public void fromNewToAvailable() {
         Item item = new Item();
-        Assert.assertEquals(ItemState.NEW, item.getState());
+        Assertions.assertEquals(ItemState.NEW, item.getState());
         item.available();
-        Assert.assertEquals(ItemState.AVAILABLE, item.getState());
+        Assertions.assertEquals(ItemState.AVAILABLE, item.getState());
     }
     
   
@@ -83,7 +89,7 @@ public class ItemTest {
         Borrower borrower = new Borrower();
         Item item = new Item();
         item.available();
-        Assert.assertEquals(ItemState.AVAILABLE, item.getState());
+        Assertions.assertEquals(ItemState.AVAILABLE, item.getState());
                 
         BorrowerCategory category = new BorrowerCategory();
         category.setMaxLendingItems(2);
@@ -91,20 +97,20 @@ public class ItemTest {
        
         
         Loan loan = item.borrow(borrower);
-        Assert.assertNotNull(loan);
+        Assertions.assertNotNull(loan);
         
-        Assert.assertEquals(ItemState.LOANED, item.getState());
+        Assertions.assertEquals(ItemState.LOANED, item.getState());
         
         item.available();
-        Assert.assertEquals(ItemState.AVAILABLE, item.getState());
+        Assertions.assertEquals(ItemState.AVAILABLE, item.getState());
     }
     
-    @Test(expected=LibraryException.class)
+    @Test
     public void fromLostToAvailable() {
         Borrower borrower = new Borrower();
         Item item = new Item();
         item.available();
-        Assert.assertEquals(ItemState.AVAILABLE, item.getState());
+        Assertions.assertEquals(ItemState.AVAILABLE, item.getState());
                 
         BorrowerCategory category = new BorrowerCategory();
         category.setMaxLendingItems(2);
@@ -112,20 +118,27 @@ public class ItemTest {
        
         
         Loan loan = item.borrow(borrower);
-        Assert.assertNotNull(loan);
+        Assertions.assertNotNull(loan);
         
         item.lost();
-        Assert.assertEquals(ItemState.LOST, item.getState());
-        item.available();
+        Assertions.assertEquals(ItemState.LOST, item.getState());
+        Assertions.assertThrows(LibraryException.class, ()-> {
+        	   item.available();
+        });
+     
     }
     
-    @Test(expected=LibraryException.class)
+    @Test
     public void fromWithdrawnToAvailable() {
-        Item item = new Item(1);   
-    	item.available();
-        item.withdraw();
-        Assert.assertEquals(ItemState.WITHDRAWN, item.getState());
-        item.available();
+    	
+    		Item item = new Item(1);   
+        	item.available();
+            item.withdraw();
+          
+        
+    	Assertions.assertThrows(LibraryException.class, ()-> {
+    		  item.available();
+    	});
     }
     
     

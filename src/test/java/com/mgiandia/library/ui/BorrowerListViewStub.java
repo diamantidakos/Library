@@ -11,7 +11,7 @@ public class BorrowerListViewStub extends ViewStub implements BorrowerListView{
 	private List<Borrower> borrowers;
 	private Borrower selectedBorrower;
 	
-	@Override
+//	@Override
 	public void setPresenter(BorrowerListPresenter presenter) {
 		this.presenter = presenter;
 	}
@@ -20,7 +20,7 @@ public class BorrowerListViewStub extends ViewStub implements BorrowerListView{
 		return presenter;
 	}
 
-	@Override
+//	@Override
 	public void setBorrowers(List<Borrower> borrowers) {
 		this.borrowers = borrowers;
 	}
@@ -30,7 +30,7 @@ public class BorrowerListViewStub extends ViewStub implements BorrowerListView{
 	}
 	
 
-	@Override
+//	@Override
 	public Borrower getSelectedBorrower() {
 		return selectedBorrower;
 	}

@@ -1,7 +1,8 @@
 package com.mgiandia.library.domain;
 
+import java.time.LocalDate;
+
 import com.mgiandia.library.util.Money;
-import com.mgiandia.library.util.SimpleCalendar;
 
 
 
@@ -126,12 +127,12 @@ public class BorrowerCategory {
      * @param loanDate Η ημερομηνία δανεισμού
      * @return Η προθεσμία επιστροφής
      */
-    public SimpleCalendar getLoanDue(SimpleCalendar loanDate) {
+    public LocalDate getLoanDue(LocalDate loanDate) {
         if (loanDate == null) {
             return null;
         }
 
-        return loanDate.addDays(maxLendingDays);
+        return loanDate.plusDays(maxLendingDays);
     }
 
     /**

@@ -139,7 +139,7 @@ public class BorrowerListJFrame extends DefaultJFrame implements BorrowerListVie
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+//	@Override
     public void setBorrowers(List<Borrower> borrowers) {
         borrowerModel.clear();
         for(Borrower borrower : borrowers) {
@@ -148,7 +148,7 @@ public class BorrowerListJFrame extends DefaultJFrame implements BorrowerListVie
         borrowerJList.setModel(borrowerModel);
     }
 
-    @Override
+//    @Override
     public Borrower getSelectedBorrower() {
         return (Borrower) borrowerJList.getSelectedValue();
     }

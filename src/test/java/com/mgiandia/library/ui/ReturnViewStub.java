@@ -7,7 +7,7 @@ public class ReturnViewStub extends ViewStub implements ReturnView {
 	private ReturnPresenter presenter;
 	private int itemNumber; 
 	
-	@Override
+//	@Override
 	public void setPresenter(ReturnPresenter presenter) {
 		this.presenter = presenter; 
 	}
@@ -16,7 +16,7 @@ public class ReturnViewStub extends ViewStub implements ReturnView {
 		return presenter;
 	}
 	
-	@Override
+//	@Override
 	public int getItemNumber() {
 		return itemNumber;
 	}

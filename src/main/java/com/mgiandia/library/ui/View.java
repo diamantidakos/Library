@@ -7,7 +7,7 @@ package com.mgiandia.library.ui;
  */
 public interface View {
     /**
-     * Ανοίγει την όψη. 
+     * Ανοίγει την όψη.  
      */
     void open();
     

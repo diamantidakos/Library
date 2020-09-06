@@ -3,9 +3,9 @@ package com.mgiandia.library.dao;
 
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Borrower;
@@ -43,7 +43,7 @@ public class DAOTest {
     
 
     
-    @Before
+    @BeforeEach
     public void setUp() {                
     	Initializer dataHelper = new MemoryInitializer();
     	dataHelper.prepareData();
@@ -60,7 +60,7 @@ public class DAOTest {
     @Test
     public void findExistingBorrower() {
         Borrower borrower = borrowerDao.find(2);
-        Assert.assertEquals("Νίκος", borrower.getFirstName());                
+        Assertions.assertEquals("Νίκος", borrower.getFirstName());                
     }
     
     /**
@@ -69,7 +69,7 @@ public class DAOTest {
     @Test
     public void findNonExistingBorrower() {        
         Borrower borrower = borrowerDao.find(4711);
-        Assert.assertNull(borrower);    
+        Assertions.assertNull(borrower);    
     }
         
     /**
@@ -78,7 +78,7 @@ public class DAOTest {
     @Test
     public void listAllBorrowers() {        
         List<Borrower> allBorrowers = borrowerDao.findAll();
-        Assert.assertEquals(INITIAL_BORROWER_COUNT, allBorrowers.size());        
+        Assertions.assertEquals(INITIAL_BORROWER_COUNT, allBorrowers.size());        
     }
     
     /**
@@ -88,9 +88,9 @@ public class DAOTest {
     public void saveBorrower() {        
         Borrower borrower = new Borrower(5000, "Giannis", "Martinopoulos", null, null, null);
         borrowerDao.save(borrower);
-        Assert.assertEquals(INITIAL_BORROWER_COUNT + 1, borrowerDao.findAll().size());
-        Assert.assertNotNull(borrowerDao.find(borrower.getBorrowerNo()));
-        Assert.assertTrue(borrowerDao.findAll().contains(borrower));
+        Assertions.assertEquals(INITIAL_BORROWER_COUNT + 1, borrowerDao.findAll().size());
+        Assertions.assertNotNull(borrowerDao.find(borrower.getBorrowerNo()));
+        Assertions.assertTrue(borrowerDao.findAll().contains(borrower));
     }
     
     
@@ -103,8 +103,8 @@ public class DAOTest {
         Borrower borrower = allBorrowers.get(0);
         borrowerDao.delete(borrower );
         allBorrowers = borrowerDao.findAll();
-        Assert.assertEquals(INITIAL_BORROWER_COUNT - 1, allBorrowers.size());
-        Assert.assertNull(borrowerDao.find(borrower.getBorrowerNo()));
+        Assertions.assertEquals(INITIAL_BORROWER_COUNT - 1, allBorrowers.size());
+        Assertions.assertNull(borrowerDao.find(borrower.getBorrowerNo()));
     }
     
     /**
@@ -115,7 +115,7 @@ public class DAOTest {
         String EXPECTED_ISBN_FROM_ITEM = "1";
         
         Item item = itemDao.find(1);
-        Assert.assertEquals(EXPECTED_ISBN_FROM_ITEM , item.getBook().getIsbn().getValue());
+        Assertions.assertEquals(EXPECTED_ISBN_FROM_ITEM , item.getBook().getIsbn().getValue());
     }
     
     
@@ -125,7 +125,7 @@ public class DAOTest {
     @Test
     public void findNonExistingItem() {
         Item item = itemDao.find(4711);
-        Assert.assertNull(item);
+        Assertions.assertNull(item);
     }
     
     /**
@@ -134,7 +134,7 @@ public class DAOTest {
     @Test
     public void listAllItems() {
         List<Item> allItems = itemDao.findAll();        
-        Assert.assertEquals(INITIAL_ITEM_COUNT, allItems.size());        
+        Assertions.assertEquals(INITIAL_ITEM_COUNT, allItems.size());        
     }
     
     /**
@@ -147,9 +147,9 @@ public class DAOTest {
         item.setBook(book);
         itemDao.save(item);
         List<Item> allItems = itemDao.findAll();
-        Assert.assertEquals(INITIAL_ITEM_COUNT + 1, allItems.size());
-        Assert.assertNotNull(itemDao.find(item.getItemNumber()));
-        Assert.assertTrue(allItems.contains(item));
+        Assertions.assertEquals(INITIAL_ITEM_COUNT + 1, allItems.size());
+        Assertions.assertNotNull(itemDao.find(item.getItemNumber()));
+        Assertions.assertTrue(allItems.contains(item));
     }
     
     /**
@@ -161,9 +161,9 @@ public class DAOTest {
         item.setBook(null);
         itemDao.delete(item);
         List<Item> allItems = itemDao.findAll();
-        Assert.assertEquals(INITIAL_ITEM_COUNT - 1, allItems.size());
-        Assert.assertNull(itemDao.find(item.getItemNumber()));
-        Assert.assertFalse(allItems.contains(item));        
+        Assertions.assertEquals(INITIAL_ITEM_COUNT - 1, allItems.size());
+        Assertions.assertNull(itemDao.find(item.getItemNumber()));
+        Assertions.assertFalse(allItems.contains(item));        
     }
     
     
@@ -175,8 +175,8 @@ public class DAOTest {
         Loan loan = CreateNewLoan();
         loanDao.save(loan);
         List<Loan> allLoans = loanDao.findAll();
-        Assert.assertEquals(INITIAL_LOAN_COUNT + 1, allLoans.size());
-        Assert.assertNotNull(loanDao.findPending(ITEM_NO_FOR_NEW_LOAN));        
+        Assertions.assertEquals(INITIAL_LOAN_COUNT + 1, allLoans.size());
+        Assertions.assertNotNull(loanDao.findPending(ITEM_NO_FOR_NEW_LOAN));        
         
     }
     
@@ -187,7 +187,7 @@ public class DAOTest {
     public void findExistingPendingLoan() {
         Loan loan = CreateNewLoan();
         loanDao.save(loan);
-        Assert.assertNotNull(loanDao.findPending(ITEM_NO_FOR_NEW_LOAN));        
+        Assertions.assertNotNull(loanDao.findPending(ITEM_NO_FOR_NEW_LOAN));        
     }
     
     /**
@@ -197,7 +197,7 @@ public class DAOTest {
     public void findNonExistingPendingLoan() {
         Loan loan = CreateNewLoan();
         loanDao.save(loan);
-        Assert.assertNull(loanDao.findPending(4711));
+        Assertions.assertNull(loanDao.findPending(4711));
     }
     
     /**
@@ -209,7 +209,7 @@ public class DAOTest {
         loanDao.save(loan);
         loan.returnItem();
         loanDao.save(loan);
-        Assert.assertNull(loanDao.findPending(ITEM_NO_FOR_NEW_LOAN));
+        Assertions.assertNull(loanDao.findPending(ITEM_NO_FOR_NEW_LOAN));
     }
     
     

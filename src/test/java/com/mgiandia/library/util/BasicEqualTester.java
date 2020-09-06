@@ -1,7 +1,6 @@
 package com.mgiandia.library.util;
 
-import org.junit.*;
-
+import org.junit.jupiter.api.Assertions;
 
 public class BasicEqualTester<T> {
 
@@ -9,39 +8,39 @@ public class BasicEqualTester<T> {
     
     
     public void otherObjectIsNull() {
-        Assert.assertFalse(getObjectUnderTest().equals(null));
+    	Assertions.assertFalse(getObjectUnderTest().equals(null));
         
     }
     
     public void bothObjectsHaveNoState(Object other) {
-        Assert.assertEquals(objectUnderTest, other);
-        Assert.assertEquals(objectUnderTest.hashCode(), other.hashCode());
+    	Assertions.assertEquals(objectUnderTest, other);
+    	Assertions.assertEquals(objectUnderTest.hashCode(), other.hashCode());
     }
     
     public void otherObjectsHasNoState(Object other) {
-        Assert.assertFalse(objectUnderTest.equals(other) );
-        Assert.assertFalse(objectUnderTest.hashCode() == other.hashCode());
+    	Assertions.assertFalse(objectUnderTest.equals(other) );
+    	Assertions.assertFalse(objectUnderTest.hashCode() == other.hashCode());
     }
     
     
     public void otherObjectIsOfDifferentType(Object other) {
-        Assert.assertFalse(objectUnderTest.equals(other));
+    	Assertions.assertFalse(objectUnderTest.equals(other));
     }
     
     public void sameReferences(Object other) {
-        Assert.assertEquals(objectUnderTest, other);
-        Assert.assertEquals(objectUnderTest.hashCode(), other.hashCode());
+    	Assertions.assertEquals(objectUnderTest, other);
+    	Assertions.assertEquals(objectUnderTest.hashCode(), other.hashCode());
     }
     
     
     public void bothObjectsHaveSameState(Object other) {
-        Assert.assertEquals(objectUnderTest, other);
-        Assert.assertEquals(objectUnderTest.hashCode(), other.hashCode());
+    	Assertions.assertEquals(objectUnderTest, other);
+    	Assertions.assertEquals(objectUnderTest.hashCode(), other.hashCode());
     }
     
     public void objectsHaveDifferentState(Object other) {
-        Assert.assertFalse(objectUnderTest.equals(other));
-        Assert.assertFalse(objectUnderTest.hashCode() == other.hashCode());
+    	Assertions.assertFalse(objectUnderTest.equals(other));
+    	Assertions.assertFalse(objectUnderTest.hashCode() == other.hashCode());
     }
 
     

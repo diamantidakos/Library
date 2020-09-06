@@ -1,6 +1,6 @@
 package com.mgiandia.library.util;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import org.junit.*;
 
@@ -9,12 +9,12 @@ public class SystemDateStubTest {
     int MONTH_STUB = 11;
     int DATE_STUB = 30;
     
-    SimpleCalendar stub;
+    LocalDate stub;
     
     @Before
     public void setUp() {
         SystemDateStub.reset();
-        stub = new SimpleCalendar(YEAR_STUB, MONTH_STUB, DATE_STUB);
+        stub = LocalDate.of(YEAR_STUB, MONTH_STUB, DATE_STUB);
     }
     
     @After
@@ -24,7 +24,7 @@ public class SystemDateStubTest {
     
     @Test
     public void testWithoutStub() {                            
-        SimpleCalendar realNow = new SimpleCalendar(Calendar.getInstance());
+        LocalDate realNow = LocalDate.now();
         Assert.assertEquals(SystemDate.now(), realNow);        
     }
     
@@ -39,11 +39,11 @@ public class SystemDateStubTest {
     
     @Test
     public void switchStubUsage() {
-        Assert.assertEquals(new SimpleCalendar(Calendar.getInstance()), SystemDate.now());        
+        Assert.assertEquals(LocalDate.now(), SystemDate.now());        
         SystemDateStub.setStub(stub);
         Assert.assertEquals(stub, SystemDate.now());        
         SystemDateStub.reset();
-        Assert.assertEquals(new SimpleCalendar(Calendar.getInstance()), SystemDate.now());        
+        Assert.assertEquals(LocalDate.now(), SystemDate.now());        
     }
     
 }

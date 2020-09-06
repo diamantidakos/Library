@@ -1,6 +1,6 @@
 package com.mgiandia.library.ui.loan;
 
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 import com.mgiandia.library.dao.BorrowerDAO;
 import com.mgiandia.library.dao.ItemDAO;
@@ -145,8 +145,7 @@ public class LoanPresenter {
         if (borrower.canBorrow()) {
             Loan loan = item.borrow(borrower);
             loanDao.save(loan);
-            SimpleDateFormat sdf = new SimpleDateFormat();
-            view.showInfo("Due Date " +  sdf.format(loan.getDue().getJavaCalendar().getTime()));
+            view.showInfo("Due Date " +  loan.getDue().format(DateTimeFormatter.ISO_DATE));
         }
     }
 }

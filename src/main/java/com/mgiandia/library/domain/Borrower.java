@@ -1,6 +1,7 @@
 package com.mgiandia.library.domain;
 
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,7 +9,6 @@ import com.mgiandia.library.contacts.Address;
 import com.mgiandia.library.contacts.EmailAddress;
 import com.mgiandia.library.contacts.TelephoneNumber;
 import com.mgiandia.library.util.Money;
-import com.mgiandia.library.util.SimpleCalendar;
 /**
  * Ο δανειζόμενος.
  * @author Νίκος Διαμαντίδης
@@ -250,7 +250,7 @@ public class Borrower  {
      * @param loanDate Η ημερομηνία δανεισμού.
      * @return Η προθεσμία επιστροφής.
      */
-    public SimpleCalendar getLoanDue(SimpleCalendar loanDate) {
+    public LocalDate getLoanDue(LocalDate loanDate) {
         if (loanDate == null) {
             return null;
         }
