@@ -9,7 +9,8 @@ public class BorrowerViewStub extends ViewStub implements BorrowerView{
 	private String firstName;
 	private String lastName;
 	
-	@Override
+
+//	@Override
 	public void setPresenter(BorrowerPresenter presenter) {
 		this.presenter = presenter;
 	}
@@ -18,32 +19,32 @@ public class BorrowerViewStub extends ViewStub implements BorrowerView{
 		return presenter;
 	}
 	
-	@Override
+//	@Override
 	public int getBorrowerNo() {
 		return borrowerNo;
 	}
 
-	@Override
+//	@Override
 	public void setBorrowerNo(int borrowerNo) {
 		this.borrowerNo = borrowerNo;		
 	}
 
-	@Override
+//	@Override
 	public String getFirstName() {
 		return firstName;
 	}
 
-	@Override
+//	@Override
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	@Override
+//	@Override
 	public String getLastName() {
 		return lastName;
 	}
 
-	@Override
+//	@Override
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}

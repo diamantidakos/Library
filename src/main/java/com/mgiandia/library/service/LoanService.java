@@ -1,5 +1,6 @@
 package com.mgiandia.library.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.util.SimpleCalendar;
 
 /**
  * Η υπηρεσία του δανεισμού. Αναλαμβάνει την αναζήτηση δανειζομένων και
@@ -60,7 +60,7 @@ public class LoanService {
 	 * @throws LibraryException
 	 *             Εάν δεν υπάρχει δανειζόμενος
 	 */
-	public SimpleCalendar borrow(int itemNo) {
+	public LocalDate borrow(int itemNo) {
 		if (borrower == null) {
 			throw new LibraryException();
 		}
@@ -92,7 +92,7 @@ public class LoanService {
 		if (!borrowerFound) {
 			throw new LibraryException("Borrower with id " + borrowerNo + "  does not exist.");
 		}
-		SimpleCalendar returnDate = borrow(itemId);
+		LocalDate returnDate = borrow(itemId);
 		
 		if (returnDate == null){
 			throw new LibraryException("Borrower with id " + borrowerNo + "  cannot borrow.");
@@ -153,3 +153,4 @@ public class LoanService {
 
 	
 }
+

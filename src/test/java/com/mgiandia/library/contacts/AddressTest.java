@@ -1,10 +1,9 @@
 package com.mgiandia.library.contacts;
 
 
-import static org.junit.Assert.*;
 
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import com.mgiandia.library.util.BasicEqualTester;
 
 public class AddressTest {
@@ -14,16 +13,16 @@ public class AddressTest {
         Address address1 = new Address();
         Address address2 = new Address();
         
-        assertFalse(address1.equals(null));
-        assertEquals(address1, address2);
-        assertEquals(address1.hashCode(), address2.hashCode());
+        Assertions.assertFalse(address1.equals(null));
+        Assertions.assertEquals(address1, address2);
+        Assertions.assertEquals(address1.hashCode(), address2.hashCode());
         
         address1.setCity("Ellada");
-        assertFalse(address1.equals(address2));
-        assertFalse(address1.hashCode() == address2.hashCode());
+        Assertions.assertFalse(address1.equals(address2));
+        Assertions.assertFalse(address1.hashCode() == address2.hashCode());
         address2.setCity("Ellada");
-        assertEquals(address1, address2);
-        assertEquals(address1.hashCode(), address2.hashCode());
+        Assertions.assertEquals(address1, address2);
+        Assertions.assertEquals(address1.hashCode(), address2.hashCode());
     }
     
     @Test

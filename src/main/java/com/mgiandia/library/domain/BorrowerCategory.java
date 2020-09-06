@@ -1,7 +1,8 @@
 package com.mgiandia.library.domain;
 
 import com.mgiandia.library.util.Money;
-import com.mgiandia.library.util.SimpleCalendar;
+
+import java.time.LocalDate;
 
 import javax.persistence.*;
 
@@ -145,31 +146,31 @@ public class BorrowerCategory {
     }
 
     /**
-     * Επιστρέφει την προθεσμία επιστροφής κάποιου
-     * αντιτύπου για την κατηγορία δανειζομένου βάσει κάποιας
-     * ημερομηνίας δανεισμού.
-     * Επιστρέφει {@code null} αν η ημερομηνία δανεισμού είναι {@code null}.
-     * @param loanDate Η ημερομηνία δανεισμού
-     * @return Η προθεσμία επιστροφής
-     */
-    public SimpleCalendar getLoanDue(SimpleCalendar loanDate) {
-        if (loanDate == null) {
-            return null;
-        }
+    * Επιστρέφει την προθεσμία επιστροφής κάποιου
+    * αντιτύπου για την κατηγορία δανειζομένου βάσει κάποιας
+    * ημερομηνίας δανεισμού.
+    * Επιστρέφει {@code null} αν η ημερομηνία δανεισμού είναι {@code null}.
+    * @param loanDate Η ημερομηνία δανεισμού
+    * @return Η προθεσμία επιστροφής
+    */
+   public LocalDate getLoanDue(LocalDate loanDate) {
+       if (loanDate == null) {
+           return null;
+       }
 
-        return loanDate.addDays(maxLendingDays);
-    }
-
-    /**
-     * Επιστρέφει {@code true} εάν ο δανειζόμενος
-     * της συγκεκριμένης κατηγορίας δανειζομένου
-     * Μπορεί να δανειστεί κάποιο αντίτυπο.
-     * @param pendingItems Ο αριθμός των αντιτύπων
-     * που έχουν δανειστεί και δεν έχουν επιστραφεί.
-     * @return {@code true} εάν μπορεί να δανειστεί κάποιο αντίτυπο.
-     */
-    public boolean canBorrow(int pendingItems) {
-        return maxLendingItems > pendingItems;
-    }
+       return loanDate.plusDays(maxLendingDays);
+   }
+   
+   /**
+    * Επιστρέφει {@code true} εάν ο δανειζόμενος
+    * της συγκεκριμένης κατηγορίας δανειζομένου
+    * Μπορεί να δανειστεί κάποιο αντίτυπο.
+    * @param pendingItems Ο αριθμός των αντιτύπων
+    * που έχουν δανειστεί και δεν έχουν επιστραφεί.
+    * @return {@code true} εάν μπορεί να δανειστεί κάποιο αντίτυπο.
+    */
+   public boolean canBorrow(int pendingItems) {
+       return maxLendingItems > pendingItems;
+   }
 
 }

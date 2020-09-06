@@ -129,7 +129,7 @@ public class LoanServiceTest extends LibraryServiceTest {
 			Assert.assertNotNull(service.borrow(Initializer.UML_REFACTORING_ID));
 			// end of some loans
 
-			SystemDateStub.setStub(SystemDate.now().addDays(200));
+			SystemDateStub.setStub(SystemDate.now().plusDays(200));
 
 			List<Loan> loans = service.findPendingLoans(true);
 
@@ -138,5 +138,6 @@ public class LoanServiceTest extends LibraryServiceTest {
 			Assert.assertNotNull(loans.get(0).getItem());
 		
 	}
+
 
 }

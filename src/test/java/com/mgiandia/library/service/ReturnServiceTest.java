@@ -1,5 +1,6 @@
 package com.mgiandia.library.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Assert;
@@ -10,7 +11,6 @@ import com.mgiandia.library.domain.ItemState;
 import com.mgiandia.library.domain.Loan;
 import com.mgiandia.library.persistence.Initializer;
 import com.mgiandia.library.util.Money;
-import com.mgiandia.library.util.SimpleCalendar;
 import com.mgiandia.library.util.SystemDateStub;
 
 public class ReturnServiceTest extends LibraryServiceTest {
@@ -51,8 +51,8 @@ public class ReturnServiceTest extends LibraryServiceTest {
 		@SuppressWarnings("unchecked")
 		List<Loan> loanList = em.createQuery("select l from Loan l").getResultList();
 		Loan loan = loanList.get(0);
-		Assert.assertEquals(new SimpleCalendar(2007, 3, 1), loan.getLoanDate());
-		Assert.assertEquals(new SimpleCalendar(2007, 3, 2), loan.getReturnDate());
+		Assert.assertEquals(LocalDate.of(2007, 3, 1), loan.getLoanDate());
+		Assert.assertEquals(LocalDate.of(2007, 3, 2), loan.getReturnDate());
 		Assert.assertEquals(Initializer.UML_USER_GUIDE_ID1, loan.getItem().getItemNumber());
 		Assert.assertEquals(ItemState.AVAILABLE, loan.getItem().getState());
 //		em.close();
@@ -93,15 +93,16 @@ public class ReturnServiceTest extends LibraryServiceTest {
 	}
 
 	private void setSystemDateTo1stMarch2007() {
-		SystemDateStub.setStub(new SimpleCalendar(2007, 3, 1));
+		 SystemDateStub.setStub(LocalDate.of(2007, 3, 1));
 	}
 
 	private void setSystemDateTo2ndMarch2007() {
-		SystemDateStub.setStub(new SimpleCalendar(2007, 3, 2));
+		SystemDateStub.setStub(LocalDate.of(2007, 3, 2));
 	}
 
 	private void setSystemDateTo30thMarch2007() {
-		SystemDateStub.setStub(new SimpleCalendar(2007, 3, 30));
+		  SystemDateStub.setStub(LocalDate.of(2007, 3, 30));
 	}
+
 
 }

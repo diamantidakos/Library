@@ -5,9 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.persistence.Initializer;
@@ -24,7 +24,7 @@ public class JPAQueriesTest {
 
     private Initializer dataHelper;
 
-    @Before
+    @BeforeEach
     public void setUpJpa() {
         dataHelper = new Initializer();
         dataHelper.prepareData();
@@ -39,7 +39,7 @@ public class JPAQueriesTest {
         EntityManager em = JPAUtil.getCurrentEntityManager();
         Query query = em.createQuery("select book from Book book");
         List<Book> results = query.getResultList();      
-        Assert.assertEquals(EXPECTED_BOOK_NUMBER, results.size());
+        Assertions.assertEquals(EXPECTED_BOOK_NUMBER, results.size());
         
     }
     
@@ -51,7 +51,7 @@ public class JPAQueriesTest {
         Query query = em.createQuery("select book from Book book where title like :titleCrit");
         query.setParameter("titleCrit", "UML%");
         List<Book> results = query.getResultList();  
-        Assert.assertEquals(EXPECTED_NUMBER_STARTING_WITH_UML,results.size());
+        Assertions.assertEquals(EXPECTED_NUMBER_STARTING_WITH_UML,results.size());
         
     }
     
@@ -62,7 +62,7 @@ public class JPAQueriesTest {
         EntityManager em = JPAUtil.getCurrentEntityManager();
         Query query = em.createQuery("select b from Borrower b where address.street = 'Patission'");        
         List<Book> results = query.getResultList();  
-        Assert.assertEquals(EXPECTED_ADDRESS_PATISSION,results.size());
+        Assertions.assertEquals(EXPECTED_ADDRESS_PATISSION,results.size());
     }
     
     @SuppressWarnings("unchecked")
@@ -72,7 +72,7 @@ public class JPAQueriesTest {
         EntityManager em = JPAUtil.getCurrentEntityManager();
         Query query = em.createQuery("select i from Item i where i.book.title like 'UML%'");        
         List<Book> results = query.getResultList();  
-        Assert.assertEquals(EXPECTED_ITEMS_STARTING_WITH_UML,results.size());        
+        Assertions.assertEquals(EXPECTED_ITEMS_STARTING_WITH_UML,results.size());        
     }
     
     @Test
@@ -80,7 +80,7 @@ public class JPAQueriesTest {
         int EXPECTED_ITEM_NUMBER = 5;
         EntityManager em = JPAUtil.getCurrentEntityManager();
         Query query = em.createQuery("select i from Item i join i.book b");        
-        Assert.assertEquals(EXPECTED_ITEM_NUMBER,query.getResultList().size());
+        Assertions.assertEquals(EXPECTED_ITEM_NUMBER,query.getResultList().size());
     }
     
     @SuppressWarnings("unchecked")
@@ -91,6 +91,6 @@ public class JPAQueriesTest {
         Query query = em.createQuery("select i from Item i left join i.book b");        
         @SuppressWarnings("unused")
         List<Book> results = query.getResultList();  
-        Assert.assertEquals(EXPECTED_ITEM_NUMBER,query.getResultList().size());
+        Assertions.assertEquals(EXPECTED_ITEM_NUMBER,query.getResultList().size());
     }
 }

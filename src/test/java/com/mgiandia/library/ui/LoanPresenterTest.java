@@ -121,7 +121,6 @@ public class LoanPresenterTest {
         presenter.borrowItem();
         
         Assert.assertEquals(1, presenter.getBorrower().getLoans().size());
-        
         Assert.assertTrue(loanView.getInfoCount() > 0);
     }    
     

@@ -1,7 +1,10 @@
 package com.mgiandia.library.domain;
 
 
-import org.junit.*;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
@@ -15,7 +18,7 @@ public class BookTest {
     Book book;
     Item item;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         book = new Book();
         item = new Item();
@@ -30,7 +33,7 @@ public class BookTest {
     public void succefulSetUp() {
         itemBidirectionalAssociationInvariant(book);
         expectedItemsSize(book,1);
-        Assert.assertEquals(ItemState.AVAILABLE, item.getState());
+        Assertions.assertEquals(ItemState.AVAILABLE, item.getState());
         successfullAdditionofItem(book,item);
     }
     
@@ -46,7 +49,7 @@ public class BookTest {
     @Test
     public void addNullAsAuthor() {
         book.addAuthor(null);
-        Assert.assertEquals(0, book.getAuthors().size());
+        Assertions.assertEquals(0, book.getAuthors().size());
         authorBidirectionalAssociationInvariant(book);
     }
     
@@ -66,7 +69,7 @@ public class BookTest {
     public void addAuthor() {
         Author author = new Author();
         book.addAuthor(author);
-        Assert.assertEquals(1,book.getAuthors().size());
+        Assertions.assertEquals(1,book.getAuthors().size());
         authorBidirectionalAssociationInvariant(book);
     }
     
@@ -84,7 +87,7 @@ public class BookTest {
         Author author = new Author();
         book.addAuthor(author);
         book.removeAuthor(null);
-        Assert.assertEquals(1, book.getAuthors().size());
+        Assertions.assertEquals(1, book.getAuthors().size());
         authorBidirectionalAssociationInvariant(book);
     }
     
@@ -104,10 +107,10 @@ public class BookTest {
         Author author = new Author();
         book.addAuthor(author);
         authorBidirectionalAssociationInvariant(book);
-        Assert.assertEquals(1, book.getAuthors().size());
+        Assertions.assertEquals(1, book.getAuthors().size());
         book.removeAuthor(author);
         authorBidirectionalAssociationInvariant(book);
-        Assert.assertEquals(0, book.getAuthors().size());
+        Assertions.assertEquals(0, book.getAuthors().size());
     }
     
     
@@ -123,27 +126,27 @@ public class BookTest {
     
     private void itemBidirectionalAssociationInvariant(Book book) {
         for(Item item : book.getItems()) {
-            Assert.assertSame(book, item.getBook());
+        	Assertions.assertSame(book, item.getBook());
         }
     }
     
     private void successfullAdditionofItem(Book book, Item item){
-        Assert.assertTrue(book.getItems().contains(item));
-        Assert.assertSame(book, item.getBook());
+    	Assertions.assertTrue(book.getItems().contains(item));
+    	Assertions.assertSame(book, item.getBook());
     }
     
     private void successfullRemovalofItem(Book book, Item item) {
-        Assert.assertFalse(book.getItems().contains(item));
-        Assert.assertNull(item.getBook());
+    	Assertions.assertFalse(book.getItems().contains(item));
+    	Assertions.assertNull(item.getBook());
     }
     
     private void expectedItemsSize(Book book, int expectedSize) {
-        Assert.assertEquals(expectedSize, book.getItems().size());
+    	Assertions.assertEquals(expectedSize, book.getItems().size());
     }
     
     private void authorBidirectionalAssociationInvariant(Book book) {
         for(Author author : book.getAuthors()) {
-            Assert.assertTrue(author.getBooks().contains(book));            
+        	Assertions.assertTrue(author.getBooks().contains(book));            
         }    
     }
 }

@@ -1,5 +1,6 @@
 package com.mgiandia.library.soap;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface LibraryService {
     
     @WebMethod
     @WebResult(partName = "dueDate")
-    Calendar loanItem(
+    LocalDate loanItem(
             @WebParam(name="borrowerNo") int borrowerNo, 
             @WebParam(name="itemNo") int itemNo)
         throws BorrowerNotFoundException, CanNotBorrowException;

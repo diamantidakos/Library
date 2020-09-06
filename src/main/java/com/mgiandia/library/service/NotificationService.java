@@ -81,6 +81,7 @@ public class NotificationService {
         provider.sendEmail(emailMessage);
     }
 
+
     private String composeMessage(Book book, long overdue) {
         String message = "Έχετε καθυστερήσει το βιβλίο με Τίτλο ";
         message += book.getTitle();

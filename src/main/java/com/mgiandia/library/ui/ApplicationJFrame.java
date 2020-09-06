@@ -29,6 +29,7 @@ public class ApplicationJFrame {
         //HACK αρχικοποιούμε τη βάση δεδομένων και μάλιστα με κώδικα που ανήκει
         // στον κώδικα ελέγχου. Κανονικά δεν θα πρέπει να υπάρχει κάτι τέτοιο
         Initializer dataHelper = new Initializer();
+
         dataHelper.prepareData();
  
         EventQueue.invokeLater(new Runnable() {

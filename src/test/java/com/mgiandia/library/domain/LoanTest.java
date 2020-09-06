@@ -1,8 +1,11 @@
 package com.mgiandia.library.domain;
 
-import org.junit.*;
 
-import java.util.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import java.time.LocalDate;
 
 import com.mgiandia.library.util.*;
 
@@ -14,18 +17,11 @@ public class LoanTest {
     Money dailyFine;
     
     
-    @Before
+    @BeforeEach
     public void setUp() {
         
-        Calendar now = Calendar.getInstance();
-        
-        now.set(Calendar.YEAR, 2007);
-        now.set(Calendar.MONTH, 0);
-        now.set(Calendar.DAY_OF_MONTH, 25);
-        
-        SystemDateStub.setStub(new SimpleCalendar(now));
-
-        
+        LocalDate now = LocalDate.of(2007, 1, 25);
+        SystemDateStub.setStub(now);
         borrower = new Borrower();
         category = new BorrowerCategory();
         loan = new Loan();   
@@ -33,7 +29,7 @@ public class LoanTest {
         
     }
     
-    @After
+    @AfterEach
     public void tearDown() {
         SystemDateStub.reset();
     }
@@ -41,30 +37,27 @@ public class LoanTest {
     @Test
     public void testDueDate() {
 
-        Assert.assertNull(loan.getDue());
+        Assertions.assertNull(loan.getDue());
         loan.setBorrower(borrower);
 
-        Assert.assertEquals(SystemDate.now(), loan.getDue());
+        Assertions.assertEquals(SystemDate.now(), loan.getDue());
                 
         category.setMaxLendingDays(10);
         borrower.setCategory(category);
-        Assert.assertFalse(SystemDate.now().equals(loan.getDue()));                        
-        
-        
-        Calendar due = SystemDate.now().getJavaCalendar(); 
-        due.setTimeInMillis(loan.getLoanDate().getJavaCalendar().getTimeInMillis());
-        due.add(Calendar.DAY_OF_MONTH, 10);        
+        Assertions.assertFalse(SystemDate.now().equals(loan.getDue()));                        
 
-        Assert.assertEquals(new SimpleCalendar(due),loan.getDue());
+        LocalDate due = SystemDate.now().plusDays(10);
+        
+        Assertions.assertEquals(due,loan.getDue());
     }
 
     @Test
     public void testIsPending() {
-        Assert.assertTrue(loan.isPending());
+        Assertions.assertTrue(loan.isPending());
         loan.setReturnDate(SystemDate.now());
-        Assert.assertFalse(loan.isPending());
+        Assertions.assertFalse(loan.isPending());
         loan.setReturnDate(null);
-        Assert.assertTrue(loan.isPending());
+        Assertions.assertTrue(loan.isPending());
     }
 
     @Test
@@ -72,38 +65,38 @@ public class LoanTest {
         Item item = new Item();
         loan.setItem(item);
         loan.returnItem();
-        Assert.assertEquals(SystemDate.now(), loan.getReturnDate());
+        Assertions.assertEquals(SystemDate.now(), loan.getReturnDate());
     }
 
     @Test
     public void overdueWhenNoBorrowerDate() {
-        Assert.assertTrue(loan.getOverdue() == 0 );
+        Assertions.assertTrue(loan.getOverdue() == 0 );
         loan.setReturnDate(SystemDate.now());        
-        Assert.assertTrue(loan.getOverdue() == 0 );        
+        Assertions.assertTrue(loan.getOverdue() == 0 );        
     }
     
     @Test 
     public void overdueWhenSameWithLoanDate() {
-        Assert.assertTrue(loan.getOverdue() == 0 );
+        Assertions.assertTrue(loan.getOverdue() == 0 );
         loan.setReturnDate(SystemDate.now());        
-        Assert.assertTrue(loan.getOverdue() == 0 );        
+        Assertions.assertTrue(loan.getOverdue() == 0 );        
         loan.setBorrower(borrower);
-        Assert.assertTrue(loan.getOverdue() == 0 );
+        Assertions.assertTrue(loan.getOverdue() == 0 );
     }
     
     @Test
     public void ovedueWhenNoMaxLedningDays() {
 
-        Assert.assertTrue(loan.getOverdue() == 0 );
+        Assertions.assertTrue(loan.getOverdue() == 0 );
         loan.setReturnDate(SystemDate.now());        
-        Assert.assertTrue(loan.getOverdue() == 0 );
+        Assertions.assertTrue(loan.getOverdue() == 0 );
 
         loan.setBorrower(borrower);
-        Assert.assertTrue(loan.getOverdue() == 0 );
+        Assertions.assertTrue(loan.getOverdue() == 0 );
 
         category.setMaxLendingDays(0);
         borrower.setCategory(category);
-        Assert.assertTrue(loan.getOverdue() == 0 );
+        Assertions.assertTrue(loan.getOverdue() == 0 );
         
     }
     
@@ -111,29 +104,24 @@ public class LoanTest {
     public void testGetOverdue() {
         loan.setReturnDate(SystemDate.now());        
         loan.setBorrower(borrower);
-        category.setMaxLendingDays(0);
         borrower.setCategory(category);
         category.setMaxLendingDays(10);
         
-        Calendar returnDate = Calendar.getInstance();
-                
-        returnDate.setTimeInMillis(loan.getLoanDate().getJavaCalendar().getTimeInMillis());
+        LocalDate returnDate = loan.getLoanDate().plusDays(11);
+        loan.setReturnDate(returnDate);
         
-        returnDate.add(Calendar.DAY_OF_MONTH, 11);
-        loan.setReturnDate(new SimpleCalendar(returnDate));
+        Assertions.assertEquals(1,loan.getOverdue());
         
-
+        returnDate = returnDate.plusDays(37);
+        loan.setReturnDate(returnDate);
+        Assertions.assertEquals(38, loan.getOverdue() );
         
-        Assert.assertEquals(1,loan.getOverdue());
-        returnDate.add(Calendar.DAY_OF_MONTH, 37);
-        loan.setReturnDate(new SimpleCalendar(returnDate));
         
-        Assert.assertEquals(38, loan.getOverdue() );
-        returnDate.add(Calendar.DAY_OF_MONTH, 350);
-        loan.setReturnDate(new SimpleCalendar(returnDate));
-        Assert.assertTrue(loan.getOverdue() == 388 );
+        returnDate = returnDate.plusDays(350);
+        loan.setReturnDate(returnDate);
+        Assertions.assertTrue(loan.getOverdue() == 388 );
         category.setMaxLendingDays(500);
-        Assert.assertTrue(loan.getOverdue() == 0 );
+        Assertions.assertTrue(loan.getOverdue() == 0 );
     }
 
         
@@ -161,16 +149,16 @@ public class LoanTest {
     
     public void testNoFines() {
         
-        Assert.assertEquals(Money.euros(0), loan.getFine());
+        Assertions.assertEquals(Money.euros(0), loan.getFine());
         category.setMaxLendingDays(0);
         borrower.setCategory(category);        
         category.setMaxLendingDays(10);
         loan.setBorrower(borrower);
-        Assert.assertEquals(Money.euros(0), loan.getFine());        
+        Assertions.assertEquals(Money.euros(0), loan.getFine());        
         category.setDailyFine(dailyFine);
-        Assert.assertEquals(Money.euros(0), loan.getFine());
-        loan.setLoanDate(new SimpleCalendar(Calendar.getInstance()));
-        Assert.assertEquals(Money.euros(0), loan.getFine());
+        Assertions.assertEquals(Money.euros(0), loan.getFine());
+        loan.setLoanDate(LocalDate.now());
+        Assertions.assertEquals(Money.euros(0), loan.getFine());
     }
     
 

@@ -1,9 +1,8 @@
 package com.mgiandia.library.contacts;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
 
 import com.mgiandia.library.util.BasicEqualTester;
-
 
 
 public class EMailTest {

@@ -1,5 +1,7 @@
 package com.mgiandia.library.ui;
 
+import java.time.LocalDate;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -14,7 +16,6 @@ import com.mgiandia.library.domain.Loan;
 import com.mgiandia.library.persistence.Initializer;
 import com.mgiandia.library.persistence.JPAUtil;
 import com.mgiandia.library.ui.loan.ReturnPresenter;
-import com.mgiandia.library.util.SimpleCalendar;
 import com.mgiandia.library.util.SystemDateStub;
 
 public class ReturnPresenterTest {
@@ -111,12 +112,12 @@ public class ReturnPresenterTest {
     
     
     private void setSystemDateTo1stMarch2007() {        
-        SystemDateStub.setStub(new SimpleCalendar(2007, 3, 1));
+        SystemDateStub.setStub(LocalDate.of(2007, 3, 1));
     }
     
 
     
     private void setSystemDateTo30thMarch2007() {        
-        SystemDateStub.setStub(new SimpleCalendar(2007, 3, 30));
+        SystemDateStub.setStub(LocalDate.of(2007, 3, 30));
     }
 }

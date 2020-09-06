@@ -1,6 +1,7 @@
 package com.mgiandia.library.ui.loan;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -153,7 +154,7 @@ public class LoanPresenter {
             em.persist(loan);
             tx.commit();
             SimpleDateFormat sdf = new SimpleDateFormat();
-            view.showInfo("Due Date " +  sdf.format(loan.getDue().getJavaCalendar().getTime()));
+            view.showInfo("Due Date " +  loan.getDue().format(DateTimeFormatter.ISO_DATE));
         }
     }
 }

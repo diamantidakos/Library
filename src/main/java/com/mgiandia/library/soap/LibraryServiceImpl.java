@@ -1,5 +1,6 @@
 package com.mgiandia.library.soap;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -17,7 +18,7 @@ import com.mgiandia.library.util.Money;
 @WebService(endpointInterface = "com.mgiandia.library.soap.LibraryService")
 public class LibraryServiceImpl implements LibraryService {
 
-    public Calendar loanItem(int borrowerNo, int itemNo)
+    public LocalDate loanItem(int borrowerNo, int itemNo)
             throws BorrowerNotFoundException, CanNotBorrowException {
     	EntityManager em = JPAUtil.getCurrentEntityManager();
         LoanService loanService = new LoanService(em);
@@ -26,7 +27,7 @@ public class LibraryServiceImpl implements LibraryService {
             throw new BorrowerNotFoundException(borrowerNo);
         }
 
-        Calendar returnDate = loanService.borrow(itemNo).getJavaCalendar();
+        LocalDate returnDate = loanService.borrow(itemNo);
         if (returnDate == null) {
             throw new CanNotBorrowException(borrowerNo);
         }

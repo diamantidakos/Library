@@ -3,7 +3,7 @@ package com.mgiandia.library.ui;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.After;
 import org.junit.Before;

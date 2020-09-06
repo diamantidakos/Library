@@ -1,6 +1,8 @@
 package com.mgiandia.library.domain;
 
-import org.junit.*;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
@@ -13,7 +15,7 @@ public class AuthorTest {
     public void addNullForBook() {
         Author author = new Author();                    
         author.addBook(null);
-        Assert.assertEquals(0,author.getBooks().size());
+        Assertions.assertEquals(0,author.getBooks().size());
         bookBidirectionalAssociationInvariant(author);        
     }
     
@@ -22,8 +24,8 @@ public class AuthorTest {
         Author author = new Author();
         Book book = new Book();
         author.addBook(book);
-        Assert.assertEquals(1, author.getBooks().size());
-        Assert.assertTrue(author.getBooks().contains(book));
+        Assertions.assertEquals(1, author.getBooks().size());
+        Assertions.assertTrue(author.getBooks().contains(book));
         bookBidirectionalAssociationInvariant(author);        
     }
     
@@ -34,7 +36,7 @@ public class AuthorTest {
         Book book = new Book();        
         author.addBook(book);
         author.removeBook(null);
-        Assert.assertEquals(1, author.getBooks().size());
+        Assertions.assertEquals(1, author.getBooks().size());
         bookBidirectionalAssociationInvariant(author);
     }
     
@@ -45,7 +47,7 @@ public class AuthorTest {
         author.addBook(book);
         bookBidirectionalAssociationInvariant(author);
         author.removeBook(book);
-        Assert.assertEquals(0, author.getBooks().size());
+        Assertions.assertEquals(0, author.getBooks().size());
         bookBidirectionalAssociationInvariant(author);
     }
     
@@ -53,7 +55,7 @@ public class AuthorTest {
     
     private void bookBidirectionalAssociationInvariant(Author author) {
         for(Book book : author.getBooks()) {
-            Assert.assertTrue(book.getAuthors().contains(author));            
+        	Assertions.assertTrue(book.getAuthors().contains(author));            
         }
     }
 }

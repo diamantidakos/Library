@@ -30,5 +30,6 @@ public class ViewRegistry {
 
     public static void reset() {
     	borrowerListViewStub = null;
+    	borrowerViewStub=null;
     }
 }

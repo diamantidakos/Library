@@ -5,8 +5,10 @@ import javax.persistence.*;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.util.Money;
-import com.mgiandia.library.util.SimpleCalendar;
 import com.mgiandia.library.util.SystemDate;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 
 /**
@@ -24,15 +26,11 @@ public class Loan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
-    @org.hibernate.annotations.Type(
-            type="com.mgiandia.library.persistence.SimpleCalendarCustomType")
     @Column(name="loandate")
-    private SimpleCalendar loanDate = SystemDate.now();
+    private LocalDate loanDate = SystemDate.now();
     
-    @org.hibernate.annotations.Type(
-            type="com.mgiandia.library.persistence.SimpleCalendarCustomType")
     @Column(name="returndate")
-    private SimpleCalendar returnDate;
+    private LocalDate returnDate;
     
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="borrowerno")
@@ -55,7 +53,7 @@ public class Loan {
      * @param item Αντίτυπο
      * @param loanDate Ημερομηνία δανεισμού
      */
-    Loan(Borrower borrower, Item item, SimpleCalendar loanDate) {
+    Loan(Borrower borrower, Item item, LocalDate loanDate) {
         this.borrower = borrower;
         this.item = item;
         this.loanDate = loanDate;
@@ -69,7 +67,7 @@ public class Loan {
      * Θέτει την ημερομηνία δανεισμού.
      * @param loanDate Η ημερομηνία δανεισμού.
      */
-     protected void setLoanDate(SimpleCalendar loanDate) {
+     protected void setLoanDate(LocalDate loanDate) {
         this.loanDate = loanDate;
     }
 
@@ -77,7 +75,7 @@ public class Loan {
      * Επιστρέφει την ημερομηνία δανεισμού.
      * @return Η ημερομηνία δανεισμού.
      */
-    public SimpleCalendar getLoanDate() {
+    public LocalDate getLoanDate() {
         return loanDate;
     }
 
@@ -87,7 +85,7 @@ public class Loan {
      * Εάν δεν υπάρχει δανειζόμενος επιστρέφει {@code null}.
      * @return Η προθεσμία επιστροφής
      */
-    public SimpleCalendar getDue() {
+    public LocalDate getDue() {
         if (loanDate == null) {
             return null;
         }
@@ -103,7 +101,7 @@ public class Loan {
      * Θέτει την ημερομηνία επιστροφής του αντιτύπου.
      * @param returnDate Η ημερομηνία επιστοφής.
      */
-    protected void setReturnDate(SimpleCalendar returnDate) {
+    protected void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 
@@ -112,7 +110,7 @@ public class Loan {
      * Επιστρέφει την ημερομηνία επιστροφής του αντιτύπου.
      * @return Η ημερομηνία επιστροφής
      */
-    public SimpleCalendar getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
@@ -216,12 +214,12 @@ public class Loan {
      * να υπολογιστεί η προθεσμία επιστροφής
      */
     public long daysToDue() {
-        SimpleCalendar due = getDue();
+    	LocalDate due = getDue();
         if (due == null) {
             throw new LibraryException();
         }
 
-        return SystemDate.now().durationInDays(due);
+        return ChronoUnit.DAYS.between(SystemDate.now(), due);
     }
 
     /**
@@ -252,7 +250,7 @@ public class Loan {
             return 0;
         }
 
-        long overdue = getDue().durationInDays(returnDate);
+        long overdue = ChronoUnit.DAYS.between(getDue(),getReturnDate());
         return overdue > 0 ? overdue : 0 ;
     }
 
@@ -263,17 +261,19 @@ public class Loan {
      * @return Το πρόστιμο καθυστέρησης
      */
     public Money getFine() {
-        if (getDue() == null || getReturnDate() == null || getBorrower() == null) {
+    	if (getDue() == null || getReturnDate() == null || getBorrower() == null) {
             return Money.euros(0);
         }
         
-        long overdue = getDue().durationInDays(getReturnDate());
+        long overdue = ChronoUnit.DAYS.between(getDue(),returnDate);
 
         if (overdue <= 0) {
             return Money.euros(0);
         }
         
-        return getBorrower().getDailyFine().times(overdue);
+        return getBorrower().getDailyFine().times(overdue);   
     }
+
+
 
 }

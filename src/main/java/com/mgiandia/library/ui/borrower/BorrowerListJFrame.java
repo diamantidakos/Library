@@ -149,6 +149,7 @@ public class BorrowerListJFrame extends DefaultJFrame implements BorrowerListVie
     }
 
     @Override
+
     public Borrower getSelectedBorrower() {
         return (Borrower) borrowerJList.getSelectedValue();
     }

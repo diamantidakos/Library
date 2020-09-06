@@ -1,6 +1,6 @@
 package com.mgiandia.library.util;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 /**
  * Βοηθητική κλάση για τη λήψη της ημερομηνίας του συστήματος.
@@ -17,7 +17,7 @@ public class SystemDate {
      */
     protected SystemDate() { }
 
-    private static SimpleCalendar stub;
+    private static LocalDate stub;
 
 
     /**
@@ -30,7 +30,7 @@ public class SystemDate {
      * ως ημερομηνία του συστήματος ή {@code null} για
      * να επιστρέφει την πραγματική ημερομηνία
      */
-    protected static void setStub(SimpleCalendar stubDate) {
+    protected static void setStub(LocalDate stubDate) {
         stub = stubDate;
     }
 
@@ -48,7 +48,7 @@ public class SystemDate {
      * τεθεί από την {@link SystemDate#setStub}.
      * @return Η ημερομηνία του συστήματος ή μία προκαθορισμένη ημερομηνία
      */
-    public static SimpleCalendar now() {
-        return stub == null ? new SimpleCalendar(Calendar.getInstance()) : stub;
+    public static LocalDate now() {
+        return stub == null ? LocalDate.now() : stub;
     }
 }
