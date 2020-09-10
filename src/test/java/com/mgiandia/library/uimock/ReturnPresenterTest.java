@@ -5,11 +5,16 @@ import java.time.LocalDate;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.easymock.EasyMock;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.validateMockitoUsage;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Item;
@@ -25,84 +30,77 @@ public class ReturnPresenterTest {
     private ReturnPresenter presenter;
     private ReturnView mock;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         dataHelper = new Initializer();
         dataHelper.prepareData();        
-        mock = EasyMock.createMock(ReturnView.class);
+        mock = mock(ReturnView.class);
         presenter = new ReturnPresenter(mock);
-        mock.setPresenter(presenter);
-        mock.open();
+       
     }
 
-    @After
+    @AfterEach
     public void restoreSystemDate() {
         SystemDateStub.reset();
+        validateMockitoUsage();
     }
     
     
     
     @Test
     public void wiring() {  
-        EasyMock.replay(mock);
+       
         presenter.start();
         
-        Assert.assertFalse(presenter.isLoanFound());
-        EasyMock.verify(mock);
+        Assertions.assertFalse(presenter.isLoanFound());
+        verify(mock).open();
     }
     
     
     @Test
     public void cancel() {
-        mock.close();
-        EasyMock.replay(mock);
-        
+      
         presenter.start();
         presenter.cancel();
-        EasyMock.verify(mock);
+        verify(mock).close();
     }
     
     
     
     @Test
     public void findPendingLoanWhenIdDoesNotExist() {
-        EasyMock.expect(mock.getItemNumber()).andReturn(4711);
-        mock.showError((String) EasyMock.anyObject());
+        when(mock.getItemNumber()).thenReturn(4711);
+
         
-        EasyMock.replay(mock);
         
         presenter.start();
         presenter.returnItem();
         
-        Assert.assertFalse(presenter.isLoanFound());
-        EasyMock.verify(mock);        
+        Assertions.assertFalse(presenter.isLoanFound());
+        verify(mock).showError(any(String.class));        
     }
     
     
     @Test
     public void returnItemNoFine() {
-        EasyMock.expect(mock.getItemNumber()).andReturn(Initializer.UML_DISTILLED_ID1);
-        mock.showInfo((String) EasyMock.anyObject());
+        when(mock.getItemNumber()).thenReturn(Initializer.UML_DISTILLED_ID1);
         
-        EasyMock.replay(mock);        
         loanUMLDistilledToDiamantidis();
         
         presenter.start();
         presenter.returnItem();
         
-        Assert.assertTrue(presenter.isLoanFound());
-        Assert.assertEquals(Initializer.UML_DISTILLED_ID1, presenter.getLoan().getItem().getItemNumber());
+        Assertions.assertTrue(presenter.isLoanFound());
+        Assertions.assertEquals(Initializer.UML_DISTILLED_ID1, presenter.getLoan().getItem().getItemNumber());
         
-        EasyMock.verify(mock);
+        verify(mock).showInfo(any(String.class));
     }
     
 
     @Test
     public void returnItemWithFine() {
-        EasyMock.expect(mock.getItemNumber()).andReturn(Initializer.UML_DISTILLED_ID1);
-        mock.showInfo((String) EasyMock.anyObject());
-        
-        EasyMock.replay(mock);
+        when(mock.getItemNumber()).thenReturn(Initializer.UML_DISTILLED_ID1);
+    
         
         setSystemDateTo1stMarch2007();
         loanUMLDistilledToDiamantidis();
@@ -112,12 +110,12 @@ public class ReturnPresenterTest {
         presenter.returnItem();
         
         
-        Assert.assertTrue(presenter.isLoanFound());
-        Assert.assertEquals(Initializer.UML_DISTILLED_ID1, presenter.getLoan().getItem().getItemNumber());
-        Assert.assertTrue(presenter.getLoan().getOverdue() > 0);
+        Assertions.assertTrue(presenter.isLoanFound());
+        Assertions.assertEquals(Initializer.UML_DISTILLED_ID1, presenter.getLoan().getItem().getItemNumber());
+        Assertions.assertTrue(presenter.getLoan().getOverdue() > 0);
         
         
-        EasyMock.verify(mock);
+        verify(mock).showInfo(any(String.class));
     }
 
     

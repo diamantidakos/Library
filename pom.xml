@@ -20,7 +20,7 @@
 		<jersey.version>2.22.2</jersey.version>
 	</properties>
 
-<dependencyManagement>
+	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.glassfish.jersey</groupId>
@@ -34,7 +34,7 @@
 
 
 	<dependencies>
-	<!-- Hibernate -->
+		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -53,13 +53,13 @@
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-grizzly2-http</artifactId>
 		</dependency>
-	
+
 		<!-- JSON support -->
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-moxy</artifactId>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -84,21 +84,17 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
 			<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
-			<version>2.23.2</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>3.3.3</version>
+			<scope>test</scope>
 		</dependency>
 
-<!-- Easy Mock -->
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>3.4</version>
-		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -173,7 +169,7 @@
 				<artifactId>umlet-maven-plugin</artifactId>
 				<version>1.1.6</version>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>

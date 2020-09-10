@@ -1,16 +1,22 @@
 package com.mgiandia.library.uimock;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.validateMockitoUsage;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-
-import org.easymock.EasyMock;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.persistence.Initializer;
@@ -18,45 +24,43 @@ import com.mgiandia.library.persistence.JPAUtil;
 import com.mgiandia.library.ui.ViewRegistry;
 import com.mgiandia.library.ui.borrower.BorrowerListPresenter;
 import com.mgiandia.library.ui.borrower.BorrowerListView;
-import com.mgiandia.library.ui.borrower.BorrowerPresenter;
 import com.mgiandia.library.ui.borrower.BorrowerView;
 
 public class BorrowerListPresenterTest {
     private Initializer dataHelper;
     private BorrowerListPresenter presenter;
-    private BorrowerListView mock;
+    private BorrowerListView borrowerListViewMock;
     private BorrowerView borrowerViewMock;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         dataHelper = new Initializer();
         dataHelper.prepareData();        
         
-        mock = EasyMock.createMock(BorrowerListView.class);
-        borrowerViewMock = EasyMock.createMock(BorrowerView.class);
+        borrowerListViewMock = mock(BorrowerListView.class);
+        borrowerViewMock = mock(BorrowerView.class);
         
         ViewRegistry.setBorrowerView(borrowerViewMock);
         
-        presenter = new BorrowerListPresenter(mock);
+        presenter = new BorrowerListPresenter(borrowerListViewMock);
         
-        mock.setPresenter(presenter);
-        mock.open();
     }
     
-    @After
+    @AfterEach
     public void tearDown() {
         ViewRegistry.reset();
+        validateMockitoUsage();
     }
     
     
     @SuppressWarnings("unchecked")
 	@Test
     public void wiring() {
-        mock.setBorrowers((List<Borrower>) EasyMock.anyObject());
-        EasyMock.replay(mock);
         presenter.start();
-        EasyMock.verify(mock);
-        Assert.assertEquals(2, presenter.getBorrowers().size());
+        Assertions.assertEquals(2, presenter.getBorrowers().size());
+        verify(borrowerListViewMock).open();
+        verify(borrowerListViewMock).setBorrowers(any(List.class));
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -68,27 +72,20 @@ public class BorrowerListPresenterTest {
     	selectedBorrower.setLastName("karakostas");
     	selectedBorrower.setFirstName("kostas");
     	
-        mock.setBorrowers((List<Borrower>) EasyMock.anyObject());
+        borrowerListViewMock.setBorrowers(any(List.class));
         
-        EasyMock.expect(mock.getSelectedBorrower())
-        	.andReturn(selectedBorrower);
+        when(borrowerListViewMock.getSelectedBorrower()).thenReturn(selectedBorrower);
         
-        borrowerViewMock.setPresenter((BorrowerPresenter) EasyMock.anyObject());
         borrowerViewMock.open();
-        borrowerViewMock.setBorrowerNo(selectedBorrower.getBorrowerNo());
-        EasyMock.expectLastCall().anyTimes();
-        borrowerViewMock.setFirstName(selectedBorrower.getFirstName());
-        EasyMock.expectLastCall().anyTimes();
-        borrowerViewMock.setLastName(selectedBorrower.getLastName());
-        EasyMock.expectLastCall().anyTimes();
-        
-        EasyMock.replay(mock);
-        EasyMock.replay(borrowerViewMock);
         
         presenter.start();
         presenter.editSelected();
         
-        EasyMock.verify(mock);
+        verify(borrowerListViewMock).setPresenter(presenter);
+        verify(borrowerViewMock, atLeastOnce()).setBorrowerNo(selectedBorrower.getBorrowerNo());
+        verify(borrowerViewMock, atLeastOnce()).setFirstName(selectedBorrower.getFirstName());
+        verify(borrowerViewMock, atLeastOnce()).setLastName(selectedBorrower.getLastName());
+        
         
     }
     
@@ -96,35 +93,25 @@ public class BorrowerListPresenterTest {
     @SuppressWarnings("unchecked")
 	@Test
     public void add() {
-        mock.setBorrowers((List<Borrower>) EasyMock.anyObject());
-        
-        borrowerViewMock.setPresenter((BorrowerPresenter) EasyMock.anyObject());
-        borrowerViewMock.open();
-        borrowerViewMock.setBorrowerNo(EasyMock.anyInt());
-        EasyMock.expectLastCall().anyTimes();
-        borrowerViewMock.setFirstName((String) EasyMock.anyObject());
-        EasyMock.expectLastCall().anyTimes();
-        borrowerViewMock.setLastName((String) EasyMock.anyObject());
-        EasyMock.expectLastCall().anyTimes();
-        
-        EasyMock.replay(mock);
-        EasyMock.replay(borrowerViewMock);
+    	
+        borrowerListViewMock.setBorrowers(any(List.class));
         
         presenter.start();
         presenter.addBorrower();
-        
-        EasyMock.verify(mock);
-        
+        verify(borrowerListViewMock).setBorrowers(any(List.class));
+        verify(borrowerViewMock,atLeastOnce()).setBorrowerNo(anyInt());
+        verify(borrowerViewMock, atLeastOnce()).setFirstName(null);
+        verify(borrowerViewMock, atLeastOnce()).setLastName(null);
+//        
     }
     
     @SuppressWarnings("unchecked")
 	@Test
     public void refresh() {
-    	 mock.setBorrowers((List<Borrower>) EasyMock.anyObject());
-    	 EasyMock.expectLastCall().anyTimes();
-         EasyMock.replay(mock);
+    	
+         
          presenter.start();
-         Assert.assertEquals(2, presenter.getBorrowers().size());
+         Assertions.assertEquals(2, presenter.getBorrowers().size());
 
          EntityManager em = JPAUtil.createEntityManager();
          EntityTransaction tx = em.getTransaction();
@@ -140,9 +127,8 @@ public class BorrowerListPresenterTest {
          em.close();
          
          presenter.refresh();
-         Assert.assertEquals(3, presenter.getBorrowers().size());
-         
-         EasyMock.verify(mock);
+         Assertions.assertEquals(3, presenter.getBorrowers().size());
+         verify(borrowerListViewMock, atLeastOnce()).setBorrowers(any(List.class));
          
     }
 }

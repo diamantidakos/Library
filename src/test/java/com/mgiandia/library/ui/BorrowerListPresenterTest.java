@@ -3,11 +3,12 @@ package com.mgiandia.library.ui;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.junit.Assert;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+
 
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.persistence.Initializer;
@@ -17,26 +18,26 @@ import com.mgiandia.library.ui.borrower.BorrowerListPresenter;
 public class BorrowerListPresenterTest {
     private Initializer dataHelper;
     private BorrowerListPresenter presenter;
-    private BorrowerListViewStub borrowerListView;
+    private BorrowerListViewStub borrowerListViewStub;
     private BorrowerViewStub borrowerViewStub;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         dataHelper = new Initializer();
         dataHelper.prepareData();        
         
-        borrowerListView = new BorrowerListViewStub();
+        borrowerListViewStub = new BorrowerListViewStub();
         borrowerViewStub = new BorrowerViewStub();
         
         ViewRegistry.setBorrowerView(borrowerViewStub);
         
-        presenter = new BorrowerListPresenter(borrowerListView);
+        presenter = new BorrowerListPresenter(borrowerListViewStub);
         
-        borrowerListView.setPresenter(presenter);
-        borrowerListView.open();
+        borrowerListViewStub.setPresenter(presenter);
+        borrowerListViewStub.open();
     }
     
-    @After
+    @AfterEach
     public void tearDown() {
         ViewRegistry.reset();
     }
@@ -45,9 +46,9 @@ public class BorrowerListPresenterTest {
 	@Test
     public void wiring() {
         presenter.start();
-        Assert.assertTrue(borrowerListView.isOpened());
-        Assert.assertEquals(2, presenter.getBorrowers().size());
-        Assert.assertEquals(2, borrowerListView.getBorrowers().size());
+        Assertions.assertTrue(borrowerListViewStub.isOpened());
+        Assertions.assertEquals(2, presenter.getBorrowers().size());
+        Assertions.assertEquals(2, borrowerListViewStub.getBorrowers().size());
     }
     
 	@Test
@@ -58,21 +59,21 @@ public class BorrowerListPresenterTest {
     	selectedBorrower.setLastName("karakostas");
     	selectedBorrower.setFirstName("kostas");
     	
-    	borrowerListView.setSelectedBorrower(selectedBorrower);
+    	borrowerListViewStub.setSelectedBorrower(selectedBorrower);
             
         presenter.start();
         presenter.editSelected();
     
-        Assert.assertTrue(borrowerViewStub.isOpened());
+        Assertions.assertTrue(borrowerViewStub.isOpened());
         
-        Assert.assertEquals(selectedBorrower.getBorrowerNo(), 
+        Assertions.assertEquals(selectedBorrower.getBorrowerNo(), 
         		borrowerViewStub.getBorrowerNo());
         
-        Assert.assertEquals(selectedBorrower.getFirstName(), 
+        Assertions.assertEquals(selectedBorrower.getFirstName(), 
         		borrowerViewStub.getFirstName());
 
 
-        Assert.assertEquals(selectedBorrower.getLastName(), 
+        Assertions.assertEquals(selectedBorrower.getLastName(), 
         		borrowerViewStub.getLastName());
 
     }
@@ -85,8 +86,8 @@ public class BorrowerListPresenterTest {
         presenter.start();
         presenter.addBorrower();
         
-        Assert.assertTrue(borrowerViewStub.isOpened());
-        Assert.assertEquals(0, borrowerViewStub.getBorrowerNo());
+        Assertions.assertTrue(borrowerViewStub.isOpened());
+        Assertions.assertEquals(0, borrowerViewStub.getBorrowerNo());
         
     }
     
@@ -94,7 +95,7 @@ public class BorrowerListPresenterTest {
     public void refresh() {
 
          presenter.start();
-         Assert.assertEquals(2, presenter.getBorrowers().size());
+         Assertions.assertEquals(2, presenter.getBorrowers().size());
          
          EntityManager em = JPAUtil.createEntityManager();
          EntityTransaction tx = em.getTransaction();
@@ -112,8 +113,8 @@ public class BorrowerListPresenterTest {
          em.close();
          
          presenter.refresh();
-         Assert.assertEquals(3, presenter.getBorrowers().size());
-         Assert.assertEquals(3, borrowerListView.getBorrowers().size());
+         Assertions.assertEquals(3, presenter.getBorrowers().size());
+         Assertions.assertEquals(3, borrowerListViewStub.getBorrowers().size());
          
     }
 }

@@ -1,12 +1,19 @@
 package com.mgiandia.library.uimock;
 
 
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.validateMockitoUsage;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import javax.persistence.EntityManager;
 
-import org.easymock.EasyMock;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.persistence.Initializer;
@@ -20,7 +27,7 @@ public class BorrowerPresenterTest {
     private BorrowerView mock;
     private Borrower borrower;
   
-    @Before
+    @BeforeEach
     public void setUp() {
         borrower = new Borrower();
         borrower.setBorrowerNo(999);
@@ -31,31 +38,34 @@ public class BorrowerPresenterTest {
         dataHelper.prepareData();        
         
         
-        mock = EasyMock.createMock(BorrowerView.class);
+        mock = mock(BorrowerView.class);
         presenter = new BorrowerPresenter(mock);
         
-        expectSetBorrower();
         mock.setPresenter(presenter);
         mock.open();
     }
     
-
+    @AfterEach
+    public void tearDown() {
+    	validateMockitoUsage();
+    }
     
     @Test
     public void wiring() {
-        EasyMock.replay(mock);
         presenter.start();
-        EasyMock.verify(mock);
+        verify(mock, atLeastOnce()).setBorrowerNo(anyInt());
+        verify(mock, atLeastOnce()).setFirstName(null);
+        verify(mock, atLeastOnce()).setLastName(null);
     }
     
     
     @Test
     public void setBorrowerAndSave() {
-        expectSetBorrower();
-        expectGetBorrower(999, "kostas","karakostas");
         
-        mock.close();
-        EasyMock.replay(mock);
+        when(mock.getBorrowerNo()).thenReturn(999);
+        when(mock.getFirstName()).thenReturn("kostas");
+        when(mock.getLastName()).thenReturn("karakostas");
+    	
         
         EntityManager em = JPAUtil.createEntityManager();
         
@@ -67,36 +77,36 @@ public class BorrowerPresenterTest {
         presenter.save();
         
         int allBorrowers = countBorrowers();
-        Assert.assertEquals(3, allBorrowers);
+        Assertions.assertEquals(3, allBorrowers);
         
-        EasyMock.verify(mock);        
+        verify(mock).close();        
     }
 
     
     @Test
     public void setBorrowerAndCancel() {
-        expectSetBorrower();
+    	when(mock.getBorrowerNo()).thenReturn(999);
+        when(mock.getFirstName()).thenReturn("nikos");
+        when(mock.getLastName()).thenReturn("karanikos");
         
-        mock.close();
-        EasyMock.replay(mock);
         
         presenter.setBorrower(borrower);  
         presenter.start();
         presenter.cancel();
         
         int allBorrowers = countBorrowers();
-        Assert.assertEquals(2, allBorrowers);
+        Assertions.assertEquals(2, allBorrowers);
         
-        EasyMock.verify(mock);        
+        verify(mock).close();        
     }
     
     @Test
     public void changeBorrowerInfoAndSave() {
-        expectSetBorrower();
-        expectGetBorrower(999, "nikos", "karanikos");
-        mock.close();
-        
-        EasyMock.replay(mock);
+
+    	when(mock.getBorrowerNo()).thenReturn(999);
+        when(mock.getFirstName()).thenReturn("nikos");
+        when(mock.getLastName()).thenReturn("karanikos");
+    	
         EntityManager em = JPAUtil.createEntityManager();
         
         presenter.setBorrower(borrower);
@@ -105,13 +115,11 @@ public class BorrowerPresenterTest {
         presenter.save();
         
         
-        Assert.assertEquals("nikos", presenter.getBorrower().getFirstName());
-        Assert.assertEquals("karanikos", presenter.getBorrower().getLastName());
+        Assertions.assertEquals("nikos", presenter.getBorrower().getFirstName());
+        Assertions.assertEquals("karanikos", presenter.getBorrower().getLastName());
         
         int allBorrowers = countBorrowers();
-        Assert.assertEquals(3, allBorrowers);
-        
-        EasyMock.verify(mock);        
+        Assertions.assertEquals(3, allBorrowers);
         
         
     }
@@ -127,17 +135,6 @@ public class BorrowerPresenterTest {
 		return allBorrowers;
 	}
 
-    private void expectGetBorrower(int borrowerNo, String firstName, String lastName) {
-    	EasyMock.expect(mock.getBorrowerNo()).andReturn(borrowerNo);
-        EasyMock.expect(mock.getFirstName()).andReturn(firstName);
-        EasyMock.expect(mock.getLastName()).andReturn(lastName);
-    }
 
-    private void expectSetBorrower() {
-    	mock.setBorrowerNo(EasyMock.anyInt());
-        mock.setFirstName((String) EasyMock.anyObject());
-        mock.setLastName((String) EasyMock.anyObject());
-    }
-    
 
 }
