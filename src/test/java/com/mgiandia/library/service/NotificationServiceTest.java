@@ -2,14 +2,16 @@ package com.mgiandia.library.service;
 
 import java.time.LocalDate;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+
 
 import com.mgiandia.library.contacts.EmailMessage;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.persistence.Initializer;
 import com.mgiandia.library.util.SystemDateStub;
+
 
 public class NotificationServiceTest extends LibraryServiceTest {
 
@@ -54,11 +56,12 @@ public class NotificationServiceTest extends LibraryServiceTest {
 		em.clear();
 
 		Borrower diamantidis = em.find(Borrower.class, Initializer.DIAMANTIDIS_ID);
-		Assert.assertEquals(1, provider.allMessages.size());
+		Assertions.assertEquals(1, provider.allMessages.size());
 		EmailMessage message = provider.getAllEmails().get(0);
-		Assert.assertEquals(diamantidis.getEmail(), message.getTo());
+		Assertions.assertEquals(diamantidis.getEmail(), message.getTo());
 	}
 
+	
 	public void sendMessageOnOverdue() {
 
 	}

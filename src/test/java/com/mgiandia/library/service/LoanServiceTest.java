@@ -1,9 +1,11 @@
 package com.mgiandia.library.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.domain.ItemState;
@@ -19,12 +21,15 @@ public class LoanServiceTest extends LibraryServiceTest {
 		SystemDateStub.reset();
 	}
 	
-	@Test(expected = LibraryException.class)
+	@Test
 	public void noBorrowerJpa() {
 
 		LoanService loanService = new LoanService(em);
-		loanService.findBorrower(99999);
-		loanService.borrow(Initializer.UML_DISTILLED_ID1);
+		assertThrows(LibraryException.class, () -> {
+			loanService.findBorrower(99999);
+			loanService.borrow(Initializer.UML_DISTILLED_ID1);
+		});
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -33,16 +38,16 @@ public class LoanServiceTest extends LibraryServiceTest {
 
 		LoanService loanService = new LoanService(em);
 		loanService.findBorrower(Initializer.DIAMANTIDIS_ID);
-		Assert.assertNotNull(loanService.borrow(Initializer.UML_DISTILLED_ID1));
+		Assertions.assertNotNull(loanService.borrow(Initializer.UML_DISTILLED_ID1));
 
 		em.clear();
 		List<Loan> loanList = em.createQuery("select l from Loan l").getResultList();
 
 		Loan loan = loanList.get(0);
 
-		Assert.assertTrue(loan.isPending());
-		Assert.assertEquals(Initializer.UML_DISTILLED_ID1, loan.getItem().getItemNumber());
-		Assert.assertEquals(ItemState.LOANED, loan.getItem().getState());
+		Assertions.assertTrue(loan.isPending());
+		Assertions.assertEquals(Initializer.UML_DISTILLED_ID1, loan.getItem().getItemNumber());
+		Assertions.assertEquals(ItemState.LOANED, loan.getItem().getState());
 
 	}
 
@@ -52,11 +57,11 @@ public class LoanServiceTest extends LibraryServiceTest {
 		LoanService loanService = new LoanService(em);
 		loanService.findBorrower(Initializer.DIAMANTIDIS_ID);
 
-		Assert.assertNotNull(loanService.borrow(Initializer.UML_USER_GUIDE_ID1));
-		Assert.assertNotNull(loanService.borrow(Initializer.UML_DISTILLED_ID1));
-		Assert.assertNotNull(loanService.borrow(Initializer.UML_REFACTORING_ID));
-		Assert.assertNotNull(loanService.borrow(Initializer.UML_USER_GUIDE_ID2));
-		Assert.assertNull(loanService.borrow(Initializer.UML_DISTILLED_ID2));
+		Assertions.assertNotNull(loanService.borrow(Initializer.UML_USER_GUIDE_ID1));
+		Assertions.assertNotNull(loanService.borrow(Initializer.UML_DISTILLED_ID1));
+		Assertions.assertNotNull(loanService.borrow(Initializer.UML_REFACTORING_ID));
+		Assertions.assertNotNull(loanService.borrow(Initializer.UML_USER_GUIDE_ID2));
+		Assertions.assertNull(loanService.borrow(Initializer.UML_DISTILLED_ID2));
 	}
 
 	@Test
@@ -66,21 +71,21 @@ public class LoanServiceTest extends LibraryServiceTest {
 
 		// some loans
 		service.findBorrower(Initializer.GIAKOUMAKIS_ID);
-		Assert.assertNotNull(service.borrow(Initializer.UML_USER_GUIDE_ID1));
-		Assert.assertNotNull(service.borrow(Initializer.UML_DISTILLED_ID1));
+		Assertions.assertNotNull(service.borrow(Initializer.UML_USER_GUIDE_ID1));
+		Assertions.assertNotNull(service.borrow(Initializer.UML_DISTILLED_ID1));
 
 		service.findBorrower(Initializer.DIAMANTIDIS_ID);
-		Assert.assertNotNull(service.borrow(Initializer.UML_REFACTORING_ID));
+		Assertions.assertNotNull(service.borrow(Initializer.UML_REFACTORING_ID));
 		// end of some loans
 
 		List<Loan> loans = service.findPendingLoans(false);
 
-		Assert.assertEquals(loans.size(), 3);
-		Assert.assertNotNull(loans.get(0).getBorrower());
-		Assert.assertNotNull(loans.get(0).getItem());
+		Assertions.assertEquals(loans.size(), 3);
+		Assertions.assertNotNull(loans.get(0).getBorrower());
+		Assertions.assertNotNull(loans.get(0).getItem());
 
 		loans = service.findPendingLoans(true);
-		Assert.assertEquals(loans.size(), 0);
+		Assertions.assertEquals(loans.size(), 0);
 
 	}
 
@@ -91,12 +96,12 @@ public class LoanServiceTest extends LibraryServiceTest {
 			LoanService service = new LoanService(em);
 
 			service.findBorrower(Initializer.DIAMANTIDIS_ID);
-			Assert.assertNotNull(service.borrow(Initializer.UML_REFACTORING_ID));
+			Assertions.assertNotNull(service.borrow(Initializer.UML_REFACTORING_ID));
 			// end of some loans
 
 			Loan foundLoan = service.findPendingLoan(Initializer.UML_REFACTORING_ID);
 
-			Assert.assertNotNull(foundLoan);
+			Assertions.assertNotNull(foundLoan);
 
 		
 	}
@@ -109,7 +114,7 @@ public class LoanServiceTest extends LibraryServiceTest {
 
 			Loan foundLoan = service.findPendingLoan(Initializer.UML_REFACTORING_ID);
 
-			Assert.assertNull(foundLoan);
+			Assertions.assertNull(foundLoan);
 
 		
 	}
@@ -122,20 +127,20 @@ public class LoanServiceTest extends LibraryServiceTest {
 
 			// some loans
 			service.findBorrower(Initializer.GIAKOUMAKIS_ID);
-			Assert.assertNotNull(service.borrow(Initializer.UML_USER_GUIDE_ID1));
-			Assert.assertNotNull(service.borrow(Initializer.UML_DISTILLED_ID1));
+			Assertions.assertNotNull(service.borrow(Initializer.UML_USER_GUIDE_ID1));
+			Assertions.assertNotNull(service.borrow(Initializer.UML_DISTILLED_ID1));
 
 			service.findBorrower(Initializer.DIAMANTIDIS_ID);
-			Assert.assertNotNull(service.borrow(Initializer.UML_REFACTORING_ID));
+			Assertions.assertNotNull(service.borrow(Initializer.UML_REFACTORING_ID));
 			// end of some loans
 
 			SystemDateStub.setStub(SystemDate.now().plusDays(200));
 
 			List<Loan> loans = service.findPendingLoans(true);
 
-			Assert.assertEquals(loans.size(), 3);
-			Assert.assertNotNull(loans.get(0).getBorrower());
-			Assert.assertNotNull(loans.get(0).getItem());
+			Assertions.assertEquals(loans.size(), 3);
+			Assertions.assertNotNull(loans.get(0).getBorrower());
+			Assertions.assertNotNull(loans.get(0).getItem());
 		
 	}
 

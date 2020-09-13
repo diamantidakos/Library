@@ -3,8 +3,11 @@ package com.mgiandia.library.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.domain.ItemState;
@@ -22,9 +25,12 @@ public class ReturnServiceTest extends LibraryServiceTest {
 		SystemDateStub.reset();
 	}
 
-	@Test(expected = LibraryException.class)
+	@Test
 	public void returnWhenNoLoanExistJpa() {
-		returnWhenNoLoanExist();
+		Assertions.assertThrows(LibraryException.class, () -> {
+			returnWhenNoLoanExist();	
+		});
+		
 	}
 
 	public void returnWhenNoLoanExist() {
@@ -51,10 +57,10 @@ public class ReturnServiceTest extends LibraryServiceTest {
 		@SuppressWarnings("unchecked")
 		List<Loan> loanList = em.createQuery("select l from Loan l").getResultList();
 		Loan loan = loanList.get(0);
-		Assert.assertEquals(LocalDate.of(2007, 3, 1), loan.getLoanDate());
-		Assert.assertEquals(LocalDate.of(2007, 3, 2), loan.getReturnDate());
-		Assert.assertEquals(Initializer.UML_USER_GUIDE_ID1, loan.getItem().getItemNumber());
-		Assert.assertEquals(ItemState.AVAILABLE, loan.getItem().getState());
+		Assertions.assertEquals(LocalDate.of(2007, 3, 1), loan.getLoanDate());
+		Assertions.assertEquals(LocalDate.of(2007, 3, 2), loan.getReturnDate());
+		Assertions.assertEquals(Initializer.UML_USER_GUIDE_ID1, loan.getItem().getItemNumber());
+		Assertions.assertEquals(ItemState.AVAILABLE, loan.getItem().getState());
 //		em.close();
 	}
 
@@ -69,7 +75,7 @@ public class ReturnServiceTest extends LibraryServiceTest {
 		setSystemDateTo2ndMarch2007();
 		ReturnService service = new ReturnService(em);
 		Money fine = service.returnItem(Initializer.UML_USER_GUIDE_ID1);
-		Assert.assertNull(fine);
+		Assertions.assertNull(fine);
 	}
 
 	@Test
@@ -83,7 +89,7 @@ public class ReturnServiceTest extends LibraryServiceTest {
 		setSystemDateTo30thMarch2007();
 		ReturnService service = new ReturnService(em);
 		Money fine = service.returnItem(Initializer.UML_USER_GUIDE_ID1);
-		Assert.assertNotNull(fine);
+		Assertions.assertNotNull(fine);
 	}
 
 	private void borrowUMLUserGuideToDiamantidis() {

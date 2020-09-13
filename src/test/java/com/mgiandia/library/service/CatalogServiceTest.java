@@ -1,12 +1,10 @@
 package com.mgiandia.library.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import org.junit.Test;
 
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
@@ -42,7 +40,7 @@ public class CatalogServiceTest extends LibraryServiceTest {
 		
 		 Book book = service.findBookById(allBooks.get(0).getId());
 		
-		 assertNotNull("Expected non null book", book);
+		 assertNotNull( book, "Expected non null book");
 
 	}
 

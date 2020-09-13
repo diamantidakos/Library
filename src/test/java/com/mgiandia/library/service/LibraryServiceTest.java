@@ -2,8 +2,8 @@ package com.mgiandia.library.service;
 
 import javax.persistence.EntityManager;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 
 import com.mgiandia.library.persistence.Initializer;
 import com.mgiandia.library.persistence.JPAUtil;
@@ -21,7 +21,7 @@ public abstract class LibraryServiceTest {
 	
 	protected void afterDatabasePreparation(){}
 
-	@Before
+	@BeforeEach
 	public final void setUp() {
 		beforeDatabasePreparation();
 		dataHelper = new Initializer();
@@ -32,7 +32,7 @@ public abstract class LibraryServiceTest {
 
 	protected void afterTearDown(){}
 	
-	@After
+	@AfterEach
 	public final void tearDown() {
 		em.close();
 		afterTearDown();
