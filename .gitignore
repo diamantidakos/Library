@@ -5,3 +5,5 @@
 /jacoco.exec
 /target
 /.settings/
+/.classpath
+/.project
