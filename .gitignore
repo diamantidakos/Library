@@ -3,3 +3,7 @@
 /reports/
 /bin/
 /jacoco.exec
+/target
+/.settings/
+/.classpath
+/.project
