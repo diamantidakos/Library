@@ -1,7 +1,6 @@
 package com.mgiandia.library.fines;
 
 import com.mgiandia.library.util.Money;
-import com.mgiandia.library.util.SimpleCalendar;
 
 import java.time.LocalDate;
 

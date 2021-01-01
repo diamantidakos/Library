@@ -6,6 +6,7 @@ package com.mgiandia.library.domain;
 import java.time.LocalDate;
 
 import com.mgiandia.library.LibraryException;
+import com.mgiandia.library.fines.FineStrategyFactory;
 import com.mgiandia.library.util.Money;
 import com.mgiandia.library.util.SystemDate;
 import java.time.temporal.ChronoUnit;
@@ -243,17 +244,7 @@ public class Loan {
      * @return Το πρόστιμο καθυστέρησης
      */
     public Money getFine() {
-        if (getDue() == null || getReturnDate() == null || getBorrower() == null) {
-            return Money.euros(0);
-        }
-        
-        long overdue = ChronoUnit.DAYS.between(getDue(),returnDate);
-
-        if (overdue <= 0) {
-            return Money.euros(0);
-        }
-        
-        return getBorrower().getDailyFine().times(overdue);
+    	 return FineStrategyFactory.getStrategy().calculateFine(this);
     }
 
 }

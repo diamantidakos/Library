@@ -7,7 +7,6 @@ import org.junit.*;
 import com.mgiandia.library.fines.FineStrategy;
 import com.mgiandia.library.fines.UniformFineStrategy;
 import com.mgiandia.library.util.Money;
-import com.mgiandia.library.util.SimpleCalendar;
 
 
 /**

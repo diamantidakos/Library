@@ -3,9 +3,7 @@ package com.mgiandia.library.fines;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 
-import com.mgiandia.library.util.SimpleCalendar;
 
 /**
  * Η αυστηρή στρατηγική υπολογισμού του προστίμου.

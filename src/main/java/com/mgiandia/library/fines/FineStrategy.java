@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 import com.mgiandia.library.domain.Loan;
 import com.mgiandia.library.util.Money;
-import com.mgiandia.library.util.SimpleCalendar;
 
 /**
  * Η στρατηγική επιβολής προστίμων για την.

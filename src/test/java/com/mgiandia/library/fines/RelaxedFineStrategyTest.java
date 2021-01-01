@@ -9,7 +9,6 @@ import org.junit.Test;
 import com.mgiandia.library.fines.FineStrategy;
 import com.mgiandia.library.fines.RelaxedFineStrategy;
 import com.mgiandia.library.util.Money;
-import com.mgiandia.library.util.SimpleCalendar;
 
 public class RelaxedFineStrategyTest {
 

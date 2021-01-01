@@ -2,8 +2,6 @@ package com.mgiandia.library.fines;
 
 import java.time.LocalDate;
 
-import com.mgiandia.library.util.SimpleCalendar;
-
 
 /**
  * Βοηθητική κλάση που παρέχει τις ημερομηνίες για τον έλεγχο της στρατηγικής προστίμου. 
