@@ -1,5 +1,7 @@
 package com.mgiandia.library.dao;
 
+import com.mgiandia.library.LibraryException;
+
 /**
  * Αφηρημένο εργοστάσιο των αντικείμενων πρόσβασης
  * δεδομένων (αντικείμενα DAO). Η κλάση που υλοποιεί
@@ -28,7 +30,7 @@ public abstract class DAOFactory {
             try {
                 factory = (DAOFactory) Class.forName(className).newInstance();
             } catch (Exception e) {
-                e.printStackTrace();
+               throw new LibraryException(e);
             }
         }
         return factory;

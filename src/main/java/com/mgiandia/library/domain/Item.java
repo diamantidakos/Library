@@ -1,9 +1,5 @@
 package com.mgiandia.library.domain;
 
-
-import com.mgiandia.library.LibraryException;
-import com.mgiandia.library.util.SystemDate;
-
 /**
  * Το αντίτυπο ενός βιβλίου.
  * @author Νίκος Διαμαντίδης
@@ -13,7 +9,7 @@ public class Item {
 
     private int itemNumber = 0;
     private Book book;
-    private ItemState state = ItemState.NEW;
+    private ItemObjectState objectState = new NewState();
 
     /**
      * Προκαθορισμένος κατασκευαστής.
@@ -70,15 +66,17 @@ public class Item {
     public Book getBook() {
         return book;
     }
+    
 
-
+    
     /**
      * Επιστρέφει την κατάσταση του αντιτύπου.
      * @return Η κατάσταση του αντιτύπου
      */
     public ItemState getState() {
-        return state;
+        return objectState.getState();
     }
+    
 
 
     /**
@@ -89,10 +87,10 @@ public class Item {
      * του αντιτύπου.
      * @param state Η κατάσταση του αντιτύπου.
      */
-    protected void setState(ItemState state) {
-        this.state = state;
+    void setObjectState(ItemObjectState objectState) {
+        this.objectState = objectState;
     }
-
+    
 
 
 
@@ -110,61 +108,35 @@ public class Item {
      * @return Το αντικείμενο του δανεισμού.
      */
     public Loan borrow(Borrower borrower) {
-        if (borrower == null) {
-            return null;
-        }
-
-        if (!borrower.canBorrow()) {
-            return null;
-        }
-
-        if (getState() != ItemState.AVAILABLE) {
-            return null;
-        }
-
-        Loan loan = new Loan();
-        loan.setItem(this);
-        loan.setBorrower(borrower);
-        loan.setLoanDate(SystemDate.now());
-        setState(ItemState.LOANED);
-        return loan;
+        return objectState.borrow(this, borrower);
     }
 
     /**
      * Αλλάζει την κατάσταση του αντιτύπου σε διαθέσιμο ({@code AVAILABLE}).
      */
-    public void available() {
-        if (getState().equals(ItemState.LOST)) {
-            throw new LibraryException();
-        }
-        if (getState().equals(ItemState.WITHDRAWN)) {
-            throw new LibraryException();
-        }
 
-        setState(ItemState.AVAILABLE);
+    public void available() {
+        objectState.available(this);
     }
+
+  
+
 
     /**
      * Το αντίτυπο αποσύρεται και δεν είναι διαθέσιμο για δανεισμό.
      */
+    
     public void withdraw() {
-    	if (! getState().equals(ItemState.AVAILABLE)) {
-    		throw new LibraryException();
-    	}
-        setState(ItemState.WITHDRAWN);
+        objectState.withdraw(this);
     }
 
+  
     /**
      * Το αντίτυπο έχει χαθεί και δεν είναι διαθέσιμο για δανεισμό.
      */
     public void lost() {
-    	if (! getState().equals(ItemState.LOANED)) {
-    		throw new LibraryException();
-    	}
-    	
-        setState(ItemState.LOST);
+        objectState.lost(this);
     }
-
 
 
     @Override

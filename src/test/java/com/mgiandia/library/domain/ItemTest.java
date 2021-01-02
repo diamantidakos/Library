@@ -41,8 +41,9 @@ public class ItemTest {
     @Test
     public void borrowNoBorrower() {
         Item item = new Item();
+        item.available();
         Assertions.assertNull(item.borrow(null));
-        Assertions.assertEquals(ItemState.NEW, item.getState());
+        Assertions.assertEquals(ItemState.AVAILABLE, item.getState());
     }
     
     @Test
