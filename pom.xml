@@ -16,9 +16,10 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<version.junit>5.6.1</version.junit>
-		<version.jacoco>0.8.2</version.jacoco>
+		<version.jacoco>0.8.4</version.jacoco>
 		<jersey.version>2.22.2</jersey.version>
 		<jaxb.api.version>2.3.1</jaxb.api.version>
+		<jaxb.impl.version>2.3.6</jaxb.impl.version>
 	</properties>
 
 	<dependencyManagement>
@@ -36,11 +37,11 @@
 
 	<dependencies>
 		<dependency>
-    		<groupId>log4j</groupId>
-    		<artifactId>log4j</artifactId>
-    		<version>1.2.17</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
-	
+
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -122,13 +123,16 @@
 			<version>${jaxb.api.version}</version>
 		</dependency>
 
-		<!-- <dependency> <groupId>com.sun.xml.bind</groupId> <artifactId>jaxb-core</artifactId> 
-			<version>${jaxb.api.version}</version> </dependency> -->
+		<!-- <dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-core</artifactId>
+			<version>${jaxb.api.version}</version>
+		</dependency> -->
 
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
-			<version>${jaxb.api.version}</version>
+			<version>${jaxb.impl.version}</version>
 		</dependency>
 
 	</dependencies>
