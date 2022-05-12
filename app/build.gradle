@@ -1,75 +1,43 @@
-ant.importBuild '../build.xml'
-
-tasks.whenTaskAdded { task ->
-    if (task.name.equals("lint")) {
-        task.enabled = false
-    }
+plugins {
+    id 'com.android.application'
 }
-
-apply plugin: 'com.android.application'
-apply from: 'jacoco.gradle'//gradlew testReleaseUnitTestCoverage
-apply from: 'javadoc.gradle'//gradlew generateReleaseJavadoc
-
-task cleanExtra(type: Delete) {
-	delete "android-apk"
-}
-
-clean.dependsOn(cleanExtra)
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
-	
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            output.outputFile = new File("android-apk/mgiandia-library-${variant.name}.apk")
-        }
-    }
-	
-    compileOptions {
-        encoding "UTF-8"
-    }
-	
-	signingConfigs {
-		release {
-			storeFile file("keystore.jks")
-			storePassword "password"
-			keyAlias "alias"
-			keyPassword "password"
-		}
-	}
-	
+    compileSdk 31
+
     defaultConfig {
         applicationId "com.mgiandia.library"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdk 21
+        targetSdk 31
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-	
+
     buildTypes {
         release {
-            testCoverageEnabled = true
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-			signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-}
 
-task movejunit {
-    doLast {
-        file("build/reports/tests/testReleaseUnitTest/").renameTo(file("../reports/junit/"))
-    }
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
