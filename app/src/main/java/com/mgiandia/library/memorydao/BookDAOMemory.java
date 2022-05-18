@@ -1,9 +1,13 @@
 package com.mgiandia.library.memorydao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.mgiandia.library.dao.BookDAO;
+import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
 
 /**
@@ -64,5 +68,30 @@ public class BookDAOMemory implements BookDAO {
     public int nextId()
     {
         return (entities.size() > 0 ? entities.get(entities.size()-1).getId()+1 : 1);
+    }
+
+    @Override
+    public Set<Book> findByTitle(String title) {
+        Set<Book> result = new HashSet<>();
+        for(Book b: entities){
+            if (b.getTitle().contains(title)){
+                result.add(b);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Set<Book> findByAuthorName(String authorName) {
+        Set<Book> result = new HashSet<>();
+        for(Book b: entities){
+            for(Author a: b.getAuthors()){
+                if (a.getLastName().contains(authorName)){
+                    result.add(b);
+                    break;
+                }
+            }
+        }
+        return result;
     }
 }

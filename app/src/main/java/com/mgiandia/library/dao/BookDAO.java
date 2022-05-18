@@ -1,6 +1,7 @@
 package com.mgiandia.library.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.mgiandia.library.domain.Book;
 
@@ -43,4 +44,8 @@ public interface BookDAO
      * @return Ο κωδικός του βιβλίου
      */
     int nextId();
+
+    Set<Book> findByTitle(String title);
+
+    Set<Book> findByAuthorName(String authorName);
 }
