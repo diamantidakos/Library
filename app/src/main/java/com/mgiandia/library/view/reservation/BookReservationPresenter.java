@@ -34,13 +34,20 @@ public class BookReservationPresenter {
         book = bookDAO.find(bookId);
         if (book == null){
             view.showError("Invalid book selection");
+            return;
         }
+        view.showStatus("Selected book with id " + bookId);
     }
 
     public void submitReservationRequest(String borrowerId) {
         Log.d("BookResPresenter", "submit reservation request");
         if (borrowerId == null || !isInteger(borrowerId)){
             view.showError("Invalid borrower id");
+            return;
+        }
+        if (book == null){
+            view.showError("Invalid book selection");
+            return;
         }
         int id = Integer.parseInt(borrowerId);
         Borrower borrower = borrowerDAO.find(id);
@@ -50,6 +57,7 @@ public class BookReservationPresenter {
             return;
         }
         reservationRequestDAO.save(request);
+        view.showStatus("Reservation request submitted successfully!");
     }
 
     private boolean isInteger(String num){

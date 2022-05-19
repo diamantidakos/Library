@@ -9,19 +9,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Book;
+import com.mgiandia.library.domain.Item;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder> {
 
     private final List<Book> mValues;
+    private final ItemSelectionListener listener;
 
-    public BookRecyclerViewAdapter(List<Book> items) {
+    public BookRecyclerViewAdapter(List<Book> items, ItemSelectionListener listener) {
         mValues = items;
+        this.listener = listener;
     }
 
     @Override
@@ -36,6 +38,12 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
         holder.mContentView.setText(mValues.get(position).getTitle());
+        holder.mContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.selectBook(holder.mItem);
+            }
+        });
     }
 
     @Override
@@ -58,5 +66,9 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
+    }
+
+    public interface ItemSelectionListener {
+        void selectBook(Book b);
     }
 }

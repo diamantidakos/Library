@@ -16,10 +16,12 @@ import com.mgiandia.library.memorydao.MemoryInitializer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookSearchActivity extends AppCompatActivity implements BookSearchView{
+public class BookSearchActivity extends AppCompatActivity implements BookSearchView,
+        BookRecyclerViewAdapter.ItemSelectionListener {
 
     public static final String BOOK_TITLE_EXTRA = "book_title";
     public static final String AUTHOR_NAME_EXTRA = "author_name";
+    public static final String BOOK_ID_RESULT = "book_id_result";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,17 @@ public class BookSearchActivity extends AppCompatActivity implements BookSearchV
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Book> bookList = new ArrayList<>(viewModel.getPresenter().getSearchResult());
-        recyclerView.setAdapter(new BookRecyclerViewAdapter(bookList));
+        recyclerView.setAdapter(new BookRecyclerViewAdapter(bookList, this));
 
     }
+
+    @Override
+    public void selectBook(Book b) {
+        Intent intent = new Intent();
+        intent.putExtra(BOOK_ID_RESULT, b.getId());
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+
 }
