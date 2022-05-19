@@ -19,9 +19,8 @@ import java.util.List;
 
 public class BookSearchActivity extends AppCompatActivity implements BookSearchView{
 
-
-    private static final String BOOK_TITLE_EXTRA = "book_title";
-    private static final String AUTHOR_NAME_EXTRA = "author_name";
+    public static final String BOOK_TITLE_EXTRA = "book_title";
+    public static final String AUTHOR_NAME_EXTRA = "author_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Book;
-import com.mgiandia.library.view.reservations.placeholder.PlaceholderContent.PlaceholderItem;
 
 import java.util.List;
 

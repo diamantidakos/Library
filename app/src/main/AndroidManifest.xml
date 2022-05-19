@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/SecondaryTheme">
         <activity
+            android:name=".view.Reservation.BookReservationActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.Book.Search.BookSearchActivity"
             android:exported="true" />
         <activity
