@@ -1,5 +1,7 @@
 package com.mgiandia.library.domain;
 
+import com.mgiandia.library.util.Money;
+
 import org.junit.*;
 
 public class BookTest {
@@ -152,5 +154,44 @@ public class BookTest {
         for(Author author : book.getAuthors()) {
             Assert.assertTrue(author.getBooks().contains(book));            
         }    
+    }
+
+    @Test
+    public void denyReservationRequestToCurrentBorrower(){
+        Borrower b = new Borrower(1, "Nikos", "Diamantidis", null, null, null,
+                new BorrowerCategory(1, "Faculty", 10, 10, null));
+        Loan loan = item.borrow(b, 1);
+        Assert.assertNotNull(loan);
+
+        ReservationRequest reservationRequest = book.reserve(b);
+        Assert.assertNull(reservationRequest);
+
+    }
+
+    @Test
+    public void denyReservationWhenAvailableItems(){
+        BorrowerCategory borrowerCategory = new BorrowerCategory(1, "Faculty", 10, 10, null);
+        Borrower b = new Borrower(1, "Nikos", "Diamantidis", null, null,
+                null, borrowerCategory);
+
+        ReservationRequest reservationRequest = book.reserve(b);
+        Assert.assertNull(reservationRequest);
+
+    }
+
+    @Test
+    public void successfulReservationRequest(){
+        BorrowerCategory borrowerCategory = new BorrowerCategory(1, "Faculty", 10, 10, null);
+
+        Borrower b = new Borrower(1, "Nikos", "Diamantidis", null, null,
+                null, borrowerCategory);
+        Loan loan = item.borrow(b, 1);
+        Assert.assertNotNull(loan);
+
+        Borrower b2 = new Borrower(1, "Manolis", "Giakoumakis", null, null,
+                null, borrowerCategory);
+        ReservationRequest reservationRequest = book.reserve(b2);
+        Assert.assertNotNull(reservationRequest);
+
     }
 }

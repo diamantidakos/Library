@@ -196,4 +196,21 @@ public class BorrowerTest {
 
         Assert.assertEquals(null, borrower.getDailyFine());
     }
+
+    @Test
+    public void hasPendingLoan(){
+        BorrowerCategory borrowerCategory = new BorrowerCategory(1, "Faculty", 10, 10, null);
+        Borrower b = new Borrower(1, "Nikos", "Diamantidis", null, null,
+                null, borrowerCategory);
+
+        Book book = new Book();
+        Item item = new Item();
+        item.available();
+        book.addItem(item);
+
+        Loan loan = item.borrow(b, 1);
+        Assert.assertNotNull(loan);
+
+        Assert.assertTrue(b.hasPendingLoan(book));
+    }
 }
