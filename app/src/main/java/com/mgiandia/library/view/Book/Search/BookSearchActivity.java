@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mgiandia.library.R;
 import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.domain.Book;
-import com.mgiandia.library.domain.Publisher;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 
 import java.util.ArrayList;

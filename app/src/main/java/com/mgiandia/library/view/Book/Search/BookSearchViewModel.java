@@ -1,5 +1,7 @@
 package com.mgiandia.library.view.Book.Search;
 
+import android.util.Log;
+
 import androidx.lifecycle.ViewModel;
 
 import com.mgiandia.library.dao.BookDAO;
@@ -22,6 +24,7 @@ public class BookSearchViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        Log.d("BookSearchVM", "onCleared");
         // release resources
     }
 }

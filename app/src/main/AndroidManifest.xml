@@ -9,11 +9,13 @@
         android:supportsRtl="true"
         android:theme="@style/SecondaryTheme">
         <activity
-            android:name=".view.Reservation.BookReservationActivity"
-            android:exported="false" />
+            android:name=".view.reservation.BookReservationActivity"
+            android:exported="true"
+            android:label="Κράτηση βιβλίου"/>
         <activity
             android:name=".view.Book.Search.BookSearchActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Αναζήτηση βιβλίου"/>
         <activity
             android:name=".view.HomePage.HomePageActivity"
             android:exported="true"
