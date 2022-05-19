@@ -5,6 +5,7 @@ import com.mgiandia.library.contacts.EmailAddress;
 import com.mgiandia.library.contacts.TelephoneNumber;
 import com.mgiandia.library.contacts.ZipCode;
 import com.mgiandia.library.domain.*;
+import com.mgiandia.library.memorydao.ReservationRequestDAOMemory;
 import com.mgiandia.library.service.LoanService;
 import com.mgiandia.library.util.Money;
 
@@ -251,4 +252,6 @@ public abstract class Initializer
      * @return Το DAO των χωρών
      */
     public abstract CountryDAO getCountryDAO();
+
+    public abstract ReservationRequestDAO getReservationRequestDAO();
 }

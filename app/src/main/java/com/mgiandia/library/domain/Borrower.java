@@ -272,6 +272,17 @@ public class Borrower  {
         return getCategory().getDailyFine();
     }
 
+    boolean hasPendingLoan(Book book) {
+        boolean isCurrentBorrower = false;
+
+        for(Loan loan: loans){
+            if (loan.isPending() && loan.getItem().getBook().equals(book)){
+                isCurrentBorrower = true;
+                break;
+            }
+        }
+        return isCurrentBorrower;
+    }
 
 
 }

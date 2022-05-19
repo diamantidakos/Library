@@ -9,6 +9,7 @@ import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.dao.ItemDAO;
 import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.dao.PublisherDAO;
+import com.mgiandia.library.dao.ReservationRequestDAO;
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Borrower;
@@ -130,4 +131,9 @@ public class MemoryInitializer extends Initializer {
     {
         return new CountryDAOMemory();
     }
+
+    public ReservationRequestDAO getReservationRequestDAO(){
+        return new ReservationRequestDAOMemory();
+    }
+
 }
