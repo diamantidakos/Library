@@ -106,8 +106,8 @@ public abstract class Initializer
         authorDAO.save(new Author(authorDAO.nextId(), "Ευάγγελος", "Αβέρωφ"));
         authorDAO.save(new Author(authorDAO.nextId(), "Χρήστος", "Βυζάντιος"));
         authorDAO.save(new Author(authorDAO.nextId(), "Απόστολος", "Γεωργιάδης"));
-        authorDAO.save(new Author(authorDAO.nextId(), "Άλκης", "Θρύλος"));
-        authorDAO.save(new Author(authorDAO.nextId(), "Βαγγέλης", "Ηλιόπουλος"));
+        authorDAO.save(new Author(authorDAO.nextId(), "Martin", "Fowler"));
+        authorDAO.save(new Author(authorDAO.nextId(), "John", "Doe"));
 
 
         BorrowerCategoryDAO borrowerCategoryDao = getBorrowerCategoryDAO();
