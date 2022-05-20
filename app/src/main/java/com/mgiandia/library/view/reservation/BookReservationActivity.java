@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.mgiandia.library.R;
+import com.mgiandia.library.dao.Initializer;
+import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.view.Book.Search.BookSearchActivity;
 
 public class BookReservationActivity extends AppCompatActivity implements BookReservationView {
@@ -51,6 +53,9 @@ public class BookReservationActivity extends AppCompatActivity implements BookRe
         viewModel = new ViewModelProvider(this).get(BookReservationViewModel.class);
         BookReservationPresenter presenter = viewModel.getPresenter();
         presenter.setView(this);
+
+        Initializer initializer = new MemoryInitializer();
+        initializer.prepareData();
 
         // Πρόσβαση σε αντικείμενα της διεπαφής χρήστη
         btnSearchBook = findViewById(R.id.btnSearchBook);

@@ -5,7 +5,6 @@ import com.mgiandia.library.contacts.EmailAddress;
 import com.mgiandia.library.contacts.TelephoneNumber;
 import com.mgiandia.library.contacts.ZipCode;
 import com.mgiandia.library.domain.*;
-import com.mgiandia.library.memorydao.ReservationRequestDAOMemory;
 import com.mgiandia.library.service.LoanService;
 import com.mgiandia.library.util.Money;
 
@@ -63,7 +62,7 @@ public abstract class Initializer
      * @param book Το βιβλίο
      * @return Το αντίτυπο που προστέθηκε
      */
-    private Item addOneBookCopy(Book book)
+    private Item addOneBookItem(Book book)
     {
         ItemDAO item = getItemDAO();
         Item itemTmp = new Item(item.nextId());
@@ -164,18 +163,18 @@ public abstract class Initializer
         bookDao.save(new Book(bookDao.nextId(), "The UML User Guide", new ISBN("1"), "456-6546", 2005, publisherDAO.find(2)));
         bookDao.save(new Book(bookDao.nextId(), "Refactoring", new ISBN("3"), "554-34534", 1999, publisherDAO.find(2)));
 
-        addOneBookCopy(bookDao.find(3)).available();
-        addOneBookCopy(bookDao.find(3)).available();
+        addOneBookItem(bookDao.find(3)).available();
+        addOneBookItem(bookDao.find(3)).available();
 
-        addOneBookCopy(bookDao.find(4)).available();
-        addOneBookCopy(bookDao.find(4)).available();
+        addOneBookItem(bookDao.find(4)).available();
+        addOneBookItem(bookDao.find(4)).available();
 
-        addOneBookCopy(bookDao.find(5)).available();
+        addOneBookItem(bookDao.find(5)).available();
 
 
         //add a copy per book
-        addOneBookCopy(bookDao.find(1));
-        addOneBookCopy(bookDao.find(2));
+        addOneBookItem(bookDao.find(1));
+        addOneBookItem(bookDao.find(2));
 
         //publishers are auto informed about the added books
 
@@ -198,11 +197,11 @@ public abstract class Initializer
 
         //some loans
         LoanDAO loans = getLoanDAO();
-        loans.save(makeAvailable(addOneBookCopy(bookDao.find(2))).borrow(borrowerDao.find(8), getLoanDAO().nextId()));
-        loans.save(makeAvailable(addOneBookCopy(bookDao.find(1))).borrow(borrowerDao.find(8), getLoanDAO().nextId()));
-        loans.save(makeAvailable(addOneBookCopy(bookDao.find(2))).borrow(borrowerDao.find(5), getLoanDAO().nextId()));
-        loans.save(makeAvailable(addOneBookCopy(bookDao.find(1))).borrow(borrowerDao.find(3), getLoanDAO().nextId()));
-        loans.save(makeAvailable(addOneBookCopy(bookDao.find(1))).borrow(borrowerDao.find(1), getLoanDAO().nextId()));
+        loans.save(makeAvailable(addOneBookItem(bookDao.find(2))).borrow(borrowerDao.find(8), getLoanDAO().nextId()));
+        loans.save(makeAvailable(addOneBookItem(bookDao.find(1))).borrow(borrowerDao.find(8), getLoanDAO().nextId()));
+        loans.save(makeAvailable(addOneBookItem(bookDao.find(2))).borrow(borrowerDao.find(5), getLoanDAO().nextId()));
+        loans.save(makeAvailable(addOneBookItem(bookDao.find(1))).borrow(borrowerDao.find(3), getLoanDAO().nextId()));
+        loans.save(makeAvailable(addOneBookItem(bookDao.find(1))).borrow(borrowerDao.find(1), getLoanDAO().nextId()));
     }
 
     /**

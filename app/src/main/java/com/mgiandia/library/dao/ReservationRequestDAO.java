@@ -9,4 +9,5 @@ public interface ReservationRequestDAO {
 
     void save(ReservationRequest entity);
 
+    List<ReservationRequest> findAll();
 }

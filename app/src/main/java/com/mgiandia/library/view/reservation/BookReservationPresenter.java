@@ -26,7 +26,6 @@ public class BookReservationPresenter {
     }
 
     public void search(String bookTitle, String authorName) {
-        Log.d("BookResPresenter", "search book");
         view.showSearchDialog(bookTitle, authorName);
     }
 
@@ -40,7 +39,6 @@ public class BookReservationPresenter {
     }
 
     public void submitReservationRequest(String borrowerId) {
-        Log.d("BookResPresenter", "submit reservation request");
         if (borrowerId == null || !isInteger(borrowerId)){
             view.showError("Invalid borrower id");
             return;
@@ -53,7 +51,7 @@ public class BookReservationPresenter {
         Borrower borrower = borrowerDAO.find(id);
         ReservationRequest request = book.reserve(borrower);
         if (request == null){
-            view.showError("Reservation request is not allowed");
+            view.showError("Reservation request rejected");
             return;
         }
         reservationRequestDAO.save(request);

@@ -28,13 +28,12 @@ public class BookSearchActivity extends AppCompatActivity implements BookSearchV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_search);
 
-        BookSearchViewModel viewModel = new ViewModelProvider(this).get(BookSearchViewModel.class);
+        BookSearchViewModel viewModel =
+                new ViewModelProvider(this).get(BookSearchViewModel.class);
         viewModel.getPresenter().setView(this);
 
         // Execute book search on activity create
         if (savedInstanceState == null){
-            Initializer initializer = new MemoryInitializer();
-            initializer.prepareData();
             Intent intent = getIntent();
             String titleCriterion = intent.getStringExtra(BOOK_TITLE_EXTRA);
             String authorCriterion = intent.getStringExtra(AUTHOR_NAME_EXTRA);

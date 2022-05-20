@@ -30,5 +30,9 @@ public class ReservationRequestDAOMemory implements ReservationRequestDAO {
         entities.add(entity);
     }
 
+    @Override
+    public List<ReservationRequest> findAll(){
+        return entities;
+    }
 
 }
