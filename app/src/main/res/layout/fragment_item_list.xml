@@ -10,4 +10,4 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".view.reservation.BookFragment"
-    tools:listitem="@layout/fragment_item" />
+    tools:listitem="@layout/book_list_item" />

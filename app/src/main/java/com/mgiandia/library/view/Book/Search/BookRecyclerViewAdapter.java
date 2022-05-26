@@ -9,19 +9,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Book;
-import com.mgiandia.library.domain.Item;
 
 import java.util.List;
 
-/**
- * TODO: Replace the implementation with code for your data type.
- */
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder> {
 
     private final List<Book> mValues;
     private final ItemSelectionListener listener;
 
-    public BookRecyclerViewAdapter(List<Book> items, ItemSelectionListener listener) {
+    public BookRecyclerViewAdapter(List<Book> items,
+                                   ItemSelectionListener listener) {
         mValues = items;
         this.listener = listener;
     }
@@ -29,19 +26,20 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item, parent, false));
-
+        return new ViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.book_list_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
-        holder.mContentView.setText(mValues.get(position).getTitle());
-        holder.mContentView.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(ViewHolder holder, int position) {
+
+        final Book currentItem = mValues.get(position);
+        holder.txtItemId.setText(String.valueOf(currentItem.getId()));
+        holder.txtItemTitle.setText(currentItem.getTitle());
+        holder.txtItemTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.selectBook(holder.mItem);
+                listener.selectBook(currentItem);
             }
         });
     }
@@ -52,19 +50,18 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookRecyclerVi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public Book mItem;
+        public final TextView txtItemId;
+        public final TextView txtItemTitle;
 
         public ViewHolder(View view) {
             super(view);
-            mIdView = view.findViewById(R.id.item_number);
-            mContentView = view.findViewById(R.id.content);
+            txtItemId = view.findViewById(R.id.txt_item_id);
+            txtItemTitle = view.findViewById(R.id.txt_item_title);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + txtItemTitle.getText() + "'";
         }
     }
 

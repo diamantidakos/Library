@@ -2,6 +2,7 @@ package com.mgiandia.library.view.Book.Search;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -38,12 +39,14 @@ public class BookSearchActivity extends AppCompatActivity implements BookSearchV
             String titleCriterion = intent.getStringExtra(BOOK_TITLE_EXTRA);
             String authorCriterion = intent.getStringExtra(AUTHOR_NAME_EXTRA);
             viewModel.getPresenter().search(titleCriterion, authorCriterion);
+            Log.d("BookSearchActivity", "Received search criteria: " + titleCriterion + " " + authorCriterion);
         }
 
         // ui initialization
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Book> bookList = new ArrayList<>(viewModel.getPresenter().getSearchResult());
+        Log.d("BookSearchActivity", "Retrieved " + bookList.size() + " items");
         recyclerView.setAdapter(new BookRecyclerViewAdapter(bookList, this));
 
     }
