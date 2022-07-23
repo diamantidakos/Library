@@ -1,10 +1,9 @@
 package com.mgiandia.library.ui;
 
-import org.junit.Assert;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.mgiandia.library.dao.BorrowerDAO;
 
@@ -12,7 +11,6 @@ import com.mgiandia.library.dao.Initializer;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
-import com.mgiandia.library.ui.ViewRegistry;
 import com.mgiandia.library.ui.borrower.BorrowerListPresenter;
 
 public class BorrowerListPresenterTest {
@@ -21,7 +19,7 @@ public class BorrowerListPresenterTest {
     private BorrowerListViewStub borrowerListView;
     private BorrowerViewStub borrowerViewStub;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         dataHelper = new MemoryInitializer();
         dataHelper.prepareData();        
@@ -37,7 +35,7 @@ public class BorrowerListPresenterTest {
         borrowerListView.open();
     }
     
-    @After
+    @AfterEach
     public void tearDown() {
         ViewRegistry.reset();
     }
@@ -46,9 +44,9 @@ public class BorrowerListPresenterTest {
 	@Test
     public void wiring() {
         presenter.start();
-        Assert.assertTrue(borrowerListView.isOpened());
-        Assert.assertEquals(2, presenter.getBorrowers().size());
-        Assert.assertEquals(2, borrowerListView.getBorrowers().size());
+        Assertions.assertTrue(borrowerListView.isOpened());
+        Assertions.assertEquals(2, presenter.getBorrowers().size());
+        Assertions.assertEquals(2, borrowerListView.getBorrowers().size());
     }
     
 	@Test
@@ -64,16 +62,16 @@ public class BorrowerListPresenterTest {
         presenter.start();
         presenter.editSelected();
     
-        Assert.assertTrue(borrowerViewStub.isOpened());
+        Assertions.assertTrue(borrowerViewStub.isOpened());
         
-        Assert.assertEquals(selectedBorrower.getBorrowerNo(), 
+        Assertions.assertEquals(selectedBorrower.getBorrowerNo(), 
         		borrowerViewStub.getBorrowerNo());
         
-        Assert.assertEquals(selectedBorrower.getFirstName(), 
+        Assertions.assertEquals(selectedBorrower.getFirstName(), 
         		borrowerViewStub.getFirstName());
 
 
-        Assert.assertEquals(selectedBorrower.getLastName(), 
+        Assertions.assertEquals(selectedBorrower.getLastName(), 
         		borrowerViewStub.getLastName());
 
     }
@@ -86,8 +84,8 @@ public class BorrowerListPresenterTest {
         presenter.start();
         presenter.addBorrower();
         
-        Assert.assertTrue(borrowerViewStub.isOpened());
-        Assert.assertEquals(0, borrowerViewStub.getBorrowerNo());
+        Assertions.assertTrue(borrowerViewStub.isOpened());
+        Assertions.assertEquals(0, borrowerViewStub.getBorrowerNo());
         
     }
     
@@ -95,7 +93,7 @@ public class BorrowerListPresenterTest {
     public void refresh() {
 
          presenter.start();
-         Assert.assertEquals(2, presenter.getBorrowers().size());
+         Assertions.assertEquals(2, presenter.getBorrowers().size());
 
          BorrowerDAO borrowerDao = new BorrowerDAOMemory();
          Borrower borrower = new Borrower();
@@ -106,8 +104,8 @@ public class BorrowerListPresenterTest {
          borrowerDao.save(borrower);
          
          presenter.refresh();
-         Assert.assertEquals(3, presenter.getBorrowers().size());
-         Assert.assertEquals(3, borrowerListView.getBorrowers().size());
+         Assertions.assertEquals(3, presenter.getBorrowers().size());
+         Assertions.assertEquals(3, borrowerListView.getBorrowers().size());
          
     }
 }

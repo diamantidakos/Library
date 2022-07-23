@@ -1,9 +1,7 @@
 package com.mgiandia.library.ui;
 
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
 
 import com.mgiandia.library.dao.BorrowerDAO;
 
@@ -13,6 +11,10 @@ import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.ui.borrower.BorrowerPresenter;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 public class BorrowerPresenterTest {
     private Initializer dataHelper;
     private BorrowerPresenter presenter;
@@ -20,7 +22,7 @@ public class BorrowerPresenterTest {
     private Borrower borrower;
     private BorrowerDAO borrowerDao;
   
-    @Before
+    @BeforeEach
     public void setUp() {
         borrower = new Borrower();
         borrower.setBorrowerNo(999);
@@ -42,7 +44,7 @@ public class BorrowerPresenterTest {
     public void wiring() {
     	 
         presenter.start();
-        Assert.assertSame(presenter, borrowerView.getPresenter());
+        Assertions.assertSame(presenter, borrowerView.getPresenter());
     }
     
     
@@ -59,7 +61,7 @@ public class BorrowerPresenterTest {
         presenter.save();
         
         int allBorrowers = borrowerDao.findAll().size();
-        Assert.assertEquals(3, allBorrowers);
+        Assertions.assertEquals(3, allBorrowers);
     }
 
     
@@ -70,7 +72,7 @@ public class BorrowerPresenterTest {
         presenter.cancel();
         
         int allBorrowers = borrowerDao.findAll().size();
-        Assert.assertEquals(2, allBorrowers);
+        Assertions.assertEquals(2, allBorrowers);
     }
     
     @Test
@@ -89,17 +91,17 @@ public class BorrowerPresenterTest {
         
         borrower = borrowerDao.find(Initializer.DIAMANTIDIS_ID);
         
-        Assert.assertEquals("nikos", borrower.getFirstName());
-        Assert.assertEquals("karanikos", borrower.getLastName());
+        Assertions.assertEquals("nikos", borrower.getFirstName());
+        Assertions.assertEquals("karanikos", borrower.getLastName());
         
         
     }
     
 
     private void assertBorrower(int borrowerNo, String firstName, String lastName) {
-    	Assert.assertEquals(borrowerNo, borrowerView.getBorrowerNo());
-    	Assert.assertEquals(firstName, borrowerView.getFirstName());
-    	Assert.assertEquals(lastName, borrowerView.getLastName());
+    	Assertions.assertEquals(borrowerNo, borrowerView.getBorrowerNo());
+    	Assertions.assertEquals(firstName, borrowerView.getFirstName());
+    	Assertions.assertEquals(lastName, borrowerView.getLastName());
     }
 
 }

@@ -2,10 +2,7 @@ package com.mgiandia.library.service;
 
 import java.time.LocalDate;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.contacts.EmailMessage;
@@ -16,6 +13,11 @@ import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.util.SystemDateStub;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 public class NotificationServiceTest {
     
     
@@ -23,7 +25,7 @@ public class NotificationServiceTest {
     
  
     
-    @Before
+    @BeforeEach
     public void setUp() {
         provider = new EmailProviderStub();
         
@@ -32,16 +34,18 @@ public class NotificationServiceTest {
      
     }
     
-    @After
+    @AfterEach
     public void tearDown() {
         SystemDateStub.reset();
     }
     
-    @Test(expected=LibraryException.class)
+    @Test
     public void serviceWhenNotifierIsNull() {
         NotificationService service = new NotificationService();
         service.setProvider(null);
-        service.notifyBorrowers();
+        
+        Assertions.assertThrows(LibraryException.class, ()->service.notifyBorrowers());
+        
     }
     
     
@@ -74,9 +78,9 @@ public class NotificationServiceTest {
         BorrowerDAO borrowerDao = new BorrowerDAOMemory();
         
         Borrower diamantidis = borrowerDao.find(Initializer.DIAMANTIDIS_ID);        
-        Assert.assertEquals(1,provider.allMessages.size());
+        Assertions.assertEquals(1,provider.allMessages.size());
         EmailMessage message = provider.getAllEmails().get(0);
-        Assert.assertEquals(diamantidis.getEmail() , message.getTo());
+        Assertions.assertEquals(diamantidis.getEmail() , message.getTo());
     }
     
     private void setSystemDateTo1stMarch2007() {        

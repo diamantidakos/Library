@@ -2,10 +2,7 @@ package com.mgiandia.library.ui;
 
 import java.time.LocalDate;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
 
 import com.mgiandia.library.dao.BorrowerDAO;
 import com.mgiandia.library.dao.Initializer;
@@ -21,12 +18,17 @@ import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.ui.loan.ReturnPresenter;
 import com.mgiandia.library.util.SystemDateStub;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 public class ReturnPresenterTest {
     private Initializer dataHelper;
     private ReturnPresenter presenter;
     private ReturnViewStub returnView;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         dataHelper = new MemoryInitializer();
         dataHelper.prepareData();        
@@ -34,7 +36,7 @@ public class ReturnPresenterTest {
         presenter = new ReturnPresenter(returnView);
     }
 
-    @After
+    @AfterEach
     public void restoreSystemDate() {
         SystemDateStub.reset();
     }
@@ -44,9 +46,9 @@ public class ReturnPresenterTest {
     @Test
     public void wiring() {  
         presenter.start();
-        Assert.assertTrue(returnView.isOpened());
-        Assert.assertSame(presenter, returnView.getPresenter());
-        Assert.assertFalse(presenter.isLoanFound());
+        Assertions.assertTrue(returnView.isOpened());
+        Assertions.assertSame(presenter, returnView.getPresenter());
+        Assertions.assertFalse(presenter.isLoanFound());
     }
     
     
@@ -54,7 +56,7 @@ public class ReturnPresenterTest {
     public void cancel() {
         presenter.start();
         presenter.cancel();
-        Assert.assertFalse(returnView.isOpened());
+        Assertions.assertFalse(returnView.isOpened());
     }
     
     
@@ -65,8 +67,8 @@ public class ReturnPresenterTest {
         presenter.start();
         presenter.returnItem();
         
-        Assert.assertFalse(presenter.isLoanFound());
-        Assert.assertTrue(returnView.getErrorCount() > 0);
+        Assertions.assertFalse(presenter.isLoanFound());
+        Assertions.assertTrue(returnView.getErrorCount() > 0);
     }
     
     
@@ -78,8 +80,8 @@ public class ReturnPresenterTest {
         presenter.start();
         presenter.returnItem();
         
-        Assert.assertTrue(presenter.isLoanFound());
-        Assert.assertEquals(Initializer.UML_DISTILLED_ID1, presenter.getLoan().getItem().getItemNumber());
+        Assertions.assertTrue(presenter.isLoanFound());
+        Assertions.assertEquals(Initializer.UML_DISTILLED_ID1, presenter.getLoan().getItem().getItemNumber());
     }
     
 
@@ -94,9 +96,9 @@ public class ReturnPresenterTest {
         presenter.returnItem();
         
         
-        Assert.assertTrue(presenter.isLoanFound());
-        Assert.assertEquals(Initializer.UML_DISTILLED_ID1, presenter.getLoan().getItem().getItemNumber());
-        Assert.assertTrue(presenter.getLoan().getOverdue() > 0);
+        Assertions.assertTrue(presenter.isLoanFound());
+        Assertions.assertEquals(Initializer.UML_DISTILLED_ID1, presenter.getLoan().getItem().getItemNumber());
+        Assertions.assertTrue(presenter.getLoan().getOverdue() > 0);
         
     }
 

@@ -3,10 +3,7 @@ package com.mgiandia.library.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.dao.Initializer;
@@ -18,25 +15,31 @@ import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.util.Money;
 import com.mgiandia.library.util.SystemDateStub;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 
 public class ReturnServiceTest {
     
-    @Before
+    @BeforeEach
     public void setUp() {
         Initializer dataHelper = new MemoryInitializer();
         dataHelper.prepareData();
     }
 
-    @After
+    @AfterEach
     public void restoreSystemDate() {
         SystemDateStub.reset();
     }
     
-    @Test(expected=LibraryException.class)
+    @Test
     public void returnWhenNoLoanExist() {
         ReturnService service = new ReturnService();
-        service.returnItem(2);
+        
+        Assertions.assertThrows(LibraryException.class, ()->service.returnItem(2));
     }
     
     
@@ -51,10 +54,10 @@ public class ReturnServiceTest {
         
         List<Loan> loanList = loanDao.findAll();                
         Loan loan = loanList.get(0);
-        Assert.assertEquals(LocalDate.of(2007,3,1), loan.getLoanDate());
-        Assert.assertEquals(LocalDate.of(2007,3,2), loan.getReturnDate());
-        Assert.assertEquals(Initializer.UML_USER_GUIDE_ID1, loan.getItem().getItemNumber());
-        Assert.assertEquals(ItemState.AVAILABLE, loan.getItem().getState());     
+        Assertions.assertEquals(LocalDate.of(2007,3,1), loan.getLoanDate());
+        Assertions.assertEquals(LocalDate.of(2007,3,2), loan.getReturnDate());
+        Assertions.assertEquals(Initializer.UML_USER_GUIDE_ID1, loan.getItem().getItemNumber());
+        Assertions.assertEquals(ItemState.AVAILABLE, loan.getItem().getState());     
     }
     
     
@@ -65,7 +68,7 @@ public class ReturnServiceTest {
         setSystemDateTo2ndMarch2007();
         ReturnService service = new ReturnService();
         Money fine = service.returnItem(Initializer.UML_USER_GUIDE_ID1);
-        Assert.assertNull(fine);
+        Assertions.assertNull(fine);
     }
     
     
@@ -76,7 +79,7 @@ public class ReturnServiceTest {
         setSystemDateTo30thMarch2007();
         ReturnService service = new ReturnService();
         Money fine = service.returnItem(Initializer.UML_USER_GUIDE_ID1);
-        Assert.assertNotNull(fine);
+        Assertions.assertNotNull(fine);
     }
     
     
