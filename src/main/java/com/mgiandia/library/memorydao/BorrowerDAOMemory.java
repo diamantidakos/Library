@@ -7,7 +7,7 @@ import com.mgiandia.library.dao.BorrowerDAO;
 import com.mgiandia.library.domain.Borrower;
 
 public class BorrowerDAOMemory implements BorrowerDAO {
-
+ 
 
     protected static List<Borrower> entities = new ArrayList<Borrower>();
     

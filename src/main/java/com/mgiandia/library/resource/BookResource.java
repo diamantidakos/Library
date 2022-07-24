@@ -5,6 +5,7 @@ import static com.mgiandia.library.resource.LibraryUri.BOOKS;
 import java.net.URI;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -26,21 +27,22 @@ import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.service.CatalogService;
 
 @Path(BOOKS)
-public class BookResource extends AbstractResource {
+public class BookResource {
 
 	@Context
 	UriInfo uriInfo;
+	
+	@Inject
+	CatalogService catalogService;
+	
+	@Inject
+	EntityManager em;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<BookInfo> listAllBooks() {
-		EntityManager em = getEntityManager();
-		CatalogService catalogService = new CatalogService(em);
 		List<Book> books = catalogService.findAllBooks();
-
 		List<BookInfo> bookInfo = BookInfo.wrap(books);
-
-		em.close();
 		return bookInfo;
 
 	}
@@ -49,15 +51,8 @@ public class BookResource extends AbstractResource {
 	@Path("{bookId:[0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public BookInfo getBookDetails(@PathParam("bookId") int bookId) {
-
-		EntityManager em = getEntityManager();
-
-		CatalogService catalogService = new CatalogService(em);
 		Book book = catalogService.findBookById(bookId);
-
 		BookInfo bookInfo = BookInfo.wrap(book);
-		em.close();
-
 		return bookInfo;
 
 	}
@@ -66,14 +61,8 @@ public class BookResource extends AbstractResource {
 	@Path("search")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<BookInfo> searchBookByTitle(@QueryParam("title") String title) {
-
-		EntityManager em = getEntityManager();
-		CatalogService catalogService = new CatalogService(em);
 		List<Book> books = catalogService.findBooksByTitle(title);
-
 		List<BookInfo> booksInfo = BookInfo.wrap(books);
-
-		em.close();
 		return booksInfo;
 
 	}
@@ -82,18 +71,13 @@ public class BookResource extends AbstractResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createBook(BookInfo bookInfo) {
 
-		EntityManager em = getEntityManager();
-
 		Book book = bookInfo.getBook(em);
 		// TODO: should validate book
 
-		CatalogService catalogService = new CatalogService(em);
 		book = catalogService.save(book);
 
 		UriBuilder ub = uriInfo.getAbsolutePathBuilder();
 		URI newBookUri = ub.path(Integer.toString(book.getId())).build();
-
-		em.close();
 
 		return Response.created(newBookUri).build();
 	}
@@ -111,15 +95,10 @@ public class BookResource extends AbstractResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateBook(BookInfo bookInfo) {
 
-		EntityManager em = getEntityManager();
-
 		Book book = bookInfo.getBook(em);
 		// TODO: should validate book
 
-		CatalogService catalogService = new CatalogService(em);
 		book = catalogService.save(book);
-
-		em.close();
 
 		return Response.ok().build();
 	}
@@ -128,10 +107,8 @@ public class BookResource extends AbstractResource {
 	@Path("{bookId:[0-9]*}")
 	public Response deleteBook(@PathParam("bookId") int bookId) {
 
-		EntityManager em = getEntityManager();
 		
-		CatalogService service = new CatalogService(em);
-		boolean result = service.deleteBook(bookId);
+		boolean result = catalogService.deleteBook(bookId);
 		
 		if (!result) {
 			em.close();

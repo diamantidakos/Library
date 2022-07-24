@@ -13,7 +13,7 @@ import com.mgiandia.library.util.Money;
 public class MonetaryAmount {
     private BigDecimal amount;
     private String currency;
-    
+     
     public MonetaryAmount() {}
     
     public MonetaryAmount(Money money) {

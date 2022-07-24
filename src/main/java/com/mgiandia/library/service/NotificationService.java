@@ -2,8 +2,10 @@ package com.mgiandia.library.service;
 
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.transaction.Transactional;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.contacts.EmailAddress;
@@ -11,7 +13,6 @@ import com.mgiandia.library.contacts.EmailMessage;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.persistence.JPAUtil;
 
 /**
  * Υπηρεσία ενημέρωσης καθυστερημένων επιστροφών.
@@ -22,7 +23,12 @@ import com.mgiandia.library.persistence.JPAUtil;
  * @author Νίκος Διαμαντίδης
  *
  */
+@RequestScoped
 public class NotificationService {
+	
+	@Inject
+	EntityManager em;
+	
     private EmailProvider provider;
     
     
@@ -40,15 +46,12 @@ public class NotificationService {
      * κάποιου αντιτύπου.
      */
     @SuppressWarnings("unchecked")
+    @Transactional
 	public void notifyBorrowers() {
         if (provider == null) {
             throw new LibraryException();
         }
 
-        EntityManager em  = JPAUtil.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        
         List<Loan> allLoans = em.createQuery("select l from Loan l where l.returnDate is null")
         	.getResultList();
         
@@ -61,9 +64,6 @@ public class NotificationService {
                         "Καθυστέρηση Αντιτύπου", message);
             }
         }
-        
-        tx.commit();
-        em.close();
     }
 
 

@@ -1,7 +1,6 @@
 package com.mgiandia.library.soap;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.jws.WebParam;

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class LoanRequestInfo {
-	
+	 
 	private int itemId;
 	private int borrowerNo;
 

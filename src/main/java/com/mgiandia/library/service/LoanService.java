@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.domain.Borrower;
@@ -21,13 +23,15 @@ import com.mgiandia.library.domain.Loan;
  * @author Νίκος Διαμαντίδης
  *
  */
+@RequestScoped
 public class LoanService {
+	
 	private Borrower borrower;
-	private EntityManager em;
+	
+	
+	@Inject
+	EntityManager em;
 
-	public LoanService(EntityManager em) {
-		this.em = em;
-	}
 
 	/**
 	 * Αναζητά το δανειζόμενο με βάση τον αριθμό δανειζομένου.
@@ -36,17 +40,9 @@ public class LoanService {
 	 *            Ο αριθμός δανειζομένου
 	 * @return {@code true} αν βρεθεί ο δανειζόμενος
 	 */
+	@Transactional
 	public Boolean findBorrower(int borrowerNo) {
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		try {
 			borrower = em.find(Borrower.class, borrowerNo);
-			tx.commit();
-		} catch (NoResultException ex) {
-			borrower = null;
-			tx.rollback();
-		}
-
 		return borrower != null;
 	}
 
@@ -68,13 +64,8 @@ public class LoanService {
 			return null;
 		}
 
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
 		Item item = em.find(Item.class, itemNo);
 		Loan loan = item.borrow(borrower);
-
-		em.persist(loan);
-		tx.commit();
 		return loan.getDue();
 
 	}

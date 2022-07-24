@@ -3,7 +3,8 @@ package com.mgiandia.library.util;
 import java.math.BigDecimal;
 import java.util.Currency;
 
-import org.junit.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 
 
@@ -40,18 +41,18 @@ public class MoneyTest {
         Money a = Money.euros(10);
         Money b = Money.euros(4);
         Money c = a.plus(b);
-        Assert.assertEquals(new BigDecimal(14), c.getAmount());
-        Assert.assertEquals(euroCurrency, c.getCurrency());
-        Assert.assertEquals(new BigDecimal(10), a.getAmount());
-        Assert.assertEquals(new BigDecimal(4),b.getAmount());
+        Assertions.assertEquals(new BigDecimal(14), c.getAmount());
+        Assertions.assertEquals(euroCurrency, c.getCurrency());
+        Assertions.assertEquals(new BigDecimal(10), a.getAmount());
+        Assertions.assertEquals(new BigDecimal(4),b.getAmount());
     }
     
     
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void plusDifferentCurrencies() {
         Money a = Money.euros(10);
         Money b = Money.dollars(5);
-        a.plus(b);
+        Assertions.assertThrows(IllegalArgumentException.class, ()-> a.plus(b) );
     }
     
     @Test
@@ -59,17 +60,17 @@ public class MoneyTest {
         Money a = Money.euros(10);
         Money b = Money.euros(4);
         Money c = a.minus(b);
-        Assert.assertEquals(new BigDecimal(6), c.getAmount());
-        Assert.assertEquals(Currency.getInstance("EUR"), c.getCurrency());
-        Assert.assertEquals(new BigDecimal(10), a.getAmount());
-        Assert.assertEquals(new BigDecimal(4),b.getAmount());    
+        Assertions.assertEquals(new BigDecimal(6), c.getAmount());
+        Assertions.assertEquals(Currency.getInstance("EUR"), c.getCurrency());
+        Assertions.assertEquals(new BigDecimal(10), a.getAmount());
+        Assertions.assertEquals(new BigDecimal(4),b.getAmount());    
     }
     
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void minusDifferentCurrencies() {
         Money a = Money.euros(10);
         Money b = Money.dollars(5);
-        a.minus(b);
+        Assertions.assertThrows(IllegalArgumentException.class, ()-> a.minus(b));
     }
     
 
@@ -77,37 +78,37 @@ public class MoneyTest {
     public void multiply() {
         Money a = Money.euros(10);
         Money b = a.times(5);
-        Assert.assertEquals(new BigDecimal(10), a.getAmount());
-        Assert.assertEquals(euroCurrency, a.getCurrency());
+        Assertions.assertEquals(new BigDecimal(10), a.getAmount());
+        Assertions.assertEquals(euroCurrency, a.getCurrency());
         
-        Assert.assertEquals(new BigDecimal(50), b.getAmount());
-        Assert.assertEquals(euroCurrency, b.getCurrency());
+        Assertions.assertEquals(new BigDecimal(50), b.getAmount());
+        Assertions.assertEquals(euroCurrency, b.getCurrency());
         
         b = a.times(new BigDecimal(5));
-        Assert.assertEquals(new BigDecimal(10), a.getAmount());
-        Assert.assertEquals(euroCurrency, a.getCurrency());
+        Assertions.assertEquals(new BigDecimal(10), a.getAmount());
+        Assertions.assertEquals(euroCurrency, a.getCurrency());
         
-        Assert.assertEquals(new BigDecimal(50), b.getAmount());
-        Assert.assertEquals(euroCurrency, b.getCurrency());        
+        Assertions.assertEquals(new BigDecimal(50), b.getAmount());
+        Assertions.assertEquals(euroCurrency, b.getCurrency());        
     }
     
     @Test
     public void divide() {
         Money a = Money.euros(10);
         Money b = a.divide(5);
-        Assert.assertEquals(new BigDecimal(10), a.getAmount());
-        Assert.assertEquals(euroCurrency, a.getCurrency());
+        Assertions.assertEquals(new BigDecimal(10), a.getAmount());
+        Assertions.assertEquals(euroCurrency, a.getCurrency());
         
-        Assert.assertEquals(new BigDecimal(2), b.getAmount());
-        Assert.assertEquals(euroCurrency, b.getCurrency());
+        Assertions.assertEquals(new BigDecimal(2), b.getAmount());
+        Assertions.assertEquals(euroCurrency, b.getCurrency());
         
         
         b = a.divide(new BigDecimal(5));
-        Assert.assertEquals(new BigDecimal(10), a.getAmount());
-        Assert.assertEquals(euroCurrency, a.getCurrency());
+        Assertions.assertEquals(new BigDecimal(10), a.getAmount());
+        Assertions.assertEquals(euroCurrency, a.getCurrency());
         
-        Assert.assertEquals(new BigDecimal(2), b.getAmount());
-        Assert.assertEquals(euroCurrency, b.getCurrency());
+        Assertions.assertEquals(new BigDecimal(2), b.getAmount());
+        Assertions.assertEquals(euroCurrency, b.getCurrency());
     }
     
     

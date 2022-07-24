@@ -11,7 +11,7 @@ import com.mgiandia.library.domain.Item;
  *
  */
 public interface ItemDAO {
-
+ 
     /**
      * Επιστρέφει το αντίτυπο για κάποιο αριθμό εισαγωγής.
      * @param itemNo Ο αριθμός εισαγωγής του αντιτύπου

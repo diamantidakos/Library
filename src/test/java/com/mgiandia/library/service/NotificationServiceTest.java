@@ -2,27 +2,42 @@ package com.mgiandia.library.service;
 
 import java.time.LocalDate;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.TestTransaction;
+import io.quarkus.test.junit.QuarkusTest;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
-
+import com.mgiandia.library.Fixture;
 import com.mgiandia.library.contacts.EmailMessage;
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.persistence.Initializer;
 import com.mgiandia.library.util.SystemDateStub;
 
-
-public class NotificationServiceTest extends LibraryServiceTest {
-
+@QuarkusTest
+public class NotificationServiceTest  {
+	@Inject
+	LoanService loanService;
+	
+	@Inject
+	EntityManager em;
+	
+	@Inject
+	NotificationService notificationService;
+	
 	private EmailProviderStub provider;
 
-	@Override
+	@BeforeEach
 	protected void beforeDatabasePreparation() {
 		provider = new EmailProviderStub();
 	}
 
-	@Override
+	@AfterEach
 	protected void afterTearDown() {
 		SystemDateStub.reset();
 	}
@@ -33,6 +48,7 @@ public class NotificationServiceTest extends LibraryServiceTest {
 	 * μηνύματος καθυστέρησης για τον πρώτο δανεισμό.
 	 */
 	@Test
+	@TestTransaction 
 	public void sendMessageOnOverdueJpa() {
 		// Ρυθμίζουμε την ημερομηνία του συστήματος για
 		// την 1η Μαρτίου 2007 και δανείζουμε ένα αντίτυπο
@@ -48,14 +64,11 @@ public class NotificationServiceTest extends LibraryServiceTest {
 
 		// ρυθμίζουμε την ημερομηνία για την 1η Νοεμβρίου
 		setSystemDateTo1stNovember2007();
-		NotificationService service = new NotificationService();
-		service.setProvider(provider);
-		service.notifyBorrowers();
+		notificationService.setProvider(provider);
+		notificationService.notifyBorrowers();
 
-		// empty persistence context, in order to retrieve again from database
-		em.clear();
 
-		Borrower diamantidis = em.find(Borrower.class, Initializer.DIAMANTIDIS_ID);
+		Borrower diamantidis = em.find(Borrower.class, Fixture.DIAMANTIDIS_ID);
 		Assertions.assertEquals(1, provider.allMessages.size());
 		EmailMessage message = provider.getAllEmails().get(0);
 		Assertions.assertEquals(diamantidis.getEmail(), message.getTo());
@@ -79,15 +92,13 @@ public class NotificationServiceTest extends LibraryServiceTest {
 	}
 
 	private void borrowUMLUserGuideToDiamantidis() {
-		LoanService service = new LoanService(em);
-		service.findBorrower(Initializer.DIAMANTIDIS_ID);
-		service.borrow(Initializer.UML_USER_GUIDE_ID1);
+		loanService.findBorrower(Fixture.DIAMANTIDIS_ID);
+		loanService.borrow(Fixture.UML_USER_GUIDE_ID1);
 	}
 
 	private void borrowRefactoringToGiakoumakis() {
-		LoanService service = new LoanService(em);
-		service.findBorrower(Initializer.GIAKOUMAKIS_ID);
-		service.borrow(Initializer.UML_REFACTORING_ID);
+		loanService.findBorrower(Fixture.GIAKOUMAKIS_ID);
+		loanService.borrow(Fixture.UML_REFACTORING_ID);
 	}
 
 

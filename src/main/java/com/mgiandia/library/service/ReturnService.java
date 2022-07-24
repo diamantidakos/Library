@@ -1,12 +1,13 @@
 package com.mgiandia.library.service;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.persistence.JPAUtil;
 import com.mgiandia.library.util.Money;
 
 /**
@@ -14,13 +15,12 @@ import com.mgiandia.library.util.Money;
  * @author Νίκος Διαμαντίδης
  *
  */
+@RequestScoped
 public class ReturnService {
 
-	private EntityManager em;
+	@Inject
+	EntityManager em;
 	
-	public ReturnService(EntityManager em) {
-		this.em = em;
-	}
 	
     /**
      * Πραγματοποιεί την επιστροφή ενός αντιτύπου. 
@@ -29,13 +29,10 @@ public class ReturnService {
      * @return Το πρόστιμο που πρέπει να πληρωθεί ή {@code null}
      * αν δεν υπάρχει πρόστιμο.
      */
+	@Transactional
     public Money returnItem(int itemNo) {
         Money fine = null;
         String jpql = "select l from Loan l where l.item.itemNumber = :itemid and l.returnDate is null";
-        
-        EntityManager em = JPAUtil.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
         
         try {
             Query query = em.createQuery(jpql).setParameter("itemid", itemNo);
@@ -45,12 +42,8 @@ public class ReturnService {
                 fine = loan.getFine();
             }
             
-            tx.commit();
-            em.close();
         	
         } catch (Exception ex) {
-        	tx.rollback();
-        	em.close();
         	throw new LibraryException();
         }
         

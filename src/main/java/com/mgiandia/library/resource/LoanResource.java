@@ -4,6 +4,7 @@ import static com.mgiandia.library.resource.LibraryUri.LOANS;
 
 import java.net.URI;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,18 +26,20 @@ import com.mgiandia.library.util.HttpError;
 
 
 @Path(LOANS)
-public class LoanResource extends AbstractResource {
+public class LoanResource  {
 
 	@Context
 	UriInfo uriInfo;
-
+	
+	@Inject
+	LoanService loanService;
+	
+	@Inject
+	ReturnService returnService;
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createLoan(LoanRequestInfo loanRequestInfo) {
-
-		EntityManager em = getEntityManager();
-
-		LoanService loanService = new LoanService(em);
 
 		Response response = null;
 
@@ -54,8 +57,6 @@ public class LoanResource extends AbstractResource {
 					.build();
 		}
 
-		em.close();
-
 		return response;
 	}
 
@@ -63,13 +64,9 @@ public class LoanResource extends AbstractResource {
 	@Path("{itemId:[0-9]*}")
 	public Response returnItem(@PathParam("itemId")int itemId){
 		
-		EntityManager em = getEntityManager();
-		
-		ReturnService service = new ReturnService(em);
-		
 		Response response= null;
 		try {
-			service.returnItem(itemId);
+			returnService.returnItem(itemId);
 			response = Response.ok().build();
 		} catch (LibraryException e) {
 			
@@ -78,8 +75,6 @@ public class LoanResource extends AbstractResource {
 					.build();
 			
 		}
-		
-		em.close();
 		
 		return response;
 		

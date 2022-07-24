@@ -34,7 +34,7 @@ import com.mgiandia.library.util.Money;
  * <p>
  * 2, Νίκος Διαμαντίδης, Φοιτητής
  * <p>
- *@author Νίκος Διαμαντίδης
+ *@author Νίκος Διαμαντίδης 
  *    
  */
 public abstract class Initializer  {
