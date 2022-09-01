@@ -13,6 +13,7 @@ import com.mgiandia.library.contacts.EmailMessage;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Loan;
+import com.mgiandia.library.persistence.LoanRepository;
 
 /**
  * Υπηρεσία ενημέρωσης καθυστερημένων επιστροφών.
@@ -27,7 +28,7 @@ import com.mgiandia.library.domain.Loan;
 public class NotificationService {
 	
 	@Inject
-	EntityManager em;
+	LoanRepository loanRepository;
 	
     private EmailProvider provider;
     
@@ -45,15 +46,13 @@ public class NotificationService {
      * έχουν καθυστερήσει της επιστροφή.
      * κάποιου αντιτύπου.
      */
-    @SuppressWarnings("unchecked")
     @Transactional
 	public void notifyBorrowers() {
         if (provider == null) {
             throw new LibraryException();
         }
-
-        List<Loan> allLoans = em.createQuery("select l from Loan l where l.returnDate is null")
-        	.getResultList();
+ 
+        List<Loan> allLoans = loanRepository.activeLoans();
         
         for (Loan loan : allLoans) {
             if (loan.isOverdue() && loan.getBorrower().getEmail()!=null &&

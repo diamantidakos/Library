@@ -8,7 +8,7 @@ public class SystemDateStub {
     public static void setStub(LocalDate stub) {
         SystemDate.setStub(stub);
     }
-    
+     
     public static void reset() {
         SystemDate.removeStub();
     }

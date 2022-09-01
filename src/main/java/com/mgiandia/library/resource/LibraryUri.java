@@ -5,19 +5,21 @@ public class LibraryUri {
 	/**
 	 * /books
 	 */
-	public static final String BOOKS = "books";
+	public static final String BOOKS = "/books";
 
 	/**
 	 * /loans
 	 */
-	public static final String LOANS = "loans";
+	public static final String LOANS = "/loans";
 
 	/**
 	 * /items
 	 */
-	public static final String ITEMS = "items";
+	public static final String ITEMS = "/items";
 
 	public static final String BOOK_SEARCH = "books/search";
+	
+	public static final String BORROWERS = "/borrowers";
 
 	/**
 	 * /books/{id}, <br>

@@ -16,7 +16,7 @@ import com.mgiandia.library.contacts.EmailMessage;
  * ισχυρισμών κατά τον έλεγχο.
  *  
  * @author Νίκος Διαμαντίδης
- */
+ */ 
 public class EmailProviderStub implements EmailProvider{
 
     List<EmailMessage> allMessages = new ArrayList<EmailMessage>(); 

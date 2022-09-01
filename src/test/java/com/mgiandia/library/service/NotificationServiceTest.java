@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,17 +16,27 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 import com.mgiandia.library.Fixture;
+import com.mgiandia.library.IntegrationBase;
 import com.mgiandia.library.contacts.EmailMessage;
 import com.mgiandia.library.domain.Borrower;
+import com.mgiandia.library.domain.Item;
+import com.mgiandia.library.domain.Loan;
+import com.mgiandia.library.persistence.BorrowerRepository;
+import com.mgiandia.library.persistence.ItemRepository;
+import com.mgiandia.library.persistence.LoanRepository;
 import com.mgiandia.library.util.SystemDateStub;
 
 @QuarkusTest
-public class NotificationServiceTest  {
+public class NotificationServiceTest extends IntegrationBase {
 	@Inject
-	LoanService loanService;
+	BorrowerRepository borrowerRepository;
 	
 	@Inject
-	EntityManager em;
+	ItemRepository itemRepository;
+	
+	@Inject
+	LoanRepository loanRepository;
+	
 	
 	@Inject
 	NotificationService notificationService;
@@ -68,7 +79,9 @@ public class NotificationServiceTest  {
 		notificationService.notifyBorrowers();
 
 
-		Borrower diamantidis = em.find(Borrower.class, Fixture.DIAMANTIDIS_ID);
+		Assertions.assertEquals(2, loanRepository.activeLoans().size());
+
+		Borrower diamantidis = borrowerRepository.findById(Fixture.DIAMANTIDIS_ID);
 		Assertions.assertEquals(1, provider.allMessages.size());
 		EmailMessage message = provider.getAllEmails().get(0);
 		Assertions.assertEquals(diamantidis.getEmail(), message.getTo());
@@ -92,13 +105,21 @@ public class NotificationServiceTest  {
 	}
 
 	private void borrowUMLUserGuideToDiamantidis() {
-		loanService.findBorrower(Fixture.DIAMANTIDIS_ID);
-		loanService.borrow(Fixture.UML_USER_GUIDE_ID1);
+		Borrower borrower = borrowerRepository.findById(Fixture.DIAMANTIDIS_ID);
+		Item item = itemRepository.findById(Fixture.UML_USER_GUIDE_ID1);
+		Loan loan = item.borrow(borrower);
+		loanRepository.persist(loan);
+		
+		loanRepository.flush();
 	}
 
 	private void borrowRefactoringToGiakoumakis() {
-		loanService.findBorrower(Fixture.GIAKOUMAKIS_ID);
-		loanService.borrow(Fixture.UML_REFACTORING_ID);
+		Borrower borrower = borrowerRepository.findById(Fixture.GIAKOUMAKIS_ID);
+		Item item = itemRepository.findById(Fixture.REFACTORING_ID);
+		Loan loan = item.borrow(borrower);
+		loanRepository.persist(loan);
+		
+		loanRepository.flush();
 	}
 
 

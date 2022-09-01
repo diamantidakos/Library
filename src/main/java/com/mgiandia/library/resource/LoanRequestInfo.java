@@ -12,7 +12,6 @@ public class LoanRequestInfo {
 	}
 	
 	public LoanRequestInfo(int itemId, int borrowerNo) {
-		
 		this.itemId = itemId;
 		this.borrowerNo = borrowerNo;
 		
