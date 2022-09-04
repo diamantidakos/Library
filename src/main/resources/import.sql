@@ -32,7 +32,7 @@ insert into items (itemno, bookno, itemstate) values (4, 1000, 'AVAILABLE');
 insert into items (itemno, bookno, itemstate) values (5, 1001, 'AVAILABLE');
 
 insert into borrowercategories(id,description,lendingitems,lendingdays,dailyfineamount,dailyfinecurrency) values (3000, 'Καθηγητής',6,180,0,'EUR');
-insert into borrowercategories(id,description,lendingitems,lendingdays,dailyfineamount,dailyfinecurrency) values (3001, 'Φοιτητής',4,7,0,'EUR');
+insert into borrowercategories(id,description,lendingitems,lendingdays,dailyfineamount,dailyfinecurrency) values (3001, 'Φοιτητής',4,7,5,'EUR');
 
 insert into borrowers(borrowerno,phonenumber,email,street,number,city,zipcode,country,categoryid,firstname,lastname) values (1, null, 'mgia@aueb.gr',null, null, null, null, null, 3000, 'Μανόλης', 'Γιακουμάκης');
 insert into borrowers(borrowerno,phonenumber,email,street,number,city,zipcode,country,categoryid,firstname,lastname) values (2, null, 'nad@aueb.gr',null, null, null, null, null, 3001, 'Νίκος', 'Διαμαντίδης');

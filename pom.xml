@@ -149,6 +149,11 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.9.0</version>
+			</plugin>
 		</plugins>
 	</build>
 	<profiles>
@@ -165,4 +170,5 @@
 			</properties>
 		</profile>
 	</profiles>
+	
 </project>

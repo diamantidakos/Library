@@ -2,22 +2,14 @@ package com.mgiandia.library.resource;
 
 import static io.restassured.RestAssured.when;
 
-import java.util.List;
-
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
 import com.mgiandia.library.Fixture;
+import com.mgiandia.library.Fixture.Items;
 import com.mgiandia.library.IntegrationBase;
-import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.domain.Loan;
+import com.mgiandia.library.domain.ItemState;
 import com.mgiandia.library.representation.ItemRepresentation;
 import com.mgiandia.library.representation.LoanRepresentation;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -27,15 +19,15 @@ public class LoanResourceTest extends IntegrationBase {
 	@Test
 	public void loanItem() {
 		
-		String uri = Fixture.API_ROOT + LibraryUri.ITEMS + "/" + Fixture.UML_DISTILLED_ID1 +
-				"/loan/" + Fixture.DIAMANTIDIS_ID;
+		String uri = Fixture.API_ROOT + LibraryUri.ITEMS + "/" + Items.UML_DISTILLED_ID1 +
+				"/loan/" + Fixture.Borrowers.DIAMANTIDIS_ID;
 		
-		LoanRepresentation a = when().post(uri)
+		LoanRepresentation loan = when().post(uri)
 				.then()
 				.statusCode(201)
 				.extract().as(LoanRepresentation.class); 
 		
-		Integer id = a.id;
+		Integer id = loan.id;
 		
 		
 		when().get(Fixture.API_ROOT + LibraryUri.LOANS+ "/" + id)
@@ -43,10 +35,17 @@ public class LoanResourceTest extends IntegrationBase {
 		
 		
 		LoanRepresentation active = when()
-				.get(Fixture.API_ROOT + LibraryUri.LOANS+ "/item/" + Fixture.UML_DISTILLED_ID1)
+				.get(Fixture.API_ROOT + LibraryUri.LOANS+ "/item/" + Items.UML_DISTILLED_ID1)
 				.then()
 				.statusCode(200)
 				.extract().as(LoanRepresentation.class);
+		
+		Assertions.assertNotNull(active.loanDate);
+
+		ItemRepresentation item = when().get(Fixture.API_ROOT + LibraryUri.ITEMS+ "/" + Items.UML_DISTILLED_ID1)
+				.then().statusCode(200).extract().as(ItemRepresentation.class);
+	
+		Assertions.assertEquals(ItemState.LOANED, item.state);
 		
 		when()
 				.post(Fixture.API_ROOT + LibraryUri.LOANS+ "/" + id + "/returnItem") 

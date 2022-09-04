@@ -1,24 +1,45 @@
 package com.mgiandia.library.resource;
 
-import static com.mgiandia.library.resource.LibraryUri.BOOKS;
-import static com.mgiandia.library.resource.LibraryUri.BOOK_SEARCH;
-import static com.mgiandia.library.resource.LibraryUri.bookIdUri;
-
+import static io.restassured.RestAssured.when;
+import static io.restassured.RestAssured.given;
 import java.util.List;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.mgiandia.library.Fixture;
+import com.mgiandia.library.IntegrationBase;
+import com.mgiandia.library.representation.BookRepresentation;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import com.mgiandia.library.domain.Book;
-import com.mgiandia.library.domain.Publisher;
+import io.quarkus.test.TestTransaction;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.common.mapper.TypeRef;
+@QuarkusTest
+public class BookResourceTest  extends IntegrationBase {
 
-public class BookResourceTest  {
+	@Test
+	@TestTransaction
+	public void find() {
+		BookRepresentation a = when().get(Fixture.API_ROOT + LibraryUri.BOOKS + "/" + Fixture.Books.UML_USER_GUIDE_ID)
+				.then()
+				.statusCode(200)
+				.extract().as(BookRepresentation.class); 
+		Assertions.assertEquals(Fixture.Books.UML_USER_GUIDE_ID, a.id);
+	}
 
+	@Test
+	@TestTransaction
+	public void search() throws JsonMappingException, JsonProcessingException {
+		List<BookRepresentation> books = given().queryParam("title", "UML").when().get(Fixture.API_ROOT + LibraryUri.BOOKS)
+				.then()
+				.statusCode(200)
+				.extract().as(new TypeRef<List<BookRepresentation>>() {}) ;
+		
+		Assertions.assertEquals(1, books.size());
+		
+	}
 
-
+	
 }

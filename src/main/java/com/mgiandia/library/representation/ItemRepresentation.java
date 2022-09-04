@@ -1,7 +1,12 @@
 package com.mgiandia.library.representation;
 
+import com.mgiandia.library.domain.ItemState;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class ItemRepresentation {
 	public Integer itemNumber;
-	public String bookId;
-	public String title;
+	public BookRepresentation book;
+	public ItemState state;
 }

@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
-import com.mgiandia.library.domain.BorrowerCategory;
 
 public class BorrowerCategoryTest {
 

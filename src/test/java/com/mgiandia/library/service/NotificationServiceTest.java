@@ -3,8 +3,6 @@ package com.mgiandia.library.service;
 import java.time.LocalDate;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +14,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 import com.mgiandia.library.Fixture;
+import com.mgiandia.library.Fixture.Items;
 import com.mgiandia.library.IntegrationBase;
 import com.mgiandia.library.contacts.EmailMessage;
 import com.mgiandia.library.domain.Borrower;
@@ -68,7 +67,7 @@ public class NotificationServiceTest extends IntegrationBase {
 		borrowUMLUserGuideToDiamantidis();
 
 		// Ρυθμίζουμε την ημερομηνία του συστήματος για
-		// την 1η Σεπτεμβρίου 20007 και δανειζουμε ένα αντίτυπο
+		// την 1η Σεπτεμβρίου 20007 και δανείζουμε ένα αντίτυπο
 
 		setSystemDateTo1stSeptember2007();
 		borrowRefactoringToGiakoumakis();
@@ -78,10 +77,9 @@ public class NotificationServiceTest extends IntegrationBase {
 		notificationService.setProvider(provider);
 		notificationService.notifyBorrowers();
 
-
 		Assertions.assertEquals(2, loanRepository.activeLoans().size());
 
-		Borrower diamantidis = borrowerRepository.findById(Fixture.DIAMANTIDIS_ID);
+		Borrower diamantidis = borrowerRepository.findById(Fixture.Borrowers.DIAMANTIDIS_ID);
 		Assertions.assertEquals(1, provider.allMessages.size());
 		EmailMessage message = provider.getAllEmails().get(0);
 		Assertions.assertEquals(diamantidis.getEmail(), message.getTo());
@@ -105,8 +103,8 @@ public class NotificationServiceTest extends IntegrationBase {
 	}
 
 	private void borrowUMLUserGuideToDiamantidis() {
-		Borrower borrower = borrowerRepository.findById(Fixture.DIAMANTIDIS_ID);
-		Item item = itemRepository.findById(Fixture.UML_USER_GUIDE_ID1);
+		Borrower borrower = borrowerRepository.findById(Fixture.Borrowers.DIAMANTIDIS_ID);
+		Item item = itemRepository.findById(Items.UML_USER_GUIDE_ID1);
 		Loan loan = item.borrow(borrower);
 		loanRepository.persist(loan);
 		
@@ -114,8 +112,8 @@ public class NotificationServiceTest extends IntegrationBase {
 	}
 
 	private void borrowRefactoringToGiakoumakis() {
-		Borrower borrower = borrowerRepository.findById(Fixture.GIAKOUMAKIS_ID);
-		Item item = itemRepository.findById(Fixture.REFACTORING_ID);
+		Borrower borrower = borrowerRepository.findById(Fixture.Borrowers.GIAKOUMAKIS_ID);
+		Item item = itemRepository.findById(Fixture.Items.REFACTORING_ID);
 		Loan loan = item.borrow(borrower);
 		loanRepository.persist(loan);
 		

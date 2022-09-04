@@ -3,8 +3,10 @@ package com.mgiandia.library.resource;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
+import java.util.List;
 
 import com.mgiandia.library.Fixture;
+import com.mgiandia.library.Fixture.BorrowerCategories;
 import com.mgiandia.library.IntegrationBase;
 import com.mgiandia.library.representation.BorrowerCategoryRepresentation;
 import com.mgiandia.library.representation.BorrowerRepresentation;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
@@ -22,11 +25,11 @@ public class BorrowerResourceTest extends IntegrationBase {
 	@Test
 	@TestTransaction
 	public void find() {
-		BorrowerRepresentation a = when().get(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.DIAMANTIDIS_ID)
+		BorrowerRepresentation a = when().get(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.Borrowers.DIAMANTIDIS_ID)
 			.then()
 			.statusCode(200)
 			.extract().as(BorrowerRepresentation.class); 
-		Assertions.assertEquals(Fixture.DIAMANTIDIS_ID, a.borrowerNo);
+		Assertions.assertEquals(Fixture.Borrowers.DIAMANTIDIS_ID, a.borrowerNo);
 	}
 	
 	@Test
@@ -39,6 +42,17 @@ public class BorrowerResourceTest extends IntegrationBase {
 	
 	@Test
 	@TestTransaction
+	public void list() {
+		List<BorrowerRepresentation> borrowers = when().get(Fixture.API_ROOT + LibraryUri.BORROWERS)
+			.then()
+			.statusCode(200)
+			.extract().as(new TypeRef<List<BorrowerRepresentation>>() {});
+		
+		Assertions.assertEquals(Fixture.Borrowers.COUNT, borrowers.size());
+	}
+	
+	@Test
+	@TestTransaction
 	public void create() {
 		BorrowerRepresentation representation = new BorrowerRepresentation();
 		
@@ -47,7 +61,7 @@ public class BorrowerResourceTest extends IntegrationBase {
 		representation.lastName = "ioannou";
 		
 		BorrowerCategoryRepresentation category = new BorrowerCategoryRepresentation();
-		category.id = Fixture.BORROWER_CATEGORY_PROF_ID;
+		category.id = BorrowerCategories.BORROWER_CATEGORY_PROF_ID;
 
 		representation.category = category;
 		
@@ -67,21 +81,21 @@ public class BorrowerResourceTest extends IntegrationBase {
 	@Test
 	@TestTransaction
 	public void update() {
-		BorrowerRepresentation a = when().get(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.DIAMANTIDIS_ID)
+		BorrowerRepresentation borrower = when().get(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.Borrowers.DIAMANTIDIS_ID)
 		.then()
 		.statusCode(200)
 		.extract().as(BorrowerRepresentation.class); 
 		
-		a.firstName = "NIKOLAS";
+		borrower.firstName = "NIKOLAS";
 		
 		given()
 			.contentType(ContentType.JSON)
-			.body(a)
-			.when().post(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.DIAMANTIDIS_ID)
+			.body(borrower)
+			.when().post(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.Borrowers.DIAMANTIDIS_ID)
 			.then().statusCode(204);
 		
 	
-		BorrowerRepresentation updated = when().get(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.DIAMANTIDIS_ID)
+		BorrowerRepresentation updated = when().get(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.Borrowers.DIAMANTIDIS_ID)
 				.then()
 				.statusCode(200)
 				.extract().as(BorrowerRepresentation.class); 

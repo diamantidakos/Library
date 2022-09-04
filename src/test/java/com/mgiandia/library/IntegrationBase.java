@@ -10,6 +10,10 @@ import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeEach;
 
+/**
+ * Βασική κλάση για integration test 
+ * Αρχικοποιεί τη βάση δεδομένων πριν από κάθε έλεγχο
+ */
 public class IntegrationBase {
 	@Inject
 	EntityManager em;
