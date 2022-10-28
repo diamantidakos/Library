@@ -29,5 +29,5 @@ public class Fixture {
 		public static int COUNT = 3;
 	}
     
-    public static String API_ROOT  = "http://localhost:8081/rest";
+    public static String API_ROOT  = "http://localhost:8081";
 }

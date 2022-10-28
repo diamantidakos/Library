@@ -11,12 +11,13 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
 		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-		<quarkus.platform.version>2.10.3.Final</quarkus.platform.version>
+		<quarkus.platform.version>2.13.3.Final</quarkus.platform.version>
 		<mapstruct.version>1.5.2.Final</mapstruct.version>
+		<jacoco.version>0.8.8</jacoco.version>
 		<skipITs>true</skipITs>
 		<surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
 		<!-- automatically run annotation processors within the incremental compilation -->
-  		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
+		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -55,13 +56,13 @@
 			<artifactId>quarkus-resteasy</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.quarkiverse.cxf</groupId>
-			<artifactId>quarkus-cxf</artifactId>
-			<version>1.2.0</version>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-junit5</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-junit5</artifactId>
+			<artifactId>quarkus-jacoco</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -102,21 +103,21 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${compiler-plugin.version}</version>
-				
+
 				<configuration>
 					<annotationProcessorPaths>
-							<path>
-								<groupId>org.mapstruct</groupId>
-								<artifactId>mapstruct-processor</artifactId>
-								<version>${mapstruct.version}</version>
-							</path>
-						</annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
+						</path>
+					</annotationProcessorPaths>
 					<compilerArgs>
 						<arg>-parameters</arg>
 						<arg>-Amapstruct.suppressGeneratorTimestamp=true</arg>
-            			<arg>-Amapstruct.suppressGeneratorVersionInfoComment=true</arg>
-            			<arg>-Amapstruct.verbose=true</arg>
-            			<arg>-Amapstruct.defaultComponentModel=cdi</arg>
+						<arg>-Amapstruct.suppressGeneratorVersionInfoComment=true</arg>
+						<arg>-Amapstruct.verbose=true</arg>
+						<arg>-Amapstruct.defaultComponentModel=cdi</arg>
 					</compilerArgs>
 				</configuration>
 			</plugin>
@@ -154,8 +155,144 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.9.0</version>
 			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<exclClassLoaders>*QuarkusClassLoader</exclClassLoaders>
+							<destFile>${project.build.directory}/jacoco-quarkus.exec</destFile>
+							<append>true</append>
+						</configuration>
+					</execution>
+					<execution>
+						<id>default-prepare-agent-integration</id>
+						<goals>
+							<goal>prepare-agent-integration</goal>
+						</goals>
+						<configuration>
+							<destFile>${project.build.directory}/jacoco-quarkus.exec</destFile>
+							<append>true</append>
+						</configuration>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${project.build.directory}/jacoco-quarkus.exec</dataFile>
+							<outputDirectory>${project.build.directory}/jacoco-report</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.kryshchuk.maven.plugins</groupId>
+				<artifactId>umlet-maven-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>convert-uml</id>
+						<goals>
+							<goal>convert</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId>
+						<version>1.2.17</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.4.1</version>
+				<configuration>
+					<doclint>none</doclint>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.0.0</version>
+				        <reportSets>
+          <reportSet>
+            <reports><!-- select reports -->
+              <report>index</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+			</plugin>
+
+			<plugin>
+				<groupId>com.kryshchuk.maven.plugins</groupId>
+				<artifactId>umlet-maven-plugin</artifactId>
+				<version>1.2</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<configuration>
+					<dataFile>${project.build.directory}/jacoco-quarkus.exec</dataFile>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.1.1</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>checkstyle</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>4.0.0</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.13.0</version>
+			</plugin>
+
+		</plugins>
+
+
+	</reporting>
+
+
 	<profiles>
 		<profile>
 			<id>native</id>
@@ -170,5 +307,5 @@
 			</properties>
 		</profile>
 	</profiles>
-	
+
 </project>
