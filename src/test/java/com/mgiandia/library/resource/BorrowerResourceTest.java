@@ -68,7 +68,7 @@ public class BorrowerResourceTest extends IntegrationBase {
 		BorrowerRepresentation created = given()
 			.contentType(ContentType.JSON)
 			.body(representation)
-			.when().post(Fixture.API_ROOT + LibraryUri.BORROWERS)
+			.when().put(Fixture.API_ROOT + LibraryUri.BORROWERS)
 			.then().statusCode(201).header("Location", Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + 166)
 			.extract().as(BorrowerRepresentation.class);
 		
@@ -91,7 +91,7 @@ public class BorrowerResourceTest extends IntegrationBase {
 		given()
 			.contentType(ContentType.JSON)
 			.body(borrower)
-			.when().post(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.Borrowers.DIAMANTIDIS_ID)
+			.when().put(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.Borrowers.DIAMANTIDIS_ID)
 			.then().statusCode(204);
 		
 	

@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -47,7 +47,7 @@ public class BorrowerResource {
 	}
 	
 	@GET
-	@Path("{borrowerNo}")
+	@Path("/{borrowerNo}")
 	@Transactional
 	public BorrowerRepresentation find(@PathParam("borrowerNo") Integer borrowerNo) {
 		Borrower b = borrowerRepository.findWithDetails(borrowerNo);
@@ -58,7 +58,7 @@ public class BorrowerResource {
 	}
 	
 	
-	@POST
+	@PUT
 	@Transactional
 	public Response create (BorrowerRepresentation representation) {
 		if (representation.borrowerNo == null) {
@@ -72,7 +72,7 @@ public class BorrowerResource {
 	}
 	
 
-	@POST
+	@PUT
 	@Path("/{id}")
 	@Transactional
 	public Response update(@PathParam("id") Integer id,

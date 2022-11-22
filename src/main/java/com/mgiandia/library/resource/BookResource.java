@@ -7,6 +7,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -42,6 +43,7 @@ public class BookResource {
 	@GET
 	@Path("{bookId:[0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional
 	public Response find(@PathParam("bookId") Integer bookId) {
 
 		Book book = bookRepository.findById(bookId);
@@ -54,6 +56,7 @@ public class BookResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional
 	public List<BookRepresentation> searchBookByTitle(@QueryParam("title") String title) {
 		return bookMapper.toRepresentationList(bookRepository.search(title));
 	}
