@@ -13,6 +13,6 @@ public class BookRepresentation {
 	public String title;
 	public String publication;
 	public int publicationYear;
-	public Publisher publisher;
+	public PublisherRepresentation publisher;
 	public List<AuthorRepresentation> authors = new ArrayList<AuthorRepresentation>();
 }
