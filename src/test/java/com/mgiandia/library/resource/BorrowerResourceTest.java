@@ -23,7 +23,6 @@ import io.restassured.http.ContentType;
 public class BorrowerResourceTest extends IntegrationBase {
 
 	@Test
-	@TestTransaction
 	public void find() {
 		BorrowerRepresentation a = when().get(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.Borrowers.DIAMANTIDIS_ID)
 			.then()
@@ -33,7 +32,6 @@ public class BorrowerResourceTest extends IntegrationBase {
 	}
 	
 	@Test
-	@TestTransaction
 	public void findNonExisting() {
 		when().get(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + 4711)
 			.then()
@@ -41,7 +39,6 @@ public class BorrowerResourceTest extends IntegrationBase {
 	}
 	
 	@Test
-	@TestTransaction
 	public void list() {
 		List<BorrowerRepresentation> borrowers = when().get(Fixture.API_ROOT + LibraryUri.BORROWERS)
 			.then()
@@ -52,7 +49,6 @@ public class BorrowerResourceTest extends IntegrationBase {
 	}
 	
 	@Test
-	@TestTransaction
 	public void create() {
 		BorrowerRepresentation representation = new BorrowerRepresentation();
 		
@@ -79,7 +75,6 @@ public class BorrowerResourceTest extends IntegrationBase {
 	
 	
 	@Test
-	@TestTransaction
 	public void update() {
 		BorrowerRepresentation borrower = when().get(Fixture.API_ROOT + LibraryUri.BORROWERS + "/" + Fixture.Borrowers.DIAMANTIDIS_ID)
 		.then()

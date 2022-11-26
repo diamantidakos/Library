@@ -17,7 +17,6 @@ import io.quarkus.test.junit.QuarkusTest;
 public class ItemResourceTest extends IntegrationBase {
 
 	@Test
-	@TestTransaction
 	public void find() {
 		ItemRepresentation a = when().get(Fixture.API_ROOT + LibraryUri.ITEMS + "/" + Items.UML_DISTILLED_ID1)
 			.then()
