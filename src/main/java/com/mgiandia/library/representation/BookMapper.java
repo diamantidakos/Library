@@ -8,7 +8,8 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "cdi",
-injectionStrategy = InjectionStrategy.CONSTRUCTOR, uses = {AuthorMapper.class, IsbnMapper.class})
+injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+		uses = {PublisherMapper.class, AuthorMapper.class, IsbnMapper.class})
 public abstract class BookMapper {
 	public abstract BookRepresentation toRepresentation(Book book);
 	

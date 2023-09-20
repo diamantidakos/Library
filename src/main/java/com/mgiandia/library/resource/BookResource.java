@@ -36,9 +36,6 @@ public class BookResource {
 	
 	@Inject
 	BookMapper bookMapper;
-	
-	@Inject
-	EntityManager em;
 
 	@GET
 	@Path("{bookId:[0-9]*}")
@@ -60,7 +57,5 @@ public class BookResource {
 	public List<BookRepresentation> searchBookByTitle(@QueryParam("title") String title) {
 		return bookMapper.toRepresentationList(bookRepository.search(title));
 	}
-
-
 
 }
