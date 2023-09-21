@@ -10,87 +10,84 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
-
+import com.mgiandia.library.contacts.EmailAddress;
 import com.mgiandia.library.domain.ISBN;
 
 
 
-public class ISBNCustomType implements UserType {
-	public Object assemble(Serializable cached, Object owner) throws HibernateException {
-		return cached;
+public class ISBNCustomType implements UserType<ISBN> {
+
+	@Override
+	public int getSqlType() {
+		return org.hibernate.type.SqlTypes.VARCHAR;
 	}
 
-	public Object deepCopy(Object value) throws HibernateException {
-		return value;
+	@Override
+	public Class<ISBN> returnedClass() {
+		return ISBN.class;
 	}
 
-	public Serializable disassemble(Object value) throws HibernateException {
-		return (Serializable) value;
-	}
-
-	public boolean equals(Object x, Object y) throws HibernateException {
+	@Override
+	public boolean equals(ISBN x, ISBN y) {
 		if ( x == y) return true;
 		if ( x== null || y==null) return false;
 		return x.equals(y);
 	}
 
-	public int hashCode(Object value) throws HibernateException {
-		return value.hashCode();
+	@Override
+	public int hashCode(ISBN x) {
+		return x.hashCode();
 	}
 
-	public boolean isMutable() {
-		return false;
-	}
-
-	public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException {
-		String stringValue = resultSet.getString(names[0]);
-		if ( resultSet.wasNull()) {
+	@Override
+	public ISBN nullSafeGet(ResultSet rs, int position, SharedSessionContractImplementor session, Object owner)
+			throws SQLException {
+		String stringValue = rs.getString(position);
+		if ( rs.wasNull()) {
 			return null;
 		}
-		
-		return new ISBN(stringValue);		
+		ISBN isbn = new ISBN(stringValue);
+		return isbn;
 	}
 
-	public void nullSafeSet(PreparedStatement statement, Object value, int index) throws HibernateException, SQLException {
+	@Override
+	public void nullSafeSet(PreparedStatement st, ISBN value, int index, SharedSessionContractImplementor session)
+			throws SQLException {
 		if (value == null) {
-			statement.setNull(index, java.sql.Types.VARCHAR);
+			st.setNull(index, java.sql.Types.VARCHAR);
 		}
 		else {
 			ISBN isbn = (ISBN) value;
 			if (isbn.getValue() == null) {
-			    statement.setNull(index, java.sql.Types.VARCHAR);
-			} else {
-			    statement.setString(index, isbn.getValue());    
-			}			
-		}		
-	}
-
-	public Object replace(Object original, Object target, Object owner) throws HibernateException {
-		return original;
-	}
-
-
-	@SuppressWarnings("rawtypes")
-	public Class returnedClass() {
-		return ISBN.class;
-	}
-
-	public int[] sqlTypes() {
-		return new int [] { java.sql.Types.VARCHAR };
+				st.setNull(index, java.sql.Types.VARCHAR);
+			}
+			st.setString(index, isbn.getValue());
+		}	
+		
 	}
 
 	@Override
-	public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor arg2, Object arg3)
-			throws HibernateException, SQLException {
-		return nullSafeGet(resultSet, names, arg3);
+	public ISBN deepCopy(ISBN value) {
+		return value;
 	}
 
 	@Override
-	public void nullSafeSet(PreparedStatement statement, Object value, int index, SharedSessionContractImplementor arg3)
-			throws HibernateException, SQLException {
-		nullSafeSet(statement, value, index);
+	public boolean isMutable() {
+		return false;
 	}
 
+	@Override
+	public Serializable disassemble(ISBN value) {
+		return value;
+	}
+
+	@Override
+	public ISBN assemble(Serializable cached, Object owner) {
+		return (ISBN) cached;
+	}
+
+	
+	
 
 
 }

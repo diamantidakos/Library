@@ -5,85 +5,81 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
 import com.mgiandia.library.contacts.ZipCode;
 
-public class ZipCodeCustomType implements UserType {
-	
-	public Object assemble(Serializable cached, Object owner) throws HibernateException {
-		return cached;
+public class ZipCodeCustomType implements UserType<ZipCode> {
+
+	@Override
+	public int getSqlType() {
+		return org.hibernate.type.SqlTypes.VARCHAR;
 	}
 
-	public Object deepCopy(Object value) throws HibernateException {
-		return value;
+	@Override
+	public Class<ZipCode> returnedClass() {
+		return ZipCode.class;
 	}
 
-	public Serializable disassemble(Object value) throws HibernateException {
-		return (Serializable) value;
-	}
-
-	public boolean equals(Object x, Object y) throws HibernateException {
+	@Override
+	public boolean equals(ZipCode x, ZipCode y) {
 		if ( x == y) return true;
 		if ( x== null || y==null) return false;
 		return x.equals(y);
 	}
 
-	public int hashCode(Object value) throws HibernateException {
-		return value.hashCode();
+	@Override
+	public int hashCode(ZipCode x) {
+		return x.hashCode();
 	}
 
-	public boolean isMutable() {
-		return false;
-	}
-
-	public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException {
-		String stringValue = resultSet.getString(names[0]);
-		if ( resultSet.wasNull()) {
+	@Override
+	public ZipCode nullSafeGet(ResultSet rs, int position, SharedSessionContractImplementor session, Object owner)
+			throws SQLException {
+		String stringValue = rs.getString(position);
+		if ( rs.wasNull()) {
 			return null;
 		}
 		ZipCode zipCode = new ZipCode(stringValue);
 		return zipCode;
 	}
 
-	public void nullSafeSet(PreparedStatement statement, Object value, int index) throws HibernateException, SQLException {
+	@Override
+	public void nullSafeSet(PreparedStatement st, ZipCode value, int index, SharedSessionContractImplementor session)
+			throws SQLException {
 		if (value == null) {
-			statement.setNull(index, java.sql.Types.VARCHAR);
+			st.setNull(index, java.sql.Types.VARCHAR);
 		}
 		else {
 			ZipCode zipCode = (ZipCode) value;
 			if (zipCode.getCode() == null) {
-			    statement.setNull(index, java.sql.Types.VARCHAR);
+				st.setNull(index, java.sql.Types.VARCHAR);
 			}
-			statement.setString(index, zipCode.getCode());
+			st.setString(index, zipCode.getCode());
 		}		
+		
 	}
 
-	public Object replace(Object original, Object target, Object owner) throws HibernateException {
-		return original;
+	@Override
+	public ZipCode deepCopy(ZipCode value) {
+		return value;
 	}
 
-
-	@SuppressWarnings("rawtypes")
-	public Class returnedClass() {
-		return ZipCode.class;
+	@Override
+	public boolean isMutable() {
+		return false;
 	}
 
-	public int[] sqlTypes() {
-		return new int [] { java.sql.Types.VARCHAR };
+	@Override
+	public Serializable disassemble(ZipCode value) {
+		return (Serializable) value;
+	}
+
+	@Override
+	public ZipCode assemble(Serializable cached, Object owner) {
+		return (ZipCode) cached;
 	}
 	
-	@Override
-	public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor arg2, Object arg3)
-			throws HibernateException, SQLException {
-		return nullSafeGet(resultSet, names, arg3);
-	}
-
-	@Override
-	public void nullSafeSet(PreparedStatement statement, Object value, int index, SharedSessionContractImplementor arg3)
-			throws HibernateException, SQLException {
-		nullSafeSet(statement, value, index);
-	}
+	
 }

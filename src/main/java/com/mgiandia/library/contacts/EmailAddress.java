@@ -1,5 +1,6 @@
 package com.mgiandia.library.contacts;
 
+import java.io.Serializable;
 
 /**
  * Η διεύθυνση ηλεκτρονικού ταχυδρομείου.
@@ -7,8 +8,10 @@ package com.mgiandia.library.contacts;
  * @author  Νίκος Διαμαντίδης
  *
  */
-public class EmailAddress {
-    private String value;
+public class EmailAddress implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	private String value;
 
     /**
      * Δημιουργία βάσει της συμβολοσειράς της διεύθυνσης.

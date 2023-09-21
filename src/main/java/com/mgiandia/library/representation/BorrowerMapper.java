@@ -12,11 +12,11 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.mgiandia.library.contacts.EmailAddress;
 
-@Mapper(componentModel = "cdi",
+@Mapper(componentModel = "jakarta",
 		injectionStrategy = InjectionStrategy.CONSTRUCTOR,
 		uses = {BorrowerCategoryMapper.class})
 public abstract class BorrowerMapper {

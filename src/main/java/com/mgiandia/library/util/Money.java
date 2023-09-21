@@ -1,7 +1,10 @@
 package com.mgiandia.library.util;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
+
+import jakarta.persistence.Embeddable;
 
 
 
@@ -19,10 +22,10 @@ import java.util.Currency;
  * <a href="http://sourceforge.net/projects/timeandmoney">υλοποίηση</a>
  */
 
-
-public class Money {
-
-    private BigDecimal amount;
+@Embeddable
+public class Money implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private BigDecimal amount;
     private Currency currency;
 
     /**

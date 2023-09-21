@@ -1,6 +1,6 @@
 package com.mgiandia.library.domain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 /**
  * Η βασική κλάση του προσώπου.
  * @author Νίκος Διαμαντίδης

@@ -7,7 +7,7 @@ import com.mgiandia.library.domain.Item;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "cdi",
+@Mapper(componentModel = "jakarta",
 		injectionStrategy = InjectionStrategy.CONSTRUCTOR,
 		uses= {BookMapper.class})
 public abstract class ItemMapper {

@@ -3,7 +3,7 @@ package com.mgiandia.library.persistence;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 
 import com.mgiandia.library.domain.Book;
 

@@ -2,9 +2,9 @@ package com.mgiandia.library.service;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.contacts.EmailAddress;

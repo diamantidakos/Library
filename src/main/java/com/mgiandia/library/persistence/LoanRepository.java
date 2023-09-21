@@ -3,8 +3,8 @@ package com.mgiandia.library.persistence;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.persistence.NoResultException;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.persistence.NoResultException;
 
 import com.mgiandia.library.domain.Loan;
 

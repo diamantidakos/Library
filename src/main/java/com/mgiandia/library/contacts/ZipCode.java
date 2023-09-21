@@ -1,12 +1,15 @@
 package com.mgiandia.library.contacts;
 
+import java.io.Serializable;
+
 /**
  * Ο Ταχυδρομικός κώδικας.
  * @author Νίκος Διαμαντίδης
  *
  */
-public class ZipCode {
-    private String zipcode;
+public class ZipCode implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private String zipcode;
 
     /**
      * Κατασκευαστής που βασίζεται σε ταχυδρομικό κώδικα ως συμβολοσειρά.

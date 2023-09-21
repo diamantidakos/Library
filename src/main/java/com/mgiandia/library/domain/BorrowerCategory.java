@@ -4,7 +4,7 @@ import com.mgiandia.library.util.Money;
 
 import java.time.LocalDate;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.hibernate.annotations.Columns;
 
@@ -32,12 +32,11 @@ public class BorrowerCategory {
     private int maxLendingDays;
     
 
-    @org.hibernate.annotations.Type(
-            type="com.mgiandia.library.persistence.MoneyCustomType")
-    @Columns(columns = {
-            @Column(name="dailyfineamount"),
-            @Column(name="dailyfinecurrency", length=5)
-    })
+    @Embedded
+    @org.hibernate.annotations.CompositeType(
+            value=com.mgiandia.library.persistence.MoneyCustomType.class)
+    @AttributeOverride(name = "amount", column = @Column(name = "dailyfineamount"))
+	@AttributeOverride(name = "currency", column = @Column(name = "dailyfinecurrency"))
     private Money dailyFine;
 
     /**

@@ -8,91 +8,86 @@ import java.sql.SQLException;
 import java.util.Currency;
 
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.metamodel.spi.ValueAccess;
+import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.usertype.UserType;
 
 import com.mgiandia.library.util.Money;
 
-public class MoneyCustomType implements UserType{
+public class MoneyCustomType implements CompositeUserType<Money>{
 
-	public Object assemble(Serializable cached, Object owner) throws HibernateException {
-		return cached;
+	public static class MoneyMapper {
+		BigDecimal amount;
+		String currency;
+	}
+	
+	@Override
+	public Object getPropertyValue(Money component, int property) throws HibernateException {
+		switch ( property ) {
+			case 0:
+				return component.getAmount();
+			case 1:
+				return component.getCurrency();
+		}
+		return null;
 	}
 
-	public Object deepCopy(Object value) throws HibernateException {
-		return value;
+	@Override
+	public Money instantiate(ValueAccess values, SessionFactoryImplementor sessionFactory) {
+		BigDecimal amount = values.getValue(0, BigDecimal.class);
+		String currency = values.getValue(1, String.class);
+		return new Money(amount, Currency.getInstance(currency));
 	}
 
-	public Serializable disassemble(Object value) throws HibernateException {
-		return (Serializable) value;
+	@Override
+	public Class<?> embeddable() {
+		return MoneyMapper.class;
 	}
 
-	public boolean equals(Object x, Object y) throws HibernateException {
+	@Override
+	public Class<Money> returnedClass() {
+		return Money.class;
+	}
+
+	@Override
+	public boolean equals(Money x, Money y) {
 		if ( x == y) return true;
 		if ( x== null || y==null) return false;
 		return x.equals(y);
 	}
 
-	public int hashCode(Object value) throws HibernateException {
-		return value.hashCode();
+	@Override
+	public int hashCode(Money x) {
+		return x.hashCode();
 	}
 
+	@Override
+	public Money deepCopy(Money value) {
+		return value;
+	}
+
+	@Override
 	public boolean isMutable() {
 		return false;
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException {		
-		BigDecimal amount = resultSet.getBigDecimal(names[0]);		
-		if ( resultSet.wasNull()) {
-			return null;
-		}
-		
-		String currency = resultSet.getString(names[1]);		
-		Money money = new Money(amount, Currency.getInstance(currency));				
-		return money;
-	}
-
-	public void nullSafeSet(PreparedStatement statement, Object value, int index) throws HibernateException, SQLException {
-		if (value == null) {
-			statement.setNull(index, java.sql.Types.DECIMAL);
-			statement.setNull(index+1, java.sql.Types.VARCHAR);
-		}
-		else {
-			Money money = (Money) value;
-			if (money.getAmount() == null ) {
-	            statement.setNull(index, java.sql.Types.DECIMAL);
-	            statement.setNull(index+1, java.sql.Types.VARCHAR);			    
-			} else {
-	            statement.setBigDecimal(index, money.getAmount());
-	            statement.setString(index+1, money.getCurrency().getCurrencyCode());			    
-			}
-		}		
-	}
-
-	public Object replace(Object original, Object target, Object owner) throws HibernateException {
-		return original;
-	}
-
-
-	@SuppressWarnings("rawtypes")
-	public Class returnedClass() {
-		return Money.class;
-	}
-
-	public int[] sqlTypes() {
-		return new int [] { java.sql.Types.DECIMAL, java.sql.Types.VARCHAR };
+	@Override
+	public Serializable disassemble(Money value) {
+		return value;
 	}
 
 	@Override
-	public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor arg2, Object arg3)
-			throws HibernateException, SQLException {
-		return nullSafeGet(resultSet, names, arg3);
+	public Money assemble(Serializable cached, Object owner) {
+		return (Money) cached;
 	}
 
 	@Override
-	public void nullSafeSet(PreparedStatement statement, Object value, int index, SharedSessionContractImplementor arg3)
-			throws HibernateException, SQLException {
-		nullSafeSet(statement, value, index);
+	public Money replace(Money detached, Money managed, Object owner) {
+		return detached;
 	}
 
+	
+	
 }

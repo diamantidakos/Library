@@ -6,7 +6,7 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "cdi",
+@Mapper(componentModel = "jakarta",
 injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public abstract class MoneyMapper {
 	public abstract MonetaryAmount toRepresentation(Money money);

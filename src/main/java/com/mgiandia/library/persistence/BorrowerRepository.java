@@ -1,8 +1,8 @@
 package com.mgiandia.library.persistence;
 
 
-import javax.enterprise.context.RequestScoped;
-import javax.persistence.NoResultException;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.persistence.NoResultException;
 
 import com.mgiandia.library.domain.Borrower;
 

@@ -2,9 +2,9 @@ package com.mgiandia.library.persistence;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 import com.mgiandia.library.domain.Book;
 

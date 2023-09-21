@@ -5,20 +5,20 @@ import static com.mgiandia.library.resource.LibraryUri.BORROWERS;
 import java.net.URI;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.persistence.BorrowerRepository;
@@ -51,6 +51,7 @@ public class BorrowerResource {
 	@Transactional
 	public BorrowerRepresentation find(@PathParam("borrowerNo") Integer borrowerNo) {
 		Borrower b = borrowerRepository.findWithDetails(borrowerNo);
+		
 		if(b == null) {
 			throw new NotFoundException();
 		}

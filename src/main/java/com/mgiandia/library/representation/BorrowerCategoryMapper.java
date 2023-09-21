@@ -6,7 +6,7 @@ import com.mgiandia.library.domain.BorrowerCategory;
 import org.mapstruct.Mapper;
 import org.mapstruct.InjectionStrategy;
 
-@Mapper(componentModel = "cdi",
+@Mapper(componentModel = "jakarta",
 		injectionStrategy = InjectionStrategy.CONSTRUCTOR,
 		uses= {MoneyMapper.class})
 public abstract class BorrowerCategoryMapper { 

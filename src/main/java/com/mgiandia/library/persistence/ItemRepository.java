@@ -1,7 +1,7 @@
 package com.mgiandia.library.persistence;
 
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 
 import com.mgiandia.library.domain.Item;
 
