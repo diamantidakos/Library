@@ -2,19 +2,13 @@ package com.mgiandia.library.persistence;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Currency;
+
+import com.mgiandia.library.util.Money;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.metamodel.spi.ValueAccess;
 import org.hibernate.usertype.CompositeUserType;
-import org.hibernate.usertype.UserType;
-
-import com.mgiandia.library.util.Money;
 
 public class MoneyCustomType implements CompositeUserType<Money>{
 
@@ -38,7 +32,7 @@ public class MoneyCustomType implements CompositeUserType<Money>{
 	public Money instantiate(ValueAccess values, SessionFactoryImplementor sessionFactory) {
 		BigDecimal amount = values.getValue(0, BigDecimal.class);
 		String currency = values.getValue(1, String.class);
-		return new Money(amount, Currency.getInstance(currency));
+		return new Money(amount, currency);
 	}
 
 	@Override

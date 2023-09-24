@@ -3,8 +3,6 @@ package com.mgiandia.library.representation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mgiandia.library.domain.Publisher;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
 @RegisterForReflection
 public class BookRepresentation {

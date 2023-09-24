@@ -4,9 +4,13 @@ import static com.mgiandia.library.resource.LibraryUri.BOOKS;
 
 import java.util.List;
 
+import com.mgiandia.library.domain.Book;
+import com.mgiandia.library.persistence.BookRepository;
+import com.mgiandia.library.representation.BookMapper;
+import com.mgiandia.library.representation.BookRepresentation;
+
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -18,11 +22,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.core.UriInfo;
-
-import com.mgiandia.library.domain.Book;
-import com.mgiandia.library.persistence.BookRepository;
-import com.mgiandia.library.representation.BookMapper;
-import com.mgiandia.library.representation.BookRepresentation;
 
 @Path(BOOKS)
 @RequestScoped

@@ -1,11 +1,8 @@
 package com.mgiandia.library.domain;
 
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-
-import com.mgiandia.library.domain.Author;
-import com.mgiandia.library.domain.Book;
+import org.junit.jupiter.api.Test;
 
  
 

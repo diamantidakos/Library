@@ -1,10 +1,5 @@
 package com.mgiandia.library.representation;
 
-import java.time.LocalDate;
-import java.util.Date;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
 @RegisterForReflection
 public class LoanRepresentation {

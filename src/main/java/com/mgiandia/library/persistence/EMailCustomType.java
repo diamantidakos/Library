@@ -5,12 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.hibernate.HibernateException;
+import com.mgiandia.library.contacts.EmailAddress;
+
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
-
-import com.mgiandia.library.contacts.EmailAddress;
-import com.mgiandia.library.contacts.ZipCode;
 
 public class EMailCustomType implements UserType<EmailAddress> {
 

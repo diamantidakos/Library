@@ -1,7 +1,6 @@
 package com.mgiandia.library.util;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class MoneyTest {
 
-    private Currency euroCurrency = Currency.getInstance("EUR");
+    private String euroCurrency = "EUR";
     
     
     @Test
@@ -61,7 +60,7 @@ public class MoneyTest {
         Money b = Money.euros(4);
         Money c = a.minus(b);
         Assertions.assertEquals(new BigDecimal(6), c.getAmount());
-        Assertions.assertEquals(Currency.getInstance("EUR"), c.getCurrency());
+        Assertions.assertEquals("EUR", c.getCurrency());
         Assertions.assertEquals(new BigDecimal(10), a.getAmount());
         Assertions.assertEquals(new BigDecimal(4),b.getAmount());    
     }

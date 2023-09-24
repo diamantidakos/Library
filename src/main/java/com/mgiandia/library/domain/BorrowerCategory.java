@@ -1,12 +1,17 @@
 package com.mgiandia.library.domain;
 
-import com.mgiandia.library.util.Money;
-
 import java.time.LocalDate;
 
-import jakarta.persistence.*;
+import com.mgiandia.library.util.Money;
 
-import org.hibernate.annotations.Columns;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * Η κατηγορία δανειζομένου.

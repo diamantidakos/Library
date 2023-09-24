@@ -1,21 +1,16 @@
 package com.mgiandia.library.domain;
 
 
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
+
+import com.mgiandia.library.LibraryException;
+import com.mgiandia.library.util.SystemDate;
+import com.mgiandia.library.util.SystemDateStub;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-
-import com.mgiandia.library.LibraryException;
-import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.domain.BorrowerCategory;
-import com.mgiandia.library.domain.Item;
-import com.mgiandia.library.domain.ItemState;
-import com.mgiandia.library.domain.Loan;
-import com.mgiandia.library.util.*;
+import org.junit.jupiter.api.Test;
 
 public class ItemTest {
 

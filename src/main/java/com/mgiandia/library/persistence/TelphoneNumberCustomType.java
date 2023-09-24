@@ -5,13 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.mgiandia.library.contacts.TelephoneNumber;
 
-import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
-
-import com.mgiandia.library.contacts.EmailAddress;
-import com.mgiandia.library.contacts.TelephoneNumber;
 
 
 public class TelphoneNumberCustomType implements UserType<TelephoneNumber>{
