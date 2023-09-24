@@ -1,7 +1,7 @@
 package com.mgiandia.library.domain;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.util.Money;

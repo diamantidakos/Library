@@ -1,7 +1,10 @@
 package com.mgiandia.library.util;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
+
+import jakarta.persistence.Embeddable;
 
 
 
@@ -19,11 +22,12 @@ import java.util.Currency;
  * <a href="http://sourceforge.net/projects/timeandmoney">υλοποίηση</a>
  */
 
+@Embeddable
+public class Money implements Serializable{
 
-public class Money {
-
-    private BigDecimal amount;
-    private Currency currency;
+	private static final long serialVersionUID = 1L;
+	private BigDecimal amount;
+    private String currency;
 
     /**
      * Βασικός κατασκευαστής της κλάσης.
@@ -31,7 +35,7 @@ public class Money {
      * @param amount Το ποσό
      * @param currency Η νομισματική μονάδα
      */
-    public Money(BigDecimal amount, Currency currency) {
+    public Money(BigDecimal amount, String currency) {
         this.amount = amount;
         this.currency = currency;
     }
@@ -48,7 +52,7 @@ public class Money {
      * Επιστρέφει τη νομισματική μονάδα.
      * @return Η νομισματική μονάδα
      */
-    public Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
@@ -138,7 +142,7 @@ public class Money {
      */
 
     public static Money euros(BigDecimal amount) {
-        return new Money(amount, Currency.getInstance("EUR"));
+        return new Money(amount, "EUR");
     }
 
     /**
@@ -156,7 +160,7 @@ public class Money {
      * @return Το αντικείμενο με το ποσό και νομισματική μονάδα δολάριο
      */
     public static Money dollars(BigDecimal amount) {
-        return new Money(amount, Currency.getInstance("USD"));
+        return new Money(amount, "USD");
     }
 
 
@@ -204,6 +208,6 @@ public class Money {
 
     @Override
     public String toString() {
-        return amount.toString() + " " + currency.getSymbol();
+        return amount.toString() + " " + currency;
     }
 }

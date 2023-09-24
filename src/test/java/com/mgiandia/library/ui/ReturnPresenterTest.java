@@ -2,8 +2,8 @@ package com.mgiandia.library.ui;
 
 import java.time.LocalDate;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 import org.junit.After;
 import org.junit.Assert;

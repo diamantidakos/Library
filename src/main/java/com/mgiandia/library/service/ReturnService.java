@@ -1,8 +1,8 @@
 package com.mgiandia.library.service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.domain.Loan;

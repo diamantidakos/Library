@@ -1,7 +1,7 @@
 package com.mgiandia.library.ui.borrower;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 import com.mgiandia.library.domain.Borrower;
 

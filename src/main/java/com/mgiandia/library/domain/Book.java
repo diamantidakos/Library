@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 
@@ -22,14 +22,14 @@ public class Book {
     private Integer id;    
     
     @org.hibernate.annotations.Type(
-            type="com.mgiandia.library.persistence.ISBNCustomType")
-    @Column(name="isbn", length = 20, nullable=false)
+            value=com.mgiandia.library.persistence.ISBNCustomType.class)
+    @Column(name="isbn")
     private ISBN isbn;  
     
-    @Column(name="title", length=200, nullable=false)
+    @Column(name="title")
     private String title;
     
-    @Column(name="publication", length=10)
+    @Column(name="publication")
     private String publication;
     
     @Column(name="pubyear")

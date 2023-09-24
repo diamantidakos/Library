@@ -2,10 +2,10 @@ package com.mgiandia.library.service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Publisher;

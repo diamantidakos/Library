@@ -1,12 +1,16 @@
 package com.mgiandia.library.domain;
 
+import java.io.Serializable;
+
 /**
  * Το ISBN.
  * @author Νίκος Διαμαντίδης
  *
  */
-public class ISBN {
-    private String value;
+public class ISBN implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private String value;
 
     /**
      * Κατασκευαστής που λαμβάνει ως τιμή μία συμβολοσειρά για το ISBN.

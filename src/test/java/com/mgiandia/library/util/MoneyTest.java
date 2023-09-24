@@ -9,7 +9,7 @@ import org.junit.*;
 
 public class MoneyTest {
 
-    private Currency euroCurrency = Currency.getInstance("EUR");
+    private String euroCurrency = "EUR";
     
     
     @Test
@@ -60,7 +60,7 @@ public class MoneyTest {
         Money b = Money.euros(4);
         Money c = a.minus(b);
         Assert.assertEquals(new BigDecimal(6), c.getAmount());
-        Assert.assertEquals(Currency.getInstance("EUR"), c.getCurrency());
+        Assert.assertEquals("EUR", c.getCurrency());
         Assert.assertEquals(new BigDecimal(10), a.getAmount());
         Assert.assertEquals(new BigDecimal(4),b.getAmount());    
     }

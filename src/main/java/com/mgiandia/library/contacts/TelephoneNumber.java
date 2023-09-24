@@ -1,14 +1,17 @@
 package com.mgiandia.library.contacts;
 
+import java.io.Serializable;
+
 /**
  * Ο αριθμός τηλεφώνου.
  * Υλοποιείται ως αντικείμενο τιμή.
  * @author Νίκος Διαμαντίδης
  *
  */
-public class TelephoneNumber {
+public class TelephoneNumber implements Serializable {
 
-    private String phonenumber;
+	private static final long serialVersionUID = 1L;
+	private String phonenumber;
 
     /**
      * Κατασκευαστής που βασίζεται σε μία συμβολοσειρά.

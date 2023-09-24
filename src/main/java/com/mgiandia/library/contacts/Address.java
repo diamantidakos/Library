@@ -1,6 +1,6 @@
 package com.mgiandia.library.contacts;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Η ταχυδρομική διεύθυνση.
@@ -19,7 +19,7 @@ public class Address {
     private String city;
     
     @org.hibernate.annotations.Type(
-            type="com.mgiandia.library.persistence.ZipCodeCustomType")
+            value=com.mgiandia.library.persistence.ZipCodeCustomType.class)
     private ZipCode zipcode;
     
     @Column(name="country", length=50)

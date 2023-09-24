@@ -3,9 +3,9 @@ package com.mgiandia.library.ui.loan;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.domain.Item;

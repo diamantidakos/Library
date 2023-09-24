@@ -1,6 +1,6 @@
 package com.mgiandia.library.domain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import com.mgiandia.library.contacts.Address;
 import com.mgiandia.library.contacts.EmailAddress;
@@ -24,12 +24,12 @@ public class Publisher {
     private String name;
     
     @org.hibernate.annotations.Type(
-            type="com.mgiandia.library.persistence.TelphoneNumberCustomType")
+            value=com.mgiandia.library.persistence.TelphoneNumberCustomType.class)
     @Column(name="phonenumber")
     private TelephoneNumber telephone;
     
     @org.hibernate.annotations.Type(
-            type="com.mgiandia.library.persistence.EMailCustomType")
+            value=com.mgiandia.library.persistence.EMailCustomType.class)
     @Column(name="email")
     private EmailAddress eMail;
     

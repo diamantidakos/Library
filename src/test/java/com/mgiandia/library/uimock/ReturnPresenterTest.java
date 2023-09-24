@@ -2,8 +2,8 @@ package com.mgiandia.library.uimock;
 
 import java.time.LocalDate;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.any;

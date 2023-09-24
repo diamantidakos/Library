@@ -1,7 +1,7 @@
 package com.mgiandia.library.ui;
 
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 import org.junit.Assert;
 import org.junit.Before;

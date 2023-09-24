@@ -1,91 +1,86 @@
 package com.mgiandia.library.persistence;
-
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.hibernate.HibernateException;
+import com.mgiandia.library.contacts.EmailAddress;
+
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
-import com.mgiandia.library.contacts.EmailAddress;
+public class EMailCustomType implements UserType<EmailAddress> {
 
-public class EMailCustomType implements UserType {
-	
-	public Object assemble(Serializable cached, Object owner) throws HibernateException {
-		return cached;
+	@Override
+	public int getSqlType() {
+		return org.hibernate.type.SqlTypes.VARCHAR;
 	}
 
-	public Object deepCopy(Object value) throws HibernateException {
-		return value;
+	@Override
+	public Class<EmailAddress> returnedClass() {
+		return EmailAddress.class;
 	}
 
-	public Serializable disassemble(Object value) throws HibernateException {
-		return (Serializable) value;
-	}
-
-	public boolean equals(Object x, Object y) throws HibernateException {
+	@Override
+	public boolean equals(EmailAddress x, EmailAddress y) {
 		if ( x == y) return true;
 		if ( x== null || y==null) return false;
 		return x.equals(y);
 	}
 
-	public int hashCode(Object value) throws HibernateException {
-		return value.hashCode();
+	@Override
+	public int hashCode(EmailAddress x) {
+		return x.hashCode();
 	}
 
+	@Override
+	public EmailAddress nullSafeGet(ResultSet rs, int position, SharedSessionContractImplementor session, Object owner)
+			throws SQLException {
+		String stringValue = rs.getString(position);
+		if ( rs.wasNull()) {
+			return null;
+		}
+		EmailAddress email = new EmailAddress(stringValue);
+		return email;
+	}
+
+	@Override
+	public void nullSafeSet(PreparedStatement st, EmailAddress value, int index,
+			SharedSessionContractImplementor session) throws SQLException {
+		if (value == null) {
+			st.setNull(index, java.sql.Types.VARCHAR);
+		}
+		else {
+			EmailAddress email = (EmailAddress) value;
+			if (email.getAddress() == null) {
+				st.setNull(index, java.sql.Types.VARCHAR);
+			}
+			st.setString(index, email.getAddress());
+		}		
+		
+		
+	}
+
+	@Override
+	public EmailAddress deepCopy(EmailAddress value) {
+		return value;
+	}
+
+	@Override
 	public boolean isMutable() {
 		return false;
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException {
-		String stringValue = resultSet.getString(names[0]);
-		if ( resultSet.wasNull()) {
-			return null;
-		}
-		EmailAddress eMail = new EmailAddress(stringValue);
-		return eMail;
-	}
-
-	public void nullSafeSet(PreparedStatement statement, Object value, int index) throws HibernateException, SQLException {
-		if (value == null) {
-			statement.setNull(index, java.sql.Types.VARCHAR);
-		}
-		else {
-			EmailAddress eMail = (EmailAddress) value;
-			if (eMail.getAddress() == null ) {
-			    statement.setNull(index, java.sql.Types.VARCHAR);
-			} else {
-			    statement.setString(index, eMail.getAddress());    
-			}			
-		}		
-	}
-
-	public Object replace(Object original, Object target, Object owner) throws HibernateException {
-		return original;
-	}
-
-
-	@SuppressWarnings("rawtypes")
-	public Class returnedClass() {
-		return EmailAddress.class;
-	}
-
-	public int[] sqlTypes() {
-		return new int [] { java.sql.Types.VARCHAR };
+	@Override
+	public Serializable disassemble(EmailAddress value) {
+		return value;
 	}
 
 	@Override
-	public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor arg2, Object arg3)
-			throws HibernateException, SQLException {
-		return nullSafeGet(resultSet, names, arg3);
+	public EmailAddress assemble(Serializable cached, Object owner) {
+		return (EmailAddress) cached;
 	}
+	
 
-	@Override
-	public void nullSafeSet(PreparedStatement statement, Object value, int index, SharedSessionContractImplementor arg3)
-			throws HibernateException, SQLException {
-		nullSafeSet(statement, value, index);
-	}
 
 }

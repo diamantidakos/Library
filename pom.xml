@@ -28,14 +28,14 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.2.2.Final</version>
+			<version>6.3.1.Final</version>
 		</dependency>
 
 		<!-- Η2 -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.4.192</version>
+			<version>2.2.224</version>
 		</dependency>
 
 

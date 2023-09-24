@@ -1,12 +1,17 @@
 package com.mgiandia.library.domain;
 
-import com.mgiandia.library.util.Money;
-
 import java.time.LocalDate;
 
-import javax.persistence.*;
+import com.mgiandia.library.util.Money;
 
-import org.hibernate.annotations.Columns;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * Η κατηγορία δανειζομένου.
@@ -32,12 +37,11 @@ public class BorrowerCategory {
     private int maxLendingDays;
     
 
-    @org.hibernate.annotations.Type(
-            type="com.mgiandia.library.persistence.MoneyCustomType")
-    @Columns(columns = {
-            @Column(name="dailyfineamount"),
-            @Column(name="dailyfinecurrency", length=5)
-    })
+    @Embedded
+    @org.hibernate.annotations.CompositeType(
+            value=com.mgiandia.library.persistence.MoneyCustomType.class)
+    @AttributeOverride(name = "amount", column = @Column(name = "dailyfineamount"))
+	@AttributeOverride(name = "currency", column = @Column(name = "dailyfinecurrency"))
     private Money dailyFine;
 
     /**

@@ -2,8 +2,8 @@ package com.mgiandia.library.service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 import com.mgiandia.library.LibraryException;
 import com.mgiandia.library.contacts.EmailAddress;

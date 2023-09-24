@@ -1,9 +1,9 @@
 package com.mgiandia.library.ui.loan;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 
 import com.mgiandia.library.domain.Loan;
 import com.mgiandia.library.persistence.JPAUtil;
