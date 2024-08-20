@@ -5,17 +5,17 @@
 	<artifactId>library</artifactId>
 	<version>2.0.0-SNAPSHOT</version>
 	<properties>
-		<compiler-plugin.version>3.8.1</compiler-plugin.version>
-		<maven.compiler.release>11</maven.compiler.release>
+		<compiler-plugin.version>3.12.1</compiler-plugin.version>
+		<maven.compiler.release>17</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
 		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-		<quarkus.platform.version>3.3.3</quarkus.platform.version>
+		<quarkus.platform.version>3.13.2</quarkus.platform.version>
 		<mapstruct.version>1.5.2.Final</mapstruct.version>
 		<jacoco.version>0.8.8</jacoco.version>
 		<skipITs>true</skipITs>
-		<surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+		<surefire-plugin.version>3.2.3</surefire-plugin.version>
 		<!-- automatically run annotation processors within the incremental compilation -->
 		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
 	</properties>
@@ -265,7 +265,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.1.1</version>
+				<version>3.4.0</version>
 				<reportSets>
 					<reportSet>
 						<reports>
@@ -303,7 +303,8 @@
 			</activation>
 			<properties>
 				<skipITs>false</skipITs>
-				<quarkus.package.type>native</quarkus.package.type>
+				<quarkus.native.enabled>true</quarkus.native.enabled>
+				<quarkus.package.jar.enabled>false</quarkus.package.jar.enabled>
 			</properties>
 		</profile>
 	</profiles>
