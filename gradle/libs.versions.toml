@@ -10,8 +10,24 @@ constraintlayout = "2.1.4"
 fragment = "1.8.4"
 recyclerview = "1.3.2"
 lifecycle = "2.8.6"
+# compose dependency versions
+compose = "2024.09.03"
+activity-compose = "1.9.2"
+viewmodel-compose = "2.8.5"
+# added by compose activity
+kotlin = "2.0.0"
+lifecycleRuntimeKtx = "2.8.6"
 
 [libraries]
+androidx-compose-bom = { group= "androidx.compose", name = "compose-bom", version.ref = "compose"}
+compose-material = { group = "androidx.compose.material", name = "material" }
+ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
+viewmodel-compose = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "viewmodel-compose"}
+# Dependencies of the original (non compose app)
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -24,6 +40,15 @@ fragment = { group = "androidx.fragment", name = "fragment", version.ref = "frag
 fragment-compose = { group = "androidx.fragment", name = "fragment-compose", version.ref = "fragment" }
 lifecycle-viewmodel = {group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle"}
 
+# added by compose activity
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+# added by compose activity
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 

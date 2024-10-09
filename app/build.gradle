@@ -1,5 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
+    // added by compose activity
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 
@@ -31,12 +34,36 @@ android {
         viewBinding true
         compose true
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
 }
 
 dependencies {
 
+    // Added libraries that might be useful for the migration to Compose
+    implementation platform(libs.androidx.compose.bom)
+    implementation libs.androidx.lifecycle.runtime.ktx
+    implementation libs.androidx.ui
+    implementation libs.androidx.ui.graphics
+    implementation libs.androidx.material3
+    androidTestImplementation platform(libs.androidx.compose.bom)
 
+    // Material 2 support for compose
+    implementation libs.compose.material
+    // Android Studio Preview support
+    implementation libs.ui.tooling.preview
+    debugImplementation libs.ui.tooling
+    // UI Tests
+    androidTestImplementation libs.ui.test.junit4
+    debugImplementation libs.ui.test.manifest
+    // Optional - Integration with activities
+    implementation libs.activity.compose
+    // Optional - Integration with ViewModels
+    implementation libs.viewmodel.compose
+
+    // Dependencies of the original app
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
@@ -49,6 +76,11 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+
+
+
+
 
     //implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //implementation 'androidx.recyclerview:recyclerview:1.2.1'
