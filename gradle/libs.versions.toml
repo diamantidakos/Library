@@ -11,6 +11,10 @@ fragment = "1.8.4"
 recyclerview = "1.3.2"
 lifecycle = "2.8.6"
 
+kotlin = "2.0.0"
+activityCompose = "1.9.2"
+composeBom = "2024.04.01"
+
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -24,6 +28,15 @@ fragment = { group = "androidx.fragment", name = "fragment", version.ref = "frag
 fragment-compose = { group = "androidx.fragment", name = "fragment-compose", version.ref = "fragment" }
 lifecycle-viewmodel = {group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle"}
 
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
