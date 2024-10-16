@@ -83,4 +83,5 @@
 
     <string name="show_copies">Αντίτυπα</string>
     <string name="title_activity_compose">ComposeActivity</string>
+    <string name="title_activity_empty">EmptyActivity</string>
 </resources>

@@ -8,8 +8,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LibraryTheme">
         <activity
+            android:name=".view.EmptyActivity"
+            android:exported="true"
+            android:label="@string/title_activity_empty"
+            android:theme="@style/Theme.LibraryTheme"/>
+        <activity
             android:name=".view.ComposeActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_compose"
             android:theme="@style/Theme.LibraryTheme" />
         <activity

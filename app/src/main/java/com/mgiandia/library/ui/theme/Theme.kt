@@ -1,4 +1,4 @@
-package com.mgiandia.library.view.ui.theme
+package com.mgiandia.library.ui.theme
 
 import android.app.Activity
 import android.os.Build
