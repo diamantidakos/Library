@@ -1,12 +1,15 @@
 <resources>
+
+    <style name="Theme.LibraryTheme" parent="Theme.AppCompat.Light.DarkActionBar" />
     <!-- Base application theme. -->
+    <!--
     <style name="SecondaryTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/topBar</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorButtonNormal">@color/colorPrimary</item>
-        <!--make text selector black <item name="colorControlActivated">@color/colorPrimaryDark</item>-->
+
 
         <item name="colorControlNormal">@color/colorWhite</item>
         <item name="actionButtonStyle">@color/colorWhite</item>
@@ -26,4 +29,5 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    -->
 </resources>

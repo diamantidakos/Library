@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.android)
 }
 
 
@@ -32,6 +33,9 @@ android {
         viewBinding true
         compose true
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
 }
 
@@ -53,12 +57,16 @@ dependencies {
     implementation libs.androidx.ui.graphics
     implementation libs.androidx.ui.tooling.preview
     implementation libs.androidx.material3
+    implementation libs.androidx.lifecycle.runtime.ktx
+    androidTestImplementation platform(libs.androidx.compose.bom)
+    androidTestImplementation libs.androidx.ui.test.junit4
     debugImplementation libs.androidx.ui.tooling
     //debugImplementation libs.androidx.ui.test.manifest
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    debugImplementation libs.androidx.ui.test.manifest
 
     //implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //implementation 'androidx.recyclerview:recyclerview:1.2.1'

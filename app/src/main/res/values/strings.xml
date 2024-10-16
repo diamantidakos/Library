@@ -82,4 +82,5 @@
     <string name="add_edit_book_label">Εγγραφή Βιβλίου</string>
 
     <string name="show_copies">Αντίτυπα</string>
+    <string name="title_activity_compose">ComposeActivity</string>
 </resources>

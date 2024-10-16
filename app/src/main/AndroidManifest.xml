@@ -6,21 +6,26 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/SecondaryTheme">
+        android:theme="@style/Theme.LibraryTheme">
+        <activity
+            android:name=".view.ComposeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_compose"
+            android:theme="@style/Theme.LibraryTheme" />
         <activity
             android:name=".view.reservation.BookReservationActivity"
             android:exported="true"
-            android:label="Κράτηση βιβλίου"/>
+            android:label="Κράτηση βιβλίου" />
         <activity
             android:name=".view.Book.Search.BookSearchActivity"
             android:exported="true"
-            android:label="Αναζήτηση βιβλίου"/>
+            android:label="Αναζήτηση βιβλίου" />
         <activity
             android:name=".view.HomePage.HomePageActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,97 +37,97 @@
             android:name=".view.Borrower.ManageBorrowers.ManageBorrowersActivity"
             android:label="@string/manage_borrowers"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Borrower.BorrowerDetails.BorrowerDetailsActivity"
             android:label="@string/borrower_details"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Borrower.AddEditBorrower.AddEditBorrowerActivity"
             android:label="@string/borrower_add"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Book.ManageBooks.ManageBooksActivity"
             android:label="@string/manage_books"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Author.ManageAuthors.ManageAuthorsActivity"
             android:label="@string/manage_authors"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Author.AddEditAuthor.AddEditAuthorActivity"
             android:label="@string/author_add"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Publisher.ManagePublishers.ManagePublishersActivity"
             android:label="@string/manage_publishers"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Publisher.AddPublisher.AddEditPublisherActivity"
             android:label="@string/publisher_add"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Publisher.PublisherDetails.PublisherDetailsActivity"
             android:label=""
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Author.AuthorDetails.AuthorDetailsActivity"
             android:label=""
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Book.AddEditBook.AddEditBookActivity"
             android:label="@string/add_edit_book_label"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Book.BookDetails.BookDetailsActivity"
             android:label="@string/s_book_details"
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Items.ManageItems.ManageItemsActivity"
             android:label=""
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Returns.ManageReturns.ManageReturnsActivity"
             android:label=""
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Loans.ManageLoans.ManageLoansActivity"
             android:label=""
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".view.Loans.AddLoan.AddLoansActivity"
             android:label=""
             android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
+            android:theme="@style/Theme.LibraryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
