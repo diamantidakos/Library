@@ -4,10 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.MemoryInitializer;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.view.Author.ManageAuthors.ManageAuthorsActivity;
 import com.mgiandia.library.view.Book.ManageBooks.ManageBooksActivity;
 import com.mgiandia.library.view.Borrower.ManageBorrowers.ManageBorrowersActivity;
@@ -32,10 +38,26 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_home_page_compose);
 
         final HomePagePresenter presenter = new HomePagePresenter(this);
 
+        EdgeToEdge.enable(this);
+        // load a simple layout with a compose view
+        setContentView(R.layout.activity_empty);
+        // find the compose view object
+        ComposeView composeView = findViewById(R.id.compose_view);
+        // set the appropriate composable as content
+        ActivitiesKt.showHomePageView(composeView);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        // TODO: pass message handlers as parameter to ActivitiesKt.showHomePageActivity
+        /*
         findViewById(R.id.manage_borrowers_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 presenter.onManageBorrowers();
@@ -82,7 +104,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
         {
             new MemoryInitializer().prepareData();
             initialized = true;
-        }
+        }*/
     }
 
     /**
