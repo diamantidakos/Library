@@ -15,7 +15,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,13 +30,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
 import com.mgiandia.library.ui.theme.LibraryTheme
 
-class HomePageActivity  : ComponentActivity()
-{
+class HomePageActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -44,7 +46,8 @@ class HomePageActivity  : ComponentActivity()
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Color.DarkGray))
+                            .background(Color.DarkGray)
+                    )
 
                     drawHomePage(modifier = Modifier.padding(innerPadding))
                 }
@@ -55,13 +58,17 @@ class HomePageActivity  : ComponentActivity()
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun drawHomePage(modifier: Modifier = Modifier)
-{
-    Column(modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally)
+fun drawHomePage(modifier: Modifier = Modifier) {
+    Column(
+        modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    )
     {
         displayLibraryIcon()
-        welcomeText("Καλωσορίσατε στη Βιβλιοθήκη μας!")
+        welcomeText(stringResource(R.string.welcome_message))
         displayButton("Δανειζόμενοι")
+
 
         Row()
         {
@@ -118,20 +125,21 @@ fun drawHomePage(modifier: Modifier = Modifier)
 }
 
 @Composable
-fun displayLibraryIcon()
-{
-    Image(painter = painterResource(id = R.drawable.ic_bookshelf), contentDescription = "library icon", modifier = Modifier.fillMaxWidth(), contentScale = ContentScale.FillWidth)
+fun displayLibraryIcon() {
+    Image(
+        painter = painterResource(id = R.drawable.ic_bookshelf),
+        contentDescription = "library icon",
+        modifier = Modifier.width(167.dp).height(124.dp)
+    )
 }
 
 @Composable
-fun welcomeText(txt: String)
-{
+fun welcomeText(txt: String) {
     Text(txt, fontSize = 20.sp)
 }
 
 @Composable
-fun displayButton(txt: String)
-{
+fun displayButton(txt: String) {
     Button(
         onClick = {
             //I will continue...
@@ -139,7 +147,10 @@ fun displayButton(txt: String)
         modifier = Modifier.padding(16.dp),
         enabled = true,
         shape = RoundedCornerShape(12.dp),
-        colors = ButtonDefaults.buttonColors(contentColor = Color.Green, containerColor = Color.DarkGray),
+        colors = ButtonDefaults.buttonColors(
+            contentColor = Color.Green,
+            containerColor = Color.DarkGray
+        ),
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 10.dp),
         border = BorderStroke(width = 2.dp, brush = SolidColor(Color.Green)),
         contentPadding = PaddingValues(start = 20.dp, top = 12.dp, end = 20.dp, bottom = 12.dp)
