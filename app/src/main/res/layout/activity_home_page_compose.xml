@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:background="@color/colorDarkBG"
     android:fillViewport="true"
-    tools:context=".view.HomePageActivity">
+    tools:context=".view.HomePage.HomePageActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
