@@ -10,7 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import com.mgiandia.library.ui.theme.LibraryTheme
 
-fun showEmptyView(composeView: ComposeView){
+fun showEmptyView(composeView: ComposeView)
+{
     composeView.apply {
         setContent {
             Greeting("Hello world")
@@ -18,17 +19,14 @@ fun showEmptyView(composeView: ComposeView){
     }
 }
 
-fun showHomePageView(composeView: ComposeView){
+fun showHomePageView(composeView: ComposeView)
+{
     composeView.apply {
         setContent {
             // TODO: Reuse the code involving LibraryTheme, Scaffold etc
             LibraryTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(Color.DarkGray)
-                    )
+                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
 
                     drawHomePage(modifier = Modifier.padding(innerPadding))
                 }
