@@ -1,20 +1,18 @@
 package com.mgiandia.library.ui.composable
 
+import android.content.DialogInterface.OnClickListener
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -27,8 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -67,25 +63,24 @@ fun drawHomePage(modifier: Modifier = Modifier) {
     {
         displayLibraryIcon()
         welcomeText(stringResource(R.string.welcome_message))
-        displayButton("Δανειζόμενοι")
-
+        displayButton(stringResource(R.string.manage_borrowers), 50, 400)
 
         Row()
         {
-            displayButton("Βιβλία")
-            displayButton("Αντίτυπα")
+            displayButton(stringResource(R.string.manage_books), 50, 200)
+            displayButton(stringResource(R.string.manage_items), 50, 200)
         }
 
         Row()
         {
-            displayButton("Δάνεια")
-            displayButton("Επιστροφές")
+            displayButton(stringResource(R.string.manage_loans), 50, 200)
+            displayButton(stringResource(R.string.manage_returns), 50, 200)
         }
 
         Row()
         {
-            displayButton("Συγγραφείς")
-            displayButton("Εκδοτικοί Οίκοι")
+            displayButton(stringResource(R.string.manage_authors), 50, 200)
+            displayButton(stringResource(R.string.manage_publishers), 50, 200)
         }
 
         /*
@@ -139,24 +134,17 @@ fun welcomeText(txt: String) {
 }
 
 @Composable
-fun displayButton(txt: String) {
+fun displayButton(txt: String, height : Int, width: Int /*, onClickListener: OnClickListener*/) {
     Button(
         onClick = {
-            //I will continue...
+            //onClickListener
         },
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
-        shape = RoundedCornerShape(12.dp),
-        colors = ButtonDefaults.buttonColors(
-            contentColor = Color.Green,
-            containerColor = Color.DarkGray
-        ),
-        elevation = ButtonDefaults.buttonElevation(defaultElevation = 10.dp),
-        border = BorderStroke(width = 2.dp, brush = SolidColor(Color.Green)),
-        contentPadding = PaddingValues(start = 20.dp, top = 12.dp, end = 20.dp, bottom = 12.dp)
-        //interactionSource = remember { MutableInteractionSource() }
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = txt, fontSize = 16.sp)
+        Text(text = txt, fontSize = 16.sp, color = Color.White)
     }
 }
