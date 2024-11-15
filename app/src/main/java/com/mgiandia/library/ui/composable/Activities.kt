@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import com.mgiandia.library.ui.theme.LibraryTheme
+import com.mgiandia.library.view.HomePage.HomePageViewModel
 
 fun showEmptyView(composeView: ComposeView)
 {
@@ -19,7 +20,7 @@ fun showEmptyView(composeView: ComposeView)
     }
 }
 
-fun showHomePageView(composeView: ComposeView)
+fun showHomePageView(composeView: ComposeView, viewModel: HomePageViewModel)
 {
     composeView.apply {
         setContent {
@@ -28,7 +29,7 @@ fun showHomePageView(composeView: ComposeView)
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
 
-                    drawHomePage(modifier = Modifier.padding(innerPadding))
+                    drawHomePage(modifier = Modifier.padding(innerPadding), viewModel)
                 }
             }
         }

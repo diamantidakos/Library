@@ -1,14 +1,8 @@
 package com.mgiandia.library.ui.composable
 
-import android.content.DialogInterface.OnClickListener
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
@@ -19,7 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,31 +23,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
-import com.mgiandia.library.ui.theme.LibraryTheme
-
-class HomePageActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            LibraryTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(Color.DarkGray)
-                    )
-
-                    drawHomePage(modifier = Modifier.padding(innerPadding))
-                }
-            }
-        }
-    }
-}
+import com.mgiandia.library.view.HomePage.HomePageViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun drawHomePage(modifier: Modifier = Modifier) {
+fun drawHomePage(modifier: Modifier = Modifier, viewModel: HomePageViewModel) {
     Column(
         modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -63,24 +36,24 @@ fun drawHomePage(modifier: Modifier = Modifier) {
     {
         displayLibraryIcon()
         welcomeText(stringResource(R.string.welcome_message))
-        displayButton(stringResource(R.string.manage_borrowers), 50, 400)
+        displayButton(R.string.manage_borrowers, 50, 400, viewModel)
 
         Row()
         {
-            displayButton(stringResource(R.string.manage_books), 50, 200)
-            displayButton(stringResource(R.string.manage_items), 50, 200)
+            displayButton(R.string.manage_books, 50, 200, viewModel)
+            displayButton(R.string.manage_items, 50, 200, viewModel)
         }
 
         Row()
         {
-            displayButton(stringResource(R.string.manage_loans), 50, 200)
-            displayButton(stringResource(R.string.manage_returns), 50, 200)
+            displayButton(R.string.manage_loans, 50, 200, viewModel)
+            displayButton(R.string.manage_returns, 50, 200, viewModel)
         }
 
         Row()
         {
-            displayButton(stringResource(R.string.manage_authors), 50, 200)
-            displayButton(stringResource(R.string.manage_publishers), 50, 200)
+            displayButton(R.string.manage_authors, 50, 200, viewModel)
+            displayButton(R.string.manage_publishers, 50, 200, viewModel)
         }
 
         /*
@@ -134,10 +107,10 @@ fun welcomeText(txt: String) {
 }
 
 @Composable
-fun displayButton(txt: String, height : Int, width: Int /*, onClickListener: OnClickListener*/) {
+fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: HomePageViewModel) {
     Button(
         onClick = {
-            //onClickListener
+            viewModel.buttonClicked(textResId)
         },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
@@ -145,6 +118,6 @@ fun displayButton(txt: String, height : Int, width: Int /*, onClickListener: OnC
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = txt, fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
     }
 }
