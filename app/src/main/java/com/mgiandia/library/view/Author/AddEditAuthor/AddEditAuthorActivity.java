@@ -6,10 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.HomePage.HomePagePresenter;
+import com.mgiandia.library.view.HomePage.HomePageViewModel;
 
 /**
  * @author Νίκος Σαραντινός
@@ -111,6 +118,19 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_add_edit_author);
+
+        final AddEditAuthorPresenter presenter = new AddEditAuthorPresenter(this, new AuthorDAOMemory());
+        AddEditAuthorViewModel model = new ViewModelProvider(this).get(AddEditAuthorViewModel.class);
+
+        // find the compose view object
+        ComposeView composeView = findViewById(R.id.compose_view);
+        // set the appropriate composable as content
+        ActivitiesKt.showAddEditAuthorView(composeView, model);
+
+        /*
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_author);
         final AddEditAuthorPresenter presenter = new AddEditAuthorPresenter(this, new AuthorDAOMemory());
 
@@ -120,5 +140,6 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
                 presenter.onSaveAuthor();
             }
         });
+        */
     }
 }

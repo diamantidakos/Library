@@ -9,6 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import com.mgiandia.library.ui.theme.LibraryTheme
+import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorView
+import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
+import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
 import com.mgiandia.library.view.HomePage.HomePageViewModel
 
 fun showEmptyView(composeView: ComposeView)
@@ -30,6 +33,36 @@ fun showHomePageView(composeView: ComposeView, viewModel: HomePageViewModel)
                     Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
 
                     drawHomePage(modifier = Modifier.padding(innerPadding), viewModel)
+                }
+            }
+        }
+    }
+}
+
+fun drawEditBookPage(composeView: ComposeView, viewModel: AddEditBookViewModel)
+{
+    composeView.apply {
+        setContent {
+            LibraryTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
+
+                    drawEditBookPage(modifier = Modifier.padding(innerPadding), viewModel)
+                }
+            }
+        }
+    }
+}
+
+fun showAddEditAuthorView(composeView: ComposeView, viewModel: AddEditAuthorViewModel)
+{
+    composeView.apply {
+        setContent {
+            LibraryTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
+
+                    drawAddEditAuthorPage(modifier = Modifier.padding(innerPadding), viewModel)
                 }
             }
         }

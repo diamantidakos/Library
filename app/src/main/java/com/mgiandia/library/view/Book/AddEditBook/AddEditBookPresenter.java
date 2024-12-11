@@ -47,6 +47,11 @@ public class AddEditBookPresenter {
         return true;
     }
 
+    public AddEditBookPresenter(AddEditBookView view)
+    {
+        this.view = view;
+    }
+
     /**
      * Αρχικοποεί τον Presenter έτσι ώστε
      * αργότερα να προσθέσει ή να τροποποιήσει.

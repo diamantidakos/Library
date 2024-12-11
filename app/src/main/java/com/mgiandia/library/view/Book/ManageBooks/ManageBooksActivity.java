@@ -21,6 +21,7 @@ import com.mgiandia.library.memorydao.PublisherDAOMemory;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
 import com.mgiandia.library.view.Book.BookDetails.BookDetailsActivity;
+import com.mgiandia.library.view.HomePage.HomePageActivity;
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsActivity;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
@@ -67,6 +68,9 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
             @Override
             public void onClick(View view)
             {
+                //Intent intent = new Intent(ManageBooksActivity.this, AddEditBookActivity.class);
+                //startActivity(intent);
+
                 presenter.onStartAddNew();
             }
         });

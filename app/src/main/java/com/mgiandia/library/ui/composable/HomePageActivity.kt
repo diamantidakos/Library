@@ -23,6 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
+import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
+import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
 import com.mgiandia.library.view.HomePage.HomePageViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -107,7 +109,42 @@ fun welcomeText(txt: String) {
 }
 
 @Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: HomePageViewModel) {
+fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: HomePageViewModel)
+{
+    Button(
+        onClick = {
+            viewModel.buttonClicked(textResId)
+        },
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
+    )
+    {
+        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+    }
+}
+
+@Composable
+fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditBookViewModel) // mporw kai sthn antistoixh kt klash
+{
+    Button(
+        onClick = {
+            viewModel.buttonClicked(textResId)
+        },
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
+    )
+    {
+        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+    }
+}
+
+@Composable
+fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditAuthorViewModel) // mporw kai sthn antistoixh kt klash
+{
     Button(
         onClick = {
             viewModel.buttonClicked(textResId)
