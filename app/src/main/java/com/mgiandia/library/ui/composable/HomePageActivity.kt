@@ -104,7 +104,8 @@ fun displayLibraryIcon() {
 }
 
 @Composable
-fun welcomeText(txt: String) {
+fun welcomeText(txt: String)
+{
     Text(txt, fontSize = 20.sp)
 }
 
@@ -146,9 +147,7 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
 fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditAuthorViewModel) // mporw kai sthn antistoixh kt klash
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),

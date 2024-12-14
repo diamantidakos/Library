@@ -3,10 +3,6 @@ package com.mgiandia.library.view.Book.AddEditBook;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,19 +13,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.ArrayList;
+import com.mgiandia.library.R;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
+
 import java.util.Collections;
 import java.util.List;
-
-import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.AuthorDAOMemory;
-import com.mgiandia.library.memorydao.BookDAOMemory;
-import com.mgiandia.library.memorydao.ItemDAOMemory;
-import com.mgiandia.library.memorydao.PublisherDAOMemory;
-import com.mgiandia.library.ui.composable.ActivitiesKt;
-import com.mgiandia.library.view.HomePage.HomePagePresenter;
-import com.mgiandia.library.view.HomePage.HomePageViewModel;
-import com.mgiandia.library.view.Util.MultiSelectSpinner;
 
 /**
  * @author Νίκος Σαραντινός
