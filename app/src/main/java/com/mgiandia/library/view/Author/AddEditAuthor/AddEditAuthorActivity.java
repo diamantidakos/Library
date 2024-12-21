@@ -1,15 +1,15 @@
 package com.mgiandia.library.view.Author.AddEditAuthor;
 
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 
 /**
  * @author Νίκος Σαραντινός
@@ -20,87 +20,127 @@ import com.mgiandia.library.memorydao.AuthorDAOMemory;
 
 public class AddEditAuthorActivity extends AppCompatActivity implements AddEditAuthorView
 {
-    /**
-     * Εμφανίζει ενα μήνυμα τύπου alert με
-     * τίτλο title και μήνυμα message.
-     * @param title Ο τίτλος του μηνύματος
-     * @param message Το περιεχόμενο του μηνύματος
-     */
-    public void showErrorMessage(String title, String message)
-    {
-        new AlertDialog.Builder(AddEditAuthorActivity.this)
-        .setCancelable(true)
-        .setTitle(title)
-        .setMessage(message)
-        .setPositiveButton(R.string.ok, null).create().show();
+    @Override
+    public String getFirstName() {
+        return "";
     }
 
-    /**
-     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
-     * επιτυχώς ένα activity.
-     * @param message Το μήνυμα που θα εμφανίσει
-     */
-    public void successfullyFinishActivity(String message)
-    {
-        Intent retData = new Intent();
-        retData.putExtra("message_to_toast", message);
-        setResult(RESULT_OK, retData);
-        finish();
+    @Override
+    public String getLastName() {
+        return "";
     }
 
-    /**
-     * Επιστρέφει το πρώτο όνομα του συγγραφέα.
-     * @return Το πρώτο όνομα του συγγραφέα
-     */
-    public String getFirstName()
-    {
-        return ((EditText)findViewById(R.id.edit_text_first_name)).getText().toString().trim();
+    @Override
+    public Integer getAttachedAuthorID() {
+        return 0;
     }
 
-    /**
-     * Επιστρέφει το επώνυμο του συγγραφέα.
-     * @return Το επώνυμο του συγγραφέα
-     */
-    public String getLastName()
-    {
-        return ((EditText)findViewById(R.id.edit_text_last_name)).getText().toString().trim();
+    @Override
+    public void setFirstName(String value) {
+
     }
 
-    /**
-     * Επιστρέφει το id του συγγραφέα.
-     * @return Το id του συγγραφέα
-     */
-    public Integer getAttachedAuthorID()
-    {
-        return this.getIntent().hasExtra("author_id") ? this.getIntent().getExtras().getInt("author_id") : null;
+    @Override
+    public void setLastName(String value) {
+
     }
 
-    /**
-     * Θέτει το πρώτο όνομα του συγγραφέα.
-     * @param value Το πρώτο όνομα του συγγραφέα
-     */
-    public void setFirstName(String value)
-    {
-        ((EditText)findViewById(R.id.edit_text_first_name)).setText(value);
+    @Override
+    public void setPageName(String value) {
+
     }
 
-    /**
-     * Θέτει το επώνυμο του συγγραφέα.
-     * @param value Το επώνυμο του συγγραφέα
-     */
-    public void setLastName(String value)
-    {
-        ((EditText)findViewById(R.id.edit_text_last_name)).setText(value);
+    @Override
+    public void successfullyFinishActivity(String message) {
+
     }
 
-    /**
-     * Θέτει το όνομα της σελίδας.
-     * @param value το όνομα της σελίδας
-     */
-    public void setPageName(String value)
-    {
-        getSupportActionBar().setTitle(value);
+    @Override
+    public void showErrorMessage(String title, String message) {
+
     }
+
+//    /**
+//     * Εμφανίζει ενα μήνυμα τύπου alert με
+//     * τίτλο title και μήνυμα message.
+//     * @param title Ο τίτλος του μηνύματος
+//     * @param message Το περιεχόμενο του μηνύματος
+//     */
+//    public void showErrorMessage(String title, String message)
+//    {
+//        new AlertDialog.Builder(AddEditAuthorActivity.this)
+//        .setCancelable(true)
+//        .setTitle(title)
+//        .setMessage(message)
+//        .setPositiveButton(R.string.ok, null).create().show();
+//    }
+//
+//    /**
+//     * Το μήνυμα πoυ εμφανίζεται όταν τελειώνει
+//     * επιτυχώς ένα activity.
+//     * @param message Το μήνυμα που θα εμφανίσει
+//     */
+//    public void successfullyFinishActivity(String message)
+//    {
+//        Intent retData = new Intent();
+//        retData.putExtra("message_to_toast", message);
+//        setResult(RESULT_OK, retData);
+//        finish();
+//    }
+//
+//    /**
+//     * Επιστρέφει το πρώτο όνομα του συγγραφέα.
+//     * @return Το πρώτο όνομα του συγγραφέα
+//     */
+//    public String getFirstName()
+//    {
+//        return ((EditText)findViewById(R.id.edit_text_first_name)).getText().toString().trim();
+//    }
+//
+//    /**
+//     * Επιστρέφει το επώνυμο του συγγραφέα.
+//     * @return Το επώνυμο του συγγραφέα
+//     */
+//    public String getLastName()
+//    {
+//        return ((EditText)findViewById(R.id.edit_text_last_name)).getText().toString().trim();
+//    }
+//
+//    /**
+//     * Επιστρέφει το id του συγγραφέα.
+//     * @return Το id του συγγραφέα
+//     */
+//    public Integer getAttachedAuthorID()
+//    {
+//        return this.getIntent().hasExtra("author_id") ? this.getIntent().getExtras().getInt("author_id") : null;
+//    }
+//
+//    /**
+//     * Θέτει το πρώτο όνομα του συγγραφέα.
+//     * @param value Το πρώτο όνομα του συγγραφέα
+//     */
+//    public void setFirstName(String value)
+//    {
+//        ((EditText)findViewById(R.id.edit_text_first_name)).setText(value);
+//    }
+//
+//    /**
+//     * Θέτει το επώνυμο του συγγραφέα.
+//     * @param value Το επώνυμο του συγγραφέα
+//     */
+//    public void setLastName(String value)
+//    {
+//        ((EditText)findViewById(R.id.edit_text_last_name)).setText(value);
+//    }
+//
+//    /**
+//     * Θέτει το όνομα της σελίδας.
+//     * @param value το όνομα της σελίδας
+//     */
+//    public void setPageName(String value)
+//    {
+//        getSupportActionBar().setTitle(value);
+//    }
 
     /**
      * Δημιουργεί to layout και αρχικοποιεί
@@ -111,6 +151,19 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_add_edit_author);
+
+        final AddEditAuthorPresenter presenter = new AddEditAuthorPresenter(this, new AuthorDAOMemory());
+        AddEditAuthorViewModel model = new ViewModelProvider(this).get(AddEditAuthorViewModel.class);
+
+        // find the compose view object
+        ComposeView composeView = findViewById(R.id.compose_view);
+        // set the appropriate composable as content
+        ActivitiesKt.showAddEditAuthorView(composeView, model);
+
+        /*
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_author);
         final AddEditAuthorPresenter presenter = new AddEditAuthorPresenter(this, new AuthorDAOMemory());
 
@@ -120,5 +173,6 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
                 presenter.onSaveAuthor();
             }
         });
+        */
     }
 }
