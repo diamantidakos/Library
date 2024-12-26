@@ -27,8 +27,8 @@ import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
 @Composable
 fun drawAddEditAuthorPage(modifier: Modifier = Modifier, viewModel: AddEditAuthorViewModel)
 {
-    var text by remember { mutableStateOf("") }
-    var txt by remember { mutableStateOf("") }
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
 
     Column(modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.Top), horizontalAlignment = Alignment.CenterHorizontally)
     {
@@ -37,13 +37,13 @@ fun drawAddEditAuthorPage(modifier: Modifier = Modifier, viewModel: AddEditAutho
         Row()
         {
             welcomeText(stringResource(R.string.first_name))
-            OutlinedTextField(value = text, onValueChange = { text = it }, label = { Text(stringResource(R.string.first_name), style = TextStyle(fontSize = 12.sp)) }, textStyle = TextStyle(fontSize = 15.sp), modifier = Modifier.height(58.dp).padding(vertical = 0.dp))
+            OutlinedTextField(value = firstName, onValueChange = { firstName = it; viewModel.setFirstName(it) }, label = { Text(stringResource(R.string.first_name), style = TextStyle(fontSize = 12.sp)) }, textStyle = TextStyle(fontSize = 15.sp), modifier = Modifier.height(58.dp).padding(vertical = 0.dp))
         }
 
         Row()
         {
             welcomeText(stringResource(R.string.last_name))
-            OutlinedTextField(value = txt, onValueChange = { txt = it }, label = { Text(stringResource(R.string.last_name), style = TextStyle(fontSize = 12.sp)) }, textStyle = TextStyle(fontSize = 15.sp), modifier = Modifier.height(58.dp).padding(vertical = 0.dp))
+            OutlinedTextField(value = lastName, onValueChange = { lastName = it; viewModel.setLastName(it) }, label = { Text(stringResource(R.string.last_name), style = TextStyle(fontSize = 12.sp)) }, textStyle = TextStyle(fontSize = 15.sp), modifier = Modifier.height(58.dp).padding(vertical = 0.dp))
         }
 
         displayButton(R.string.complete_registration, 50, 200, viewModel)

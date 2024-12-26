@@ -25,5 +25,4 @@ public interface ButtonClicked {
     default void observeClicks(LifecycleOwner ctx, Observer<Integer> clickObserver){
         clickedButton.observe(ctx, clickObserver);
     }
-
 }

@@ -4,6 +4,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.mgiandia.library.ui.model.ButtonClicked;
 
-public class HomePageViewModel extends ViewModel implements ButtonClicked {
-
+public class HomePageViewModel extends ViewModel implements ButtonClicked
+{
 }
