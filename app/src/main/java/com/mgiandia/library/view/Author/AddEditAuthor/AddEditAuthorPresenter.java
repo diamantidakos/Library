@@ -10,8 +10,8 @@ import com.mgiandia.library.domain.Author;
  *
  */
 
-public class AddEditAuthorPresenter {
-
+public class AddEditAuthorPresenter
+{
     private AddEditAuthorView view;
     private AuthorDAO authors;
     Author attachedAuthor;
@@ -23,14 +23,15 @@ public class AddEditAuthorPresenter {
      * @param view Ένα instance του view
      * @param authors Ένα instance του author
      */
-    public AddEditAuthorPresenter(AddEditAuthorView view, AuthorDAO authors) {
+    public AddEditAuthorPresenter(AddEditAuthorView view, AuthorDAO authors)
+    {
         this.view = view;
         this.authors = authors;
 
         Integer attachedAuthorID = view.getAttachedAuthorID();
         attachedAuthor = attachedAuthorID == null ? null : authors.find(attachedAuthorID);
 
-        if(attachedAuthor != null)//edit mode
+        if(attachedAuthor != null) //edit mode
         {
             view.setPageName("Συγγραφέας #" + attachedAuthor.getId());
             view.setFirstName(attachedAuthor.getFirstName());

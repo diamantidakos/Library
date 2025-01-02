@@ -3,6 +3,8 @@ package com.mgiandia.library.view.Book.AddEditBook;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.mgiandia.library.R;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,10 +28,17 @@ import java.util.List;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
-//public class AddEditBookActivity extends AppCompatActivity
 public class AddEditBookActivity extends AppCompatActivity implements AddEditBookView
 {
+    AddEditBookViewModel model;
+    final String[] bookTitle = new String[1];
+    final String[] publisher = new String[1];
+    final String[] ISBN = new String[1];
+    final String[] publication = new String[1];
+    final String[] publicationYear = new String[1];
+    final ArrayList<String>[] authors = new ArrayList[1];
+    List<Integer> authorsIndexes = new ArrayList<Integer>();
+
     /**
      * Εμφανίζει ένα μήνυμα τύπου alert με
      * τίτλο title και μήνυμα message.
@@ -45,64 +55,110 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     }
 
     @Override
-    public String getBookTitle() {
-        return "";
+    public void setBookTitle(String value)
+    {
+        bookTitle[0] = value;
     }
 
     @Override
-    public Integer getPublisherPosition() {
+    public String getBookTitle()
+    {
+        return bookTitle.length > 0 ? bookTitle[0] : null;
+    }
+
+    @Override
+    public void setPublisher(String value)
+    {
+        publisher[0] = value;
+    }
+
+    @Override
+    public String getPublisher()
+    {
+        return publisher.length > 0 ? publisher[0] : null;
+    }
+
+    @Override
+    public void setISBN(String value)
+    {
+        ISBN[0] = value;
+    }
+
+    @Override
+    public String getISBN()
+    {
+        return ISBN.length > 0 ? ISBN[0] : null;
+    }
+
+    @Override
+    public void setPublication(String value)
+    {
+        publication[0] = value;
+    }
+
+    @Override
+    public String getPublication()
+    {
+        return publication.length > 0 ? publication[0] : null;
+    }
+
+    @Override
+    public void setYear(String value)
+    {
+        publicationYear[0] = value;
+    }
+
+    @Override
+    public String getYear()
+    {
+        return publicationYear.length > 0 ? publicationYear[0] : null;
+    }
+
+    @Override
+    public void setAuthorList(List<String> names)
+    {
+        authors[0] = (ArrayList<String>) names;
+    }
+
+    @Override
+    public void setPublisherList(List<String> names, String defaultName)
+    {
+    }
+
+    public List<String> getAuthorList()
+    {
+        return authors.length > 0 ? authors[0] : null;
+    }
+
+    @Override
+    public List<Integer> getAuthorPositions()
+    {
+        model.getSelectedAuthorsPositions().observe(this, indexes ->
+        {
+            if (indexes != null)
+            {
+                authorsIndexes = indexes;
+            }
+        });
+
+        return authorsIndexes;
+    }
+
+    @Override
+    public Integer getPublisherPosition()
+    {
+        Integer currentValue = model.getPublisherPosition().getValue();
+        return currentValue != null ? currentValue : 0;
+    }
+
+    @Override
+    public Integer getAttachedBookID()
+    {
         return 0;
     }
 
     @Override
-    public String getISBN() {
-        return "";
-    }
-
-    @Override
-    public String getPublication() {
-        return "";
-    }
-
-    @Override
-    public String getYear() {
-        return "";
-    }
-
-    @Override
-    public List<Integer> getAuthorPositions() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public Integer getAttachedBookID() {
-        return 0;
-    }
-
-    @Override
-    public void setBookTitle(String value) {
-
-    }
-
-    @Override
-    public void setPublisherPosition(Integer value) {
-
-    }
-
-    @Override
-    public void setISBN(String value) {
-
-    }
-
-    @Override
-    public void setPublication(String value) {
-
-    }
-
-    @Override
-    public void setYear(String value) {
-
-    }
+    public void setPublisherPosition(Integer value) {}
 
     @Override
     public void setAuthorPositions(List<Integer> value) {
@@ -114,15 +170,12 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
 
     }
 
-    @Override
-    public void setAuthorList(List<String> names) {
-
-    }
-
+    /*
     @Override
     public void setPublisherList(List<String> names, String defaultName) {
 
     }
+    */
 
     /**
      * Το μήνυμα που εμφανίζεται όταν τελειώνει
@@ -136,7 +189,6 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         setResult(RESULT_OK, retData);
         finish();
     }
-
 
 
 //    /**
@@ -302,6 +354,15 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
 //    }
 
     /**
+     * Check if user filled all fields
+     * @return
+     */
+    private boolean validFields()
+    {
+        return (getBookTitle() != null && getPublisher() != null && getISBN() != null && getPublication() != null && getYear() != null && getAuthorList() != null);
+    }
+
+    /**
      * Δημιουργεί to layout και αρχικοποιεί
      * το activity.
      * @param savedInstanceState το Instance state
@@ -310,35 +371,92 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_add_edit_book);
-
         EdgeToEdge.enable(this);
-        //ComposeView composeView = findViewById(R.id.compose_view);
-        AddEditBookViewModel model = new ViewModelProvider(this).get(AddEditBookViewModel.class);
+        setContentView(R.layout.activity_add_edit_book);
 
         final AddEditBookPresenter presenter = new AddEditBookPresenter((AddEditBookView) this);
+        model = new ViewModelProvider(this).get(AddEditBookViewModel.class);
+
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.drawEditBookPage(composeView, model);
+
+        model.getTitle().observe(this, bName ->
+        {
+            if (bName != null)
+            {
+                setBookTitle(bName.trim());
+            }
+        });
+
+        model.getPublisher().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setPublisher(i.trim());
+            }
+        });
+
+        model.getISBN().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setISBN(i.trim());
+            }
+        });
+
+        model.getPublication().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setPublication(i.trim());
+            }
+        });
+
+        model.getPublicationYear().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setYear(i.trim());
+            }
+        });
+
+        model.getAuthors().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setAuthorList(i);
+            }
+        });
+
+        // if the save button is clicked, save the book
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && validFields())
+            {
+                Toast.makeText(AddEditBookActivity.this, getBookTitle(), Toast.LENGTH_SHORT).show(); // gia debbugging
+                //presenter.onSaveBook(); --> gia debbuging einai se sxolia
+            }
+        });
+
 
         // Create the observer which updates the UI.
+        /*
         final Observer<Integer> clickObserver = buttonLabelResId -> {
             if (buttonLabelResId == R.string.complete_registration){
                 presenter.onSaveBook();
             }
         };
         model.observeClicks(this, clickObserver);
+        */
 
-        EdgeToEdge.enable(this);
-        // load a simple layout with a compose view
-        setContentView(R.layout.activity_add_edit_book);
-        // find the compose view object
-        ComposeView composeView = findViewById(R.id.compose_view);
-        // set the appropriate composable as content
-        ActivitiesKt.drawEditBookPage(composeView, model);
 
+        /*
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        */
 
 
         //final AddEditBookPresenter presenter = new AddEditBookPresenter(this, new BookDAOMemory(), new PublisherDAOMemory(), new AuthorDAOMemory(), new ItemDAOMemory());

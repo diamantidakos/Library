@@ -1,20 +1,12 @@
 package com.mgiandia.library.view.Author.AddEditAuthor;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
@@ -34,13 +26,13 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
     @Override
     public String getFirstName()
     {
-        return firstName[0];
+        return firstName.length > 0 ? firstName[0] : null;
     }
 
     @Override
     public String getLastName()
     {
-        return lastName[0];
+        return lastName.length > 0 ? lastName[0] : null;
     }
 
     @Override
@@ -164,40 +156,29 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
         // set the appropriate composable as content
         ActivitiesKt.showAddEditAuthorView(composeView, model);
 
-        //final String[] firstName = new String[1];
-        //final String[] lastName = new String[1];
-
-        // Get what the user writes in the first name field, and save it in one position array --> firstName
+        // Get what the user writes in the first name field, and save it in one position array --> firstName, removing the spaces before and after the word (trim())
         model.getFirstName().observe(this, fName ->
         {
             if (fName != null)
             {
                 setFirstName(fName.trim());
-                //Log.d("Input", "First Name: " + fName);
             }
         });
 
-        // Get what the user writes in the last name field, and save it in one position array --> lastName
+        // Get what the user writes in the last name field, and save it in one position array --> lastName, removing the spaces before and after the word (trim())
         model.getLastName().observe(this, lName ->
         {
             if (lName != null)
             {
                 setLastName(lName.trim());
-                //Log.d("Input", "Last Name: " + lName);
             }
         });
 
-        // See if the save button is clicked and save the author
+        // if the save button is clicked, save the author
         model.observeClicks(this, buttonTextResId ->
         {
-            if (buttonTextResId != null)
+            if (buttonTextResId != null && getFirstName() != null && getLastName() != null)
             {
-                // Get the string resource from the button's text resource ID
-                //String buttonText = getString(buttonTextResId);
-
-                // Handle the button click event (e.g., display a Toast)
-                //Toast.makeText(this, "Button clicked: " + buttonText, Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "firstName: " + firstName[0] + " lastName: " + lastName[0], Toast.LENGTH_LONG).show();
                 presenter.onSaveAuthor();
             }
         });

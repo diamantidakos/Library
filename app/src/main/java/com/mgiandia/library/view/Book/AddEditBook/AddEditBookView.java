@@ -1,5 +1,6 @@
 package com.mgiandia.library.view.Book.AddEditBook;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,11 +13,15 @@ import java.util.List;
 public interface AddEditBookView
 {
     String getBookTitle();
+
     Integer getPublisherPosition();
+    String getPublisher();
     String getISBN();
     String getPublication();
     String getYear();
+
     List<Integer> getAuthorPositions();
+    List<String> getAuthorList();
 
     Integer getAttachedBookID();
 
@@ -30,7 +35,10 @@ public interface AddEditBookView
      * Θέτει την θέση του συγγραφέα.
      * @param value Η θέση του συγγραφέα.
      */
+
     void setPublisherPosition(Integer value);
+
+    void setPublisher(String value);
 
     /**
      * Θέτει το ISBN του βιβλίου
@@ -54,6 +62,7 @@ public interface AddEditBookView
      * Θέτει τις θέσεις των συγγραφέων
      * @param value Οι θέσεις των συγγραφέων.
      */
+
     void setAuthorPositions(List<Integer> value);
 
     /**

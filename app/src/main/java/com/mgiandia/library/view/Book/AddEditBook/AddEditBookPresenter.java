@@ -126,7 +126,7 @@ public class AddEditBookPresenter {
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε ακριβώς 4 αριθμητικά ψηφία το Έτος.");
         else if(publisherID == null)
             view.showErrorMessage("Σφάλμα!", "Επιλέξτε Εκδοτικό Οίκο.");
-        else if(authorIDs.size() == 0)
+        else if(authorIDs.isEmpty())
             view.showErrorMessage("Σφάλμα!", "Επιλέξτε τουλάχιστον ένα Συγγραφέα.");
         else
         {
