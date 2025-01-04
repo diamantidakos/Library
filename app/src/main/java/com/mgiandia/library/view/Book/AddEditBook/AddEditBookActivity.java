@@ -3,23 +3,18 @@ package com.mgiandia.library.view.Book.AddEditBook;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.mgiandia.library.R;
+import com.mgiandia.library.memorydao.AuthorDAOMemory;
+import com.mgiandia.library.memorydao.BookDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorPresenter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,13 +26,9 @@ import java.util.List;
 public class AddEditBookActivity extends AppCompatActivity implements AddEditBookView
 {
     AddEditBookViewModel model;
-    final String[] bookTitle = new String[1];
-    final String[] publisher = new String[1];
-    final String[] ISBN = new String[1];
-    final String[] publication = new String[1];
-    final String[] publicationYear = new String[1];
-    final ArrayList<String>[] authors = new ArrayList[1];
-    List<Integer> authorsIndexes = new ArrayList<Integer>();
+    String bookTitle, publisher, ISBN, publication, publicationYear;
+    ArrayList<String> authors = new ArrayList<>();
+    List<Integer> authorsIndexes = new ArrayList<>();
 
     /**
      * Εμφανίζει ένα μήνυμα τύπου alert με
@@ -57,67 +48,67 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     @Override
     public void setBookTitle(String value)
     {
-        bookTitle[0] = value;
+        bookTitle = value;
     }
 
     @Override
     public String getBookTitle()
     {
-        return bookTitle.length > 0 ? bookTitle[0] : null;
+        return bookTitle;
     }
 
     @Override
     public void setPublisher(String value)
     {
-        publisher[0] = value;
+        publisher = value;
     }
 
     @Override
     public String getPublisher()
     {
-        return publisher.length > 0 ? publisher[0] : null;
+        return publisher;
     }
 
     @Override
     public void setISBN(String value)
     {
-        ISBN[0] = value;
+        ISBN = value;
     }
 
     @Override
     public String getISBN()
     {
-        return ISBN.length > 0 ? ISBN[0] : null;
+        return ISBN;
     }
 
     @Override
     public void setPublication(String value)
     {
-        publication[0] = value;
+        publication = value;
     }
 
     @Override
     public String getPublication()
     {
-        return publication.length > 0 ? publication[0] : null;
+        return publication;
     }
 
     @Override
     public void setYear(String value)
     {
-        publicationYear[0] = value;
+        publicationYear = value;
     }
 
     @Override
     public String getYear()
     {
-        return publicationYear.length > 0 ? publicationYear[0] : null;
+        return publicationYear;
     }
 
     @Override
     public void setAuthorList(List<String> names)
     {
-        authors[0] = (ArrayList<String>) names;
+        authors = (ArrayList<String>) names;
     }
 
     @Override
@@ -127,7 +118,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
 
     public List<String> getAuthorList()
     {
-        return authors.length > 0 ? authors[0] : null;
+        return authors;
     }
 
     @Override
@@ -147,8 +138,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     @Override
     public Integer getPublisherPosition()
     {
-        Integer currentValue = model.getPublisherPosition().getValue();
-        return currentValue != null ? currentValue : 0;
+        return model.getPublisherPosition().getValue();
     }
 
     @Override
@@ -161,14 +151,10 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     public void setPublisherPosition(Integer value) {}
 
     @Override
-    public void setAuthorPositions(List<Integer> value) {
-
-    }
+    public void setAuthorPositions(List<Integer> value) {}
 
     @Override
-    public void setPageName(String value) {
-
-    }
+    public void setPageName(String value) {}
 
     /*
     @Override
@@ -354,8 +340,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
 //    }
 
     /**
-     * Check if user filled all fields
-     * @return
+     * @return true if user filled all fields, false otherwise
      */
     private boolean validFields()
     {
@@ -374,7 +359,8 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_edit_book);
 
-        final AddEditBookPresenter presenter = new AddEditBookPresenter((AddEditBookView) this);
+        //final AddEditBookPresenter presenter = new AddEditBookPresenter((AddEditBookView) this, new BookDAOMemory());
+        final AddEditBookPresenter presenter = new AddEditBookPresenter(this);
         model = new ViewModelProvider(this).get(AddEditBookViewModel.class);
 
         ComposeView composeView = findViewById(R.id.compose_view);

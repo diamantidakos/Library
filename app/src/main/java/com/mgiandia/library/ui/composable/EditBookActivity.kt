@@ -35,6 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
+import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
+import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
 
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
@@ -59,7 +61,12 @@ fun drawEditBookPage(modifier: Modifier = Modifier, viewModel: AddEditBookViewMo
         Row()
         {
             welcomeText(stringResource(R.string.book_publisher))
-            optionMenu(viewModel)
+
+            var publishersList = ArrayList<String>()
+            publishersList.add("Addison Wesley")
+            publishersList.add("McGraw-Hill Education")
+
+            optionMenu(publishersList, viewModel)
         }
 
         Row()
@@ -100,9 +107,9 @@ fun drawEditBookPage(modifier: Modifier = Modifier, viewModel: AddEditBookViewMo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun optionMenu(viewModel: AddEditBookViewModel)
+fun optionMenu(publishers: List<String>, viewModel: AddEditBookViewModel)
 {
-    val publishers = arrayOf("Addison Wesley", "McGraw-Hill Education")
+    //val publishers = arrayOf("Addison Wesley", "McGraw-Hill Education")
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(publishers[0]) }
     var selectedIndex by remember { mutableIntStateOf(0) }
@@ -150,6 +157,119 @@ fun optionMenu(viewModel: AddEditBookViewModel)
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun optionMenu(publishers: List<String>, viewModel: AddEditPublisherViewModel, defaultCountry : String)
+{
+    var expanded by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf(defaultCountry) }
+    var selectedIndex by remember { mutableIntStateOf(publishers.indexOf(defaultCountry).takeIf { it >= 0 } ?: -1) }
+
+    Box(modifier = Modifier.fillMaxWidth())
+    {
+        ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = !expanded })
+        {
+            TextField(
+                value = selectedText,
+                onValueChange = {},
+                readOnly = true,
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                modifier = Modifier.menuAnchor()
+            )
+
+            ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false })
+            {
+                publishers.forEachIndexed { index, item ->
+                    DropdownMenuItem(
+                        text = { Text(text = item) },
+                        onClick = {
+                            selectedText = item
+                            selectedIndex = index
+                            expanded = false
+                            viewModel.setCountryPosition(index)
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun optionMenu(publishers: List<String>, viewModel: AddEditBorrowerViewModel)
+{
+    var expanded by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf(publishers[0]) }
+    var selectedIndex by remember { mutableIntStateOf(0) }
+
+    Box(modifier = Modifier.fillMaxWidth())
+    {
+        ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = !expanded })
+        {
+            TextField(
+                value = selectedText,
+                onValueChange = {},
+                readOnly = true,
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                modifier = Modifier.menuAnchor()
+            )
+
+            ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false })
+            {
+                publishers.forEachIndexed { index, item ->
+                    DropdownMenuItem(
+                        text = { Text(text = item) },
+                        onClick = {
+                            selectedText = item
+                            selectedIndex = index
+                            expanded = false
+                            viewModel.setUserTypePosition(index)
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun optionMenu(publishers: List<String>, viewModel: AddEditBorrowerViewModel, defaultCountry : String)
+{
+    var expanded by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf(defaultCountry) }
+    var selectedIndex by remember { mutableIntStateOf(publishers.indexOf(defaultCountry).takeIf { it >= 0 } ?: -1) }
+
+    Box(modifier = Modifier.fillMaxWidth())
+    {
+        ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = !expanded })
+        {
+            TextField(
+                value = selectedText,
+                onValueChange = {},
+                readOnly = true,
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                modifier = Modifier.menuAnchor()
+            )
+
+            ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false })
+            {
+                publishers.forEachIndexed { index, item ->
+                    DropdownMenuItem(
+                        text = { Text(text = item) },
+                        onClick = {
+                            selectedText = item
+                            selectedIndex = index
+                            expanded = false
+                            viewModel.setCountryPosition(index)
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -157,7 +277,6 @@ fun multiselectiorMenu(authorsList: List<String>, viewModel: AddEditBookViewMode
 {
     var isExpanded by remember { mutableStateOf(false) }
     val selectedAuthors = remember { mutableStateListOf<String>() }
-    val selectedIndexes = remember { mutableStateListOf<Int>() }
 
     ExposedDropdownMenuBox(expanded = isExpanded, onExpandedChange = { isExpanded = it })
     {
@@ -174,34 +293,6 @@ fun multiselectiorMenu(authorsList: List<String>, viewModel: AddEditBookViewMode
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier.menuAnchor() // Needed to anchor the dropdown menu
         )
-
-        /*
-        ExposedDropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false }) {
-            authorsList.forEachIndexed { index, author ->
-                val isSelected = selectedIndexes.contains(index)
-                DropdownMenuItem(
-                    text = { Text(text = author) },
-                    onClick = {
-                        if (isSelected)
-                        {
-                            selectedIndexes.remove(index) // Unselect
-                        }
-                        else
-                        {
-                            selectedIndexes.add(index) // Select
-                        }
-
-                        viewModel.setSelectedAuthorsPositions(index) // Update ViewModel with indexes
-                    },
-                    leadingIcon = {
-                        if (isSelected) Icon(imageVector = Icons.Rounded.Check, contentDescription = null)
-                    }
-                )
-            }
-        }
-        */
-
-
 
         ExposedDropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false })
         {

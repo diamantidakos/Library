@@ -20,19 +20,18 @@ import com.mgiandia.library.ui.composable.ActivitiesKt;
 
 public class AddEditAuthorActivity extends AppCompatActivity implements AddEditAuthorView
 {
-    final String[] firstName = new String[1];
-    final String[] lastName = new String[1];
+    String firstName, lastName;
 
     @Override
     public String getFirstName()
     {
-        return firstName.length > 0 ? firstName[0] : null;
+        return firstName;
     }
 
     @Override
     public String getLastName()
     {
-        return lastName.length > 0 ? lastName[0] : null;
+        return lastName;
     }
 
     @Override
@@ -44,13 +43,13 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
     @Override
     public void setFirstName(String value)
     {
-        firstName[0] = value;
+        firstName = value;
     }
 
     @Override
     public void setLastName(String value)
     {
-        lastName[0] = value;
+        lastName = value;
     }
 
     /**

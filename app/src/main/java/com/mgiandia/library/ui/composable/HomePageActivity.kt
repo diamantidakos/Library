@@ -25,16 +25,15 @@ import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
+import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
 import com.mgiandia.library.view.HomePage.HomePageViewModel
+import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun drawHomePage(modifier: Modifier = Modifier, viewModel: HomePageViewModel) {
-    Column(
-        modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    )
+fun drawHomePage(modifier: Modifier = Modifier, viewModel: HomePageViewModel)
+{
+    Column(modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally)
     {
         displayLibraryIcon()
         welcomeText(stringResource(R.string.welcome_message))
@@ -57,45 +56,12 @@ fun drawHomePage(modifier: Modifier = Modifier, viewModel: HomePageViewModel) {
             displayButton(R.string.manage_authors, 50, 200, viewModel)
             displayButton(R.string.manage_publishers, 50, 200, viewModel)
         }
-
-        /*
-        FlowRow(modifier = Modifier.padding(4.dp), horizontalArrangement = Arrangement.spacedBy(4.dp), maxItemsInEachRow = 2) {
-            val itemModifier = Modifier
-                .padding(4.dp)
-                .height(80.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(Color.Blue)
-            repeat(6)
-            {
-                item ->
-
-                if (item == 0)
-                {
-                    displayLibraryIcon()
-                }
-                else
-                {
-                    //Spacer(modifier = itemModifier.fillMaxWidth())
-                }
-
-                /*
-                if ((item + 1) % 3 == 0)
-                {
-                    Spacer(modifier = itemModifier.fillMaxWidth())
-                }
-                else
-                {
-                    Spacer(modifier = itemModifier.weight(0.5f))
-                }
-                */
-            }
-        }
-        */
     }
 }
 
 @Composable
-fun displayLibraryIcon() {
+fun displayLibraryIcon()
+{
     Image(
         painter = painterResource(id = R.drawable.ic_bookshelf),
         contentDescription = "library icon",
@@ -145,6 +111,36 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
 
 @Composable
 fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditAuthorViewModel) // mporw kai sthn antistoixh kt klash
+{
+    Button(
+        onClick = { viewModel.buttonClicked(textResId) },
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
+    )
+    {
+        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+    }
+}
+
+@Composable
+fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditPublisherViewModel) // mporw kai sthn antistoixh kt klash
+{
+    Button(
+        onClick = { viewModel.buttonClicked(textResId) },
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
+    )
+    {
+        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+    }
+}
+
+@Composable
+fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditBorrowerViewModel) // mporw kai sthn antistoixh kt klash
 {
     Button(
         onClick = { viewModel.buttonClicked(textResId) },

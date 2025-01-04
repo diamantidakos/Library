@@ -84,21 +84,19 @@ public class AddEditBookViewModel extends ViewModel implements ButtonClicked
     {
         if (newAuthor == null || newAuthor.trim().isEmpty())
         {
-            return; // Avoid adding null or empty authors
+            return;
         }
 
-        // Get the current list of authors
         ArrayList<String> currentAuthors = authors.getValue();
         if (currentAuthors == null)
         {
             currentAuthors = new ArrayList<>();
         }
 
-        // Add the new author if not already in the list
         if (!currentAuthors.contains(newAuthor))
         {
             currentAuthors.add(newAuthor);
-            authors.setValue(currentAuthors); // Update LiveData
+            authors.setValue(currentAuthors);
         }
     }
 

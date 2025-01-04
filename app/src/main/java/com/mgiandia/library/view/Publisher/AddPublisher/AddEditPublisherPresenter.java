@@ -113,38 +113,38 @@ public class AddEditPublisherPresenter
 
         Integer countryPosition = view.getCountryPosition();
 
-        if(name.length() < 2 || name.length() > 15)
+        if (name.length() < 2 || name.length() > 15)
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε 2 έως 15 χαρακτήρες στο Όνομα.");
-        else if(phone.length() < 2 || phone.length() > 15 || !verifyOnlyDigits(phone))
+        else if (phone.length() < 2 || phone.length() > 15 || !verifyOnlyDigits(phone))
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε ορθά το Τηλέφωνο.");
-        else if(email.length() < 2 || email.length() > 100 || !validateEmail(email))
+        else if (email.length() < 2 || email.length() > 100 || !validateEmail(email))
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε ορθά το Email.");
-        else if(addressCity.length() < 2 || addressCity.length() > 15)
+        else if (addressCity.length() < 2 || addressCity.length() > 15)
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε 2 έως 15 χαρακτήρες στην Πόλη.");
-        else if(addressStreet.length() < 2 || addressStreet.length() > 15)
+        else if (addressStreet.length() < 2 || addressStreet.length() > 15)
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε 2 έως 15 χαρακτήρες στην Οδό.");
-        else if(addressNumber.length() < 2 || addressNumber.length() > 10 || !verifyOnlyDigits(addressNumber))
+        else if (addressNumber.length() < 2 || addressNumber.length() > 10 || !verifyOnlyDigits(addressNumber))
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε 2 έως 10 αριθμητικά ψηφία στον Αριθμό.");
-        else if(addressPostalCode.length() < 2 || addressPostalCode.length() > 10 || !verifyOnlyDigits(addressPostalCode))
+        else if (addressPostalCode.length() < 2 || addressPostalCode.length() > 10 || !verifyOnlyDigits(addressPostalCode))
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε 2 έως 10 αριθμητικά ψηφία στον Τ.Κ.");
         else
         {
             Address addr = new Address(addressStreet, addressNumber, addressCity, new ZipCode(addressPostalCode), countries.get(countryPosition));
 
-            if(attachedPublisher == null)//add
+            if (attachedPublisher == null) //add
             {
                 publishers.save(new Publisher(publishers.nextId(), name, addr, new EmailAddress(email), new TelephoneNumber(phone)));
-                view.successfullyFinishActivity("Επιτυχής Εγγραφή του '"+name+"'!");
+                view.successfullyFinishActivity("Επιτυχής Εγγραφή του '" + name + "'!");
 
             }
-            else//update
+            else //update
             {
                 attachedPublisher.setName(name);
                 attachedPublisher.setAddress(addr);
                 attachedPublisher.setEMail(new EmailAddress(email));
                 attachedPublisher.setTelephone(new TelephoneNumber(phone));
 
-                view.successfullyFinishActivity("Επιτυχής Τροποποίηση του '"+name+"'!");
+                view.successfullyFinishActivity("Επιτυχής Τροποποίηση του '" + name + "'!");
             }
         }
     }
