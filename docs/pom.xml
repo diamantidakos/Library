@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example</groupId>
+	<artifactId>template</artifactId>
+	<version>2.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Template</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<umlet.targetDir>markdown/uml</umlet.targetDir>
+	</properties>
+
+	<dependencies>
+		
+	</dependencies>
+
+	<build>
+		<plugins> 
+			<plugin>
+				<groupId>com.kryshchuk.maven.plugins</groupId>
+				<artifactId>umlet-maven-plugin</artifactId>
+				<version>1.2</version>
+				 <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>./uml</directory>
+                            <includes>
+                                <include>**/*.uxf</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+				<executions>
+					<execution>
+						<id>convert-uml</id>
+						<goals>
+							<goal>convert</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId>
+						<version>1.2.17</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.9.0</version>
+			</plugin>
+
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>com.kryshchuk.maven.plugins</groupId>
+				<artifactId>umlet-maven-plugin</artifactId>
+				<version>1.2</version>
+			</plugin>
+		</plugins>
+
+
+	</reporting>
+</project>
