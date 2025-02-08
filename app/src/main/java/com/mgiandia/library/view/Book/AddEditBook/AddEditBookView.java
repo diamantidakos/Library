@@ -13,7 +13,6 @@ import java.util.List;
 public interface AddEditBookView
 {
     String getBookTitle();
-
     Integer getPublisherPosition();
     String getPublisher();
     String getISBN();

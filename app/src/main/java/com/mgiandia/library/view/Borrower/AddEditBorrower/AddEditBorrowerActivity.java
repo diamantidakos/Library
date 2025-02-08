@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -451,7 +452,6 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     }
 
 
-
     /**
      * Δημιουργεί to layout και αρχικοποιεί
      * το activity.
@@ -554,7 +554,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
         {
             if (buttonTextResId != null && validFields())
             {
-                presenter.onSaveBorrower(); //..............
+                presenter.onSaveBorrower();
             }
         });
     }

@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
 import java.util.List;
+import java.util.Objects;
+
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.CountryDAOMemory;
 import com.mgiandia.library.memorydao.PublisherDAOMemory;
@@ -328,13 +330,13 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
     @Override
     public Integer getAttachedPublisherID()
     {
-        return this.getIntent().hasExtra("publisher_id") ? this.getIntent().getExtras().getInt("publisher_id") : null;
+        return this.getIntent().hasExtra("publisher_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("publisher_id") : null;
     }
 
     @Override
     public void setPageName(String value)
     {
-        getSupportActionBar().setTitle(value);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 
     @Override
@@ -450,7 +452,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         {
             if (buttonTextResId != null && validFields())
             {
-                presenter.onSavePublisher(); //..............
+                presenter.onSavePublisher();
             }
         });
     }

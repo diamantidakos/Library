@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
@@ -149,9 +150,10 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
      */
     public void startAddNew(int uid)
     {
-        Intent intent = new Intent(this, AddLoansActivity.class);
+        Intent intent = new Intent(ManageLoansActivity.this, AddLoansActivity.class);
         intent.putExtra("borrower_id", uid);
-        startActivityForResult(intent, 0);
+        startActivity(intent);
+        //startActivityForResult(intent, 0);
     }
 
     /**
@@ -160,7 +162,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
      */
     public int getAttachedBorrowerID()
     {
-        return this.getIntent().getExtras().getInt("borrower_id");
+        return Objects.requireNonNull(this.getIntent().getExtras()).getInt("borrower_id");
     }
 
     /**
@@ -169,7 +171,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
      */
     public void setPageName(String value)
     {
-        getSupportActionBar().setTitle(value);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 
     /**

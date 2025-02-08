@@ -61,14 +61,16 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
 
         findViewById(R.id.item_add_new).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 presenter.onStartAddNew();
             }
         });
 
         itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
                 presenter.onClickItem(((Quadruple) parent.getItemAtPosition(position)).getUID());
             }
         });

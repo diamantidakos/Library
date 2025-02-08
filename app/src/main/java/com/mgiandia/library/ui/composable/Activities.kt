@@ -13,6 +13,7 @@ import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
 import com.mgiandia.library.view.HomePage.HomePageViewModel
+import com.mgiandia.library.view.Loans.AddLoan.AddLoanViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
 
 fun showEmptyView(composeView: ComposeView)
@@ -99,6 +100,22 @@ fun showAddEditBorrowerView(composeView: ComposeView, viewModel: AddEditBorrower
                     Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
 
                     drawAddEditBorrower(modifier = Modifier.padding(innerPadding), viewModel)
+                }
+            }
+        }
+    }
+}
+
+fun showAddLoanView(composeView: ComposeView, viewModel: AddLoanViewModel)
+{
+    composeView.apply {
+        setContent {
+            LibraryTheme {
+                Scaffold(modifier = Modifier.fillMaxSize())
+                { innerPadding ->
+                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
+
+                    drawAddLoan(modifier = Modifier.padding(innerPadding), viewModel)
                 }
             }
         }

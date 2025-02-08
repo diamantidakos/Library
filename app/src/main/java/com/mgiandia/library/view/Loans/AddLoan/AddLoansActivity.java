@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -26,90 +27,133 @@ import com.mgiandia.library.memorydao.LoanDAOMemory;
 
 public class AddLoansActivity extends AppCompatActivity implements AddLoansView
 {
-    /**
-     * Εμφανίζει ένα μήνυμα τύπου alert με
-     * τίτλο title και μήνυμα message.
-     * @param title Ο τίτλος του μηνύματος
-     * @param message Το περιεχόμενο του μηνύματος
-     */
-    public void showErrorMessage(String title, String message)
-    {
-        new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(message).setPositiveButton(R.string.ok, null).create().show();
+//    /**
+//     * Εμφανίζει ένα μήνυμα τύπου alert με
+//     * τίτλο title και μήνυμα message.
+//     * @param title Ο τίτλος του μηνύματος
+//     * @param message Το περιεχόμενο του μηνύματος
+//     */
+//    public void showErrorMessage(String title, String message)
+//    {
+//        new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(message).setPositiveButton(R.string.ok, null).create().show();
+//    }
+//
+//    /**
+//     * Το μήνυμα που εμφανίζεται όταν τελειώνει
+//     * επιτυχώς ένα activity.
+//     * @param message Το μήνυμα που θα εμφανίσει
+//     */
+//    public void successfullyAddLoanAndFinishActivity(String message)
+//    {
+//        Intent retData = new Intent();
+//        retData.putExtra("message_to_toast", message);
+//        setResult(RESULT_OK, retData);
+//        finish();
+//    }
+//
+//    /**
+//     * Επιστρέφει το id του επιλεγόμενου βιβλίου.
+//     * @return Το id του επιλεγόμενου βιβλίου
+//     */
+//    public int getSelectedBookId()
+//    {
+//        return ((Spinner)findViewById(R.id.edit_text_book)).getSelectedItemPosition()+1;
+//    }
+//
+//    /**
+//     * Θέτει το id του εμφανιζόμενου για
+//     * το επιλεγόμενο βιβλίο.
+//     * @param value Το id του δανειζόμενου
+//     */
+//    public void setBorrowerId(String value)
+//    {
+//        ((TextView)findViewById(R.id.edit_text_borrower)).setText(value);
+//    }
+//
+//    /**
+//     * Θέτει την λίστα με τα ονόματα που
+//     * θα εμφανίζονται.
+//     * @param names Η λίστα με τα ονόματα
+//     */
+//    public void setBookList(List<String> names)
+//    {
+//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, names);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        ((Spinner) findViewById(R.id.edit_text_book)).setAdapter(adapter);
+//    }
+//
+//    /**
+//     * Εμφανίζει ένα μήνυμα τύπου alert
+//     * με τίτλο title και περιεχόμενο
+//     * message.
+//     * @param title Ο τίτλος του μηνύματος
+//     * @param message Το περιεχόμενο του μηνύματος
+//     */
+//    public void showAlert(String title, String message)
+//    {
+//        new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(message).setPositiveButton(R.string.ok, null).create().show();
+//    }
+//
+//    /**
+//     * Επιστρέφει το id του βιβλίου.
+//     * @return Το id του βιβλίου
+//     */
+//    public int getAttachedBorrowerID()
+//    {
+//        return this.getIntent().getExtras().getInt("borrower_id");
+//    }
+//
+//    /**
+//     * Θέτει το όνομα της σελίδας.
+//     * @param value το όνομα της σελίδας
+//     */
+//    public void setPageName(String value)
+//    {
+//        getSupportActionBar().setTitle(value);
+//    }
+
+
+    @Override
+    public int getSelectedBookId() {
+        return 0;
     }
 
-    /**
-     * Το μήνυμα που εμφανίζεται όταν τελειώνει
-     * επιτυχώς ένα activity.
-     * @param message Το μήνυμα που θα εμφανίσει
-     */
-    public void successfullyAddLoanAndFinishActivity(String message)
-    {
-        Intent retData = new Intent();
-        retData.putExtra("message_to_toast", message);
-        setResult(RESULT_OK, retData);
-        finish();
+    @Override
+    public int getAttachedBorrowerID() {
+        return 0;
     }
 
-    /**
-     * Επιστρέφει το id του επιλεγόμενου βιβλίου.
-     * @return Το id του επιλεγόμενου βιβλίου
-     */
-    public int getSelectedBookId()
-    {
-        return ((Spinner)findViewById(R.id.edit_text_book)).getSelectedItemPosition()+1;
+    @Override
+    public void setBorrowerId(String value) {
+
     }
 
-    /**
-     * Θέτει το id του εμφανιζόμενου για
-     * το επιλεγόμενο βιβλίο.
-     * @param value Το id του δανειζόμενου
-     */
-    public void setBorrowerId(String value)
-    {
-        ((TextView)findViewById(R.id.edit_text_borrower)).setText(value);
+    @Override
+    public void setPageName(String value) {
+
     }
 
-    /**
-     * Θέτει την λίστα με τα ονόματα που
-     * θα εμφανίζονται.
-     * @param names Η λίστα με τα ονόματα
-     */
-    public void setBookList(List<String> names)
-    {
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, names);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ((Spinner) findViewById(R.id.edit_text_book)).setAdapter(adapter);
+    @Override
+    public void successfullyAddLoanAndFinishActivity(String message) {
+
     }
 
-    /**
-     * Εμφανίζει ένα μήνυμα τύπου alert
-     * με τίτλο title και περιεχόμενο
-     * message.
-     * @param title Ο τίτλος του μηνύματος
-     * @param message Το περιεχόμενο του μηνύματος
-     */
-    public void showAlert(String title, String message)
-    {
-        new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(message).setPositiveButton(R.string.ok, null).create().show();
+    @Override
+    public void showErrorMessage(String title, String message) {
+
     }
 
-    /**
-     * Επιστρέφει το id του βιβλίου.
-     * @return Το id του βιβλίου
-     */
-    public int getAttachedBorrowerID()
-    {
-        return this.getIntent().getExtras().getInt("borrower_id");
+    @Override
+    public void showAlert(String title, String message) {
+
     }
 
-    /**
-     * Θέτει το όνομα της σελίδας.
-     * @param value το όνομα της σελίδας
-     */
-    public void setPageName(String value)
-    {
-        getSupportActionBar().setTitle(value);
+    @Override
+    public void setBookList(List<String> names) {
+
     }
+
+
 
     /**
      * Δημιουργεί to layout και αρχικοποιεί
@@ -119,7 +163,13 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_add_loan);
+//        EdgeToEdge.enable(this);
+
+
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_loan);
         final AddLoansPresenter presenter = new AddLoansPresenter(this, new BookDAOMemory(), new BorrowerDAOMemory(), new LoanDAOMemory());
 
@@ -129,5 +179,6 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
                 presenter.onSaveLoan();
             }
         });
+
     }
 }

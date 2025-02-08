@@ -25,158 +25,6 @@ import java.util.List;
  */
 public class AddEditBookActivity extends AppCompatActivity implements AddEditBookView
 {
-    AddEditBookViewModel model;
-    String bookTitle, publisher, ISBN, publication, publicationYear;
-    ArrayList<String> authors = new ArrayList<>();
-    List<Integer> authorsIndexes = new ArrayList<>();
-
-    /**
-     * Εμφανίζει ένα μήνυμα τύπου alert με
-     * τίτλο title και μήνυμα message.
-     * @param title Ο τίτλος του μηνύματος
-     * @param message Το περιεχόμενο του μηνύματος
-     */
-    public void showErrorMessage(String title, String message)
-    {
-        new AlertDialog.Builder(AddEditBookActivity.this)
-                .setCancelable(true)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(R.string.ok, null).create().show();
-    }
-
-    @Override
-    public void setBookTitle(String value)
-    {
-        bookTitle = value;
-    }
-
-    @Override
-    public String getBookTitle()
-    {
-        return bookTitle;
-    }
-
-    @Override
-    public void setPublisher(String value)
-    {
-        publisher = value;
-    }
-
-    @Override
-    public String getPublisher()
-    {
-        return publisher;
-    }
-
-    @Override
-    public void setISBN(String value)
-    {
-        ISBN = value;
-    }
-
-    @Override
-    public String getISBN()
-    {
-        return ISBN;
-    }
-
-    @Override
-    public void setPublication(String value)
-    {
-        publication = value;
-    }
-
-    @Override
-    public String getPublication()
-    {
-        return publication;
-    }
-
-    @Override
-    public void setYear(String value)
-    {
-        publicationYear = value;
-    }
-
-    @Override
-    public String getYear()
-    {
-        return publicationYear;
-    }
-
-    @Override
-    public void setAuthorList(List<String> names)
-    {
-        authors = (ArrayList<String>) names;
-    }
-
-    @Override
-    public void setPublisherList(List<String> names, String defaultName)
-    {
-    }
-
-    public List<String> getAuthorList()
-    {
-        return authors;
-    }
-
-    @Override
-    public List<Integer> getAuthorPositions()
-    {
-        model.getSelectedAuthorsPositions().observe(this, indexes ->
-        {
-            if (indexes != null)
-            {
-                authorsIndexes = indexes;
-            }
-        });
-
-        return authorsIndexes;
-    }
-
-    @Override
-    public Integer getPublisherPosition()
-    {
-        return model.getPublisherPosition().getValue();
-    }
-
-    @Override
-    public Integer getAttachedBookID()
-    {
-        return 0;
-    }
-
-    @Override
-    public void setPublisherPosition(Integer value) {}
-
-    @Override
-    public void setAuthorPositions(List<Integer> value) {}
-
-    @Override
-    public void setPageName(String value) {}
-
-    /*
-    @Override
-    public void setPublisherList(List<String> names, String defaultName) {
-
-    }
-    */
-
-    /**
-     * Το μήνυμα που εμφανίζεται όταν τελειώνει
-     * επιτυχώς ένα activity.
-     * @param message Το μήνυμα που θα εμφανίσει
-     */
-    public void successfullyFinishActivity(String message)
-    {
-        Intent retData = new Intent();
-        retData.putExtra("message_to_toast", message);
-        setResult(RESULT_OK, retData);
-        finish();
-    }
-
-
 //    /**
 //     * Επιστρέφει τον τίτλο του βιβλίου.
 //     * @return Ο τίτλος του βιβλίου
@@ -339,6 +187,149 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
 //        ((Spinner) findViewById(R.id.edit_text_publisher)).setAdapter(adapter);
 //    }
 
+
+    AddEditBookViewModel model;
+    String bookTitle, publisher, ISBN, publication, publicationYear;
+    ArrayList<String> authors = new ArrayList<>();
+    List<Integer> authorsIndexes = new ArrayList<>();
+
+    /**
+     * Εμφανίζει ένα μήνυμα τύπου alert με
+     * τίτλο title και μήνυμα message.
+     * @param title Ο τίτλος του μηνύματος
+     * @param message Το περιεχόμενο του μηνύματος
+     */
+    public void showErrorMessage(String title, String message)
+    {
+        new AlertDialog.Builder(AddEditBookActivity.this)
+                .setCancelable(true)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(R.string.ok, null).create().show();
+    }
+
+    @Override
+    public void setBookTitle(String value)
+    {
+        bookTitle = value;
+    }
+
+    @Override
+    public String getBookTitle()
+    {
+        return bookTitle;
+    }
+
+    @Override
+    public void setPublisher(String value)
+    {
+        publisher = value;
+    }
+
+    @Override
+    public String getPublisher()
+    {
+        return publisher;
+    }
+
+    @Override
+    public void setISBN(String value)
+    {
+        ISBN = value;
+    }
+
+    @Override
+    public String getISBN()
+    {
+        return ISBN;
+    }
+
+    @Override
+    public void setPublication(String value)
+    {
+        publication = value;
+    }
+
+    @Override
+    public String getPublication()
+    {
+        return publication;
+    }
+
+    @Override
+    public void setYear(String value)
+    {
+        publicationYear = value;
+    }
+
+    @Override
+    public String getYear()
+    {
+        return publicationYear;
+    }
+
+    @Override
+    public void setAuthorList(List<String> names)
+    {
+        authors = (ArrayList<String>) names;
+    }
+
+    @Override
+    public void setPublisherList(List<String> names, String defaultName) {}
+
+    public List<String> getAuthorList()
+    {
+        return authors;
+    }
+
+    @Override
+    public List<Integer> getAuthorPositions()
+    {
+        model.getSelectedAuthorsPositions().observe(this, indexes ->
+        {
+            if (indexes != null)
+            {
+                authorsIndexes = indexes;
+            }
+        });
+
+        return authorsIndexes;
+    }
+
+    @Override
+    public Integer getPublisherPosition()
+    {
+        return model.getPublisherPosition().getValue();
+    }
+
+    @Override
+    public Integer getAttachedBookID()
+    {
+        return 0;
+    }
+
+    @Override
+    public void setPublisherPosition(Integer value) {}
+
+    @Override
+    public void setAuthorPositions(List<Integer> value) {}
+
+    @Override
+    public void setPageName(String value) {}
+
+    /**
+     * Το μήνυμα που εμφανίζεται όταν τελειώνει
+     * επιτυχώς ένα activity.
+     * @param message Το μήνυμα που θα εμφανίσει
+     */
+    public void successfullyFinishActivity(String message)
+    {
+        Intent retData = new Intent();
+        retData.putExtra("message_to_toast", message);
+        setResult(RESULT_OK, retData);
+        finish();
+    }
+
     /**
      * @return true if user filled all fields, false otherwise
      */
@@ -419,8 +410,8 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         {
             if (buttonTextResId != null && validFields())
             {
-                Toast.makeText(AddEditBookActivity.this, getBookTitle(), Toast.LENGTH_SHORT).show(); // gia debbugging
-                //presenter.onSaveBook(); --> gia debbuging einai se sxolia
+                //Toast.makeText(AddEditBookActivity.this, getPublisher(), Toast.LENGTH_SHORT).show(); // gia debbugging
+                presenter.onSaveBook();
             }
         });
 
