@@ -39,7 +39,6 @@ fun drawAddEditPublisherPage(modifier: Modifier = Modifier, viewModel: AddEditPu
         displayRow(R.string.first_name, viewModel, "name")
         Spacer(modifier = Modifier.height(16.dp)) // add space between the above element and the next
 
-        // Add more fields following the pattern
         displayRow(R.string.telephone, viewModel, "phone")
         Spacer(modifier = Modifier.height(16.dp))
 

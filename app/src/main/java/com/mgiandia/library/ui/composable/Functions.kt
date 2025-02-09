@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
+import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
@@ -85,6 +86,8 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditPublisherViewModel, d
     var selectedText by remember { mutableStateOf(defaultCountry) }
     var selectedIndex by remember { mutableIntStateOf(publishers.indexOf(defaultCountry).takeIf { it >= 0 } ?: -1) }
 
+    viewModel.setCountryPosition(selectedIndex)
+
     Box(modifier = Modifier.fillMaxWidth())
     {
         ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = !expanded })
@@ -123,6 +126,8 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditBorrowerViewModel)
     var selectedText by remember { mutableStateOf(publishers[0]) }
     var selectedIndex by remember { mutableIntStateOf(0) }
 
+    viewModel.setUserTypePosition(selectedIndex)
+
     Box(modifier = Modifier.fillMaxWidth())
     {
         ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = !expanded })
@@ -160,6 +165,8 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditBorrowerViewModel, de
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(defaultCountry) }
     var selectedIndex by remember { mutableIntStateOf(publishers.indexOf(defaultCountry).takeIf { it >= 0 } ?: -1) }
+
+    viewModel.setCountryPosition(selectedIndex)
 
     Box(modifier = Modifier.fillMaxWidth())
     {
@@ -203,15 +210,11 @@ fun multiselectiorMenu(authorsList: List<String>, viewModel: AddEditBookViewMode
         TextField(
             value = selectedAuthors.joinToString(", "),
             onValueChange = {},
-            placeholder = {
-                Text(text = "Select authors")
-            },
+            placeholder = { Text(text = "Select authors") },
             readOnly = true, // Makes the TextField clickable
-            trailingIcon = {
-                ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
-            },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
-            modifier = Modifier.menuAnchor() // Needed to anchor the dropdown menu
+            modifier = Modifier.menuAnchor()
         )
 
         ExposedDropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false })
@@ -219,7 +222,7 @@ fun multiselectiorMenu(authorsList: List<String>, viewModel: AddEditBookViewMode
             authorsList.forEachIndexed { index, author ->
                 AnimatedContent(targetState = selectedAuthors.contains(author), label = "Animate the selected item")
                 {
-                        isSelected ->
+                    isSelected ->
                     if (isSelected)
                     {
                         DropdownMenuItem(
@@ -234,6 +237,80 @@ fun multiselectiorMenu(authorsList: List<String>, viewModel: AddEditBookViewMode
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun displayRow(labelRes: Int, viewModel: AddEditBookViewModel, label: String)
+{
+    var text by remember { mutableStateOf("") }
+
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
+    {
+        if (label == "title")
+        {
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = text, onValueChange = { text = it; viewModel.setTitle(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+        }
+        else if (label == "isbn")
+        {
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = text, onValueChange = { text = it; viewModel.setISBN(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
+        }
+        else if (label == "publication")
+        {
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = text, onValueChange = { text = it; viewModel.setPublication(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
+        }
+        else if (label == "year")
+        {
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = text, onValueChange = { text = it; viewModel.setPublicationYear(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
+        }
+    }
+}
+
+@Composable
+fun displayRow(labelRes: Int, isSpinner: Boolean, viewModel: AddEditBookViewModel, publishers: List<String>)
+{
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
+    {
+        Text(text = stringResource(labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+
+        if (isSpinner)
+        {
+            optionMenu(publishers, viewModel)
+        }
+    }
+}
+
+@Composable
+fun displayRow(labelRes: Int, viewModel: AddEditBookViewModel, authorsList: List<String>)
+{
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
+    {
+        Text(text = stringResource(labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+        multiselectiorMenu(authorsList, viewModel)
+    }
+}
+
+@Composable
+fun displayRow(labelRes: Int, viewModel: AddEditAuthorViewModel, label: String)
+{
+    var text by remember { mutableStateOf("") }
+
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
+    {
+        if (label == "name")
+        {
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = text, onValueChange = { text = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+        }
+        else if (label == "surname")
+        {
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = text, onValueChange = { text = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
         }
     }
 }
@@ -262,7 +339,7 @@ fun displayRow(labelRes: Int, viewModel: AddEditPublisherViewModel, label : Stri
     {
         if (label == "name")
         {
-            Text(text = stringResource(id = R.string.first_name), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
             TextField(value = text, onValueChange = { text = it; viewModel.setName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "phone")
@@ -337,7 +414,7 @@ fun displayRow(labelRes: Int, viewModel: AddEditBorrowerViewModel, label : Strin
     {
         if (label == "name")
         {
-            Text(text = stringResource(id = R.string.first_name), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
             TextField(value = text, onValueChange = { text = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "surname")

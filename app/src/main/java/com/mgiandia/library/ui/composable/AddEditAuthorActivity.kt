@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,24 +28,15 @@ import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
 @Composable
 fun drawAddEditAuthorPage(modifier: Modifier = Modifier, viewModel: AddEditAuthorViewModel)
 {
-    var firstName by remember { mutableStateOf("") }
-    var lastName by remember { mutableStateOf("") }
-
     Column(modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.Top), horizontalAlignment = Alignment.CenterHorizontally)
     {
         welcomeText(stringResource(R.string.basic_info))
 
-        Row()
-        {
-            welcomeText(stringResource(R.string.first_name))
-            OutlinedTextField(value = firstName, onValueChange = { firstName = it; viewModel.setFirstName(it) }, label = { Text(stringResource(R.string.first_name), style = TextStyle(fontSize = 12.sp)) }, textStyle = TextStyle(fontSize = 15.sp), modifier = Modifier.height(58.dp).padding(vertical = 0.dp))
-        }
+        displayRow(R.string.first_name, viewModel, "name")
+        Spacer(modifier = Modifier.height(16.dp)) // add space between the above element and the next
 
-        Row()
-        {
-            welcomeText(stringResource(R.string.last_name))
-            OutlinedTextField(value = lastName, onValueChange = { lastName = it; viewModel.setLastName(it) }, label = { Text(stringResource(R.string.last_name), style = TextStyle(fontSize = 12.sp)) }, textStyle = TextStyle(fontSize = 15.sp), modifier = Modifier.height(58.dp).padding(vertical = 0.dp))
-        }
+        displayRow(R.string.last_name, viewModel, "surname")
+        Spacer(modifier = Modifier.height(16.dp))
 
         displayButton(R.string.complete_registration, 50, 200, viewModel)
     }

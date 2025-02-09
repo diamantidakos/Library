@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -38,54 +39,34 @@ fun drawEditBookPage(modifier: Modifier = Modifier, viewModel: AddEditBookViewMo
     {
         welcomeText(stringResource(R.string.basic_info))
 
-        Row()
-        {
-            welcomeText(stringResource(R.string.book_title))
-            OutlinedTextField(value = text1, onValueChange = { text1 = it; viewModel.setTitle(it) }, label = { Text(stringResource(R.string.book_title), style = TextStyle(fontSize = 12.sp)) }, textStyle = TextStyle(fontSize = 15.sp), modifier = Modifier.height(58.dp).padding(vertical = 0.dp))
-        }
+        displayRow(R.string.book_title, viewModel, "title")
+        Spacer(modifier = Modifier.height(16.dp)) // add space between the above element and the next
 
-        Row()
-        {
-            welcomeText(stringResource(R.string.book_publisher))
+        var publishersList = ArrayList<String>()
+        publishersList.add("Addison Wesley")
+        publishersList.add("McGraw-Hill Education")
 
-            var publishersList = ArrayList<String>()
-            publishersList.add("Addison Wesley")
-            publishersList.add("McGraw-Hill Education")
+        displayRow(R.string.book_publisher, true, viewModel, publishersList)
+        Spacer(modifier = Modifier.height(16.dp))
 
-            optionMenu(publishersList, viewModel)
-        }
+        displayRow(R.string.book_isbn, viewModel, "isbn")
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Row()
-        {
-            welcomeText(stringResource(R.string.book_isbn))
-            OutlinedTextField(value = text2, onValueChange = { text2 = it; viewModel.setISBN(it) }, label = { Text(stringResource(R.string.book_isbn), style = TextStyle(fontSize = 12.sp)) }, textStyle = TextStyle(fontSize = 15.sp), modifier = Modifier.height(58.dp).padding(vertical = 0.dp))
-        }
+        displayRow(R.string.book_publication, viewModel, "publication")
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Row()
-        {
-            welcomeText(stringResource(R.string.book_publication))
-            OutlinedTextField(value = text3, onValueChange = { text3 = it; viewModel.setPublication(it) }, label = { Text(stringResource(R.string.book_publication), style = TextStyle(fontSize = 12.sp)) }, textStyle = TextStyle(fontSize = 15.sp), modifier = Modifier.height(58.dp).padding(vertical = 0.dp))
-        }
+        displayRow(R.string.book_publicationyear, viewModel, "year")
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Row()
-        {
-            welcomeText(stringResource(R.string.book_publicationyear))
-            OutlinedTextField(value = text4, onValueChange = { text4 = it; viewModel.setPublicationYear(it) }, label = { Text(stringResource(R.string.book_publicationyear), style = TextStyle(fontSize = 12.sp)) }, textStyle = TextStyle(fontSize = 15.sp), modifier = Modifier.height(58.dp).padding(vertical = 0.dp))
-        }
+        var authorsList = ArrayList<String>()
+        authorsList.add("Doe John")
+        authorsList.add("Fowler Martin")
+        authorsList.add("Γεωργιάδης Απόστολος")
+        authorsList.add("Βυζάντιος Χρήστος")
+        authorsList.add("Αβέρωφ Ευάγγελος")
 
-        Row()
-        {
-            welcomeText(stringResource(R.string.authors_title_text))
-
-            var authorsList = ArrayList<String>()
-            authorsList.add("Doe John")
-            authorsList.add("Fowler Martin")
-            authorsList.add("Γεωργιάδης Απόστολος")
-            authorsList.add("Βυζάντιος Χρήστος")
-            authorsList.add("Αβέρωφ Ευάγγελος")
-
-            multiselectiorMenu(authorsList, viewModel)
-        }
+        displayRow(R.string.authors_title_text, viewModel, authorsList)
+        Spacer(modifier = Modifier.height(16.dp))
 
         displayButton(R.string.complete_registration, 50, 200, viewModel)
     }
