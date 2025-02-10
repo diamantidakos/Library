@@ -16,6 +16,7 @@ import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Νίκος Σαραντινός
@@ -305,7 +306,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     @Override
     public Integer getAttachedBookID()
     {
-        return 0;
+        return this.getIntent().hasExtra("book_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("book_id") : null;
     }
 
     @Override
@@ -315,7 +316,10 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     public void setAuthorPositions(List<Integer> value) {}
 
     @Override
-    public void setPageName(String value) {}
+    public void setPageName(String value)
+    {
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
+    }
 
     /**
      * Το μήνυμα που εμφανίζεται όταν τελειώνει

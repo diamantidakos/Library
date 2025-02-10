@@ -143,7 +143,7 @@ public class AddEditBookPresenter {
                 for(Integer authorID : authorIDs)
                     authors.find(authorID).addBook(bookTmp);
 
-                view.successfullyFinishActivity("Επιτυχής Προσθήκη του Βιβλίου '"+title+"'!");
+                view.successfullyFinishActivity("Επιτυχής Προσθήκη του Βιβλίου '" + title + "'!");
             }
             else//update
             {
