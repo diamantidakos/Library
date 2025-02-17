@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.memorydao.BookDAOMemory;
+import com.mgiandia.library.memorydao.ItemDAOMemory;
+import com.mgiandia.library.memorydao.PublisherDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorPresenter;
 
@@ -306,7 +308,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     @Override
     public Integer getAttachedBookID()
     {
-        return this.getIntent().hasExtra("book_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("book_id") : null;
+        return this.getIntent().hasExtra("book_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("book_id") : -1;
     }
 
     @Override
@@ -354,12 +356,19 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_edit_book);
 
-        //final AddEditBookPresenter presenter = new AddEditBookPresenter((AddEditBookView) this, new BookDAOMemory());
-        final AddEditBookPresenter presenter = new AddEditBookPresenter(this);
+        //final AddEditBookPresenter presenter = new AddEditBookPresenter(this, new BookDAOMemory(), new PublisherDAOMemory(), new AuthorDAOMemory(), new ItemDAOMemory());
         model = new ViewModelProvider(this).get(AddEditBookViewModel.class);
+        final AddEditBookPresenter presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.drawEditBookPage(composeView, model);
+
+        int bookID = getAttachedBookID();
+        BookDAOMemory books = new BookDAOMemory();
+        if (books.find(bookID) != null)
+        {
+            model.setCompleteFields(true);
+        }
 
         model.getTitle().observe(this, bName ->
         {
@@ -414,7 +423,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         {
             if (buttonTextResId != null && validFields())
             {
-                //Toast.makeText(AddEditBookActivity.this, getPublisher(), Toast.LENGTH_SHORT).show(); // gia debbugging
+                //Toast.makeText(AddEditBookActivity.this, getPublisherPosition().toString(), Toast.LENGTH_SHORT).show(); // gia debbugging
                 presenter.onSaveBook();
             }
         });

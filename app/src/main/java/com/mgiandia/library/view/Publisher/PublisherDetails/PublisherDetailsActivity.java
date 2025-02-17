@@ -3,16 +3,17 @@ package com.mgiandia.library.view.Publisher.PublisherDetails;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
 import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.PublisherDAOMemory;
+import com.mgiandia.library.domain.Publisher;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.view.Book.ManageBooks.ManageBooksActivity;
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherActivity;
+import java.util.Objects;
 
 /**
  * @author Νίκος Σαραντινός
@@ -23,8 +24,6 @@ import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherActivity
 
 public class PublisherDetailsActivity extends AppCompatActivity implements PublisherDetailsView
 {
-    PublisherDetailsPresenter presenter;
-
     /**
      * Ξεκινάει το activity ManageBooksActivity
      * με παράμετρο το id του εκδότη.
@@ -55,7 +54,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public int getAttachedPublisherID()
     {
-        return this.getIntent().hasExtra("publisher_id") ? this.getIntent().getExtras().getInt("publisher_id") : null;
+        return this.getIntent().hasExtra("publisher_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("publisher_id") : -1;
     }
 
     /**
@@ -64,7 +63,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setID(String value)
     {
-        ((TextView)findViewById(R.id.text_user_id)).setText(value);
+        model.setPublisherID(value);
     }
 
     /**
@@ -73,7 +72,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setName(String value)
     {
-        ((TextView)findViewById(R.id.text_first_name)).setText(value);
+        model.setName(value);
     }
 
     /**
@@ -82,7 +81,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setPhone(String value)
     {
-        ((TextView)findViewById(R.id.text_telephone)).setText(value);
+        model.setPhone(value);
     }
 
     /**
@@ -91,7 +90,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setEmail(String value)
     {
-        ((TextView)findViewById(R.id.text_email)).setText(value);
+        model.setEmail(value);
     }
 
     /**
@@ -100,7 +99,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setBooksPublished(String value)
     {
-        ((TextView)findViewById(R.id.books_published_text)).setText(value);
+        model.setPublished(value);
     }
 
     /**
@@ -109,7 +108,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setCountry(String value)
     {
-        ((TextView)findViewById(R.id.text_country)).setText(value);
+        model.setCountry(value);
     }
 
     /**
@@ -118,7 +117,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setAddressCity(String value)
     {
-        ((TextView)findViewById(R.id.text_city)).setText(value);
+        model.setCity(value);
     }
 
     /**
@@ -127,7 +126,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setAddressStreet(String value)
     {
-        ((TextView)findViewById(R.id.text_street)).setText(value);
+        model.setStreet(value);
     }
 
     /**
@@ -136,7 +135,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setAddressNumber(String value)
     {
-        ((TextView)findViewById(R.id.text_number)).setText(value);
+        model.setNumber(value);
     }
 
     /**
@@ -145,7 +144,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setAddressPostalCode(String value)
     {
-        ((TextView)findViewById(R.id.text_zip)).setText(value);
+        model.setPostCode(value);
     }
 
     /**
@@ -154,7 +153,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
      */
     public void setPageName(String value)
     {
-        getSupportActionBar().setTitle(value);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 
     /**
@@ -166,6 +165,10 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();
     }
 
+
+    PublisherDetailsPresenter presenter;
+    PublisherDetailsViewModel model;
+
     /**
      * Δημιουργεί to layout και αρχικοποιεί
      * το activity.
@@ -175,9 +178,48 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_publisher_details);
-        presenter = new PublisherDetailsPresenter(this, new PublisherDAOMemory());
 
+        model = new ViewModelProvider(this).get(PublisherDetailsViewModel.class);
+        presenter = model.getPresenter(this);
+
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showPublisherDetailsView(composeView, model);
+
+        int publisherID = getAttachedPublisherID();
+        Publisher publisher = model.findPublisher(publisherID);
+
+        if (publisher != null)
+        {
+            setID("#" + publisher.getId());
+            setName(publisher.getName());
+            setPhone(publisher.getTelephone().getTelephoneNumber());
+            setEmail(publisher.getEMail().getAddress());
+            setBooksPublished(publisher.getBooks().size() + " " + getString(R.string.books));
+            setCountry(publisher.getAddress().getCountry());
+            setAddressCity(publisher.getAddress().getCity());
+            setAddressStreet(publisher.getAddress().getStreet());
+            setAddressNumber(publisher.getAddress().getNumber());
+            setAddressPostalCode(publisher.getAddress().getZipCode().getCode());
+        }
+
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null)
+            {
+                if (buttonTextResId.equals(R.string.edit_user))
+                {
+                    presenter.onStartEditButtonClick();
+                }
+                else if (buttonTextResId.equals(R.string.show_books))
+                {
+                    presenter.onStartShowBooksButtonClick();
+                }
+            }
+        });
+
+        /*
         findViewById(R.id.edit_user_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -191,6 +233,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
                 presenter.onStartShowBooksButtonClick();
             }
         });
+        */
     }
 
     /**

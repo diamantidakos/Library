@@ -3,16 +3,19 @@ package com.mgiandia.library.view.Author.AuthorDetails;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
 import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.AuthorDAOMemory;
+import com.mgiandia.library.domain.Author;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorActivity;
 import com.mgiandia.library.view.Book.ManageBooks.ManageBooksActivity;
+
+import java.util.Objects;
 
 /**
  * @author Νίκος Σαραντινός
@@ -23,8 +26,6 @@ import com.mgiandia.library.view.Book.ManageBooks.ManageBooksActivity;
 
 public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDetailsView
 {
-    AuthorDetailsPresenter presenter;
-
     /**
      * Ξεκινάει το activity ManageBooksActivity
      * με παράμετρο το id του συγγραφέα.
@@ -55,7 +56,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
      */
     public int getAttachedAuthorID()
     {
-        return this.getIntent().hasExtra("author_id") ? this.getIntent().getExtras().getInt("author_id") : null;
+        return this.getIntent().hasExtra("author_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("author_id") : -1;
     }
 
     /**
@@ -64,7 +65,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
      */
     public void setID(String value)
     {
-        ((TextView)findViewById(R.id.text_user_id)).setText(value);
+        //((TextView)findViewById(R.id.text_user_id)).setText(value);
     }
 
     /**
@@ -73,7 +74,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
      */
     public void setFirstName(String value)
     {
-        ((TextView)findViewById(R.id.text_first_name)).setText(value);
+        //((TextView)findViewById(R.id.text_first_name)).setText(value);
     }
 
     /**
@@ -82,7 +83,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
      */
     public void setLastName(String value)
     {
-        ((TextView)findViewById(R.id.text_last_name)).setText(value);
+        //((TextView)findViewById(R.id.text_last_name)).setText(value);
     }
 
     /**
@@ -91,7 +92,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
      */
     public void setBooksWritten(String value)
     {
-        ((TextView)findViewById(R.id.books_published_text)).setText(value);
+        //((TextView)findViewById(R.id.books_published_text)).setText(value);
     }
 
     /**
@@ -100,7 +101,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
      */
     public void setPageName(String value)
     {
-        getSupportActionBar().setTitle(value);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 
     /**
@@ -112,6 +113,9 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();
     }
 
+
+    AuthorDetailsPresenter presenter;
+
     /**
      * Δημιουργεί to layout και αρχικοποιεί
      * το activity.
@@ -121,7 +125,42 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_author_details);
+
+        AuthorDetailsViewModel model = new ViewModelProvider(this).get(AuthorDetailsViewModel.class);
+        presenter = model.getPresenter(this);
+
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showAuthorDetailsView(composeView, model);
+
+        int authorID = getAttachedAuthorID();
+        Author author = model.findAuthor(authorID);
+
+        if (author != null)
+        {
+            model.setAuthorID("#" + authorID);
+            model.setName(author.getFirstName());
+            model.setSurname(author.getLastName());
+            model.setBooksNumber(author.getBooks().size());
+        }
+
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null)
+            {
+                if (buttonTextResId.equals(R.string.edit_user))
+                {
+                    presenter.onStartEditButtonClick();
+                }
+                else if (buttonTextResId.equals(R.string.show_books))
+                {
+                    presenter.onStartShowBooksButtonClick();
+                }
+            }
+        });
+
+        /*
         presenter = new AuthorDetailsPresenter(this, new AuthorDAOMemory());
 
         findViewById(R.id.edit_user_button).setOnClickListener(new View.OnClickListener() {
@@ -137,6 +176,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
                 presenter.onStartShowBooksButtonClick();
             }
         });
+        */
     }
 
     /**

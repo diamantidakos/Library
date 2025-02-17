@@ -464,8 +464,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_edit_borrower);
 
-        final AddEditBorrowerPresenter presenter = new AddEditBorrowerPresenter(this, new BorrowerDAOMemory(), new BorrowerCategoryDAOMemory(), new CountryDAOMemory().getCountries());
         AddEditBorrowerViewModel model = new ViewModelProvider(this).get(AddEditBorrowerViewModel.class);
+        final AddEditBorrowerPresenter presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showAddEditBorrowerView(composeView, model);

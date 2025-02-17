@@ -3,20 +3,18 @@ package com.mgiandia.library.view.Loans.AddLoan;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.BookDAOMemory;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
+import com.mgiandia.library.domain.Borrower;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 
 /**
  * @author Νίκος Σαραντινός
@@ -113,46 +111,64 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
 //    }
 
 
-    @Override
-    public int getSelectedBookId() {
-        return 0;
+    int selectedBookID;
+    boolean bookChecked = false;
+    String borrowerFullName;
+
+    public void setSelectedBookID(int selectedBookID)
+    {
+        this.selectedBookID = selectedBookID;
+        bookChecked = true;
     }
 
     @Override
-    public int getAttachedBorrowerID() {
-        return 0;
+    public int getSelectedBookId()
+    {
+        return selectedBookID;
     }
 
     @Override
-    public void setBorrowerId(String value) {
-
+    public int getAttachedBorrowerID()
+    {
+        return Objects.requireNonNull(this.getIntent().getExtras()).getInt("borrower_id");
     }
 
     @Override
-    public void setPageName(String value) {
-
+    public void setBorrowerId(String value)
+    {
     }
 
     @Override
-    public void successfullyAddLoanAndFinishActivity(String message) {
-
+    public void setPageName(String value)
+    {
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 
     @Override
-    public void showErrorMessage(String title, String message) {
-
+    public void successfullyAddLoanAndFinishActivity(String message)
+    {
+        Intent retData = new Intent();
+        retData.putExtra("message_to_toast", message);
+        setResult(RESULT_OK, retData);
+        finish();
     }
 
     @Override
-    public void showAlert(String title, String message) {
-
+    public void showErrorMessage(String title, String message)
+    {
+        new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(message).setPositiveButton(R.string.ok, null).create().show();
     }
 
     @Override
-    public void setBookList(List<String> names) {
-
+    public void showAlert(String title, String message)
+    {
+        new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(message).setPositiveButton(R.string.ok, null).create().show();
     }
 
+    @Override
+    public void setBookList(List<String> names)
+    {
+    }
 
 
     /**
@@ -163,11 +179,49 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_add_loan);
-//        EdgeToEdge.enable(this);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_loan);
+        EdgeToEdge.enable(this);
 
+        AddLoanViewModel model = new ViewModelProvider(this).get(AddLoanViewModel.class);
+        AddLoansPresenter presenter = model.getPresenter(this);
 
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showAddLoanView(composeView, model);
+
+        int borrowerID = getAttachedBorrowerID();
+        Borrower borrower = model.findBorrower(borrowerID);
+
+        if (borrower != null)
+        {
+            model.setBorrowerFullName(borrower.getFirstName() + " " + borrower.getLastName());
+        }
+
+        model.getBorrowerFullName().observe(this, value ->
+        {
+            if (value != null)
+            {
+                //
+            }
+        });
+
+        model.getSelectedBookID().observe(this, value ->
+        {
+            if (value != null)
+            {
+                setSelectedBookID(value);
+            }
+        });
+
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && bookChecked)
+            {
+                presenter.onSaveLoan();
+            }
+        });
+
+        /*
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_loan);
@@ -179,6 +233,6 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
                 presenter.onSaveLoan();
             }
         });
-
+        */
     }
 }

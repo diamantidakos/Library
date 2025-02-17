@@ -39,11 +39,11 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_page_compose);
 
-        final HomePagePresenter presenter = new HomePagePresenter(this);
-
         HomePageViewModel model = new ViewModelProvider(this).get(HomePageViewModel.class);
+        HomePagePresenter presenter = model.getPresenter(this);
 
         // Create the observer which updates the UI.
         final Observer<Integer> clickObserver = buttonLabelResId -> {

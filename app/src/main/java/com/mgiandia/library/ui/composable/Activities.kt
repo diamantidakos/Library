@@ -10,11 +10,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import com.mgiandia.library.ui.theme.LibraryTheme
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
+import com.mgiandia.library.view.Author.AuthorDetails.AuthorDetailsViewModel
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
+import com.mgiandia.library.view.Book.BookDetails.BookDetailsViewModel
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
+import com.mgiandia.library.view.Borrower.BorrowerDetails.BorrowerDetailsViewModel
 import com.mgiandia.library.view.HomePage.HomePageViewModel
+import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel
 import com.mgiandia.library.view.Loans.AddLoan.AddLoanViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
+import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsViewModel
 
 fun showEmptyView(composeView: ComposeView)
 {
@@ -106,6 +111,22 @@ fun showAddEditBorrowerView(composeView: ComposeView, viewModel: AddEditBorrower
     }
 }
 
+fun showBookDetailsView(composeView: ComposeView, viewModel: BookDetailsViewModel)
+{
+    composeView.apply {
+        setContent {
+            LibraryTheme {
+                Scaffold(modifier = Modifier.fillMaxSize())
+                { innerPadding ->
+                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
+
+                    drawBookDetailsPage(modifier = Modifier.padding(innerPadding), viewModel)
+                }
+            }
+        }
+    }
+}
+
 fun showAddLoanView(composeView: ComposeView, viewModel: AddLoanViewModel)
 {
     composeView.apply {
@@ -116,6 +137,70 @@ fun showAddLoanView(composeView: ComposeView, viewModel: AddLoanViewModel)
                     Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
 
                     drawAddLoan(modifier = Modifier.padding(innerPadding), viewModel)
+                }
+            }
+        }
+    }
+}
+
+fun showAuthorDetailsView(composeView: ComposeView, viewModel: AuthorDetailsViewModel)
+{
+    composeView.apply {
+        setContent {
+            LibraryTheme {
+                Scaffold(modifier = Modifier.fillMaxSize())
+                { innerPadding ->
+                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
+
+                    drawAuthorDetailsPage(modifier = Modifier.padding(innerPadding), viewModel)
+                }
+            }
+        }
+    }
+}
+
+fun showManageItemsView(composeView: ComposeView, viewModel: ManageItemsViewModel)
+{
+    composeView.apply {
+        setContent {
+            LibraryTheme {
+                Scaffold(modifier = Modifier.fillMaxSize())
+                { innerPadding ->
+                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
+
+                    drawItemListScreen(modifier = Modifier.padding(innerPadding), viewModel)
+                }
+            }
+        }
+    }
+}
+
+fun showBorrowerDetailsView(composeView: ComposeView, viewModel: BorrowerDetailsViewModel)
+{
+    composeView.apply {
+        setContent {
+            LibraryTheme {
+                Scaffold(modifier = Modifier.fillMaxSize())
+                { innerPadding ->
+                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
+
+                    drawBorrowerDetailsPage(modifier = Modifier.padding(innerPadding), viewModel)
+                }
+            }
+        }
+    }
+}
+
+fun showPublisherDetailsView(composeView: ComposeView, viewModel: PublisherDetailsViewModel)
+{
+    composeView.apply {
+        setContent {
+            LibraryTheme {
+                Scaffold(modifier = Modifier.fillMaxSize())
+                { innerPadding ->
+                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
+
+                    drawPublisherDetailsPage(modifier = Modifier.padding(innerPadding), viewModel)
                 }
             }
         }

@@ -5,16 +5,20 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
 import com.mgiandia.library.R;
+import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.LoanDAOMemory;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
+
+import java.util.Objects;
 
 /**
  * @author Νίκος Σαραντινός
@@ -25,8 +29,6 @@ import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerActivit
 
 public class BorrowerDetailsActivity extends AppCompatActivity implements BorrowerDetailsView
 {
-    BorrowerDetailsPresenter presenter;
-
     /**
      * Ξεκινάει το activity AddEditAuthorActivity
      * με παράμετρο το id του δανειζόμενου.
@@ -76,7 +78,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public int getAttachedBorrowerID()
     {
-        return this.getIntent().hasExtra("borrower_id") ? this.getIntent().getExtras().getInt("borrower_id") : null;
+        return this.getIntent().hasExtra("borrower_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("borrower_id") : -1;
     }
 
     /**
@@ -85,7 +87,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setID(String value)
     {
-        ((TextView)findViewById(R.id.text_user_id)).setText(value);
+        model.setBorrowerNo(value);
     }
 
     /**
@@ -94,7 +96,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setFirstName(String value)
     {
-        ((TextView)findViewById(R.id.text_first_name)).setText(value);
+        model.setFirstName(value);
     }
 
     /**
@@ -103,7 +105,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setLastName(String value)
     {
-        ((TextView)findViewById(R.id.text_last_name)).setText(value);
+        model.setLastName(value);
     }
 
     /**
@@ -112,7 +114,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setCategory(String value)
     {
-        ((TextView)findViewById(R.id.text_category)).setText(value);
+        model.setCategory(value);
     }
 
     /**
@@ -121,7 +123,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setPhone(String value)
     {
-        ((TextView)findViewById(R.id.text_telephone)).setText(value);
+        model.setPhone(value);
     }
 
     /**
@@ -130,7 +132,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setEmail(String value)
     {
-        ((TextView)findViewById(R.id.text_email)).setText(value);
+        model.setEmail(value);
     }
 
     /**
@@ -139,7 +141,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setCountry(String value)
     {
-        ((TextView)findViewById(R.id.text_country)).setText(value);
+        model.setCountry(value);
     }
 
     /**
@@ -148,7 +150,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setAddressCity(String value)
     {
-        ((TextView)findViewById(R.id.text_city)).setText(value);
+        model.setCity(value);
     }
 
     /**
@@ -157,7 +159,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setAddressStreet(String value)
     {
-        ((TextView)findViewById(R.id.text_street)).setText(value);
+        model.setStreet(value);
     }
 
     /**
@@ -166,7 +168,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setAddressNumber(String value)
     {
-        ((TextView)findViewById(R.id.text_number)).setText(value);
+        model.setNumber(value);
     }
 
     /**
@@ -175,7 +177,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setAddressPostalCode(String value)
     {
-        ((TextView)findViewById(R.id.text_zip)).setText(value);
+        model.setPostCode(value);
     }
 
     /**
@@ -184,7 +186,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
      */
     public void setPageName(String value)
     {
-        getSupportActionBar().setTitle(value);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 
     /**
@@ -196,6 +198,10 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();
     }
 
+
+    BorrowerDetailsViewModel model;
+    BorrowerDetailsPresenter presenter;
+
     /**
      * Δημιουργεί το layout και αρχικοποιεί
      * το activity.
@@ -205,9 +211,49 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_borrower_details);
-        presenter = new BorrowerDetailsPresenter(this, new BorrowerDAOMemory(), new LoanDAOMemory());
 
+        model = new ViewModelProvider(this).get(BorrowerDetailsViewModel.class);
+        presenter = model.getPresenter(this);
+
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showBorrowerDetailsView(composeView, model);
+
+        int borrowerID = getAttachedBorrowerID();
+        Borrower borrower = model.findBorrower(borrowerID);
+
+        if (borrower != null)
+        {
+            setID("#" + borrower.getBorrowerNo());
+            setFirstName(borrower.getFirstName());
+            setLastName(borrower.getLastName());
+            setCategory(borrower.getCategory().getDescription());
+            setPhone(borrower.getTelephone().getTelephoneNumber());
+            setEmail(borrower.getEmail().toString());
+            setCountry(borrower.getAddress().getCountry());
+            setAddressCity(borrower.getAddress().getCity());
+            setAddressStreet(borrower.getAddress().getStreet());
+            setAddressNumber(borrower.getAddress().getNumber());
+            setAddressPostalCode(borrower.getAddress().getZipCode().getCode());
+        }
+
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null)
+            {
+                if (buttonTextResId.equals(R.string.delete_user))
+                {
+                    presenter.onStartDeleteButtonClick();
+                }
+                else if (buttonTextResId.equals(R.string.edit_user))
+                {
+                    presenter.onStartEditButtonClick();
+                }
+            }
+        });
+
+        /*
         findViewById(R.id.edit_user_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -221,6 +267,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
                 presenter.onStartDeleteButtonClick();
             }
         });
+        */
     }
 
     /**

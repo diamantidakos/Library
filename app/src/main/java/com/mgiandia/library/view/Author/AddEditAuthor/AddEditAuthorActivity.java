@@ -11,6 +11,8 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 
+import java.util.Objects;
+
 /**
  * @author Νίκος Σαραντινός
  *
@@ -37,7 +39,7 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
     @Override
     public Integer getAttachedAuthorID()
     {
-        return this.getIntent().hasExtra("author_id") ? this.getIntent().getExtras().getInt("author_id") : null;
+        return this.getIntent().hasExtra("author_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("author_id") : null;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
      */
     public void setPageName(String value)
     {
-        getSupportActionBar().setTitle(value);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 
     /**
@@ -147,8 +149,8 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_edit_author);
 
-        final AddEditAuthorPresenter presenter = new AddEditAuthorPresenter(this, new AuthorDAOMemory());
         AddEditAuthorViewModel model = new ViewModelProvider(this).get(AddEditAuthorViewModel.class);
+        final AddEditAuthorPresenter presenter = model.getPresenter(this);
 
         // find the compose view object
         ComposeView composeView = findViewById(R.id.compose_view);

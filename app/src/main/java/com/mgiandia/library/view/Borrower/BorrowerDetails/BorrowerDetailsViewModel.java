@@ -1,31 +1,50 @@
-package com.mgiandia.library.view.Borrower.AddEditBorrower;
+package com.mgiandia.library.view.Borrower.BorrowerDetails;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.mgiandia.library.memorydao.BorrowerCategoryDAOMemory;
+import com.mgiandia.library.dao.BorrowerDAO;
+import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.CountryDAOMemory;
+import com.mgiandia.library.memorydao.LoanDAOMemory;
 import com.mgiandia.library.ui.model.ButtonClicked;
 
-public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
+public class BorrowerDetailsViewModel extends ViewModel implements ButtonClicked
 {
-    private AddEditBorrowerPresenter presenter;
+    private BorrowerDetailsPresenter presenter;
+    private final MutableLiveData<String> borrowerNo = new MutableLiveData<>();
     private final MutableLiveData<String> firstName = new MutableLiveData<>();
     private final MutableLiveData<String> lastName = new MutableLiveData<>();
-    private final MutableLiveData<Integer> userTypePosition = new MutableLiveData<>();
+    private final MutableLiveData<String> category = new MutableLiveData<>();
     private final MutableLiveData<String> phone = new MutableLiveData<>();
     private final MutableLiveData<String> email = new MutableLiveData<>();
-    private final MutableLiveData<Integer> countryPosition = new MutableLiveData<>();
+    private final MutableLiveData<String> country = new MutableLiveData<>();
     private final MutableLiveData<String> city = new MutableLiveData<>();
     private final MutableLiveData<String> street = new MutableLiveData<>();
     private final MutableLiveData<String> number = new MutableLiveData<>();
-    private final MutableLiveData<String> zipCode = new MutableLiveData<>();
+    private final MutableLiveData<String> postCode = new MutableLiveData<>();
 
-    public AddEditBorrowerPresenter getPresenter(AddEditBorrowerView view)
+    private BorrowerDAO borrowerDAO = new BorrowerDAOMemory();
+
+    public BorrowerDetailsPresenter getPresenter(BorrowerDetailsView view)
     {
-        presenter = new AddEditBorrowerPresenter(view, new BorrowerDAOMemory(), new BorrowerCategoryDAOMemory(), new CountryDAOMemory().getCountries());
+        presenter = new BorrowerDetailsPresenter(view, borrowerDAO, new LoanDAOMemory());
         return presenter;
+    }
+
+    public Borrower findBorrower(int borrowerID)
+    {
+        return borrowerDAO.find(borrowerID);
+    }
+
+    public void setBorrowerNo(String borrowerNo)
+    {
+        this.borrowerNo.setValue(borrowerNo);
+    }
+
+    public MutableLiveData<String> getBorrowerNo()
+    {
+        return borrowerNo;
     }
 
     public void setFirstName(String firstName)
@@ -48,14 +67,14 @@ public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
         return lastName;
     }
 
-    public void setUserTypePosition(int userTypePosition)
+    public void setCategory(String category)
     {
-        this.userTypePosition.setValue(userTypePosition);
+        this.category.setValue(category);
     }
 
-    public MutableLiveData<Integer> getUserTypePosition()
+    public MutableLiveData<String> getCategory()
     {
-        return userTypePosition;
+        return category;
     }
 
     public void setPhone(String phone)
@@ -78,14 +97,14 @@ public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
         return email;
     }
 
-    public void setCountryPosition(int countryPosition)
+    public void setCountry(String country)
     {
-        this.countryPosition.setValue(countryPosition);
+        this.country.setValue(country);
     }
 
-    public MutableLiveData<Integer> getCountryPosition()
+    public MutableLiveData<String> getCountry()
     {
-        return countryPosition;
+        return country;
     }
 
     public void setCity(String city)
@@ -105,7 +124,7 @@ public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
 
     public MutableLiveData<String> getStreet()
     {
-        return city;
+        return street;
     }
 
     public void setNumber(String number)
@@ -118,13 +137,13 @@ public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
         return number;
     }
 
-    public void setZipCode(String zipCode)
+    public void setPostCode(String postCode)
     {
-        this.zipCode.setValue(zipCode);
+        this.postCode.setValue(postCode);
     }
 
-    public MutableLiveData<String> getZipCode()
+    public MutableLiveData<String> getPostCode()
     {
-        return zipCode;
+        return postCode;
     }
 }

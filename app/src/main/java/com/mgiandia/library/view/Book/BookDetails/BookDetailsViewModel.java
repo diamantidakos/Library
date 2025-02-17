@@ -1,25 +1,33 @@
-package com.mgiandia.library.view.Book.AddEditBook;
+package com.mgiandia.library.view.Book.BookDetails;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.mgiandia.library.domain.Author;
+import com.mgiandia.library.dao.BookDAO;
 import com.mgiandia.library.domain.Book;
-import com.mgiandia.library.memorydao.AuthorDAOMemory;
+import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.memorydao.BookDAOMemory;
-import com.mgiandia.library.memorydao.ItemDAOMemory;
-import com.mgiandia.library.memorydao.PublisherDAOMemory;
 import com.mgiandia.library.ui.model.ButtonClicked;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AddEditBookViewModel extends ViewModel implements ButtonClicked
+public class BookDetailsViewModel extends ViewModel implements ButtonClicked
 {
+    BookDAO bookDAO = new BookDAOMemory();
+
+    public BookDetailsPresenter getPresenter(BookDetailsView view)
+    {
+        return new BookDetailsPresenter(view, bookDAO);
+    }
+
+    public Book findBook(int bookID)
+    {
+        return bookDAO.find(bookID);
+    }
+    private final MutableLiveData<String> bookID = new MutableLiveData<>();
     private final MutableLiveData<String> title = new MutableLiveData<>();
     private final MutableLiveData<String> publisher = new MutableLiveData<>();
     private final MutableLiveData<String> ISBN = new MutableLiveData<>();
@@ -28,14 +36,25 @@ public class AddEditBookViewModel extends ViewModel implements ButtonClicked
     private final MutableLiveData<ArrayList<String>> authors = new MutableLiveData<>();
     private final MutableLiveData<Integer> publisherPosition = new MutableLiveData<>();
     private final MutableLiveData<List<Integer>> selectedAuthors = new MutableLiveData<>(new ArrayList<>());
-    private final MutableLiveData<Boolean> completeFields = new MutableLiveData<>();
+    private final MutableLiveData<Set<Item>> copies = new MutableLiveData<>();
+    private final MutableLiveData<Integer> copiesNum = new MutableLiveData<>();
+
+    public void setBookID(String bookID)
+    {
+        this.bookID.setValue(bookID);
+    }
+
+    public LiveData<String> getBookID()
+    {
+        return bookID;
+    }
 
     public void setTitle(String t)
     {
         title.setValue(t);
     }
 
-    public LiveData<String> getTitle()
+    public MutableLiveData<String> getTitle()
     {
         return title;
     }
@@ -139,23 +158,24 @@ public class AddEditBookViewModel extends ViewModel implements ButtonClicked
         selectedAuthors.setValue(indexes);
     }
 
-    public LiveData<List<Integer>> getSelectedAuthorsPositions()
+    public MutableLiveData<List<Integer>> getSelectedAuthorsPositions()
     {
         return selectedAuthors;
     }
 
-    public AddEditBookPresenter getPresenter(AddEditBookView view)
+    public void setCopies(Set<Item> copies)
     {
-        return new AddEditBookPresenter(view, new BookDAOMemory(), new PublisherDAOMemory(), new AuthorDAOMemory(), new ItemDAOMemory());
+        this.copies.setValue(copies);
+        this.copiesNum.setValue(copies.size());
     }
 
-    public void setCompleteFields(boolean value)
+    public MutableLiveData<Set<Item>> getCopies()
     {
-        completeFields.setValue(value);
+        return copies;
     }
 
-    public MutableLiveData<Boolean> getCompleteFields()
+    public MutableLiveData<Integer> getCopiesNum()
     {
-        return completeFields;
+        return copiesNum;
     }
 }

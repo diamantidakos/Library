@@ -1,0 +1,34 @@
+package com.mgiandia.library.ui.composable
+
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.mgiandia.library.R
+import com.mgiandia.library.view.Book.BookDetails.BookDetailsViewModel
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun drawBookDetailsPage(modifier: Modifier = Modifier, viewModel: BookDetailsViewModel)
+{
+    Column(modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.Top), horizontalAlignment = Alignment.CenterHorizontally)
+    {
+        welcomeText(stringResource(R.string.basic_info))
+        displayRow(R.string.user_id, viewModel, "code")
+        displayRow(R.string.book_title, viewModel, "title")
+        displayRow(R.string.book_publisher, viewModel, "publisher")
+        displayRow(R.string.book_isbn, viewModel, "isbn")
+        displayRow(R.string.book_publication, viewModel, "publication")
+        displayRow(R.string.book_publicationyear, viewModel, "year")
+        displayRow(R.string.book_copies, viewModel, "copies")
+        welcomeText(stringResource(R.string.authors_title_text))
+        displayAuthors(viewModel)
+        welcomeText(stringResource(R.string.actions))
+        displayButton(R.string.edit_user, 50, 200, viewModel)
+    }
+}

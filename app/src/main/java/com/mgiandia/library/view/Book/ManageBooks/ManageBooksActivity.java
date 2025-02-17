@@ -10,7 +10,10 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
@@ -18,11 +21,14 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.memorydao.BookDAOMemory;
 import com.mgiandia.library.memorydao.PublisherDAOMemory;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
 import com.mgiandia.library.view.Book.BookDetails.BookDetailsActivity;
 import com.mgiandia.library.view.HomePage.HomePageActivity;
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsActivity;
+import com.mgiandia.library.view.Items.ManageItems.ManageItemsPresenter;
+import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
 /**
@@ -50,7 +56,6 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_items);
-
         adapter = new AdvancedListAdapter(this);
 
         itemListView = (ListView) findViewById(R.id.item_list_view);
@@ -68,9 +73,6 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
             @Override
             public void onClick(View view)
             {
-                //Intent intent = new Intent(ManageBooksActivity.this, AddEditBookActivity.class);
-                //startActivity(intent);
-
                 presenter.onStartAddNew();
             }
         });

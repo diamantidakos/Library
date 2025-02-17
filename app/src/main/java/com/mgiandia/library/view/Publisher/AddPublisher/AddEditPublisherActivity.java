@@ -379,7 +379,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         setContentView(R.layout.activity_add_edit_publisher);
 
         AddEditPublisherViewModel model = new ViewModelProvider(this).get(AddEditPublisherViewModel.class);
-        final AddEditPublisherPresenter presenter = new AddEditPublisherPresenter(this, new PublisherDAOMemory(), new CountryDAOMemory().getCountries());
+        final AddEditPublisherPresenter presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showAddEditPublisherView(composeView, model);

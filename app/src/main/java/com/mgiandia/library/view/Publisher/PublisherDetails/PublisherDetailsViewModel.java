@@ -1,28 +1,48 @@
-package com.mgiandia.library.view.Publisher.AddPublisher;
+package com.mgiandia.library.view.Publisher.PublisherDetails;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.mgiandia.library.memorydao.CountryDAOMemory;
+import com.mgiandia.library.dao.PublisherDAO;
+import com.mgiandia.library.domain.Publisher;
 import com.mgiandia.library.memorydao.PublisherDAOMemory;
 import com.mgiandia.library.ui.model.ButtonClicked;
 
-public class AddEditPublisherViewModel extends ViewModel implements ButtonClicked
+public class PublisherDetailsViewModel extends ViewModel implements ButtonClicked
 {
-    private AddEditPublisherPresenter presenter;
+    private PublisherDetailsPresenter presenter;
+    private final PublisherDAO publisherDAO = new PublisherDAOMemory();
+    private final MutableLiveData<String> publisherID = new MutableLiveData<>();
     private final MutableLiveData<String> name = new MutableLiveData<>();
     private final MutableLiveData<String> phone = new MutableLiveData<>();
     private final MutableLiveData<String> email = new MutableLiveData<>();
-    private final MutableLiveData<Integer> countryPosition = new MutableLiveData<>();
+    private final MutableLiveData<String> published = new MutableLiveData<>();
+    private final MutableLiveData<String> country = new MutableLiveData<>();
     private final MutableLiveData<String> city = new MutableLiveData<>();
     private final MutableLiveData<String> street = new MutableLiveData<>();
     private final MutableLiveData<String> number = new MutableLiveData<>();
-    private final MutableLiveData<String> zipCode = new MutableLiveData<String>();
+    private final MutableLiveData<String> postCode = new MutableLiveData<>();
 
-    public AddEditPublisherPresenter getPresenter(AddEditPublisherView view)
+
+    public PublisherDetailsPresenter getPresenter(PublisherDetailsView view)
     {
-        presenter = new AddEditPublisherPresenter(view, new PublisherDAOMemory(), new CountryDAOMemory().getCountries());
+        presenter = new PublisherDetailsPresenter(view, publisherDAO);
         return presenter;
+    }
+
+    public Publisher findPublisher(int publisherID)
+    {
+        return publisherDAO.find(publisherID);
+    }
+
+    public void setPublisherID(String publisherID)
+    {
+        this.publisherID.setValue(publisherID);
+    }
+
+    public MutableLiveData<String> getPublisherID()
+    {
+        return publisherID;
     }
 
     public void setName(String name)
@@ -55,14 +75,24 @@ public class AddEditPublisherViewModel extends ViewModel implements ButtonClicke
         return email;
     }
 
-    public void setCountryPosition(int countryPosition)
+    public void setPublished(String published)
     {
-        this.countryPosition.setValue(countryPosition);
+        this.published.setValue(published);
     }
 
-    public MutableLiveData<Integer> getCountryPosition()
+    public MutableLiveData<String> getPublished()
     {
-        return countryPosition;
+        return published;
+    }
+
+    public void setCountry(String country)
+    {
+        this.country.setValue(country);
+    }
+
+    public MutableLiveData<String> getCountry()
+    {
+        return country;
     }
 
     public void setCity(String city)
@@ -95,13 +125,13 @@ public class AddEditPublisherViewModel extends ViewModel implements ButtonClicke
         return number;
     }
 
-    public void setZipCode(String zipCode)
+    public void setPostCode(String postCode)
     {
-        this.zipCode.setValue(zipCode);
+        this.postCode.setValue(postCode);
     }
 
-    public MutableLiveData<String> getZipCode()
+    public MutableLiveData<String> getPostCode()
     {
-        return zipCode;
+        return postCode;
     }
 }
