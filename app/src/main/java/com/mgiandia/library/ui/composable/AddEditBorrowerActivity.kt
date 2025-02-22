@@ -1,5 +1,6 @@
 package com.mgiandia.library.ui.composable
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
 
+@SuppressLint("ComposableNaming")
 @Composable
 fun drawAddEditBorrower(modifier: Modifier = Modifier, viewModel: AddEditBorrowerViewModel)
 {

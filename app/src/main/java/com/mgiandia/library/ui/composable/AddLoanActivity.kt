@@ -1,5 +1,6 @@
 package com.mgiandia.library.ui.composable
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,7 @@ import com.mgiandia.library.R
 import com.mgiandia.library.memorydao.BookDAOMemory
 import com.mgiandia.library.view.Loans.AddLoan.AddLoanViewModel
 
+@SuppressLint("ComposableNaming")
 @Composable
 fun drawAddLoan(modifier: Modifier = Modifier, viewModel: AddLoanViewModel)
 {

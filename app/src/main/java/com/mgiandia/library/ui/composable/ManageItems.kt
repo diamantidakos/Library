@@ -34,7 +34,7 @@ fun drawItemListScreen(modifier: Modifier = Modifier, viewModel: ManageItemsView
     var searchQuery by remember { mutableStateOf("") }
 
     val items = arrayListOf<String>()
-    items.add("item 1")
+    items.add("item 1") // temp data
     items.add("item 2")
     items.add("item 3")
 
