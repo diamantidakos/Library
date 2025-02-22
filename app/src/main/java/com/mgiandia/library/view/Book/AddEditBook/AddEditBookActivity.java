@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
 import com.mgiandia.library.R;
+import com.mgiandia.library.domain.Author;
+import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.memorydao.BookDAOMemory;
 import com.mgiandia.library.memorydao.ItemDAOMemory;
@@ -370,53 +372,73 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
             model.setCompleteFields(true);
         }
 
-        model.getTitle().observe(this, bName ->
+        Book book = model.findBook(bookID);
+        if (Boolean.TRUE.equals(model.getCompleteFields().getValue()))
         {
-            if (bName != null)
-            {
-                setBookTitle(bName.trim());
-            }
-        });
+            model.setTitle(book.getTitle());
+            model.setPublisher(book.getPublisher().getName());
+            model.setISBN(book.getIsbn().toString());
+            model.setPublication(book.getPublication());
+            model.setPublicationYear(Integer.toString(book.getPublicationYear()));
 
-        model.getPublisher().observe(this, i ->
-        {
-            if (i != null)
+            ArrayList<String> authors = new ArrayList<>();
+            for (Author a : book.getAuthors())
             {
-                setPublisher(i.trim());
+                authors.add(a.getFirstName() + " " + a.getLastName());
             }
-        });
 
-        model.getISBN().observe(this, i ->
+            model.setAuthors(authors);
+        }
+        else
         {
-            if (i != null)
+            model.getTitle().observe(this, bName ->
             {
-                setISBN(i.trim());
-            }
-        });
+                if (bName != null)
+                {
+                    setBookTitle(bName.trim());
+                }
+            });
 
-        model.getPublication().observe(this, i ->
-        {
-            if (i != null)
+            model.getPublisher().observe(this, i ->
             {
-                setPublication(i.trim());
-            }
-        });
+                if (i != null)
+                {
+                    setPublisher(i.trim());
+                }
+            });
 
-        model.getPublicationYear().observe(this, i ->
-        {
-            if (i != null)
+            model.getISBN().observe(this, i ->
             {
-                setYear(i.trim());
-            }
-        });
+                if (i != null)
+                {
+                    setISBN(i.trim());
+                }
+            });
 
-        model.getAuthors().observe(this, i ->
-        {
-            if (i != null)
+            model.getPublication().observe(this, i ->
             {
-                setAuthorList(i);
-            }
-        });
+                if (i != null)
+                {
+                    setPublication(i.trim());
+                }
+            });
+
+            model.getPublicationYear().observe(this, i ->
+            {
+                if (i != null)
+                {
+                    setYear(i.trim());
+                }
+            });
+
+            model.getAuthors().observe(this, i ->
+            {
+                if (i != null)
+                {
+                    setAuthorList(i);
+                }
+            });
+        }
 
         // if the save button is clicked, save the book
         model.observeClicks(this, buttonTextResId ->

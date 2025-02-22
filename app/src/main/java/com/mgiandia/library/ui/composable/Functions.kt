@@ -62,12 +62,15 @@ import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsView
 @Composable
 fun optionMenu(publishers: List<String>, viewModel: AddEditBookViewModel)
 {
-    var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(publishers[0]) }
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    val selectedPublisher = viewModel.publisher.value ?: "select publisher"
+    val selectedPublisherIndex = viewModel.publisherPosition.value ?: -1
 
-    viewModel.setPublisher(selectedText)
-    viewModel.setPublisherPosition(selectedIndex)
+    var expanded by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf(selectedPublisher) }
+    var selectedIndex by remember { mutableIntStateOf(selectedPublisherIndex) }
+
+    //viewModel.setPublisher(selectedText)
+    //viewModel.setPublisherPosition(selectedIndex)
 
     Box(modifier = Modifier.fillMaxWidth())
     {
@@ -265,10 +268,12 @@ fun optionMenu(books: List<Book>, viewModel: AddLoanViewModel)
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ComposableNaming")
 @Composable
-fun multiselectiorMenu(authorsList: List<String>, viewModel: AddEditBookViewModel)
+fun multiselectMenu(authorsList: List<String>, viewModel: AddEditBookViewModel)
 {
+    val selectedAuthorNames = viewModel.authors.value ?: ""
+
     var isExpanded by remember { mutableStateOf(false) }
-    val selectedAuthors = remember { mutableStateListOf<String>() }
+    val selectedAuthors = remember { mutableStateListOf(selectedAuthorNames.toString()) }
 
     ExposedDropdownMenuBox(expanded = isExpanded, onExpandedChange = { isExpanded = it })
     {
@@ -396,7 +401,7 @@ fun displayRow(labelRes: Int, viewModel: AddEditBookViewModel, authorsList: List
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
     {
         Text(text = stringResource(labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-        multiselectiorMenu(authorsList, viewModel)
+        multiselectMenu(authorsList, viewModel)
     }
 }
 

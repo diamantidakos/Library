@@ -20,6 +20,7 @@ import java.util.Set;
 
 public class AddEditBookViewModel extends ViewModel implements ButtonClicked
 {
+    BookDAOMemory bookDAO = new BookDAOMemory();
     private final MutableLiveData<String> title = new MutableLiveData<>();
     private final MutableLiveData<String> publisher = new MutableLiveData<>();
     private final MutableLiveData<String> ISBN = new MutableLiveData<>();
@@ -146,7 +147,12 @@ public class AddEditBookViewModel extends ViewModel implements ButtonClicked
 
     public AddEditBookPresenter getPresenter(AddEditBookView view)
     {
-        return new AddEditBookPresenter(view, new BookDAOMemory(), new PublisherDAOMemory(), new AuthorDAOMemory(), new ItemDAOMemory());
+        return new AddEditBookPresenter(view, bookDAO, new PublisherDAOMemory(), new AuthorDAOMemory(), new ItemDAOMemory());
+    }
+
+    public Book findBook(int bookID)
+    {
+        return bookDAO.find(bookID);
     }
 
     public void setCompleteFields(boolean value)
