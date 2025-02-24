@@ -197,6 +197,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     String bookTitle, publisher, ISBN, publication, publicationYear;
     ArrayList<String> authors = new ArrayList<>();
     List<Integer> authorsIndexes = new ArrayList<>();
+    int publisherPosition;
 
     /**
      * Εμφανίζει ένα μήνυμα τύπου alert με
@@ -290,6 +291,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     @Override
     public List<Integer> getAuthorPositions()
     {
+        /*
         model.getSelectedAuthorsPositions().observe(this, indexes ->
         {
             if (indexes != null)
@@ -297,6 +299,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
                 authorsIndexes = indexes;
             }
         });
+         */
 
         return authorsIndexes;
     }
@@ -304,7 +307,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     @Override
     public Integer getPublisherPosition()
     {
-        return model.getPublisherPosition().getValue();
+        return publisherPosition;
     }
 
     @Override
@@ -314,10 +317,16 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     }
 
     @Override
-    public void setPublisherPosition(Integer value) {}
+    public void setPublisherPosition(Integer value)
+    {
+        publisherPosition = value;
+    }
 
     @Override
-    public void setAuthorPositions(List<Integer> value) {}
+    public void setAuthorPositions(List<Integer> value)
+    {
+        authorsIndexes = value;
+    }
 
     @Override
     public void setPageName(String value)
@@ -343,7 +352,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
      */
     private boolean validFields()
     {
-        return (getBookTitle() != null && getPublisher() != null && getISBN() != null && getPublication() != null && getYear() != null && getAuthorList() != null);
+        return (getBookTitle() != null && getPublisher() != null && getPublisherPosition() != null && getISBN() != null && getPublication() != null && getYear() != null && getAuthorList() != null);
     }
 
     /**
@@ -407,6 +416,14 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
                 }
             });
 
+            model.getPublisherPosition().observe(this, i ->
+            {
+                if (i != null)
+                {
+                    setPublisherPosition(i);
+                }
+            });
+
             model.getISBN().observe(this, i ->
             {
                 if (i != null)
@@ -438,6 +455,15 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
                     setAuthorList(i);
                 }
             });
+
+            model.getSelectedAuthorsPositions().observe(this, indexes ->
+            {
+                if (indexes != null)
+                {
+                    //authorsIndexes = indexes;
+                    setAuthorPositions(indexes);
+                }
+            });
         }
 
         // if the save button is clicked, save the book
@@ -445,7 +471,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         {
             if (buttonTextResId != null && validFields())
             {
-                //Toast.makeText(AddEditBookActivity.this, getPublisherPosition().toString(), Toast.LENGTH_SHORT).show(); // gia debbugging
+                //Toast.makeText(AddEditBookActivity.this, Integer.toString(getPublisherPosition()), Toast.LENGTH_SHORT).show(); // gia debbugging
                 presenter.onSaveBook();
             }
         });

@@ -38,21 +38,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
+import com.mgiandia.library.domain.Book
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
+import com.mgiandia.library.view.Author.AuthorDetails.AuthorDetailsViewModel
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
 import com.mgiandia.library.view.Book.BookDetails.BookDetailsViewModel
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
-import com.mgiandia.library.view.HomePage.HomePageViewModel
-import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
-import java.util.Locale
-import androidx.compose.runtime.*
-import com.mgiandia.library.domain.Book
-import com.mgiandia.library.domain.Publisher
-import com.mgiandia.library.view.Author.AuthorDetails.AuthorDetailsViewModel
 import com.mgiandia.library.view.Borrower.BorrowerDetails.BorrowerDetailsViewModel
+import com.mgiandia.library.view.HomePage.HomePageViewModel
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel
 import com.mgiandia.library.view.Loans.AddLoan.AddLoanViewModel
+import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsViewModel
+import java.util.Locale
 
 
 // All reusable functions I wrote, to create the ui
@@ -68,9 +66,6 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditBookViewModel)
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(selectedPublisher) }
     var selectedIndex by remember { mutableIntStateOf(selectedPublisherIndex) }
-
-    //viewModel.setPublisher(selectedText)
-    //viewModel.setPublisherPosition(selectedIndex)
 
     Box(modifier = Modifier.fillMaxWidth())
     {
@@ -93,8 +88,8 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditBookViewModel)
                             selectedText = item
                             selectedIndex = index
                             expanded = false
-                            viewModel.setPublisher(item)
-                            viewModel.setPublisherPosition(index)
+                            viewModel.setPublisher(selectedText)
+                            viewModel.setPublisherPosition(selectedIndex + 1)
                         }
                     )
                 }
@@ -303,7 +298,7 @@ fun multiselectMenu(authorsList: List<String>, viewModel: AddEditBookViewModel)
                     }
                     else
                     {
-                        DropdownMenuItem(text = { Text(text = author) }, onClick = { selectedAuthors.add(author); viewModel.addAuthor(author); viewModel.setSelectedAuthorsPositions(index) })
+                        DropdownMenuItem(text = { Text(text = author) }, onClick = { selectedAuthors.add(author); viewModel.addAuthor(author); viewModel.setSelectedAuthorsPositions(index + 1) })
                     }
                 }
             }
