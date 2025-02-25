@@ -13,6 +13,7 @@ public class AddEditPublisherViewModel extends ViewModel implements ButtonClicke
     private final MutableLiveData<String> name = new MutableLiveData<>();
     private final MutableLiveData<String> phone = new MutableLiveData<>();
     private final MutableLiveData<String> email = new MutableLiveData<>();
+    private final MutableLiveData<String> country = new MutableLiveData<>();
     private final MutableLiveData<Integer> countryPosition = new MutableLiveData<>();
     private final MutableLiveData<String> city = new MutableLiveData<>();
     private final MutableLiveData<String> street = new MutableLiveData<>();
@@ -53,6 +54,16 @@ public class AddEditPublisherViewModel extends ViewModel implements ButtonClicke
     public MutableLiveData<String> getEmail()
     {
         return email;
+    }
+
+    public void setCountry(String country)
+    {
+        this.country.setValue(country);
+    }
+
+    public MutableLiveData<String> getCountry()
+    {
+        return country;
     }
 
     public void setCountryPosition(int countryPosition)

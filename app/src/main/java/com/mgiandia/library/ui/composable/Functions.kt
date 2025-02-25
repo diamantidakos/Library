@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
 import com.mgiandia.library.domain.Book
+import com.mgiandia.library.memorydao.CountryDAOMemory
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
 import com.mgiandia.library.view.Author.AuthorDetails.AuthorDetailsViewModel
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
@@ -60,12 +61,15 @@ import java.util.Locale
 @Composable
 fun optionMenu(publishers: List<String>, viewModel: AddEditBookViewModel)
 {
-    val selectedPublisher = viewModel.publisher.value ?: "select publisher"
-    val selectedPublisherIndex = viewModel.publisherPosition.value ?: -1
+    val selectedPublisher = viewModel.publisher.value ?: publishers[0]
+    val selectedPublisherIndex = viewModel.publisherPosition.value ?: 0
 
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(selectedPublisher) }
     var selectedIndex by remember { mutableIntStateOf(selectedPublisherIndex) }
+
+    viewModel.setPublisher(selectedText)
+    viewModel.setPublisherPosition(selectedIndex + 1)
 
     Box(modifier = Modifier.fillMaxWidth())
     {
@@ -103,9 +107,16 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditBookViewModel)
 @Composable
 fun optionMenu(publishers: List<String>, viewModel: AddEditPublisherViewModel, defaultCountry : String)
 {
+    var country = defaultCountry
+
+    if (!defaultCountry.equals(viewModel.country) && (viewModel.country.value != null))
+    {
+        country = viewModel.country.value.toString()
+    }
+
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(defaultCountry) }
-    var selectedIndex by remember { mutableIntStateOf(publishers.indexOf(defaultCountry).takeIf { it >= 0 } ?: -1) }
+    var selectedText by remember { mutableStateOf(country) }
+    var selectedIndex by remember { mutableIntStateOf(publishers.indexOf(country).takeIf { it >= 0 } ?: -1) }
 
     viewModel.setCountryPosition(selectedIndex)
 
@@ -142,13 +153,15 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditPublisherViewModel, d
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ComposableNaming")
 @Composable
-fun optionMenu(publishers: List<String>, viewModel: AddEditBorrowerViewModel)
+fun optionMenu(borrowers: List<String>, viewModel: AddEditBorrowerViewModel)
 {
-    var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(publishers[0]) }
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    val selectUserTypeIndex = viewModel.userTypePosition.value ?: 0
 
-    viewModel.setUserTypePosition(selectedIndex)
+    var expanded by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf(borrowers[selectUserTypeIndex]) }
+    var selectedIndex by remember { mutableIntStateOf(selectUserTypeIndex) }
+
+    viewModel.setUserTypePosition(selectedIndex + 1)
 
     Box(modifier = Modifier.fillMaxWidth())
     {
@@ -164,14 +177,14 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditBorrowerViewModel)
 
             ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false })
             {
-                publishers.forEachIndexed { index, item ->
+                borrowers.forEachIndexed { index, item ->
                     DropdownMenuItem(
                         text = { Text(text = item) },
                         onClick = {
                             selectedText = item
                             selectedIndex = index
                             expanded = false
-                            viewModel.setUserTypePosition(index)
+                            viewModel.setUserTypePosition(selectedIndex + 1)
                         }
                     )
                 }
@@ -183,11 +196,18 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditBorrowerViewModel)
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ComposableNaming")
 @Composable
-fun optionMenu(publishers: List<String>, viewModel: AddEditBorrowerViewModel, defaultCountry : String)
+fun optionMenu(countries: List<String>, viewModel: AddEditBorrowerViewModel, defaultCountry : String)
 {
+    var country = defaultCountry
+
+    if (!defaultCountry.equals(viewModel.country) && (viewModel.country.value != null))
+    {
+        country = viewModel.country.value.toString()
+    }
+
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(defaultCountry) }
-    var selectedIndex by remember { mutableIntStateOf(publishers.indexOf(defaultCountry).takeIf { it >= 0 } ?: -1) }
+    var selectedText by remember { mutableStateOf(country) }
+    var selectedIndex by remember { mutableIntStateOf(countries.indexOf(country).takeIf { it >= 0 } ?: -1) }
 
     viewModel.setCountryPosition(selectedIndex)
 
@@ -205,14 +225,15 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditBorrowerViewModel, de
 
             ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false })
             {
-                publishers.forEachIndexed { index, item ->
+                countries.forEachIndexed { index, item ->
                     DropdownMenuItem(
                         text = { Text(text = item) },
                         onClick = {
                             selectedText = item
                             selectedIndex = index
                             expanded = false
-                            viewModel.setCountryPosition(index)
+                            viewModel.setCountry(selectedText)
+                            viewModel.setCountryPosition(selectedIndex)
                         }
                     )
                 }
@@ -431,8 +452,7 @@ fun displayRow(labelRes: Int, isSpinner: Boolean, viewModel: AddEditPublisherVie
 
         if (isSpinner)
         {
-            val countries = Locale.getISOCountries().map { countryCode -> Locale("", countryCode).displayCountry }.sorted().toCollection(ArrayList())
-            optionMenu(countries, viewModel, stringResource(R.string.publisher_default_country))
+            optionMenu(CountryDAOMemory().countries, viewModel, stringResource(R.string.publisher_default_country))
         }
     }
 }
@@ -508,8 +528,7 @@ fun displayRow(labelRes: Int, isSpinner: Boolean, viewModel: AddEditBorrowerView
 
         if (isSpinner)
         {
-            val countries = Locale.getISOCountries().map { countryCode -> Locale("", countryCode).displayCountry }.sorted().toCollection(ArrayList())
-            optionMenu(countries, viewModel, stringResource(R.string.publisher_default_country))
+            optionMenu(CountryDAOMemory().countries, viewModel, stringResource(R.string.publisher_default_country))
         }
     }
 }

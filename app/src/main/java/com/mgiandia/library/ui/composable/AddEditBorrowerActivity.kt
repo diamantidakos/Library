@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
+import com.mgiandia.library.memorydao.BorrowerCategoryDAOMemory
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
 
 @SuppressLint("ComposableNaming")
@@ -35,12 +36,11 @@ fun drawAddEditBorrower(modifier: Modifier = Modifier, viewModel: AddEditBorrowe
         displayRow(R.string.last_name, viewModel, "surname")
         Spacer(modifier = Modifier.height(16.dp))
 
-        val userTypes = ArrayList<String>()
-        userTypes.add(stringResource(R.string.undergraduate_student))
-        userTypes.add(stringResource(R.string.graduate_student))
-        userTypes.add(stringResource(R.string.master_student))
-        userTypes.add(stringResource(R.string.dep_member))
-        userTypes.add(stringResource(R.string.professor))
+        val userTypes = arrayListOf<String>()
+
+        BorrowerCategoryDAOMemory().findAll().forEach {
+            item -> userTypes.add(item.description)
+        }
 
         displayRow(R.string.category, true, userTypes, viewModel)
         Spacer(modifier = Modifier.height(16.dp))
