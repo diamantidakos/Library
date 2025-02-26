@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -13,6 +15,8 @@ import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
 import java.util.List;
 import com.mgiandia.library.R;
+import com.mgiandia.library.memorydao.BookDAOMemory;
+import com.mgiandia.library.memorydao.ItemDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
@@ -43,17 +47,19 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
-        //setContentView(R.layout.manage_items);
-        setContentView(R.layout.manage_items_compose);
+        setContentView(R.layout.manage_items);
+        //setContentView(R.layout.manage_items_compose);
         adapter = new AdvancedListAdapter(this);
 
+        /*
         ComposeView composeView = findViewById(R.id.compose_view);
         ManageItemsViewModel model = new ViewModelProvider(this).get(ManageItemsViewModel.class);
         ManageItemsPresenter presenter = model.getPresenter(this);
 
         ActivitiesKt.showManageItemsView(composeView, model);
+         */
 
-        /*
+
         itemListView = (ListView) findViewById(R.id.item_list_view);
         itemListView.setAdapter(adapter);
         itemListView.setTextFilterEnabled(true);
@@ -81,7 +87,6 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
                 presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
             }
         });
-        */
     }
 
     /**

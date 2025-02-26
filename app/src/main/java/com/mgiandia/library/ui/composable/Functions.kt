@@ -51,7 +51,6 @@ import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel
 import com.mgiandia.library.view.Loans.AddLoan.AddLoanViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsViewModel
-import java.util.Locale
 
 
 // All reusable functions I wrote, to create the ui
