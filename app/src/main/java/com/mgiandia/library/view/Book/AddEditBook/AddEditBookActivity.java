@@ -355,6 +355,74 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         return (getBookTitle() != null && getPublisher() != null && getPublisherPosition() != null && getISBN() != null && getPublication() != null && getYear() != null && getAuthorList() != null);
     }
 
+    private void getValuesFromViewModel()
+    {
+        model.getTitle().observe(this, bName ->
+        {
+            if (bName != null)
+            {
+                setBookTitle(bName.trim());
+            }
+        });
+
+        model.getPublisher().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setPublisher(i.trim());
+            }
+        });
+
+        model.getPublisherPosition().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setPublisherPosition(i);
+            }
+        });
+
+        model.getISBN().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setISBN(i.trim());
+            }
+        });
+
+        model.getPublication().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setPublication(i.trim());
+            }
+        });
+
+        model.getPublicationYear().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setYear(i.trim());
+            }
+        });
+
+        model.getAuthors().observe(this, i ->
+        {
+            if (i != null)
+            {
+                setAuthorList(i);
+            }
+        });
+
+        model.getSelectedAuthorsPositions().observe(this, indexes ->
+        {
+            if (indexes != null)
+            {
+                //authorsIndexes = indexes;
+                setAuthorPositions(indexes);
+            }
+        });
+    }
+
     /**
      * Δημιουργεί to layout και αρχικοποιεί
      * το activity.
@@ -367,7 +435,6 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_edit_book);
 
-        //final AddEditBookPresenter presenter = new AddEditBookPresenter(this, new BookDAOMemory(), new PublisherDAOMemory(), new AuthorDAOMemory(), new ItemDAOMemory());
         model = new ViewModelProvider(this).get(AddEditBookViewModel.class);
         final AddEditBookPresenter presenter = model.getPresenter(this);
 
@@ -375,15 +442,15 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         ActivitiesKt.drawEditBookPage(composeView, model);
 
         int bookID = getAttachedBookID();
-        BookDAOMemory books = new BookDAOMemory();
-        if (books.find(bookID) != null)
+        Book book = model.findBook(bookID);
+        if (book != null)
         {
             model.setCompleteFields(true);
         }
 
-        Book book = model.findBook(bookID);
         if (Boolean.TRUE.equals(model.getCompleteFields().getValue()))
         {
+            assert book != null;
             model.setTitle(book.getTitle());
             model.setPublisher(book.getPublisher().getName());
             model.setISBN(book.getIsbn().toString());
@@ -395,83 +462,16 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
             {
                 authors.add(a.getFirstName() + " " + a.getLastName());
             }
-
             model.setAuthors(authors);
         }
-        else
-        {
-            model.getTitle().observe(this, bName ->
-            {
-                if (bName != null)
-                {
-                    setBookTitle(bName.trim());
-                }
-            });
 
-            model.getPublisher().observe(this, i ->
-            {
-                if (i != null)
-                {
-                    setPublisher(i.trim());
-                }
-            });
-
-            model.getPublisherPosition().observe(this, i ->
-            {
-                if (i != null)
-                {
-                    setPublisherPosition(i);
-                }
-            });
-
-            model.getISBN().observe(this, i ->
-            {
-                if (i != null)
-                {
-                    setISBN(i.trim());
-                }
-            });
-
-            model.getPublication().observe(this, i ->
-            {
-                if (i != null)
-                {
-                    setPublication(i.trim());
-                }
-            });
-
-            model.getPublicationYear().observe(this, i ->
-            {
-                if (i != null)
-                {
-                    setYear(i.trim());
-                }
-            });
-
-            model.getAuthors().observe(this, i ->
-            {
-                if (i != null)
-                {
-                    setAuthorList(i);
-                }
-            });
-
-            model.getSelectedAuthorsPositions().observe(this, indexes ->
-            {
-                if (indexes != null)
-                {
-                    //authorsIndexes = indexes;
-                    setAuthorPositions(indexes);
-                }
-            });
-        }
+        getValuesFromViewModel();
 
         // if the save button is clicked, save the book
         model.observeClicks(this, buttonTextResId ->
         {
             if (buttonTextResId != null && validFields())
             {
-                //Toast.makeText(AddEditBookActivity.this, Integer.toString(getPublisherPosition()), Toast.LENGTH_SHORT).show(); // gia debbugging
                 presenter.onSaveBook();
             }
         });

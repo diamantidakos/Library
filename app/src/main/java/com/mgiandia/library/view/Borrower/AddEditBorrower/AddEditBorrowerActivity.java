@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.mgiandia.library.R;
+import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.memorydao.BorrowerCategoryDAOMemory;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
@@ -288,6 +289,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
 
     String firstName, lastName, phone, email, city, street, number, zipCode;
     int userTypePosition, countryPosition;
+    AddEditBorrowerViewModel model;
 
     @Override
     public void setFirstName(String value)
@@ -412,7 +414,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     @Override
     public Integer getAttachedBorrowerID()
     {
-        return this.getIntent().hasExtra("borrower_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("borrower_id") : null;
+        return this.getIntent().hasExtra("borrower_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("borrower_id") : -1;
     }
 
     @Override
@@ -451,25 +453,8 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
         return (getFirstName() != null && getLastName() != null && getCategoryPosition() != null && getPhone() != null && getEmail() != null && getCountryPosition() != null && getAddressCity() != null && getAddressStreet() != null && getAddressNumber() != null && getAddressPostalCode() != null);
     }
 
-
-    /**
-     * Δημιουργεί to layout και αρχικοποιεί
-     * το activity.
-     * @param savedInstanceState το Instance state
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
+    private void getValuesFromViewModel()
     {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_add_edit_borrower);
-
-        AddEditBorrowerViewModel model = new ViewModelProvider(this).get(AddEditBorrowerViewModel.class);
-        final AddEditBorrowerPresenter presenter = model.getPresenter(this);
-
-        ComposeView composeView = findViewById(R.id.compose_view);
-        ActivitiesKt.showAddEditBorrowerView(composeView, model);
-
         model.getFirstName().observe(this, p ->
         {
             if (p != null)
@@ -549,6 +534,50 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
                 setAddressPostalCode(p);
             }
         });
+    }
+
+
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState το Instance state
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_add_edit_borrower);
+
+        model = new ViewModelProvider(this).get(AddEditBorrowerViewModel.class);
+        final AddEditBorrowerPresenter presenter = model.getPresenter(this);
+
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showAddEditBorrowerView(composeView, model);
+
+        int borrowerID = getAttachedBorrowerID();
+        Borrower borrower = model.findBorrower(borrowerID);
+        if (borrower != null)
+        {
+            model.setCompleteFields(true);
+        }
+
+        if (Boolean.TRUE.equals(model.getCompleteFields().getValue()))
+        {
+            assert borrower != null;
+            model.setFirstName(borrower.getFirstName());
+            model.setLastName(borrower.getLastName());
+            model.setUserTypePosition(borrower.getCategory().getId());
+            model.setPhone(borrower.getTelephone().getTelephoneNumber());
+            model.setEmail(borrower.getEmail().getAddress());
+            model.setCountry(borrower.getAddress().getCountry());
+            model.setCity(borrower.getAddress().getCity());
+            model.setStreet(borrower.getAddress().getStreet());
+            model.setNumber(borrower.getAddress().getNumber());
+            model.setZipCode(borrower.getAddress().getZipCode().getCode());
+        }
+
+        getValuesFromViewModel();
 
         model.observeClicks(this, buttonTextResId ->
         {

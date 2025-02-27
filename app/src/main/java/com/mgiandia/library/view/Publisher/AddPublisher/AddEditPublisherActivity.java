@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.mgiandia.library.R;
+import com.mgiandia.library.domain.Publisher;
 import com.mgiandia.library.memorydao.CountryDAOMemory;
 import com.mgiandia.library.memorydao.PublisherDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
@@ -230,6 +231,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
 
     String name, phone, email, city, street, number, zipCode;
     int countryPosition;
+    AddEditPublisherViewModel model;
 
     @Override
     public void setName(String value)
@@ -330,7 +332,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
     @Override
     public Integer getAttachedPublisherID()
     {
-        return this.getIntent().hasExtra("publisher_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("publisher_id") : null;
+        return this.getIntent().hasExtra("publisher_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("publisher_id") : -1;
     }
 
     @Override
@@ -366,24 +368,8 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         return (getName() != null && getPhone() != null && getEmail() != null && getCountryPosition() != null && getAddressCity() != null && getAddressStreet() != null && getAddressNumber() != null && getAddressPostalCode() != null);
     }
 
-
-    /**
-     * Δημιουργεί to layout και αρχικοποιεί
-     * το activity.
-     * @param savedInstanceState το Instance state
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
+    private void getValuesFromViewModel()
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_edit_publisher);
-
-        AddEditPublisherViewModel model = new ViewModelProvider(this).get(AddEditPublisherViewModel.class);
-        final AddEditPublisherPresenter presenter = model.getPresenter(this);
-
-        ComposeView composeView = findViewById(R.id.compose_view);
-        ActivitiesKt.showAddEditPublisherView(composeView, model);
-
         model.getName().observe(this, p ->
         {
             if (p != null)
@@ -447,6 +433,47 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
                 setAddressPostalCode(p);
             }
         });
+    }
+
+
+    /**
+     * Δημιουργεί to layout και αρχικοποιεί
+     * το activity.
+     * @param savedInstanceState το Instance state
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_edit_publisher);
+
+        model = new ViewModelProvider(this).get(AddEditPublisherViewModel.class);
+        final AddEditPublisherPresenter presenter = model.getPresenter(this);
+
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showAddEditPublisherView(composeView, model);
+
+        int publisherID = getAttachedPublisherID();
+        Publisher publisher = model.findPublisher(publisherID);
+        if (publisher != null)
+        {
+            model.setCompleteFields(true);
+        }
+
+        if (Boolean.TRUE.equals(model.getCompleteFields().getValue()))
+        {
+            assert publisher != null;
+            model.setName(publisher.getName());
+            model.setPhone(publisher.getTelephone().getTelephoneNumber());
+            model.setEmail(publisher.getEMail().getAddress());
+            model.setCountry(publisher.getAddress().getCountry());
+            model.setCity(publisher.getAddress().getCity());
+            model.setStreet(publisher.getAddress().getStreet());
+            model.setNumber(publisher.getAddress().getNumber());
+            model.setZipCode(publisher.getAddress().getZipCode().getCode());
+        }
+
+        getValuesFromViewModel();
 
         model.observeClicks(this, buttonTextResId ->
         {

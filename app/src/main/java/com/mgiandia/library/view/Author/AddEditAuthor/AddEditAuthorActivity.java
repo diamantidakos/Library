@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
 import com.mgiandia.library.R;
+import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 
@@ -39,7 +40,7 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
     @Override
     public Integer getAttachedAuthorID()
     {
-        return this.getIntent().hasExtra("author_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("author_id") : null;
+        return this.getIntent().hasExtra("author_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("author_id") : -1;
     }
 
     @Override
@@ -156,6 +157,20 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
         ComposeView composeView = findViewById(R.id.compose_view);
         // set the appropriate composable as content
         ActivitiesKt.showAddEditAuthorView(composeView, model);
+
+        int authorID = getAttachedAuthorID();
+        Author author = model.findAuthor(authorID);
+        if (author != null)
+        {
+            model.setCompleteFields(true);
+        }
+
+        if (Boolean.TRUE.equals(model.getCompleteFields().getValue()))
+        {
+            assert author != null;
+            model.setFirstName(author.getFirstName());
+            model.setLastName(author.getLastName());
+        }
 
         // Get what the user writes in the first name field, and save it in one position array --> firstName, removing the spaces before and after the word (trim())
         model.getFirstName().observe(this, fName ->

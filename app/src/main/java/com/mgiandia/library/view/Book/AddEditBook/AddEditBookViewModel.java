@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.mgiandia.library.dao.BookDAO;
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
@@ -20,7 +21,7 @@ import java.util.Set;
 
 public class AddEditBookViewModel extends ViewModel implements ButtonClicked
 {
-    BookDAOMemory bookDAO = new BookDAOMemory();
+    BookDAO bookDAO = new BookDAOMemory();
     private final MutableLiveData<String> title = new MutableLiveData<>();
     private final MutableLiveData<String> publisher = new MutableLiveData<>();
     private final MutableLiveData<String> ISBN = new MutableLiveData<>();

@@ -259,7 +259,7 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
             model.setBookID("#" + bookID);
             model.setTitle(book.getTitle());
             model.setISBN(book.getIsbn().toString());
-            model.setPublisher(book.getPublisher().toString());
+            model.setPublisher(book.getPublisher().getName());
             model.setPublication(book.getPublication());
             model.setPublicationYear(Integer.toString(book.getPublicationYear()));
             model.setCopies(book.getItems());
@@ -268,21 +268,26 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
             Set<Author> authors = book.getAuthors();
             for (Author a : authors)
             {
-                authorsStr.add(a.toString());
-            }
-            model.setAuthors(authorsStr);
-        }
+                authorsStr.add(a.getFirstName() + " " + a.getLastName());
 
-        model.observeClicks(this, buttonTextResId ->
-        {
-            if (buttonTextResId != null)
-            {
-                if (buttonTextResId.equals(R.string.edit_user))
+                if (authors.size() > 1)
                 {
-                    presenter.onStartEditButtonClick();
+                    authorsStr.add(", ");
                 }
             }
-        });
+            model.setAuthors(authorsStr);
+
+            model.observeClicks(this, buttonTextResId ->
+            {
+                if (buttonTextResId != null)
+                {
+                    if (buttonTextResId.equals(R.string.edit_user))
+                    {
+                        presenter.onStartEditButtonClick();
+                    }
+                }
+            });
+        }
     }
 
     /**

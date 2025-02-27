@@ -3,6 +3,8 @@ package com.mgiandia.library.view.Borrower.AddEditBorrower;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.mgiandia.library.dao.BorrowerDAO;
+import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.memorydao.BorrowerCategoryDAOMemory;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.CountryDAOMemory;
@@ -11,6 +13,7 @@ import com.mgiandia.library.ui.model.ButtonClicked;
 public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
 {
     private AddEditBorrowerPresenter presenter;
+    private BorrowerDAO borrowerDAO = new BorrowerDAOMemory();
     private final MutableLiveData<String> firstName = new MutableLiveData<>();
     private final MutableLiveData<String> lastName = new MutableLiveData<>();
     private final MutableLiveData<Integer> userTypePosition = new MutableLiveData<>();
@@ -22,11 +25,17 @@ public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
     private final MutableLiveData<String> street = new MutableLiveData<>();
     private final MutableLiveData<String> number = new MutableLiveData<>();
     private final MutableLiveData<String> zipCode = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> completeFields = new MutableLiveData<>();
 
     public AddEditBorrowerPresenter getPresenter(AddEditBorrowerView view)
     {
-        presenter = new AddEditBorrowerPresenter(view, new BorrowerDAOMemory(), new BorrowerCategoryDAOMemory(), new CountryDAOMemory().getCountries());
+        presenter = new AddEditBorrowerPresenter(view, borrowerDAO, new BorrowerCategoryDAOMemory(), new CountryDAOMemory().getCountries());
         return presenter;
+    }
+
+    public Borrower findBorrower(int borrowerID)
+    {
+        return borrowerDAO.find(borrowerID);
     }
 
     public void setFirstName(String firstName)
@@ -137,5 +146,15 @@ public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
     public MutableLiveData<String> getZipCode()
     {
         return zipCode;
+    }
+
+    public void setCompleteFields(boolean value)
+    {
+        completeFields.setValue(value);
+    }
+
+    public MutableLiveData<Boolean> getCompleteFields()
+    {
+        return completeFields;
     }
 }
