@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class BookDetailsViewModel extends ViewModel implements ButtonClicked
 {
-    BookDAO bookDAO = new BookDAOMemory();
+    private BookDAO bookDAO = new BookDAOMemory();
 
     public BookDetailsPresenter getPresenter(BookDetailsView view)
     {

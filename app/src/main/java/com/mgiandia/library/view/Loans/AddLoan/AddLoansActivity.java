@@ -130,7 +130,7 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
     @Override
     public int getAttachedBorrowerID()
     {
-        return Objects.requireNonNull(this.getIntent().getExtras()).getInt("borrower_id");
+        return this.getIntent().hasExtra("borrower_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("borrower_id") : -1;
     }
 
     @Override
@@ -181,7 +181,6 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_loan);
-        EdgeToEdge.enable(this);
 
         AddLoanViewModel model = new ViewModelProvider(this).get(AddLoanViewModel.class);
         AddLoansPresenter presenter = model.getPresenter(this);
@@ -220,19 +219,5 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
                 presenter.onSaveLoan();
             }
         });
-
-        /*
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_add_loan);
-        final AddLoansPresenter presenter = new AddLoansPresenter(this, new BookDAOMemory(), new BorrowerDAOMemory(), new LoanDAOMemory());
-
-        findViewById(R.id.complete_registration_button).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                presenter.onSaveLoan();
-            }
-        });
-        */
     }
 }

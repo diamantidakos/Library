@@ -91,4 +91,8 @@
     <string name="master_student">Διδακτορικός Φοιτητής</string>
     <string name="dep_member">Μέλος Δ.Ε.Π</string>
     <string name="professor">Καθηγητής</string>
+
+    <string name="from">Από</string>
+    <string name="books_number">Σύνολο βιβλίων</string>
+    <string name="loans_number">Σύνολο δανεισμών</string>
 </resources>

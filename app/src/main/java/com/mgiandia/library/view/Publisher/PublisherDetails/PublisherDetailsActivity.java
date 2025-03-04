@@ -178,7 +178,6 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_publisher_details);
 
         model = new ViewModelProvider(this).get(PublisherDetailsViewModel.class);
@@ -202,38 +201,22 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
             setAddressStreet(publisher.getAddress().getStreet());
             setAddressNumber(publisher.getAddress().getNumber());
             setAddressPostalCode(publisher.getAddress().getZipCode().getCode());
+
+            model.observeClicks(this, buttonTextResId ->
+            {
+                if (buttonTextResId != null)
+                {
+                    if (buttonTextResId.equals(R.string.edit_user))
+                    {
+                        presenter.onStartEditButtonClick();
+                    }
+                    else if (buttonTextResId.equals(R.string.show_books))
+                    {
+                        presenter.onStartShowBooksButtonClick();
+                    }
+                }
+            });
         }
-
-        model.observeClicks(this, buttonTextResId ->
-        {
-            if (buttonTextResId != null)
-            {
-                if (buttonTextResId.equals(R.string.edit_user))
-                {
-                    presenter.onStartEditButtonClick();
-                }
-                else if (buttonTextResId.equals(R.string.show_books))
-                {
-                    presenter.onStartShowBooksButtonClick();
-                }
-            }
-        });
-
-        /*
-        findViewById(R.id.edit_user_button).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                presenter.onStartEditButtonClick();
-            }
-        });
-
-        findViewById(R.id.display_books_button).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                presenter.onStartShowBooksButtonClick();
-            }
-        });
-        */
     }
 
     /**

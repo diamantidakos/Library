@@ -16,7 +16,7 @@ public class AuthorDetailsViewModel extends ViewModel implements ButtonClicked
     private final MutableLiveData<Integer> booksNumber = new MutableLiveData<>();
 
     private AuthorDetailsPresenter presenter;
-    AuthorDAO authorDAO = new AuthorDAOMemory();
+    private AuthorDAO authorDAO = new AuthorDAOMemory();
 
     public AuthorDetailsPresenter getPresenter(AuthorDetailsView view)
     {

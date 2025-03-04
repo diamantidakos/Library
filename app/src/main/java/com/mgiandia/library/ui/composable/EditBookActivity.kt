@@ -30,12 +30,7 @@ fun drawEditBookPage(modifier: Modifier = Modifier, viewModel: AddEditBookViewMo
         displayRow(R.string.book_title, viewModel, "title")
         Spacer(modifier = Modifier.height(16.dp)) // add space between the above element and the next
 
-        val publishersList = PublisherDAOMemory().findAll()
-        val publishersNameList = arrayListOf<String>()
-
-        publishersList.forEach {
-            item -> publishersNameList.add(item.name)
-        }
+        val publishersNameList = viewModel.findAllPublisherNames()
 
         displayRow(R.string.book_publisher, true, viewModel, publishersNameList)
         Spacer(modifier = Modifier.height(16.dp))
@@ -49,12 +44,7 @@ fun drawEditBookPage(modifier: Modifier = Modifier, viewModel: AddEditBookViewMo
         displayRow(R.string.book_publicationyear, viewModel, "year")
         Spacer(modifier = Modifier.height(16.dp))
 
-        val authorsList = AuthorDAOMemory().findAll()
-        val authorsNameList = arrayListOf<String>()
-
-        authorsList.forEach {
-            item -> authorsNameList.add(item.firstName + " " + item.lastName)
-        }
+        val authorsNameList = viewModel.findAllAuthorNames()
 
         displayRow(R.string.authors_title_text, viewModel, authorsNameList)
         Spacer(modifier = Modifier.height(16.dp))

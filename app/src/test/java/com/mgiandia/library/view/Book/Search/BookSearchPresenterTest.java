@@ -7,8 +7,6 @@ import com.mgiandia.library.memorydao.BookDAOMemory;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.memorydao.ReservationRequestDAOMemory;
-import com.mgiandia.library.view.reservation.BookReservationPresenter;
-import com.mgiandia.library.view.reservation.BookReservationViewStub;
 
 import org.junit.Before;
 import org.junit.Test;

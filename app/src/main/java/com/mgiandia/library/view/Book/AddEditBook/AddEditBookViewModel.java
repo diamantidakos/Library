@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.mgiandia.library.dao.AuthorDAO;
 import com.mgiandia.library.dao.BookDAO;
+import com.mgiandia.library.dao.PublisherDAO;
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
+import com.mgiandia.library.domain.Publisher;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.memorydao.BookDAOMemory;
 import com.mgiandia.library.memorydao.ItemDAOMemory;
@@ -21,7 +24,9 @@ import java.util.Set;
 
 public class AddEditBookViewModel extends ViewModel implements ButtonClicked
 {
-    BookDAO bookDAO = new BookDAOMemory();
+    private BookDAO bookDAO = new BookDAOMemory();
+    private PublisherDAO publisherDAO = new PublisherDAOMemory();
+    private AuthorDAO authorDAO = new AuthorDAOMemory();
     private final MutableLiveData<String> title = new MutableLiveData<>();
     private final MutableLiveData<String> publisher = new MutableLiveData<>();
     private final MutableLiveData<String> ISBN = new MutableLiveData<>();
@@ -30,7 +35,11 @@ public class AddEditBookViewModel extends ViewModel implements ButtonClicked
     private final MutableLiveData<ArrayList<String>> authors = new MutableLiveData<>();
     private final MutableLiveData<Integer> publisherPosition = new MutableLiveData<>();
     private final MutableLiveData<List<Integer>> selectedAuthors = new MutableLiveData<>(new ArrayList<>());
-    private final MutableLiveData<Boolean> completeFields = new MutableLiveData<>();
+
+    public AddEditBookPresenter getPresenter(AddEditBookView view)
+    {
+        return new AddEditBookPresenter(view, bookDAO, publisherDAO, authorDAO, new ItemDAOMemory());
+    }
 
     public void setTitle(String t)
     {
@@ -146,23 +155,34 @@ public class AddEditBookViewModel extends ViewModel implements ButtonClicked
         return selectedAuthors;
     }
 
-    public AddEditBookPresenter getPresenter(AddEditBookView view)
-    {
-        return new AddEditBookPresenter(view, bookDAO, new PublisherDAOMemory(), new AuthorDAOMemory(), new ItemDAOMemory());
-    }
-
     public Book findBook(int bookID)
     {
         return bookDAO.find(bookID);
     }
 
-    public void setCompleteFields(boolean value)
+    public ArrayList<String> findAllPublisherNames()
     {
-        completeFields.setValue(value);
+        ArrayList<String> result = new ArrayList<>();
+        List<Publisher> allPublishers = publisherDAO.findAll();
+
+        for (Publisher publisher : allPublishers)
+        {
+            result.add(publisher.getName());
+        }
+
+        return result;
     }
 
-    public MutableLiveData<Boolean> getCompleteFields()
+    public ArrayList<String> findAllAuthorNames()
     {
-        return completeFields;
+        ArrayList<String> result = new ArrayList<>();
+        List<Author> allAuthors = authorDAO.findAll();
+
+        for (Author author : allAuthors)
+        {
+            result.add(author.getFirstName() + " " + author.getLastName());
+        }
+
+        return result;
     }
 }

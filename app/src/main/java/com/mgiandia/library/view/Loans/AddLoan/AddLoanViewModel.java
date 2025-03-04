@@ -11,8 +11,8 @@ import com.mgiandia.library.ui.model.ButtonClicked;
 
 public class AddLoanViewModel extends ViewModel implements ButtonClicked
 {
-    AddLoansPresenter presenter;
-    BorrowerDAO borrowerDAO = new BorrowerDAOMemory();
+    private AddLoansPresenter presenter;
+    private BorrowerDAO borrowerDAO = new BorrowerDAOMemory();
 
     public AddLoansPresenter getPresenter(AddLoansView view)
     {

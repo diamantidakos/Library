@@ -1,12 +1,12 @@
 package com.mgiandia.library.ui.composable
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,21 +36,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
 import com.mgiandia.library.domain.Book
-import com.mgiandia.library.memorydao.CountryDAOMemory
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
 import com.mgiandia.library.view.Author.AuthorDetails.AuthorDetailsViewModel
+import com.mgiandia.library.view.Author.ManageAuthors.ManageAuthorsViewModel
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
 import com.mgiandia.library.view.Book.BookDetails.BookDetailsViewModel
+import com.mgiandia.library.view.Book.ManageBooks.ManageBooksViewModel
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
 import com.mgiandia.library.view.Borrower.BorrowerDetails.BorrowerDetailsViewModel
+import com.mgiandia.library.view.Borrower.ManageBorrowers.ManageBorrowersViewModel
 import com.mgiandia.library.view.HomePage.HomePageViewModel
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel
 import com.mgiandia.library.view.Loans.AddLoan.AddLoanViewModel
+import com.mgiandia.library.view.Loans.ManageLoans.ManageLoansViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
+import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersViewModel
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsViewModel
 
 
@@ -331,66 +336,31 @@ fun multiselectMenu(authorsList: List<String>, viewModel: AddEditBookViewModel)
 @Composable
 fun displayRow(labelRes: Int, viewModel: AddEditBookViewModel, label: String)
 {
-    var text by remember { mutableStateOf("") }
-    val complete = viewModel.completeFields.value
-
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
     {
         if (label == "title")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.title.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setTitle(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setTitle(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
+            var title by remember { mutableStateOf(viewModel.title.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setTitle(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "isbn")
         {
-            if (complete == true)
-            {
-                var isbn by remember { mutableStateOf(viewModel.isbn.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = isbn, onValueChange = { isbn = it; viewModel.setISBN(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setISBN(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var isbn by remember { mutableStateOf(viewModel.isbn.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = isbn, onValueChange = { isbn = it; viewModel.setISBN(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "publication")
         {
-            if (complete == true)
-            {
-                var publication by remember { mutableStateOf(viewModel.publication.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = publication, onValueChange = { publication = it; viewModel.setISBN(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setPublication(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var publication by remember { mutableStateOf(viewModel.publication.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = publication, onValueChange = { publication = it; viewModel.setPublication(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "year")
         {
-            if (complete == true)
-            {
-                var year by remember { mutableStateOf(viewModel.publicationYear.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = year, onValueChange = { year = it; viewModel.setISBN(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setPublicationYear(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var year by remember { mutableStateOf(viewModel.publicationYear.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = year, onValueChange = { year = it; viewModel.setPublicationYear(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
     }
 }
@@ -425,38 +395,19 @@ fun displayRow(labelRes: Int, viewModel: AddEditBookViewModel, authorsList: List
 @Composable
 fun displayRow(labelRes: Int, viewModel: AddEditAuthorViewModel, label: String)
 {
-    var text by remember { mutableStateOf("") }
-    val complete = viewModel.completeFields.value
-
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
     {
         if (label == "name")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.firstName.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
+            var title by remember { mutableStateOf(viewModel.firstName.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "surname")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.lastName.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.lastName.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
     }
 }
@@ -471,7 +422,8 @@ fun displayRow(labelRes: Int, isSpinner: Boolean, viewModel: AddEditPublisherVie
 
         if (isSpinner)
         {
-            optionMenu(CountryDAOMemory().countries, viewModel, stringResource(R.string.publisher_default_country))
+            val allCountries = viewModel.allCountries
+            optionMenu(allCountries, viewModel, stringResource(R.string.publisher_default_country))
         }
     }
 }
@@ -480,108 +432,49 @@ fun displayRow(labelRes: Int, isSpinner: Boolean, viewModel: AddEditPublisherVie
 @Composable
 fun displayRow(labelRes: Int, viewModel: AddEditPublisherViewModel, label : String)
 {
-    var text by remember { mutableStateOf("") }
-    val complete = viewModel.completeFields.value
-
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
     {
         if (label == "name")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.name.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
+            var title by remember { mutableStateOf(viewModel.name.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "phone")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.phone.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setPhone(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.phone.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "email")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.email.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setEmail(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setEmail(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.email.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setEmail(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "city")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.city.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.city.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "street")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.city.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setStreet(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.city.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "number")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.number.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setNumber(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setNumber(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.number.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setNumber(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "zip")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.zipCode.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setZipCode(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setZipCode(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.zipCode.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setZipCode(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
     }
 }
@@ -611,7 +504,8 @@ fun displayRow(labelRes: Int, isSpinner: Boolean, viewModel: AddEditBorrowerView
 
         if (isSpinner)
         {
-            optionMenu(CountryDAOMemory().countries, viewModel, stringResource(R.string.publisher_default_country))
+            val allCountries = viewModel.allCountries
+            optionMenu(allCountries, viewModel, stringResource(R.string.publisher_default_country))
         }
     }
 }
@@ -620,122 +514,55 @@ fun displayRow(labelRes: Int, isSpinner: Boolean, viewModel: AddEditBorrowerView
 @Composable
 fun displayRow(labelRes: Int, viewModel: AddEditBorrowerViewModel, label : String)
 {
-    var text by remember { mutableStateOf("") }
-    val complete = viewModel.completeFields.value
-
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
     {
         if (label == "name")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.firstName.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
+            var title by remember { mutableStateOf(viewModel.firstName.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "surname")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.lastName.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.lastName.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "phone")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.phone.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setPhone(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setPhone(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.phone.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setPhone(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "email")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.email.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setEmail(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setEmail(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.email.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setEmail(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "city")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.city.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.city.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "street")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.street.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setStreet(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setStreet(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.street.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setStreet(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "number")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.number.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setNumber(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setNumber(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.number.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setNumber(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "zip")
         {
-            if (complete == true)
-            {
-                var title by remember { mutableStateOf(viewModel.zipCode.value.toString()) }
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = title, onValueChange = { title = it; viewModel.setZipCode(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
-            }
-            else
-            {
-                Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-                TextField(value = text, onValueChange = { text = it; viewModel.setZipCode(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp),)
-            }
+            var title by remember { mutableStateOf(viewModel.zipCode.value ?: "") }
+            Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setZipCode(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
     }
 }
@@ -964,12 +791,12 @@ fun displayAuthors(viewModel: BookDetailsViewModel)
 {
     val authorsList = viewModel.authors.value
 
-    Row(modifier = Modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp))
+    Column(modifier = Modifier.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally)
     {
-        if (authorsList != null)
+        if (!authorsList.isNullOrEmpty())
         {
             authorsList.forEach {
-                text -> Text(text = text)
+                author -> Text(text = author, modifier = Modifier.padding(bottom = 4.dp))
             }
         }
     }
@@ -1142,6 +969,96 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
     )
     {
         Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+    }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageBooksViewModel)
+{
+    Button(
+        onClick = {
+            viewModel.buttonClicked(textResId)
+        },
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
+    )
+    {
+        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
+    }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageAuthorsViewModel)
+{
+    Button(
+        onClick = {
+            viewModel.buttonClicked(textResId)
+        },
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
+    )
+    {
+        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
+    }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageBorrowersViewModel)
+{
+    Button(
+        onClick = {
+            viewModel.buttonClicked(textResId)
+        },
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
+    )
+    {
+        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
+    }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManagePublishersViewModel)
+{
+    Button(
+        onClick = {
+            viewModel.buttonClicked(textResId)
+        },
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
+    )
+    {
+        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
+    }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageLoansViewModel)
+{
+    Button(
+        onClick = {
+            viewModel.buttonClicked(textResId)
+        },
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
+    )
+    {
+        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
     }
 }
 

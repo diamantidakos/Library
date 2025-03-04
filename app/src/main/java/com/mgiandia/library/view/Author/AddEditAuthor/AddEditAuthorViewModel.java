@@ -11,11 +11,10 @@ import com.mgiandia.library.ui.model.ButtonClicked;
 
 public class AddEditAuthorViewModel extends ViewModel implements ButtonClicked
 {
-    AuthorDAO authorDAO = new AuthorDAOMemory();
+    private AuthorDAO authorDAO = new AuthorDAOMemory();
     private AddEditAuthorPresenter presenter;
     private final MutableLiveData<String> firstName = new MutableLiveData<>();
     private final MutableLiveData<String> lastName = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> completeFields = new MutableLiveData<>();
 
     public AddEditAuthorPresenter getPresenter(AddEditAuthorView view)
     {
@@ -46,15 +45,5 @@ public class AddEditAuthorViewModel extends ViewModel implements ButtonClicked
     public void setLastName(String name)
     {
         lastName.setValue(name);
-    }
-
-    public void setCompleteFields(boolean value)
-    {
-        completeFields.setValue(value);
-    }
-
-    public MutableLiveData<Boolean> getCompleteFields()
-    {
-        return completeFields;
     }
 }

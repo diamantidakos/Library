@@ -92,51 +92,6 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
         .setPositiveButton(R.string.ok, null).create().show();
     }
 
-//    /**
-//     * Επιστρέφει το πρώτο όνομα του συγγραφέα.
-//     * @return Το πρώτο όνομα του συγγραφέα
-//     */
-//    public String getFirstName()
-//    {
-//        return ((EditText)findViewById(R.id.edit_text_first_name)).getText().toString().trim();
-//    }
-//
-//    /**
-//     * Επιστρέφει το επώνυμο του συγγραφέα.
-//     * @return Το επώνυμο του συγγραφέα
-//     */
-//    public String getLastName()
-//    {
-//        return ((EditText)findViewById(R.id.edit_text_last_name)).getText().toString().trim();
-//    }
-//
-//    /**
-//     * Επιστρέφει το id του συγγραφέα.
-//     * @return Το id του συγγραφέα
-//     */
-//    public Integer getAttachedAuthorID()
-//    {
-//        return this.getIntent().hasExtra("author_id") ? this.getIntent().getExtras().getInt("author_id") : null;
-//    }
-//
-//    /**
-//     * Θέτει το πρώτο όνομα του συγγραφέα.
-//     * @param value Το πρώτο όνομα του συγγραφέα
-//     */
-//    public void setFirstName(String value)
-//    {
-//        ((EditText)findViewById(R.id.edit_text_first_name)).setText(value);
-//    }
-//
-//    /**
-//     * Θέτει το επώνυμο του συγγραφέα.
-//     * @param value Το επώνυμο του συγγραφέα
-//     */
-//    public void setLastName(String value)
-//    {
-//        ((EditText)findViewById(R.id.edit_text_last_name)).setText(value);
-//    }
-
 
     /**
      * Δημιουργεί to layout και αρχικοποιεί
@@ -147,7 +102,6 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_edit_author);
 
         AddEditAuthorViewModel model = new ViewModelProvider(this).get(AddEditAuthorViewModel.class);
@@ -162,17 +116,11 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
         Author author = model.findAuthor(authorID);
         if (author != null)
         {
-            model.setCompleteFields(true);
-        }
-
-        if (Boolean.TRUE.equals(model.getCompleteFields().getValue()))
-        {
-            assert author != null;
             model.setFirstName(author.getFirstName());
             model.setLastName(author.getLastName());
         }
 
-        // Get what the user writes in the first name field, and save it in one position array --> firstName, removing the spaces before and after the word (trim())
+        // Get what the user writes in the first name field, and save it in a variable --> firstName, removing the spaces before and after the word (trim())
         model.getFirstName().observe(this, fName ->
         {
             if (fName != null)
@@ -181,7 +129,7 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
             }
         });
 
-        // Get what the user writes in the last name field, and save it in one position array --> lastName, removing the spaces before and after the word (trim())
+        // Get what the user writes in the last name field, and save it in a variable --> lastName, removing the spaces before and after the word (trim())
         model.getLastName().observe(this, lName ->
         {
             if (lName != null)
@@ -198,18 +146,5 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
                 presenter.onSaveAuthor();
             }
         });
-
-        /*
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_edit_author);
-        final AddEditAuthorPresenter presenter = new AddEditAuthorPresenter(this, new AuthorDAOMemory());
-
-        findViewById(R.id.complete_registration_button).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                presenter.onSaveAuthor();
-            }
-        });
-        */
     }
 }

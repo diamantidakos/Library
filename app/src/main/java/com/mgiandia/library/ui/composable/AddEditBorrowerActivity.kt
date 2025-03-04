@@ -36,11 +36,7 @@ fun drawAddEditBorrower(modifier: Modifier = Modifier, viewModel: AddEditBorrowe
         displayRow(R.string.last_name, viewModel, "surname")
         Spacer(modifier = Modifier.height(16.dp))
 
-        val userTypes = arrayListOf<String>()
-
-        BorrowerCategoryDAOMemory().findAll().forEach {
-            item -> userTypes.add(item.description)
-        }
+        val userTypes = viewModel.findAllUserTypes()
 
         displayRow(R.string.category, true, userTypes, viewModel)
         Spacer(modifier = Modifier.height(16.dp))

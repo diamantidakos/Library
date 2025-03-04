@@ -546,7 +546,6 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_edit_borrower);
 
         model = new ViewModelProvider(this).get(AddEditBorrowerViewModel.class);
@@ -559,12 +558,6 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
         Borrower borrower = model.findBorrower(borrowerID);
         if (borrower != null)
         {
-            model.setCompleteFields(true);
-        }
-
-        if (Boolean.TRUE.equals(model.getCompleteFields().getValue()))
-        {
-            assert borrower != null;
             model.setFirstName(borrower.getFirstName());
             model.setLastName(borrower.getLastName());
             model.setUserTypePosition(borrower.getCategory().getId());

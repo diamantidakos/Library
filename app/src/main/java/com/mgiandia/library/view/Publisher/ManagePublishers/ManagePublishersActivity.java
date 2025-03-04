@@ -11,11 +11,14 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.PublisherDAOMemory;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherActivity;
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsActivity;
@@ -45,10 +48,16 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_items);
+        setContentView(R.layout.manage_items_compose);
 
         adapter = new AdvancedListAdapter(this);
+        ManagePublishersViewModel model = new ViewModelProvider(this).get(ManagePublishersViewModel.class);
+        ManagePublishersPresenter presenter = model.getPresenter(this);
 
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showManagePublishersView(composeView, model);
+
+        /*
         itemListView = (ListView) findViewById(R.id.item_list_view);
         itemListView.setAdapter(adapter);
         itemListView.setTextFilterEnabled(true);
@@ -76,6 +85,7 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
                 presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
             }
         });
+        */
     }
 
     /**

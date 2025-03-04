@@ -374,7 +374,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         {
             if (p != null)
             {
-                setName(p);
+                setName(p.trim());
             }
         });
 
@@ -382,7 +382,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         {
             if (p != null)
             {
-                setPhone(p);
+                setPhone(p.trim());
             }
         });
 
@@ -390,7 +390,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         {
             if (p != null)
             {
-                setEmail(p);
+                setEmail(p.trim());
             }
         });
 
@@ -406,7 +406,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         {
             if (p != null)
             {
-                setAddressCity(p);
+                setAddressCity(p.trim());
             }
         });
 
@@ -414,7 +414,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         {
             if (p != null)
             {
-                setAddressStreet(p);
+                setAddressStreet(p.trim());
             }
         });
 
@@ -422,7 +422,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         {
             if (p != null)
             {
-                setAddressNumber(p);
+                setAddressNumber(p.trim());
             }
         });
 
@@ -430,7 +430,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         {
             if (p != null)
             {
-                setAddressPostalCode(p);
+                setAddressPostalCode(p.trim());
             }
         });
     }
@@ -457,12 +457,6 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         Publisher publisher = model.findPublisher(publisherID);
         if (publisher != null)
         {
-            model.setCompleteFields(true);
-        }
-
-        if (Boolean.TRUE.equals(model.getCompleteFields().getValue()))
-        {
-            assert publisher != null;
             model.setName(publisher.getName());
             model.setPhone(publisher.getTelephone().getTelephoneNumber());
             model.setEmail(publisher.getEMail().getAddress());

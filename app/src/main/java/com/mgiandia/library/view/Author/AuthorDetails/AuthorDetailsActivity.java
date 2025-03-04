@@ -26,6 +26,8 @@ import java.util.Objects;
 
 public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDetailsView
 {
+    String firstName, lastName, booksWritten;
+
     /**
      * Ξεκινάει το activity ManageBooksActivity
      * με παράμετρο το id του συγγραφέα.
@@ -74,7 +76,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
      */
     public void setFirstName(String value)
     {
-        //((TextView)findViewById(R.id.text_first_name)).setText(value);
+        firstName = value;
     }
 
     /**
@@ -83,7 +85,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
      */
     public void setLastName(String value)
     {
-        //((TextView)findViewById(R.id.text_last_name)).setText(value);
+        lastName = value;
     }
 
     /**
@@ -92,7 +94,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
      */
     public void setBooksWritten(String value)
     {
-        //((TextView)findViewById(R.id.books_published_text)).setText(value);
+        booksWritten = value;
     }
 
     /**
@@ -125,7 +127,6 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_author_details);
 
         AuthorDetailsViewModel model = new ViewModelProvider(this).get(AuthorDetailsViewModel.class);
@@ -136,47 +137,28 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
 
         int authorID = getAttachedAuthorID();
         Author author = model.findAuthor(authorID);
-
         if (author != null)
         {
             model.setAuthorID("#" + authorID);
             model.setName(author.getFirstName());
             model.setSurname(author.getLastName());
             model.setBooksNumber(author.getBooks().size());
+
+            model.observeClicks(this, buttonTextResId ->
+            {
+                if (buttonTextResId != null)
+                {
+                    if (buttonTextResId.equals(R.string.edit_user))
+                    {
+                        presenter.onStartEditButtonClick();
+                    }
+                    else if (buttonTextResId.equals(R.string.show_books))
+                    {
+                        presenter.onStartShowBooksButtonClick();
+                    }
+                }
+            });
         }
-
-        model.observeClicks(this, buttonTextResId ->
-        {
-            if (buttonTextResId != null)
-            {
-                if (buttonTextResId.equals(R.string.edit_user))
-                {
-                    presenter.onStartEditButtonClick();
-                }
-                else if (buttonTextResId.equals(R.string.show_books))
-                {
-                    presenter.onStartShowBooksButtonClick();
-                }
-            }
-        });
-
-        /*
-        presenter = new AuthorDetailsPresenter(this, new AuthorDAOMemory());
-
-        findViewById(R.id.edit_user_button).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                presenter.onStartEditButtonClick();
-            }
-        });
-
-        findViewById(R.id.display_books_button).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                presenter.onStartShowBooksButtonClick();
-            }
-        });
-        */
     }
 
     /**

@@ -3,17 +3,25 @@ package com.mgiandia.library.view.Borrower.AddEditBorrower;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.mgiandia.library.dao.BorrowerCategoryDAO;
 import com.mgiandia.library.dao.BorrowerDAO;
+import com.mgiandia.library.dao.CountryDAO;
 import com.mgiandia.library.domain.Borrower;
+import com.mgiandia.library.domain.BorrowerCategory;
 import com.mgiandia.library.memorydao.BorrowerCategoryDAOMemory;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.CountryDAOMemory;
 import com.mgiandia.library.ui.model.ButtonClicked;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
 {
     private AddEditBorrowerPresenter presenter;
     private BorrowerDAO borrowerDAO = new BorrowerDAOMemory();
+    private BorrowerCategoryDAO borrowerCategoryDAO = new BorrowerCategoryDAOMemory();
+    private CountryDAO countryDAO = new CountryDAOMemory();
     private final MutableLiveData<String> firstName = new MutableLiveData<>();
     private final MutableLiveData<String> lastName = new MutableLiveData<>();
     private final MutableLiveData<Integer> userTypePosition = new MutableLiveData<>();
@@ -25,11 +33,10 @@ public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
     private final MutableLiveData<String> street = new MutableLiveData<>();
     private final MutableLiveData<String> number = new MutableLiveData<>();
     private final MutableLiveData<String> zipCode = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> completeFields = new MutableLiveData<>();
 
     public AddEditBorrowerPresenter getPresenter(AddEditBorrowerView view)
     {
-        presenter = new AddEditBorrowerPresenter(view, borrowerDAO, new BorrowerCategoryDAOMemory(), new CountryDAOMemory().getCountries());
+        presenter = new AddEditBorrowerPresenter(view, borrowerDAO, borrowerCategoryDAO, countryDAO.getCountries());
         return presenter;
     }
 
@@ -148,13 +155,21 @@ public class AddEditBorrowerViewModel extends ViewModel implements ButtonClicked
         return zipCode;
     }
 
-    public void setCompleteFields(boolean value)
+    public ArrayList<String> findAllUserTypes()
     {
-        completeFields.setValue(value);
+        ArrayList<String> result = new ArrayList<>();
+        List<BorrowerCategory> allBorrowerCategories = borrowerCategoryDAO.findAll();
+
+        for (BorrowerCategory borrowerCategory : allBorrowerCategories)
+        {
+            result.add(borrowerCategory.getDescription());
+        }
+
+        return result;
     }
 
-    public MutableLiveData<Boolean> getCompleteFields()
+    public List<String> getAllCountries()
     {
-        return completeFields;
+        return countryDAO.getCountries();
     }
 }

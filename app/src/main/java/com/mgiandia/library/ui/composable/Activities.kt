@@ -12,14 +12,18 @@ import androidx.compose.ui.platform.ComposeView
 import com.mgiandia.library.ui.theme.LibraryTheme
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
 import com.mgiandia.library.view.Author.AuthorDetails.AuthorDetailsViewModel
+import com.mgiandia.library.view.Author.ManageAuthors.ManageAuthorsViewModel
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
 import com.mgiandia.library.view.Book.BookDetails.BookDetailsViewModel
+import com.mgiandia.library.view.Book.ManageBooks.ManageBooksViewModel
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
 import com.mgiandia.library.view.Borrower.BorrowerDetails.BorrowerDetailsViewModel
+import com.mgiandia.library.view.Borrower.ManageBorrowers.ManageBorrowersViewModel
 import com.mgiandia.library.view.HomePage.HomePageViewModel
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel
 import com.mgiandia.library.view.Loans.AddLoan.AddLoanViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
+import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersViewModel
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsViewModel
 
 
@@ -54,12 +58,19 @@ fun showAddLoanView(composeView: ComposeView, viewModel: AddLoanViewModel) = sho
 
 fun showAuthorDetailsView(composeView: ComposeView, viewModel: AuthorDetailsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawAuthorDetailsPage(modifier, vm) }
 
-fun showManageItemsView(composeView: ComposeView, viewModel: ManageItemsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawItemListScreen(modifier, vm) }
+fun showManageItemsView(composeView: ComposeView, viewModel: ManageItemsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageItemsPage(modifier, vm) }
 
 fun showBorrowerDetailsView(composeView: ComposeView, viewModel: BorrowerDetailsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawBorrowerDetailsPage(modifier, vm) }
 
 fun showPublisherDetailsView(composeView: ComposeView, viewModel: PublisherDetailsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawPublisherDetailsPage(modifier, vm) }
 
+fun showManageBooksView(composeView: ComposeView, viewModel: ManageBooksViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageBooksPage(modifier, vm) }
+
+fun showManageAuthorsView(composeView: ComposeView, viewModel: ManageAuthorsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageAuthorsPage(modifier, vm) }
+
+fun showManageBorrowersView(composeView: ComposeView, viewModel: ManageBorrowersViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageBorrowersPage(modifier, vm) }
+
+fun showManagePublishersView(composeView: ComposeView, viewModel: ManagePublishersViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManagePublishersPage(modifier, vm) }
 
 fun showEmptyView(composeView: ComposeView)
 {
@@ -69,182 +80,3 @@ fun showEmptyView(composeView: ComposeView)
         }
     }
 }
-
-
-
-//fun showHomePageView(composeView: ComposeView, viewModel: HomePageViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            // TODO: Reuse the code involving LibraryTheme, Scaffold etc
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawHomePage(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//fun drawEditBookPage(composeView: ComposeView, viewModel: AddEditBookViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawEditBookPage(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//fun showAddEditAuthorView(composeView: ComposeView, viewModel: AddEditAuthorViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawAddEditAuthorPage(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//fun showAddEditPublisherView(composeView: ComposeView, viewModel: AddEditPublisherViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawAddEditPublisherPage(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//fun showAddEditBorrowerView(composeView: ComposeView, viewModel: AddEditBorrowerViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawAddEditBorrower(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//fun showBookDetailsView(composeView: ComposeView, viewModel: BookDetailsViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawBookDetailsPage(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//fun showAddLoanView(composeView: ComposeView, viewModel: AddLoanViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawAddLoan(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//fun showAuthorDetailsView(composeView: ComposeView, viewModel: AuthorDetailsViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawAuthorDetailsPage(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//fun showManageItemsView(composeView: ComposeView, viewModel: ManageItemsViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawItemListScreen(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//fun showBorrowerDetailsView(composeView: ComposeView, viewModel: BorrowerDetailsViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawBorrowerDetailsPage(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//fun showPublisherDetailsView(composeView: ComposeView, viewModel: PublisherDetailsViewModel)
-//{
-//    composeView.apply {
-//        setContent {
-//            LibraryTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize())
-//                { innerPadding ->
-//                    Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray))
-//
-//                    drawPublisherDetailsPage(modifier = Modifier.padding(innerPadding), viewModel)
-//                }
-//            }
-//        }
-//    }
-//}

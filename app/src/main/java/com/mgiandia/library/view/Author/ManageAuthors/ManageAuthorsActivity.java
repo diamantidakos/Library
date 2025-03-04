@@ -11,11 +11,14 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorActivity;
 import com.mgiandia.library.view.Author.AuthorDetails.AuthorDetailsActivity;
@@ -46,10 +49,16 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_items);
+        setContentView(R.layout.manage_items_compose);
 
         adapter = new AdvancedListAdapter(this);
+        ManageAuthorsViewModel model = new ViewModelProvider(this).get(ManageAuthorsViewModel.class);
+        ManageAuthorsPresenter presenter = model.getPresenter(this);
 
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showManageAuthorsView(composeView, model);
+
+        /*
         itemListView = (ListView) findViewById(R.id.item_list_view);
         itemListView.setAdapter(adapter);
         itemListView.setTextFilterEnabled(true);
@@ -77,6 +86,7 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
                 presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
             }
         });
+        */
     }
 
     /**

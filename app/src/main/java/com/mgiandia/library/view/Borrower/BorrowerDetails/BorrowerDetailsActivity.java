@@ -211,7 +211,6 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_borrower_details);
 
         model = new ViewModelProvider(this).get(BorrowerDetailsViewModel.class);

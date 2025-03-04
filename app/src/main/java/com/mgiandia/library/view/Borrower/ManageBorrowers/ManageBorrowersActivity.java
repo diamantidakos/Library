@@ -11,11 +11,14 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
 import com.mgiandia.library.view.Borrower.BorrowerDetails.BorrowerDetailsActivity;
@@ -45,10 +48,16 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_items);
+        setContentView(R.layout.manage_items_compose);
 
         adapter = new AdvancedListAdapter(this);
+        ManageBorrowersViewModel model = new ViewModelProvider(this).get(ManageBorrowersViewModel.class);
+        ManageBorrowersPresenter presenter = model.getPresenter(this);
 
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showManageBorrowersView(composeView, model);
+
+        /*
         itemListView = (ListView) findViewById(R.id.item_list_view);
         itemListView.setAdapter(adapter);
         itemListView.setTextFilterEnabled(true);
@@ -74,6 +83,7 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
                 presenter.onClickItem(((Quadruple) parent.getItemAtPosition(position)).getUID());
             }
         });
+        */
     }
 
     /**
