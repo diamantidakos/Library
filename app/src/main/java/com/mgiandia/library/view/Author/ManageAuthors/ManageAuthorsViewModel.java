@@ -1,5 +1,6 @@
 package com.mgiandia.library.view.Author.ManageAuthors;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.mgiandia.library.dao.AuthorDAO;
@@ -13,6 +14,7 @@ public class ManageAuthorsViewModel extends ViewModel implements ButtonClicked
 {
     private AuthorDAO authorDAO = new AuthorDAOMemory();
     private ManageAuthorsPresenter presenter;
+    private final MutableLiveData<Integer> selectedAuthorID = new MutableLiveData<>();
 
     public ManageAuthorsPresenter getPresenter(ManageAuthorsView view)
     {
@@ -23,5 +25,15 @@ public class ManageAuthorsViewModel extends ViewModel implements ButtonClicked
     public List<Author> getAllAuthors()
     {
         return authorDAO.findAll();
+    }
+
+    public void setSelectedAuthorID(int selectedAuthorID)
+    {
+        this.selectedAuthorID.setValue(selectedAuthorID);
+    }
+
+    public MutableLiveData<Integer> getSelectedAuthorID()
+    {
+        return selectedAuthorID;
     }
 }

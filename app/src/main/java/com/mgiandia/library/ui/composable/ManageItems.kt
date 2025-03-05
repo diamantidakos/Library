@@ -2,6 +2,7 @@ package com.mgiandia.library.ui.composable
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -59,24 +60,13 @@ fun drawItemListScreen(modifier: Modifier = Modifier, viewModel: ManageItemsView
 {
     var searchQuery by remember { mutableStateOf("") }
 
-    //var onSearchQueryChanged : String
-
     Column(modifier = modifier.fillMaxSize().padding(12.dp))
     {
         Row(modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceBetween)
         {
-            searchBar(
-                query = searchQuery,
-                onQueryChanged = {
-                    searchQuery = it
-                    //onSearchQueryChanged(it)
-                },
-                modifier = modifier.weight(1f)
-            )
-
+            searchBar(query = searchQuery, onQueryChanged = { searchQuery = it }, modifier = modifier.height(60.dp).weight(3f))
             Spacer(modifier = modifier.width(10.dp))
-
-            displayButton(R.string.add_new_item, 50, 200, viewModel)
+            displayButton(R.string.add_new_item, 65, 120, viewModel)
         }
 
         LazyColumn(modifier = modifier.fillMaxSize())
@@ -110,7 +100,7 @@ fun drawBooksListScreen(modifier: Modifier = Modifier, viewModel: ManageBooksVie
         {
             items(books)
             {
-                item -> bookItem(item.title, item.publisher.name, item.id, item.authors.size)
+                item -> bookItem(item.title, item.publisher.name, item.id, item.authors.size, viewModel)
             }
         }
     }
@@ -118,9 +108,9 @@ fun drawBooksListScreen(modifier: Modifier = Modifier, viewModel: ManageBooksVie
 
 @SuppressLint("ComposableNaming")
 @Composable
-fun bookItem(title: String, publisher: String, code: Int, authors: Int)
+fun bookItem(title: String, publisher: String, code: Int, authors: Int, viewModel: ManageBooksViewModel)
 {
-    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp))
+    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { viewModel.setSelectedBookID(code) })
     {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
         {
@@ -185,7 +175,7 @@ fun drawBorrowerListScreen(modifier: Modifier = Modifier, viewModel: ManageBorro
         {
             items(borrowers)
             {
-                item -> borrowerItem(item.firstName, item.lastName, item.borrowerNo, item.loans.size)
+                item -> borrowerItem(item.firstName, item.lastName, item.borrowerNo, item.loans.size, viewModel)
             }
         }
     }
@@ -193,9 +183,9 @@ fun drawBorrowerListScreen(modifier: Modifier = Modifier, viewModel: ManageBorro
 
 @SuppressLint("ComposableNaming")
 @Composable
-fun borrowerItem(firstName: String, lastName: String, code: Int, loansNum: Int)
+fun borrowerItem(firstName: String, lastName: String, code: Int, loansNum: Int, viewModel: ManageBorrowersViewModel)
 {
-    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp))
+    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { viewModel.setSelectedBorrowerID(code) })
     {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
         {
@@ -247,7 +237,7 @@ fun drawPublisherListScreen(modifier: Modifier = Modifier, viewModel: ManagePubl
         {
             items(publishers)
             {
-                item -> publisherItem(item.name, item.books.size)
+                item -> publisherItem(item.name, item.books.size, item.id, viewModel)
             }
         }
     }
@@ -255,11 +245,11 @@ fun drawPublisherListScreen(modifier: Modifier = Modifier, viewModel: ManagePubl
 
 @SuppressLint("ComposableNaming")
 @Composable
-fun publisherItem(name: String, booksNum: Int)
+fun publisherItem(name: String, booksNum: Int, id: Int, viewModel: ManagePublishersViewModel)
 {
     val secondChar = if (name.length > 1) name.substring(1, 2).uppercase() else ""
 
-    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp))
+    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { viewModel.setSelectedPublisherID(id) })
     {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
         {
@@ -310,7 +300,7 @@ fun drawAuthorListScreen(modifier: Modifier = Modifier, viewModel: ManageAuthors
         {
             items(authors)
             {
-                item -> authorItem(item.firstName, item.lastName, item.books.size)
+                item -> authorItem(item.firstName, item.lastName, item.books.size, item.id, viewModel)
             }
         }
     }
@@ -318,9 +308,9 @@ fun drawAuthorListScreen(modifier: Modifier = Modifier, viewModel: ManageAuthors
 
 @SuppressLint("ComposableNaming")
 @Composable
-fun authorItem(firstName: String, lastName: String, booksNum: Int)
+fun authorItem(firstName: String, lastName: String, booksNum: Int, id: Int, viewModel: ManageAuthorsViewModel)
 {
-    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp))
+    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { viewModel.setSelectedAuthorID(id) })
     {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
         {
@@ -391,7 +381,7 @@ fun searchBar(query: String, onQueryChanged: (String) -> Unit, modifier: Modifie
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search Icon",
-                tint = Color.Black // Make the icon gray
+                tint = Color.Black
             )
         },
         singleLine = true,

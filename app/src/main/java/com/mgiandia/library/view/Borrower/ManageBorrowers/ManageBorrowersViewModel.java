@@ -1,18 +1,18 @@
 package com.mgiandia.library.view.Borrower.ManageBorrowers;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.mgiandia.library.dao.BorrowerDAO;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.ui.model.ButtonClicked;
-
 import java.util.List;
 
 public class ManageBorrowersViewModel extends ViewModel implements ButtonClicked
 {
     private BorrowerDAO borrowerDAO = new BorrowerDAOMemory();
     private ManageBorrowersPresenter presenter;
+    private MutableLiveData<Integer> selectedBorrowerID = new MutableLiveData<>();
 
     public ManageBorrowersPresenter getPresenter(ManageBorrowersView view)
     {
@@ -23,5 +23,15 @@ public class ManageBorrowersViewModel extends ViewModel implements ButtonClicked
     public List<Borrower> getAllBorrowers()
     {
         return borrowerDAO.findAll();
+    }
+
+    public void setSelectedBorrowerID(int selectedBorrowerID)
+    {
+        this.selectedBorrowerID.setValue(selectedBorrowerID);
+    }
+
+    public MutableLiveData<Integer> getSelectedBorrowerID()
+    {
+        return selectedBorrowerID;
     }
 }

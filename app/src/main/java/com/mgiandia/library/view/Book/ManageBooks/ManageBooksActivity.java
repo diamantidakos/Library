@@ -47,9 +47,8 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
 public class ManageBooksActivity extends AppCompatActivity implements ManageBooksView, SearchView.OnQueryTextListener
 {
     ManageBooksPresenter presenter;
-
     private ListView itemListView;
-    private SearchView searchListView;
+    //private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
     /**
@@ -69,6 +68,24 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManageBooksView(composeView, model);
+
+        model.getSelectedBookID().observe(this, value ->
+        {
+            if (value != null)
+            {
+                presenter.onClickItem(value);
+            }
+        });
+
+        /*
+        model.getSearchListView().observe(this, value ->
+        {
+            if (value != null)
+            {
+                searchListView = value;
+            }
+        });
+        */
 
         /*
         model.observeClicks(this, buttonTextResId ->
@@ -140,12 +157,14 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
      * Αδείαζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
+    /*
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
         searchListView.clearFocus();
         presenter.onLoadSource();
     }
+    */
 
     /**
      * Αδειάζει την μπάρα αναζήτησης
@@ -160,12 +179,12 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
 
         if(requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
-            clear_search_bar();
+            //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
         else if(requestCode == 1)
         {
-            clear_search_bar();
+            //clear_search_bar();
 
             if(resultCode == Activity.RESULT_OK)
                 presenter.onShowToast(data.getStringExtra("message_to_toast"));

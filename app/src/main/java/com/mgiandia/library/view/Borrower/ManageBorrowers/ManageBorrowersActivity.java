@@ -37,7 +37,7 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     ManageBorrowersPresenter presenter;
 
     private ListView itemListView;
-    private SearchView searchListView;
+    //private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
     /**
@@ -56,6 +56,14 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManageBorrowersView(composeView, model);
+
+        model.getSelectedBorrowerID().observe(this, value ->
+        {
+            if (value != null)
+            {
+                presenter.onClickItem(value);
+            }
+        });
 
         /*
         itemListView = (ListView) findViewById(R.id.item_list_view);
@@ -113,11 +121,13 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
      * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
+    /*
     private void clear_search_bar() {
         searchListView.setQuery("", false);
         searchListView.clearFocus();
         presenter.onLoadSource();
     }
+     */
 
     /**
      * Αδειάζει την μπάρα αναζήτησης
@@ -130,10 +140,10 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-            clear_search_bar();
+            //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         } else if (requestCode == 1) {
-            clear_search_bar();
+            //clear_search_bar();
 
             if (resultCode == Activity.RESULT_OK)
                 presenter.onShowToast(data.getStringExtra("message_to_toast"));

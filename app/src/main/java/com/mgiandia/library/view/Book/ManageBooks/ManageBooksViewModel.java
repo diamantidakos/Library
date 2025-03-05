@@ -1,5 +1,8 @@
 package com.mgiandia.library.view.Book.ManageBooks;
 
+import android.widget.ListView;
+import android.widget.SearchView;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -22,6 +25,7 @@ public class ManageBooksViewModel extends ViewModel implements ButtonClicked
     private ManageBooksPresenter presenter;
     private BookDAO bookDAO = new BookDAOMemory();
     private final MutableLiveData<ArrayList<Book>> books = new MutableLiveData<>();
+    private final MutableLiveData<Integer> selectedBookID = new MutableLiveData<>();
 
     public ManageBooksPresenter getPresenter(ManageBooksView view)
     {
@@ -42,5 +46,15 @@ public class ManageBooksViewModel extends ViewModel implements ButtonClicked
     public MutableLiveData<ArrayList<Book>> getBooks()
     {
         return books;
+    }
+
+    public void setSelectedBookID(int selectedBookID)
+    {
+        this.selectedBookID.setValue(selectedBookID);
+    }
+
+    public MutableLiveData<Integer> getSelectedBookID()
+    {
+        return selectedBookID;
     }
 }

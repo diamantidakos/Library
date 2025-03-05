@@ -36,9 +36,8 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
     ManageAuthorsPresenter presenter;
 
     private ListView itemListView;
-    private SearchView searchListView;
+    //private SearchView searchListView;
     private AdvancedListAdapter adapter;
-
 
     /**
      * Δημιουργεί to layout και αρχικοποιεί
@@ -57,6 +56,14 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManageAuthorsView(composeView, model);
+
+        model.getSelectedAuthorID().observe(this, value ->
+        {
+            if (value != null)
+            {
+                presenter.onClickItem(value);
+            }
+        });
 
         /*
         itemListView = (ListView) findViewById(R.id.item_list_view);
@@ -118,12 +125,15 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
      * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
+    /*
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
         searchListView.clearFocus();
         presenter.onLoadSource();
     }
+
+     */
 
     /**
      * Αδείαζει την μπάρα αναζήτησης
@@ -138,12 +148,12 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
 
         if(requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
-            clear_search_bar();
+            //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
         else if(requestCode == 1)
         {
-            clear_search_bar();
+            //clear_search_bar();
 
             if(resultCode == Activity.RESULT_OK)
                 presenter.onShowToast(data.getStringExtra("message_to_toast"));
