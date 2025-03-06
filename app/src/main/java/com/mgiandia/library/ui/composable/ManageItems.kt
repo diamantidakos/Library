@@ -52,6 +52,7 @@ import com.mgiandia.library.view.Borrower.ManageBorrowers.ManageBorrowersViewMod
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel
 import com.mgiandia.library.view.Loans.ManageLoans.ManageLoansViewModel
 import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersViewModel
+import kotlin.math.absoluteValue
 
 
 @SuppressLint("ComposableNaming")
@@ -115,7 +116,7 @@ fun bookItem(title: String, publisher: String, code: Int, authors: Int, viewMode
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
         {
             // Colored Box with initials
-            Box(modifier = Modifier.size(50.dp).background(generateColor(title.first()), RoundedCornerShape(1.dp)), contentAlignment = Alignment.Center)
+            Box(modifier = Modifier.size(50.dp).background(generateColor(title), RoundedCornerShape(1.dp)), contentAlignment = Alignment.Center)
             {
                 Text(
                     text = "A${title.first().uppercaseChar()}",
@@ -143,17 +144,16 @@ fun bookItem(title: String, publisher: String, code: Int, authors: Int, viewMode
     }
 }
 
+/**
+ * param --> το όνομα σε μορφή String (βιβλίου, συγγραφέα, κλπ)
+ * return --> ένα χρώμα ανάλογα με το hashCode του ονόματος
+ */
 @Composable
-fun generateColor(initial: Char): Color
+fun generateColor(name: String): Color
 {
-    return when (initial.uppercaseChar())
-    {
-        'A', 'B', 'C', 'D', 'E', 'F', 'G' -> Color.Black
-        'H', 'I', 'J', 'K', 'L', 'M', 'N' -> Color.Red
-        'O', 'P', 'Q', 'R', 'S', 'T' -> Color.Blue
-        'U', 'V', 'W', 'X', 'Y', 'Z' -> Color.Green
-        else -> Color.LightGray
-    }
+    val colors = listOf(Color.Black, Color.Red, Color.Blue, Color.Green)
+    val index = name.hashCode().absoluteValue % colors.size
+    return colors[index]
 }
 
 @SuppressLint("ComposableNaming")
@@ -190,7 +190,7 @@ fun borrowerItem(firstName: String, lastName: String, code: Int, loansNum: Int, 
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
         {
             // Colored Box with initials
-            Box(modifier = Modifier.size(50.dp).background(generateColor(firstName.first()), RoundedCornerShape(1.dp)), contentAlignment = Alignment.Center)
+            Box(modifier = Modifier.size(50.dp).background(generateColor(firstName), RoundedCornerShape(1.dp)), contentAlignment = Alignment.Center)
             {
                 Text(
                     text = "${firstName.first().uppercaseChar()}${lastName.first().uppercaseChar()}",
@@ -254,7 +254,7 @@ fun publisherItem(name: String, booksNum: Int, id: Int, viewModel: ManagePublish
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
         {
             // Colored Box with initials
-            Box(modifier = Modifier.size(50.dp).background(generateColor(name.first()), RoundedCornerShape(1.dp)), contentAlignment = Alignment.Center)
+            Box(modifier = Modifier.size(50.dp).background(generateColor(name), RoundedCornerShape(1.dp)), contentAlignment = Alignment.Center)
             {
                 Text(
                     text = "${name.first().uppercaseChar()}${secondChar}",
@@ -315,7 +315,7 @@ fun authorItem(firstName: String, lastName: String, booksNum: Int, id: Int, view
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
         {
             // Colored Box with initials
-            Box(modifier = Modifier.size(50.dp).background(generateColor(firstName.first()), RoundedCornerShape(1.dp)), contentAlignment = Alignment.Center)
+            Box(modifier = Modifier.size(50.dp).background(generateColor(firstName), RoundedCornerShape(1.dp)), contentAlignment = Alignment.Center)
             {
                 Text(
                     text = "${firstName.first().uppercaseChar()}${lastName.first().uppercaseChar()}",
