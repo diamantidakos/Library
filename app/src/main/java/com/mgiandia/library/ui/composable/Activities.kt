@@ -66,11 +66,19 @@ fun showPublisherDetailsView(composeView: ComposeView, viewModel: PublisherDetai
 
 fun showManageBooksView(composeView: ComposeView, viewModel: ManageBooksViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageBooksPage(modifier, vm) }
 
+fun showManageBooksViewSearch(composeView: ComposeView, viewModel: ManageBooksViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageBooksPageSearch(modifier, vm) }
+
 fun showManageAuthorsView(composeView: ComposeView, viewModel: ManageAuthorsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageAuthorsPage(modifier, vm) }
+
+fun showManageAuthorsViewSearch(composeView: ComposeView, viewModel: ManageAuthorsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageAuthorsPageSearch(modifier, vm) }
 
 fun showManageBorrowersView(composeView: ComposeView, viewModel: ManageBorrowersViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageBorrowersPage(modifier, vm) }
 
+fun showManageBorrowersViewSearch(composeView: ComposeView, viewModel: ManageBorrowersViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageBorrowersPageSearch(modifier, vm) }
+
 fun showManagePublishersView(composeView: ComposeView, viewModel: ManagePublishersViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManagePublishersPage(modifier, vm) }
+
+fun showManagePublishersViewSearch(composeView: ComposeView, viewModel: ManagePublishersViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManagePublishersPageSearch(modifier, vm) }
 
 fun showEmptyView(composeView: ComposeView)
 {

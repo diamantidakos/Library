@@ -1,7 +1,9 @@
 package com.mgiandia.library.memorydao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.mgiandia.library.dao.PublisherDAO;
 import com.mgiandia.library.domain.Publisher;
@@ -54,6 +56,20 @@ public class PublisherDAOMemory implements PublisherDAO {
                 return publisher;
 
         return null;
+    }
+
+    public Set<Publisher> findByName(String name)
+    {
+        Set<Publisher> result = new HashSet<>();
+        for (Publisher publisher : entities)
+        {
+            if (publisher.getName().contains(name))
+            {
+                result.add(publisher);
+            }
+        }
+
+        return result;
     }
 
     /**

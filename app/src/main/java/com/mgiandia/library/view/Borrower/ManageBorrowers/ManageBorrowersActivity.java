@@ -14,9 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mgiandia.library.R;
+import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
@@ -62,6 +64,16 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
             if (value != null)
             {
                 presenter.onClickItem(value);
+            }
+        });
+
+        model.getTextOnSearchBar().observe(this, value ->
+        {
+            if (value != null)
+            {
+                ArrayList<Borrower> borrowers = new ArrayList<>(model.findBorrowers(value));
+                model.setBorrowers(borrowers);
+                ActivitiesKt.showManageBorrowersViewSearch(composeView, model);
             }
         });
 

@@ -4,37 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Book;
-import com.mgiandia.library.domain.Item;
-import com.mgiandia.library.memorydao.AuthorDAOMemory;
-import com.mgiandia.library.memorydao.BookDAOMemory;
-import com.mgiandia.library.memorydao.PublisherDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
-import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel;
 import com.mgiandia.library.view.Book.BookDetails.BookDetailsActivity;
-import com.mgiandia.library.view.HomePage.HomePageActivity;
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsActivity;
-import com.mgiandia.library.view.Items.ManageItems.ManageItemsPresenter;
-import com.mgiandia.library.view.Items.ManageItems.ManageItemsView;
-import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
 /**
@@ -74,6 +59,16 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
             if (value != null)
             {
                 presenter.onClickItem(value);
+            }
+        });
+
+        model.getTextOnSearchBar().observe(this, value ->
+        {
+            if (value != null)
+            {
+                ArrayList<Book> books = new ArrayList<>(model.findBooks(value));
+                model.setBooks(books);
+                ActivitiesKt.showManageBooksViewSearch(composeView, model);
             }
         });
 

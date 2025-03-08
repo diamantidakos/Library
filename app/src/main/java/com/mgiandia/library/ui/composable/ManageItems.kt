@@ -84,13 +84,11 @@ fun drawItemListScreen(modifier: Modifier = Modifier, viewModel: ManageItemsView
 @Composable
 fun drawBooksListScreen(modifier: Modifier = Modifier, viewModel: ManageBooksViewModel, books : ArrayList<Book>)
 {
-    var searchQuery by remember { mutableStateOf("") }
-
     Column(modifier = modifier.fillMaxSize().padding(12.dp))
     {
         Row(modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceBetween)
         {
-            searchBar(query = searchQuery, onQueryChanged = { searchQuery = it }, modifier = modifier.height(60.dp).weight(3f))
+            searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel = viewModel)
             Spacer(modifier = modifier.width(10.dp))
             displayButton(R.string.add_new_item, 65, 120, viewModel)
         }
@@ -160,13 +158,11 @@ fun generateColor(name: String): Color
 @Composable
 fun drawBorrowerListScreen(modifier: Modifier = Modifier, viewModel: ManageBorrowersViewModel, borrowers : ArrayList<Borrower>)
 {
-    var searchQuery by remember { mutableStateOf("") }
-
     Column(modifier = modifier.fillMaxSize().padding(12.dp))
     {
         Row(modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceBetween)
         {
-            searchBar(query = searchQuery, onQueryChanged = { searchQuery = it }, modifier = modifier.height(60.dp).weight(3f))
+            searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
             Spacer(modifier = modifier.width(10.dp))
             displayButton(R.string.add_new_item, 65, 120, viewModel)
         }
@@ -222,13 +218,11 @@ fun borrowerItem(firstName: String, lastName: String, code: Int, loansNum: Int, 
 @Composable
 fun drawPublisherListScreen(modifier: Modifier = Modifier, viewModel: ManagePublishersViewModel, publishers : ArrayList<Publisher>)
 {
-    var searchQuery by remember { mutableStateOf("") }
-
     Column(modifier = modifier.fillMaxSize().padding(12.dp))
     {
         Row(modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceBetween)
         {
-            searchBar(query = searchQuery, onQueryChanged = { searchQuery = it }, modifier = modifier.height(60.dp).weight(3f))
+            searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
             Spacer(modifier = modifier.width(10.dp))
             displayButton(R.string.add_new_item, 65, 120, viewModel)
         }
@@ -285,13 +279,11 @@ fun publisherItem(name: String, booksNum: Int, id: Int, viewModel: ManagePublish
 @Composable
 fun drawAuthorListScreen(modifier: Modifier = Modifier, viewModel: ManageAuthorsViewModel, authors : ArrayList<Author>)
 {
-    var searchQuery by remember { mutableStateOf("") }
-
     Column(modifier = modifier.fillMaxSize().padding(12.dp))
     {
         Row(modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceBetween)
         {
-            searchBar(query = searchQuery, onQueryChanged = { searchQuery = it }, modifier = modifier.height(60.dp).weight(3f))
+            searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
             Spacer(modifier = modifier.width(10.dp))
             displayButton(R.string.add_new_item, 65, 120, viewModel)
         }
@@ -366,6 +358,138 @@ fun drawLoanListScreen(modifier: Modifier = Modifier, viewModel: ManageLoansView
             }
         }
     }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun searchBar(modifier: Modifier = Modifier, viewModel: ManageBooksViewModel)
+{
+    var text by remember { mutableStateOf("") }
+
+    TextField(
+        value = text,
+        onValueChange = { text = it; viewModel.setTextOnSearchBar(it) },
+        modifier = modifier.height(40.dp),
+        placeholder = { Text(stringResource(R.string.search), color = Color.Black) },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search Icon",
+                tint = Color.Black
+            )
+        },
+        singleLine = true,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.DarkGray,
+            unfocusedContainerColor = Color.DarkGray,
+            disabledContainerColor = Color.DarkGray,
+            errorContainerColor = Color.DarkGray,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black,
+            cursorColor = Color.Black
+        )
+    )
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun searchBar(modifier: Modifier = Modifier, viewModel: ManageAuthorsViewModel)
+{
+    var text by remember { mutableStateOf("") }
+
+    TextField(
+        value = text,
+        onValueChange =  { text = it; viewModel.setTextOnSearchBar(it) },
+        modifier = modifier.height(40.dp),
+        placeholder = { Text(stringResource(R.string.search), color = Color.Black) },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search Icon",
+                tint = Color.Black
+            )
+        },
+        singleLine = true,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.DarkGray,
+            unfocusedContainerColor = Color.DarkGray,
+            disabledContainerColor = Color.DarkGray,
+            errorContainerColor = Color.DarkGray,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black,
+            cursorColor = Color.Black
+        )
+    )
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun searchBar(modifier: Modifier = Modifier, viewModel: ManageBorrowersViewModel)
+{
+    var text by remember { mutableStateOf("") }
+
+    TextField(
+        value = text,
+        onValueChange =  { text = it; viewModel.setTextOnSearchBar(it) },
+        modifier = modifier.height(40.dp),
+        placeholder = { Text(stringResource(R.string.search), color = Color.Black) },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search Icon",
+                tint = Color.Black
+            )
+        },
+        singleLine = true,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.DarkGray,
+            unfocusedContainerColor = Color.DarkGray,
+            disabledContainerColor = Color.DarkGray,
+            errorContainerColor = Color.DarkGray,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black,
+            cursorColor = Color.Black
+        )
+    )
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun searchBar(modifier: Modifier = Modifier, viewModel: ManagePublishersViewModel)
+{
+    var text by remember { mutableStateOf("") }
+
+    TextField(
+        value = text,
+        onValueChange =  { text = it; viewModel.setTextOnSearchBar(it) },
+        modifier = modifier.height(40.dp),
+        placeholder = { Text(stringResource(R.string.search), color = Color.Black) },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search Icon",
+                tint = Color.Black
+            )
+        },
+        singleLine = true,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.DarkGray,
+            unfocusedContainerColor = Color.DarkGray,
+            disabledContainerColor = Color.DarkGray,
+            errorContainerColor = Color.DarkGray,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black,
+            cursorColor = Color.Black
+        )
+    )
 }
 
 @SuppressLint("ComposableNaming")

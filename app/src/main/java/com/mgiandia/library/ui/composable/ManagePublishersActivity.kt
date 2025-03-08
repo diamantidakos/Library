@@ -14,3 +14,14 @@ fun drawManagePublishersPage(modifier: Modifier = Modifier, viewModel: ManagePub
     val allPublishers: ArrayList<Publisher> = ArrayList(viewModel.allPublishers)
     drawPublisherListScreen(modifier, viewModel, allPublishers)
 }
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun drawManagePublishersPageSearch(modifier: Modifier = Modifier, viewModel: ManagePublishersViewModel)
+{
+    val allPublishers = viewModel.publishers.value
+    if (allPublishers != null)
+    {
+        drawPublisherListScreen(modifier, viewModel, allPublishers)
+    }
+}

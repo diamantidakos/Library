@@ -13,3 +13,14 @@ fun drawManageAuthorsPage(modifier: Modifier = Modifier, viewModel: ManageAuthor
     val allAuthors: ArrayList<Author> = ArrayList(viewModel.allAuthors)
     drawAuthorListScreen(modifier, viewModel, allAuthors)
 }
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun drawManageAuthorsPageSearch(modifier: Modifier = Modifier, viewModel: ManageAuthorsViewModel)
+{
+    val allAuthors = viewModel.authors.value
+    if (allAuthors != null)
+    {
+        drawAuthorListScreen(modifier, viewModel, allAuthors)
+    }
+}

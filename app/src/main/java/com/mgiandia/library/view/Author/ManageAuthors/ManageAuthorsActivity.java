@@ -14,9 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mgiandia.library.R;
+import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
@@ -62,6 +64,16 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
             if (value != null)
             {
                 presenter.onClickItem(value);
+            }
+        });
+
+        model.getTextOnSearchBar().observe(this, value ->
+        {
+            if (value != null)
+            {
+                ArrayList<Author> authors = new ArrayList<>(model.findAuthors(value));
+                model.setAuthors(authors);
+                ActivitiesKt.showManageAuthorsViewSearch(composeView, model);
             }
         });
 

@@ -19,6 +19,7 @@ import com.mgiandia.library.view.Items.ManageItems.ManageItemsView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ManageBooksViewModel extends ViewModel implements ButtonClicked
 {
@@ -26,6 +27,7 @@ public class ManageBooksViewModel extends ViewModel implements ButtonClicked
     private BookDAO bookDAO = new BookDAOMemory();
     private final MutableLiveData<ArrayList<Book>> books = new MutableLiveData<>();
     private final MutableLiveData<Integer> selectedBookID = new MutableLiveData<>();
+    private final MutableLiveData<String> textOnSearchBar = new MutableLiveData<>();
 
     public ManageBooksPresenter getPresenter(ManageBooksView view)
     {
@@ -36,6 +38,11 @@ public class ManageBooksViewModel extends ViewModel implements ButtonClicked
     public List<Book> getAllBooks()
     {
         return bookDAO.findAll();
+    }
+
+    public Set<Book> findBooks(String title)
+    {
+        return bookDAO.findByTitle(title);
     }
 
     public void setBooks(ArrayList<Book> books)
@@ -56,5 +63,15 @@ public class ManageBooksViewModel extends ViewModel implements ButtonClicked
     public MutableLiveData<Integer> getSelectedBookID()
     {
         return selectedBookID;
+    }
+
+    public void setTextOnSearchBar(String textOnSearchBar)
+    {
+        this.textOnSearchBar.setValue(textOnSearchBar);
+    }
+
+    public MutableLiveData<String> getTextOnSearchBar()
+    {
+        return textOnSearchBar;
     }
 }

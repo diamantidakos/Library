@@ -13,3 +13,14 @@ fun drawManageBorrowersPage(modifier: Modifier = Modifier, viewModel: ManageBorr
     val allBorrowers: ArrayList<Borrower> = ArrayList(viewModel.allBorrowers)
     drawBorrowerListScreen(modifier, viewModel, allBorrowers)
 }
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun drawManageBorrowersPageSearch(modifier: Modifier = Modifier, viewModel: ManageBorrowersViewModel)
+{
+    val borrowers = viewModel.borrowers.value
+    if (borrowers != null)
+    {
+        drawBorrowerListScreen(modifier, viewModel, borrowers)
+    }
+}

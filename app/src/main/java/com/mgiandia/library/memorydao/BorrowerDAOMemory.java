@@ -1,7 +1,11 @@
 package com.mgiandia.library.memorydao;
 
+import androidx.compose.foundation.layout.BoxWithConstraintsKt;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.mgiandia.library.dao.BorrowerDAO;
 import com.mgiandia.library.domain.Borrower;
@@ -31,6 +35,20 @@ public class BorrowerDAOMemory implements BorrowerDAO {
      */
     public List<Borrower> findAll() {
         return new ArrayList<Borrower>(entities);
+    }
+
+    public Set<Borrower> findByName(String name)
+    {
+        Set<Borrower> result = new HashSet<>();
+        for(Borrower borrower : entities)
+        {
+            if (borrower.getLastName().contains(name))
+            {
+                result.add(borrower);
+            }
+        }
+
+        return result;
     }
 
     /**

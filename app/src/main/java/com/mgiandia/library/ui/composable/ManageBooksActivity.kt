@@ -13,3 +13,14 @@ fun drawManageBooksPage(modifier: Modifier = Modifier, viewModel: ManageBooksVie
     val allBooks: ArrayList<Book> = ArrayList(viewModel.allBooks)
     drawBooksListScreen(modifier, viewModel, allBooks)
 }
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun drawManageBooksPageSearch(modifier: Modifier = Modifier, viewModel: ManageBooksViewModel)
+{
+    val books = viewModel.books.value
+    if (books != null)
+    {
+        drawBooksListScreen(modifier, viewModel, books)
+    }
+}

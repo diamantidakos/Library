@@ -1,6 +1,7 @@
 package com.mgiandia.library.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.mgiandia.library.domain.Borrower;
 
@@ -17,6 +18,8 @@ public interface BorrowerDAO {
      * @return Το δανειζόμενο ή {@code null} εάν αυτός δεν βρεθεί.
      */
     Borrower find(int borrowerNo);
+
+    Set<Borrower> findByName(String name);
 
 
     /**
