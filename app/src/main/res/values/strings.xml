@@ -95,4 +95,6 @@
     <string name="from">Από</string>
     <string name="books_number">Σύνολο βιβλίων</string>
     <string name="loans_number">Σύνολο δανεισμών</string>
+    <string name="loan">Δανεισμός</string>
+    <string name="copy">Αντίτυπο</string>
 </resources>

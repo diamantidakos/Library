@@ -71,10 +71,13 @@ public class BookDAOMemory implements BookDAO {
     }
 
     @Override
-    public Set<Book> findByTitle(String title) {
+    public Set<Book> findByTitle(String title)
+    {
         Set<Book> result = new HashSet<>();
-        for(Book b: entities){
-            if (b.getTitle().contains(title)){
+        for(Book b: entities)
+        {
+            if (b.getTitle().contains(title))
+            {
                 result.add(b);
             }
         }

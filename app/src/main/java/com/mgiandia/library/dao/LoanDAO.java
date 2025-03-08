@@ -2,6 +2,7 @@ package com.mgiandia.library.dao;
 
 
 import java.util.List;
+import java.util.Set;
 
 import com.mgiandia.library.domain.Loan;
 
@@ -32,7 +33,11 @@ public interface LoanDAO {
      * @return Ο κατάλογος των εκκρεμών δανεισμών
      */
     List<Loan> findAllPending();
-    
+
+    List<Loan> findBorrowersLoans(int borrowerID);
+
+    Set<Loan> findByBookTitle(String title);
+
     
     /**
      * Αποθηκεύει ένα αντικείμενο στην εξωτερική πηγή

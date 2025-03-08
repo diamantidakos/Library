@@ -5,20 +5,18 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
+import com.mgiandia.library.domain.Loan;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Loans.AddLoan.AddLoansActivity;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
@@ -35,7 +33,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
     ManageLoansPresenter presenter;
 
     private ListView itemListView;
-    private SearchView searchListView;
+    //private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
     /**
@@ -47,10 +45,37 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_items);
-
+        setContentView(R.layout.manage_items_compose);
         adapter = new AdvancedListAdapter(this);
 
+        ManageLoansViewModel model = new ViewModelProvider(this).get(ManageLoansViewModel.class);
+        ManageLoansPresenter presenter = model.getPresenter(this);
+
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showManageLoansView(composeView, model);
+
+        int borrowerID = getAttachedBorrowerID();
+        model.setBorrowerID(borrowerID);
+
+        model.getSelectedLoanID().observe(this, value ->
+        {
+            if (value != null)
+            {
+                presenter.onClickItem(value);
+            }
+        });
+
+        model.getTextOnSearchBar().observe(this, value ->
+        {
+            if (value != null)
+            {
+                ArrayList<Loan> loans = new ArrayList<>(model.findLoansByBookTitle(value));
+                model.setLoans(loans);
+                ActivitiesKt.showManageLoansViewSearch(composeView, model);
+            }
+        });
+
+        /*
         itemListView = (ListView) findViewById(R.id.item_list_view);
         itemListView.setAdapter(adapter);
         itemListView.setTextFilterEnabled(true);
@@ -78,6 +103,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
                 presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
             }
         });
+        */
     }
 
     /**
@@ -109,12 +135,14 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
      * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
+    /*
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
         searchListView.clearFocus();
         presenter.onLoadSource();
     }
+     */
 
     /**
      * Φορτώνει την λίστα με τους δανειζομένους.
@@ -162,7 +190,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
      */
     public int getAttachedBorrowerID()
     {
-        return Objects.requireNonNull(this.getIntent().getExtras()).getInt("borrower_id");
+        return this.getIntent().hasExtra("borrower_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("borrower_id") : -1;
     }
 
     /**
@@ -187,7 +215,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
 
         if(resultCode == Activity.RESULT_OK)
         {
-            clear_search_bar();
+            //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
     }

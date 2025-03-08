@@ -2,7 +2,9 @@ package com.mgiandia.library.memorydao;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.mgiandia.library.dao.LoanDAO;
 import com.mgiandia.library.domain.Loan;
@@ -30,6 +32,26 @@ public class LoanDAOMemory implements LoanDAO{
                 return loan;
 
         return null;
+    }
+
+    public List<Loan> findBorrowersLoans(int borrowerID)
+    {
+        List<Loan> result = new ArrayList<>();
+        for(Loan loan : entities)
+            if(loan.getBorrower().getBorrowerNo() == borrowerID)
+                result.add(loan);
+
+        return result;
+    }
+
+    public Set<Loan> findByBookTitle(String title)
+    {
+        Set<Loan> result = new HashSet<>();
+        for(Loan loan : entities)
+            if(loan.getItem().getBook().getTitle().contains(title))
+                result.add(loan);
+
+        return result;
     }
 
     /**

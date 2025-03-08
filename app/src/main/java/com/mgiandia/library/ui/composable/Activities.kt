@@ -22,6 +22,7 @@ import com.mgiandia.library.view.Borrower.ManageBorrowers.ManageBorrowersViewMod
 import com.mgiandia.library.view.HomePage.HomePageViewModel
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel
 import com.mgiandia.library.view.Loans.AddLoan.AddLoanViewModel
+import com.mgiandia.library.view.Loans.ManageLoans.ManageLoansViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
 import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersViewModel
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsViewModel
@@ -79,6 +80,10 @@ fun showManageBorrowersViewSearch(composeView: ComposeView, viewModel: ManageBor
 fun showManagePublishersView(composeView: ComposeView, viewModel: ManagePublishersViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManagePublishersPage(modifier, vm) }
 
 fun showManagePublishersViewSearch(composeView: ComposeView, viewModel: ManagePublishersViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManagePublishersPageSearch(modifier, vm) }
+
+fun showManageLoansView(composeView: ComposeView, viewModel: ManageLoansViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageLoansPage(modifier, vm) }
+
+fun showManageLoansViewSearch(composeView: ComposeView, viewModel: ManageLoansViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageLoansPageSearch(modifier, vm) }
 
 fun showEmptyView(composeView: ComposeView)
 {
