@@ -54,7 +54,7 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
 
         adapter = new AdvancedListAdapter(this);
         ManageBorrowersViewModel model = new ViewModelProvider(this).get(ManageBorrowersViewModel.class);
-        ManageBorrowersPresenter presenter = model.getPresenter(this);
+        presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManageBorrowersView(composeView, model);

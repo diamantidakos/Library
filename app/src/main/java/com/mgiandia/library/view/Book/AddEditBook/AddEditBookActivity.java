@@ -283,7 +283,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         // if the save button is clicked, save the book
         model.observeClicks(this, buttonTextResId ->
         {
-            if (buttonTextResId != null && validFields())
+            if (buttonTextResId != null && validFields() && buttonTextResId.equals(R.string.complete_registration))
             {
                 presenter.onSaveBook();
             }

@@ -49,7 +49,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
         adapter = new AdvancedListAdapter(this);
 
         ManageLoansViewModel model = new ViewModelProvider(this).get(ManageLoansViewModel.class);
-        ManageLoansPresenter presenter = model.getPresenter(this);
+        presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManageLoansView(composeView, model);

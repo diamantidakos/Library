@@ -49,7 +49,7 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
         adapter = new AdvancedListAdapter(this);
 
         ManageBooksViewModel model = new ViewModelProvider(this).get(ManageBooksViewModel.class);
-        ManageBooksPresenter presenter = model.getPresenter(this);
+        presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManageBooksView(composeView, model);
@@ -72,22 +72,20 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
             }
         });
 
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && buttonTextResId.equals(R.string.add_new_item))
+            {
+                presenter.onStartAddNew();
+            }
+        });
+
         /*
         model.getSearchListView().observe(this, value ->
         {
             if (value != null)
             {
                 searchListView = value;
-            }
-        });
-        */
-
-        /*
-        model.observeClicks(this, buttonTextResId ->
-        {
-            if (buttonTextResId != null)
-            {
-                presenter.onStartAddNew();
             }
         });
         */

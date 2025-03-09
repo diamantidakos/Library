@@ -36,7 +36,6 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
 public class ManageAuthorsActivity extends AppCompatActivity implements ManageAuthorsView, SearchView.OnQueryTextListener
 {
     ManageAuthorsPresenter presenter;
-
     private ListView itemListView;
     //private SearchView searchListView;
     private AdvancedListAdapter adapter;
@@ -54,7 +53,7 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
 
         adapter = new AdvancedListAdapter(this);
         ManageAuthorsViewModel model = new ViewModelProvider(this).get(ManageAuthorsViewModel.class);
-        ManageAuthorsPresenter presenter = model.getPresenter(this);
+        presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManageAuthorsView(composeView, model);
@@ -74,6 +73,14 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
                 ArrayList<Author> authors = new ArrayList<>(model.findAuthors(value));
                 model.setAuthors(authors);
                 ActivitiesKt.showManageAuthorsViewSearch(composeView, model);
+            }
+        });
+
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && buttonTextResId.equals(R.string.add_new_item))
+            {
+                presenter.onStartAddNew();
             }
         });
 

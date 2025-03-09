@@ -54,7 +54,7 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
 
         adapter = new AdvancedListAdapter(this);
         ManagePublishersViewModel model = new ViewModelProvider(this).get(ManagePublishersViewModel.class);
-        ManagePublishersPresenter presenter = model.getPresenter(this);
+        presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManagePublishersView(composeView, model);
