@@ -36,7 +36,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
@@ -813,7 +812,7 @@ fun displayLibraryIcon()
 @Composable
 fun welcomeText(txt: String)
 {
-    Text(txt, fontSize = 20.sp)
+    Text(txt)
 }
 
 @SuppressLint("ComposableNaming")
@@ -830,13 +829,13 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), color = Color.White)
     }
 }
 
 @SuppressLint("ComposableNaming")
 @Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditBookViewModel) // mporw kai sthn antistoixh kt klash
+fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditBookViewModel)
 {
     Button(
         onClick = {
@@ -848,13 +847,13 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), color = Color.White)
     }
 }
 
 @SuppressLint("ComposableNaming")
 @Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditAuthorViewModel) // mporw kai sthn antistoixh kt klash
+fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditAuthorViewModel)
 {
     Button(
         onClick = { viewModel.buttonClicked(textResId) },
@@ -864,7 +863,7 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), color = Color.White)
     }
 }
 
@@ -880,7 +879,7 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), color = Color.White)
     }
 }
 
@@ -896,7 +895,7 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), color = Color.White)
     }
 }
 
@@ -914,7 +913,7 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), color = Color.White)
     }
 }
 
@@ -932,7 +931,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), color = Color.White)
     }
 }
 
@@ -950,7 +949,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), color = Color.White)
     }
 }
 
@@ -968,7 +967,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
     }
 }
 
@@ -1076,7 +1075,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), color = Color.White)
     }
 }
 
@@ -1094,6 +1093,6 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
         shape = RoundedCornerShape(0, 0, 0, 0)
     )
     {
-        Text(text = stringResource(textResId), fontSize = 16.sp, color = Color.White)
+        Text(text = stringResource(textResId), color = Color.White)
     }
 }

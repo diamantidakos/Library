@@ -77,6 +77,14 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
             }
         });
 
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && buttonTextResId.equals(R.string.add_new_item))
+            {
+                presenter.onStartAddNew();
+            }
+        });
+
         /*
         itemListView = (ListView) findViewById(R.id.item_list_view);
         itemListView.setAdapter(adapter);
