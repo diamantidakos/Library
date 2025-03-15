@@ -399,7 +399,7 @@ fun loanItem(title: String, borrower: Borrower, loanID: Int, itemID: Int, viewMo
 @Composable
 fun searchBar(modifier: Modifier = Modifier, viewModel: ManageBooksViewModel)
 {
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(viewModel.textOnSearchBar.value ?: "") }
 
     TextField(
         value = text,
@@ -432,7 +432,7 @@ fun searchBar(modifier: Modifier = Modifier, viewModel: ManageBooksViewModel)
 @Composable
 fun searchBar(modifier: Modifier = Modifier, viewModel: ManageAuthorsViewModel)
 {
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(viewModel.textOnSearchBar.value ?: "") }
 
     TextField(
         value = text,
@@ -465,7 +465,7 @@ fun searchBar(modifier: Modifier = Modifier, viewModel: ManageAuthorsViewModel)
 @Composable
 fun searchBar(modifier: Modifier = Modifier, viewModel: ManageBorrowersViewModel)
 {
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(viewModel.textOnSearchBar.value ?: "") }
 
     TextField(
         value = text,
@@ -498,7 +498,7 @@ fun searchBar(modifier: Modifier = Modifier, viewModel: ManageBorrowersViewModel
 @Composable
 fun searchBar(modifier: Modifier = Modifier, viewModel: ManagePublishersViewModel)
 {
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(viewModel.textOnSearchBar.value ?: "") }
 
     TextField(
         value = text,
@@ -531,7 +531,7 @@ fun searchBar(modifier: Modifier = Modifier, viewModel: ManagePublishersViewMode
 @Composable
 fun searchBar(modifier: Modifier = Modifier, viewModel: ManageLoansViewModel)
 {
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(viewModel.textOnSearchBar.value ?: "") }
 
     TextField(
         value = text,
