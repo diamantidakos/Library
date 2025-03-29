@@ -20,10 +20,9 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
 public class AddEditAuthorActivity extends AppCompatActivity implements AddEditAuthorView
 {
-    String firstName, lastName;
+    private String firstName, lastName;
 
     @Override
     public String getFirstName()

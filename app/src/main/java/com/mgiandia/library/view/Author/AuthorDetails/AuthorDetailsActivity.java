@@ -23,10 +23,9 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
 public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDetailsView
 {
-    String firstName, lastName, booksWritten;
+    private String firstName, lastName, booksWritten, ID;
 
     /**
      * Ξεκινάει το activity ManageBooksActivity
@@ -67,7 +66,12 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
      */
     public void setID(String value)
     {
-        //((TextView)findViewById(R.id.text_user_id)).setText(value);
+        ID = value;
+    }
+
+    public String getID()
+    {
+        return ID;
     }
 
     /**
@@ -79,6 +83,11 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
         firstName = value;
     }
 
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
     /**
      * Θέτει το επώνυμο του συγγραφέα.
      * @param value Το επώνυμο του συγγραφέα
@@ -88,6 +97,11 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
         lastName = value;
     }
 
+    public String getLastName()
+    {
+        return lastName;
+    }
+
     /**
      * Θέτει τα βιβλία.
      * @param value Το βιβλίο.
@@ -95,6 +109,11 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
     public void setBooksWritten(String value)
     {
         booksWritten = value;
+    }
+
+    public String getBooksWritten()
+    {
+        return booksWritten;
     }
 
     /**
@@ -116,7 +135,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
     }
 
 
-    AuthorDetailsPresenter presenter;
+    private AuthorDetailsPresenter presenter;
 
     /**
      * Δημιουργεί to layout και αρχικοποιεί

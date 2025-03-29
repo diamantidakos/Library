@@ -23,11 +23,11 @@ import java.util.Objects;
  */
 public class AddEditBookActivity extends AppCompatActivity implements AddEditBookView
 {
-    AddEditBookViewModel model;
-    String bookTitle, publisher, ISBN, publication, publicationYear;
-    ArrayList<String> authors = new ArrayList<>();
-    List<Integer> authorsIndexes = new ArrayList<>();
-    int publisherPosition;
+    private AddEditBookViewModel model;
+    private String bookTitle, publisher, ISBN, publication, publicationYear;
+    private ArrayList<String> authors = new ArrayList<>();
+    private List<Integer> authorsIndexes = new ArrayList<>();
+    private int publisherPosition;
 
     /**
      * Εμφανίζει ένα μήνυμα τύπου alert με
