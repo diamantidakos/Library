@@ -4,19 +4,26 @@ import android.annotation.SuppressLint
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -25,9 +32,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -56,6 +63,8 @@ import com.mgiandia.library.view.Loans.ManageLoans.ManageLoansViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
 import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersViewModel
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsViewModel
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateListOf
 
 
 // All reusable functions I wrote, to create the ui
@@ -290,18 +299,25 @@ fun optionMenu(books: List<Book>, viewModel: AddLoanViewModel)
 @Composable
 fun multiselectMenu(authorsList: List<String>, viewModel: AddEditBookViewModel)
 {
-    val selectedAuthorNames = viewModel.authors.value ?: ""
-
+    val selectedAuthors by viewModel.authors.observeAsState(initial = emptyList())
     var isExpanded by remember { mutableStateOf(false) }
-    val selectedAuthors = remember { mutableStateListOf(selectedAuthorNames.toString()) }
+    var selectedAuthorIndexes = ArrayList<Int>()
+
+    LaunchedEffect(authorsList, selectedAuthors) {
+        val initialSelections = selectedAuthors.mapNotNull {
+            author -> (authorsList.indexOf(author) + 1).takeIf { it != -1 }
+        }
+        viewModel.setSelectedAuthorsPositions(initialSelections)
+        selectedAuthorIndexes = initialSelections as ArrayList<Int>
+    }
 
     ExposedDropdownMenuBox(expanded = isExpanded, onExpandedChange = { isExpanded = it })
     {
         TextField(
             value = selectedAuthors.joinToString(", "),
             onValueChange = {},
-            placeholder = { Text(text = "Επιλέξτε συγγραφείς") },
-            readOnly = true, // Makes the TextField clickable
+            placeholder = { Text("Επιλέξτε συγγραφείς") },
+            readOnly = true,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier.menuAnchor()
@@ -310,22 +326,25 @@ fun multiselectMenu(authorsList: List<String>, viewModel: AddEditBookViewModel)
         ExposedDropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false })
         {
             authorsList.forEachIndexed { index, author ->
-                AnimatedContent(targetState = selectedAuthors.contains(author), label = "Animate the selected item")
-                {
-                    isSelected ->
-                    if (isSelected)
-                    {
-                        DropdownMenuItem(
-                            text = { Text(text = author) },
-                            onClick = { selectedAuthors.remove(author); viewModel.setSelectedAuthorsPositions(index) },
-                            leadingIcon = { Icon(imageVector = Icons.Rounded.Check, contentDescription = null) }
-                        )
-                    }
-                    else
-                    {
-                        DropdownMenuItem(text = { Text(text = author) }, onClick = { selectedAuthors.add(author); viewModel.addAuthor(author); viewModel.setSelectedAuthorsPositions(index + 1) })
-                    }
-                }
+                val isSelected = selectedAuthors.contains(author)
+                DropdownMenuItem(
+                    text = { Text(author) },
+                    onClick = {
+                        viewModel.toggleAuthor(author)
+
+                        if (isSelected)
+                        {
+                            selectedAuthorIndexes.remove(index + 1)
+                        }
+                        else
+                        {
+                            selectedAuthorIndexes.add(index + 1)
+                        }
+
+                        viewModel.setSelectedAuthorsPositions(selectedAuthorIndexes)
+                    },
+                    leadingIcon = { if (isSelected) Icon(Icons.Rounded.Check, null) }
+                )
             }
         }
     }
@@ -443,7 +462,7 @@ fun displayRow(labelRes: Int, viewModel: AddEditPublisherViewModel, label : Stri
         {
             var title by remember { mutableStateOf(viewModel.phone.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, onValueChange = { title = it; viewModel.setName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setPhone(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "email")
         {
@@ -459,9 +478,9 @@ fun displayRow(labelRes: Int, viewModel: AddEditPublisherViewModel, label : Stri
         }
         else if (label == "street")
         {
-            var title by remember { mutableStateOf(viewModel.city.value ?: "") }
+            var title by remember { mutableStateOf(viewModel.street.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, onValueChange = { title = it; viewModel.setStreet(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
         }
         else if (label == "number")
         {

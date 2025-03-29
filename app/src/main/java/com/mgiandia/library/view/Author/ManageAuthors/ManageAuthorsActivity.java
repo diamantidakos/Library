@@ -83,36 +83,6 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
                 presenter.onStartAddNew();
             }
         });
-
-        /*
-        itemListView = (ListView) findViewById(R.id.item_list_view);
-        itemListView.setAdapter(adapter);
-        itemListView.setTextFilterEnabled(true);
-
-        searchListView = (SearchView) findViewById(R.id.items_list_search_view);
-        searchListView.setIconifiedByDefault(false);
-        searchListView.setOnQueryTextListener(this);
-
-        presenter = new ManageAuthorsPresenter(this, new AuthorDAOMemory());
-
-        findViewById(R.id.item_add_new).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                presenter.onStartAddNew();
-            }
-        });
-
-        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
-            }
-        });
-        */
     }
 
     /**
@@ -167,6 +137,9 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
 
         if(requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
+            finish();
+            startActivity(getIntent());
+
             //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }

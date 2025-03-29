@@ -77,6 +77,14 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
             }
         });
 
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && buttonTextResId.equals(R.string.add_new_item))
+            {
+                presenter.onStartAddNew();
+            }
+        });
+
         /*
         itemListView = (ListView) findViewById(R.id.item_list_view);
         itemListView.setAdapter(adapter);
@@ -151,10 +159,16 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK)
+        {
+            finish();
+            startActivity(getIntent());
+
             //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
-        } else if (requestCode == 1) {
+        }
+        else if (requestCode == 1)
+        {
             //clear_search_bar();
 
             if (resultCode == Activity.RESULT_OK)

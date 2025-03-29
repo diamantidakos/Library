@@ -172,6 +172,9 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
 
         if(requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
+            finish();
+            startActivity(getIntent());
+
             //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }

@@ -1,5 +1,6 @@
 package com.mgiandia.library.view.Book.AddEditBook;
 
+import androidx.compose.runtime.State;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -100,24 +101,24 @@ public class AddEditBookViewModel extends ViewModel implements ButtonClicked
         return authors;
     }
 
-    public void addAuthor(String newAuthor)
+    public void toggleAuthor(String authorName)
     {
-        if (newAuthor == null || newAuthor.trim().isEmpty())
+        if (authorName == null || authorName.trim().isEmpty() || authors.getValue() == null)
         {
             return;
         }
 
         ArrayList<String> currentAuthors = authors.getValue();
-        if (currentAuthors == null)
+        if (currentAuthors.contains(authorName))
         {
-            currentAuthors = new ArrayList<>();
+            currentAuthors.remove(authorName);
+        }
+        else
+        {
+            currentAuthors.add(authorName);
         }
 
-        if (!currentAuthors.contains(newAuthor))
-        {
-            currentAuthors.add(newAuthor);
-            authors.setValue(currentAuthors);
-        }
+        authors.setValue(currentAuthors);
     }
 
     public void setPublisherPosition(int pos)
@@ -128,21 +129,6 @@ public class AddEditBookViewModel extends ViewModel implements ButtonClicked
     public MutableLiveData<Integer> getPublisherPosition()
     {
         return publisherPosition;
-    }
-
-    public void setSelectedAuthorsPositions(int index)
-    {
-        List<Integer> currentIndexes = new ArrayList<>(selectedAuthors.getValue());
-        if (currentIndexes.contains(index))
-        {
-            currentIndexes.remove(index);
-        }
-        else
-        {
-            currentIndexes.add(index);
-        }
-
-        selectedAuthors.setValue(currentIndexes);
     }
 
     public void setSelectedAuthorsPositions(List<Integer> indexes)

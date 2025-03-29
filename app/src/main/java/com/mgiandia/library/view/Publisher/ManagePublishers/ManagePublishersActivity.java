@@ -167,6 +167,9 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
 
         if(requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
+            finish();
+            startActivity(getIntent());
+
             //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
