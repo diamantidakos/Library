@@ -297,14 +297,27 @@ fun multiselectMenu(authorsList: List<String>, viewModel: AddEditBookViewModel)
 {
     val selectedAuthors by viewModel.authors.observeAsState(initial = emptyList())
     var isExpanded by remember { mutableStateOf(false) }
+    var selectedAuthorNames = ArrayList<String>()
     var selectedAuthorIndexes = ArrayList<Int>()
 
-    LaunchedEffect(authorsList, selectedAuthors) {
+    LaunchedEffect(authorsList, selectedAuthors)
+    {
         val initialSelections = selectedAuthors.mapNotNull {
-            author -> (authorsList.indexOf(author) + 1).takeIf { it != -1 }
+            author -> (authorsList.indexOf(author) + 1).takeIf { authorsList.indexOf(author) != -1 }
         }
+
         viewModel.setSelectedAuthorsPositions(initialSelections)
         selectedAuthorIndexes = initialSelections as ArrayList<Int>
+    }
+
+    LaunchedEffect(authorsList, selectedAuthors)
+    {
+        val initialSelections = selectedAuthors.mapNotNull {
+            author -> selectedAuthorNames.add(author)
+        }
+
+        viewModel.setAuthors(selectedAuthorNames)
+        selectedAuthorNames = initialSelections as ArrayList<String>
     }
 
     ExposedDropdownMenuBox(expanded = isExpanded, onExpandedChange = { isExpanded = it })
@@ -331,10 +344,12 @@ fun multiselectMenu(authorsList: List<String>, viewModel: AddEditBookViewModel)
                         if (isSelected)
                         {
                             selectedAuthorIndexes.remove(index + 1)
+                            selectedAuthorNames.remove(author)
                         }
                         else
                         {
                             selectedAuthorIndexes.add(index + 1)
+                            selectedAuthorNames.add(author)
                         }
 
                         viewModel.setSelectedAuthorsPositions(selectedAuthorIndexes)
@@ -835,9 +850,7 @@ fun welcomeText(txt: String)
 fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: HomePageViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -853,9 +866,7 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
 fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditBookViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -884,7 +895,7 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
 
 @SuppressLint("ComposableNaming")
 @Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditPublisherViewModel) // mporw kai sthn antistoixh kt klash
+fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditPublisherViewModel)
 {
     Button(
         onClick = { viewModel.buttonClicked(textResId) },
@@ -900,7 +911,7 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
 
 @SuppressLint("ComposableNaming")
 @Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditBorrowerViewModel) // mporw kai sthn antistoixh kt klash
+fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditBorrowerViewModel)
 {
     Button(
         onClick = { viewModel.buttonClicked(textResId) },
@@ -919,9 +930,7 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
 fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: BookDetailsViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -937,9 +946,7 @@ fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel
 fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: AddLoanViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -955,9 +962,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
 fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: AuthorDetailsViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -973,9 +978,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
 fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageItemsViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -991,9 +994,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
 fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageBooksViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -1009,9 +1010,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
 fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageAuthorsViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -1027,9 +1026,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
 fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageBorrowersViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -1045,9 +1042,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
 fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManagePublishersViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -1063,9 +1058,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
 fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageLoansViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -1081,9 +1074,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
 fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: BorrowerDetailsViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -1099,9 +1090,7 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
 fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: PublisherDetailsViewModel)
 {
     Button(
-        onClick = {
-            viewModel.buttonClicked(textResId)
-        },
+        onClick = { viewModel.buttonClicked(textResId) },
         modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
