@@ -97,4 +97,5 @@
     <string name="loans_number">Σύνολο δανεισμών</string>
     <string name="loan">Δανεισμός</string>
     <string name="copy">Αντίτυπο</string>
+    <string name="uniqueID">Μοναδικός Κωδικός</string>
 </resources>

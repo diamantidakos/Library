@@ -60,7 +60,6 @@ import kotlin.math.absoluteValue
  * param --> το όνομα σε μορφή String (βιβλίου, συγγραφέα, κλπ)
  * return --> ένα χρώμα ανάλογα με το hashCode του ονόματος
  */
-@Composable
 fun generateColor(name: String): Color
 {
     val colors = listOf(Color.Black, Color.Red, Color.Blue, Color.Green)
@@ -72,13 +71,11 @@ fun generateColor(name: String): Color
 @Composable
 fun drawItemListScreen(modifier: Modifier = Modifier, viewModel: ManageItemsViewModel, items : ArrayList<Item>)
 {
-    var searchQuery by remember { mutableStateOf("") }
-
     Column(modifier = modifier.fillMaxSize().padding(12.dp))
     {
         Row(modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceBetween)
         {
-            searchBar(query = searchQuery, onQueryChanged = { searchQuery = it }, modifier = modifier.height(60.dp).weight(3f))
+            searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
             Spacer(modifier = modifier.width(10.dp))
             displayButton(R.string.add_new_item, 65, 120, viewModel)
         }
@@ -87,10 +84,56 @@ fun drawItemListScreen(modifier: Modifier = Modifier, viewModel: ManageItemsView
         {
             items(items)
             {
-                item -> itemRow(item = item.itemNumber.toString())
+                item -> itemRow(item.book.title, item.stateStrChar, item.itemNumber, item.stateStr, viewModel)
             }
         }
     }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun itemRow(title: String, stateChar: String, id: Int, state: String, viewModel: ManageItemsViewModel)
+{
+    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { viewModel.setSelectedItemID(id) })
+    {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
+        {
+            // Colored Box with initials
+            Box(modifier = Modifier.size(50.dp).background(generateColor(title), RoundedCornerShape(1.dp)), contentAlignment = Alignment.Center)
+            {
+                Text(
+                    text = "${stateChar.uppercase()}${title.first().uppercaseChar()}",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            // Book details
+            Column(modifier = Modifier.weight(1f))
+            {
+                Text(title, fontSize = 16.sp, color = Color.White)
+                Text(state, color = Color.White, fontSize = 16.sp)
+                Text("${stringResource(R.string.uniqueID)}: $id", color = Color.Gray, fontSize = 12.sp)
+            }
+
+            Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Go", tint = Color.Gray)
+        }
+
+        // Thin separator line
+        HorizontalDivider(modifier = Modifier.padding(top = 8.dp), thickness = 0.5.dp, color = Color.Black)
+    }
+
+
+
+    /*
+    Box(modifier = Modifier.fillMaxWidth().padding(8.dp).padding(12.dp))
+    {
+        Text(text = item)
+    }
+    */
 }
 
 @SuppressLint("ComposableNaming")
@@ -657,6 +700,39 @@ fun searchBar(modifier: Modifier = Modifier, viewModel: ManageReturnsViewModel)
 
 @SuppressLint("ComposableNaming")
 @Composable
+fun searchBar(modifier: Modifier = Modifier, viewModel: ManageItemsViewModel)
+{
+    var text by remember { mutableStateOf(viewModel.textOnSearchBar.value ?: "") }
+
+    TextField(
+        value = text,
+        onValueChange = { text = it; viewModel.setTextOnSearchBar(it) },
+        modifier = modifier.height(40.dp),
+        placeholder = { Text(stringResource(R.string.search), color = Color.Black) },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search Icon",
+                tint = Color.Black
+            )
+        },
+        singleLine = true,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.DarkGray,
+            unfocusedContainerColor = Color.DarkGray,
+            disabledContainerColor = Color.DarkGray,
+            errorContainerColor = Color.DarkGray,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black,
+            cursorColor = Color.Black
+        )
+    )
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
 fun searchBar(query: String, onQueryChanged: (String) -> Unit, modifier: Modifier = Modifier)
 {
     TextField(
@@ -684,14 +760,4 @@ fun searchBar(query: String, onQueryChanged: (String) -> Unit, modifier: Modifie
             cursorColor = Color.Black
         )
     )
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun itemRow(item: String)
-{
-    Box(modifier = Modifier.fillMaxWidth().padding(8.dp).padding(12.dp))
-    {
-        Text(text = item)
-    }
 }

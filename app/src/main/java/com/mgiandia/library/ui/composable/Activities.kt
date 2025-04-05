@@ -62,6 +62,8 @@ fun showAuthorDetailsView(composeView: ComposeView, viewModel: AuthorDetailsView
 
 fun showManageItemsView(composeView: ComposeView, viewModel: ManageItemsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageItemsPage(modifier, vm) }
 
+fun showManageItemsViewSearch(composeView: ComposeView, viewModel: ManageItemsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageItemsPageSearch(modifier, vm) }
+
 fun showBorrowerDetailsView(composeView: ComposeView, viewModel: BorrowerDetailsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawBorrowerDetailsPage(modifier, vm) }
 
 fun showPublisherDetailsView(composeView: ComposeView, viewModel: PublisherDetailsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawPublisherDetailsPage(modifier, vm) }

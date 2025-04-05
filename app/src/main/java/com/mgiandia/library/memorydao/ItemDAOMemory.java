@@ -31,6 +31,21 @@ public class ItemDAOMemory implements ItemDAO {
         return new ArrayList<Item>(entities);
     }
 
+    public List<Item> findByBookTitle(String title)
+    {
+        List<Item> result = new ArrayList<>();
+
+        for (Item item : entities)
+        {
+            if (item.getBook().getTitle().equals(title))
+            {
+                result.add(item);
+            }
+        }
+
+        return result;
+    }
+
     /**
      * Αποθηκεύει ένα αντικείμενο στην εξωτερική πηγή
      * δεδομένων. Το αντικείμενο μπορεί να είναι κάποιο

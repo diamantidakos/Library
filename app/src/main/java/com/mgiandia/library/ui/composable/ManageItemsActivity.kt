@@ -10,6 +10,17 @@ import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel
 @Composable
 fun drawManageItemsPage(modifier: Modifier = Modifier, viewModel: ManageItemsViewModel)
 {
-    val allBooks: ArrayList<Item> = ArrayList(viewModel.allItems)
+    val allBooks: ArrayList<Item> = ArrayList(viewModel.itemsByBookTitle)
     drawItemListScreen(modifier, viewModel, allBooks)
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun drawManageItemsPageSearch(modifier: Modifier = Modifier, viewModel: ManageItemsViewModel)
+{
+    val allBooks = viewModel.items.value
+    if (allBooks != null)
+    {
+        drawItemListScreen(modifier, viewModel, allBooks)
+    }
 }

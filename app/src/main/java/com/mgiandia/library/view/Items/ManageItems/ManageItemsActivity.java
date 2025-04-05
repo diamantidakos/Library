@@ -4,19 +4,17 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.BookDAOMemory;
-import com.mgiandia.library.memorydao.ItemDAOMemory;
+import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
@@ -27,13 +25,12 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
 public class ManageItemsActivity extends AppCompatActivity implements ManageItemsView, SearchView.OnQueryTextListener
 {
-    ManageItemsPresenter presenter;
+    private ManageItemsPresenter presenter;
 
     private ListView itemListView;
-    private SearchView searchListView;
+    //private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
     /**
@@ -45,46 +42,43 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-
-        setContentView(R.layout.manage_items);
-        //setContentView(R.layout.manage_items_compose);
+        setContentView(R.layout.manage_items_compose);
         adapter = new AdvancedListAdapter(this);
 
-        /*
-        ComposeView composeView = findViewById(R.id.compose_view);
         ManageItemsViewModel model = new ViewModelProvider(this).get(ManageItemsViewModel.class);
-        ManageItemsPresenter presenter = model.getPresenter(this);
+        presenter = model.getPresenter(this);
 
+        ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManageItemsView(composeView, model);
-         */
 
+        int bookID = getAttachedBookID();
+        model.setSelectedBookID(bookID);
+        String bookTitle = model.getBookTitle(bookID);
+        model.setSelectedBookTitle(bookTitle);
 
-        itemListView = (ListView) findViewById(R.id.item_list_view);
-        itemListView.setAdapter(adapter);
-        itemListView.setTextFilterEnabled(true);
-
-        searchListView = (SearchView) findViewById(R.id.items_list_search_view);
-        searchListView.setIconifiedByDefault(false);
-        searchListView.setOnQueryTextListener(this);
-
-        presenter = new ManageItemsPresenter(this, new BookDAOMemory(), new ItemDAOMemory());
-
-        findViewById(R.id.item_add_new).setOnClickListener(new View.OnClickListener()
+        model.getSelectedItemID().observe(this, value ->
         {
-            @Override
-            public void onClick(View view)
+            if (value != null)
             {
-                presenter.onAddNewItem();
+                presenter.onClickItem(value);
             }
         });
 
-        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        model.getTextOnSearchBar().observe(this, value ->
         {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            if (value != null)
             {
-                presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
+                ArrayList<Item> items = new ArrayList<>(model.findItemsByTitle(value));
+                model.setItems(items);
+                ActivitiesKt.showManageItemsViewSearch(composeView, model);
+            }
+        });
+
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && buttonTextResId.equals(R.string.add_new_item))
+            {
+                presenter.onAddNewItem();
             }
         });
     }
@@ -118,12 +112,14 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
      * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
+    /*
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
         searchListView.clearFocus();
         presenter.onLoadSource();
     }
+    */
 
     /**
      * Φορτώνει την λίστα με τους δανειζομένους.
@@ -188,7 +184,7 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
      */
     public void refresh()
     {
-        clear_search_bar();
+        //clear_search_bar();
     }
 
     /**
@@ -199,6 +195,8 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
     public void showToast(String value)
     {
         Toast.makeText(this, value, Toast.LENGTH_LONG).show();
+        finish();
+        startActivity(getIntent());
     }
 
     /**
@@ -218,7 +216,8 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
      */
     public int getAttachedBookID()
     {
-        return this.getIntent().getExtras().getInt("book_id");
+        //return Objects.requireNonNull(this.getIntent().getExtras()).getInt("book_id");
+        return this.getIntent().hasExtra("book_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("book_id") : -1;
     }
 
     /**
@@ -227,6 +226,6 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
      */
     public void setPageName(String value)
     {
-        getSupportActionBar().setTitle(value);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 }
