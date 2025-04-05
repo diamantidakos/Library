@@ -26,6 +26,7 @@ import com.mgiandia.library.view.Loans.ManageLoans.ManageLoansViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
 import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersViewModel
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsViewModel
+import com.mgiandia.library.view.Returns.ManageReturns.ManageReturnsViewModel
 
 
 fun <T> showView(composeView: ComposeView, viewModel: T, drawScreen: @Composable (Modifier, T) -> Unit)
@@ -84,6 +85,10 @@ fun showManagePublishersViewSearch(composeView: ComposeView, viewModel: ManagePu
 fun showManageLoansView(composeView: ComposeView, viewModel: ManageLoansViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageLoansPage(modifier, vm) }
 
 fun showManageLoansViewSearch(composeView: ComposeView, viewModel: ManageLoansViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageLoansPageSearch(modifier, vm) }
+
+fun showManageReturnsView(composeView: ComposeView, viewModel: ManageReturnsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageReturnsPage(modifier, vm) }
+
+fun showManageReturnsViewSearch(composeView: ComposeView, viewModel: ManageReturnsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageReturnsPageSearch(modifier, vm) }
 
 fun showEmptyView(composeView: ComposeView)
 {

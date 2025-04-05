@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,7 +20,6 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
 public class PublisherDetailsActivity extends AppCompatActivity implements PublisherDetailsView
 {
     /**

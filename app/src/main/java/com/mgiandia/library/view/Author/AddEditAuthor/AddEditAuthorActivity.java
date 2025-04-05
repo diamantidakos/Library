@@ -2,16 +2,13 @@ package com.mgiandia.library.view.Author.AddEditAuthor;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Author;
-import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
-
 import java.util.Objects;
 
 /**

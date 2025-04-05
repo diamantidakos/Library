@@ -4,22 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Author;
-import com.mgiandia.library.memorydao.AuthorDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorActivity;

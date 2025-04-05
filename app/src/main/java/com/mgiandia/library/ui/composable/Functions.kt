@@ -56,6 +56,7 @@ import com.mgiandia.library.view.Loans.ManageLoans.ManageLoansViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
 import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersViewModel
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsViewModel
+import com.mgiandia.library.view.Returns.ManageReturns.ManageReturnsViewModel
 
 
 // All reusable functions I wrote, to create the ui
@@ -1098,5 +1099,21 @@ fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel:
     )
     {
         Text(text = stringResource(textResId), color = Color.White)
+    }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageReturnsViewModel)
+{
+    Button(
+        onClick = { viewModel.buttonClicked(textResId) },
+        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        enabled = true,
+        colors = ButtonDefaults.buttonColors(Color.Gray),
+        shape = RoundedCornerShape(0, 0, 0, 0)
+    )
+    {
+        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
     }
 }

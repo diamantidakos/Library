@@ -1,7 +1,6 @@
 package com.mgiandia.library.ui.composable
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.mgiandia.library.domain.Publisher

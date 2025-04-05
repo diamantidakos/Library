@@ -1,22 +1,22 @@
 package com.mgiandia.library.view.Returns.ManageReturns;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.ViewModelProvider;
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
+import com.mgiandia.library.domain.Loan;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
@@ -26,13 +26,12 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
 public class ManageReturnsActivity extends AppCompatActivity implements ManageReturnsView, SearchView.OnQueryTextListener
 {
-    ManageReturnsPresenter presenter;
+    private ManageReturnsPresenter presenter;
 
     private ListView itemListView;
-    private SearchView searchListView;
+    //private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
     /**
@@ -44,35 +43,41 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_items);
-
+        setContentView(R.layout.manage_items_compose);
         adapter = new AdvancedListAdapter(this);
 
-        itemListView = (ListView) findViewById(R.id.item_list_view);
-        itemListView.setAdapter(adapter);
-        itemListView.setTextFilterEnabled(true);
+        ManageReturnsViewModel model = new ViewModelProvider(this).get(ManageReturnsViewModel.class);
+        presenter = model.getPresenter(this);
 
-        searchListView = (SearchView) findViewById(R.id.items_list_search_view);
-        searchListView.setIconifiedByDefault(false);
-        searchListView.setOnQueryTextListener(this);
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showManageReturnsView(composeView, model);
 
-        presenter = new ManageReturnsPresenter(this, new LoanDAOMemory(), new BorrowerDAOMemory());
+        int borrowerID = getAttachedBorrowerID();
+        model.setBorrowerID(borrowerID);
 
-        findViewById(R.id.item_add_new).setOnClickListener(new View.OnClickListener()
+        model.getSelectedLoanID().observe(this, value ->
         {
-            @Override
-            public void onClick(View view)
+            if (value != null)
             {
-                presenter.onAddNewItem();
+                presenter.onClickItem(value);
             }
         });
 
-        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        model.getTextOnSearchBar().observe(this, value ->
         {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            if (value != null)
             {
-                presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
+                ArrayList<Loan> loans = new ArrayList<>(model.findLoansByBookTitle(value));
+                model.setLoans(loans);
+                ActivitiesKt.showManageReturnsViewSearch(composeView, model);
+            }
+        });
+
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && buttonTextResId.equals(R.string.add_new_item))
+            {
+                presenter.onAddNewItem();
             }
         });
     }
@@ -106,12 +111,14 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
      * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
+    /*
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
         searchListView.clearFocus();
         presenter.onLoadSource();
     }
+    */
 
     /**
      * Φορτώνει την λίστα με τις επιστροφές.
@@ -154,9 +161,12 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
             .setNegativeButton("Χάθηκε",
             new DialogInterface.OnClickListener()
             {
+                @SuppressLint("UnsafeIntentLaunch")
                 public void onClick(DialogInterface dialog, int id)
                 {
                     presenter.onChangeItemState(tmp, false);
+                    finish();
+                    startActivity(getIntent());
                 }
             }).create().show();
     }
@@ -167,7 +177,7 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
      */
     public void refresh()
     {
-        clear_search_bar();
+        //clear_search_bar();
     }
 
     /**
@@ -195,7 +205,7 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
      */
     public int getAttachedBorrowerID()
     {
-        return this.getIntent().getExtras().getInt("borrower_id");
+        return Objects.requireNonNull(this.getIntent().getExtras()).getInt("borrower_id");
     }
 
     /**
@@ -204,6 +214,6 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
      */
     public void setPageName(String value)
     {
-        getSupportActionBar().setTitle(value);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 }

@@ -2,21 +2,15 @@ package com.mgiandia.library.view.Publisher.AddPublisher;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
 import java.util.List;
 import java.util.Objects;
-
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Publisher;
-import com.mgiandia.library.memorydao.CountryDAOMemory;
-import com.mgiandia.library.memorydao.PublisherDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
-import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
 
 /**
  * @author Νίκος Σαραντινός
@@ -24,7 +18,6 @@ import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
 public class AddEditPublisherActivity extends AppCompatActivity implements AddEditPublisherView
 {
     private String name, phone, email, city, street, number, zipCode;

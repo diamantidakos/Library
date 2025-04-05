@@ -4,22 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
@@ -34,7 +28,6 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
 public class ManageBorrowersActivity extends AppCompatActivity implements ManageBorrowersView, SearchView.OnQueryTextListener {
     ManageBorrowersPresenter presenter;
 
@@ -84,34 +77,6 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
                 presenter.onStartAddNew();
             }
         });
-
-        /*
-        itemListView = (ListView) findViewById(R.id.item_list_view);
-        itemListView.setAdapter(adapter);
-        itemListView.setTextFilterEnabled(true);
-
-        searchListView = (SearchView) findViewById(R.id.items_list_search_view);
-        searchListView.setIconifiedByDefault(false);
-        searchListView.setOnQueryTextListener(this);
-
-        presenter = new ManageBorrowersPresenter(this, new BorrowerDAOMemory());
-
-        findViewById(R.id.item_add_new).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                presenter.onStartAddNew();
-            }
-        });
-
-        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                presenter.onClickItem(((Quadruple) parent.getItemAtPosition(position)).getUID());
-            }
-        });
-        */
     }
 
     /**

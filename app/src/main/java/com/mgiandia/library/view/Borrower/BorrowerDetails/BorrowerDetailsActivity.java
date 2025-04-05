@@ -5,19 +5,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
-import com.mgiandia.library.memorydao.BorrowerDAOMemory;
-import com.mgiandia.library.memorydao.LoanDAOMemory;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
-
 import java.util.Objects;
 
 /**
@@ -26,7 +21,6 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
 public class BorrowerDetailsActivity extends AppCompatActivity implements BorrowerDetailsView
 {
     /**
@@ -251,22 +245,6 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
                 }
             }
         });
-
-        /*
-        findViewById(R.id.edit_user_button).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                presenter.onStartEditButtonClick();
-            }
-        });
-
-        findViewById(R.id.delete_user_button).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                presenter.onStartDeleteButtonClick();
-            }
-        });
-        */
     }
 
     /**

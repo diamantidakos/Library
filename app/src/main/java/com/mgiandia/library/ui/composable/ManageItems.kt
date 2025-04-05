@@ -52,6 +52,7 @@ import com.mgiandia.library.view.Borrower.ManageBorrowers.ManageBorrowersViewMod
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel
 import com.mgiandia.library.view.Loans.ManageLoans.ManageLoansViewModel
 import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersViewModel
+import com.mgiandia.library.view.Returns.ManageReturns.ManageReturnsViewModel
 import kotlin.math.absoluteValue
 
 
@@ -142,7 +143,7 @@ fun bookItem(title: String, publisher: String, code: Int, authors: Int, viewMode
             Column(modifier = Modifier.weight(1f))
             {
                 Text(title, fontSize = 16.sp, color = Color.White)
-                Text("${stringResource(R.string.from)} $publisher", color = Color.White, fontSize = 14.sp)
+                Text("${stringResource(R.string.from)} $publisher", color = Color.White, fontSize = 16.sp)
                 Text("${stringResource(R.string.user_id)}: $code. ${stringResource(R.string.authors_title_text)}: $authors", color = Color.Gray, fontSize = 12.sp)
             }
 
@@ -201,7 +202,7 @@ fun borrowerItem(firstName: String, lastName: String, code: Int, loansNum: Int, 
             // Book details
             Column(modifier = Modifier.weight(1f))
             {
-                Text(lastName, color = Color.White, fontSize = 14.sp)
+                Text(lastName, color = Color.White, fontSize = 16.sp)
                 Text(firstName, fontSize = 16.sp, color = Color.White)
                 Text("${stringResource(R.string.user_id)} $code. ${stringResource(R.string.loans_number)}: $loansNum", color = Color.Gray, fontSize = 12.sp)
             }
@@ -263,7 +264,7 @@ fun publisherItem(name: String, booksNum: Int, id: Int, viewModel: ManagePublish
             // Book details
             Column(modifier = Modifier.weight(1f))
             {
-                Text(name, color = Color.White, fontSize = 14.sp)
+                Text(name, color = Color.White, fontSize = 16.sp)
                 Text("${stringResource(R.string.books_number)} $booksNum", color = Color.Gray, fontSize = 12.sp)
             }
 
@@ -322,7 +323,7 @@ fun authorItem(firstName: String, lastName: String, booksNum: Int, id: Int, view
             // Book details
             Column(modifier = Modifier.weight(1f))
             {
-                Text(lastName, color = Color.White, fontSize = 14.sp)
+                Text(lastName, color = Color.White, fontSize = 16.sp)
                 Text(firstName, fontSize = 16.sp, color = Color.White)
                 Text("${stringResource(R.string.books_number)} $booksNum", color = Color.Gray, fontSize = 12.sp)
             }
@@ -382,8 +383,69 @@ fun loanItem(title: String, borrower: Borrower, loanID: Int, itemID: Int, viewMo
             // Book details
             Column(modifier = Modifier.weight(1f))
             {
-                Text(title, color = Color.White, fontSize = 14.sp)
+                Text(title, color = Color.White, fontSize = 16.sp)
                 Text(borrower.firstName + " " + borrower.lastName, fontSize = 16.sp, color = Color.White)
+                Text("${stringResource(R.string.loan)}: #$loanID. ${stringResource(R.string.copy)}: #$itemID", color = Color.Gray, fontSize = 12.sp)
+            }
+
+            Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Go", tint = Color.Gray)
+        }
+
+        // Thin separator line
+        HorizontalDivider(modifier = Modifier.padding(top = 8.dp), thickness = 0.5.dp, color = Color.Black)
+    }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun drawManageReturnsScreen(modifier: Modifier = Modifier, viewModel: ManageReturnsViewModel, copies : ArrayList<Loan>)
+{
+    Column(modifier = modifier.fillMaxSize().padding(12.dp))
+    {
+        Row(modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceBetween)
+        {
+            searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
+            Spacer(modifier = modifier.width(10.dp))
+            displayButton(R.string.add_new_item, 65, 120, viewModel)
+        }
+
+        LazyColumn(modifier = modifier.fillMaxSize())
+        {
+            items(copies)
+            {
+                item -> copyItem(item.item.book.title, item.borrower, item.id, item.item.itemNumber, viewModel)
+                //item -> loanItem(item.item.book.title, item.borrower, item.id, item.item.itemNumber, viewModel)
+            }
+        }
+    }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun copyItem(title: String, borrower: Borrower, loanID: Int, itemID: Int, viewModel: ManageReturnsViewModel)
+{
+    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { viewModel.setSelectedLoanID(loanID) })
+    {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
+        {
+            // Colored Box with initials
+            Box(modifier = Modifier.size(50.dp).background(generateColor(title), RoundedCornerShape(1.dp)), contentAlignment = Alignment.Center)
+            {
+                Text(
+                    text = "${borrower.lastName.first().uppercaseChar()}${title.first().uppercaseChar()}",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            // Book details
+            Column(modifier = Modifier.weight(1f))
+            {
+                Text(title, color = Color.White, fontSize = 16.sp)
+                Text(borrower.lastName + " " + borrower.firstName, fontSize = 16.sp, color = Color.White)
                 Text("${stringResource(R.string.loan)}: #$loanID. ${stringResource(R.string.copy)}: #$itemID", color = Color.Gray, fontSize = 12.sp)
             }
 
@@ -536,6 +598,39 @@ fun searchBar(modifier: Modifier = Modifier, viewModel: ManageLoansViewModel)
     TextField(
         value = text,
         onValueChange =  { text = it; viewModel.setTextOnSearchBar(it) },
+        modifier = modifier.height(40.dp),
+        placeholder = { Text(stringResource(R.string.search), color = Color.Black) },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search Icon",
+                tint = Color.Black
+            )
+        },
+        singleLine = true,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.DarkGray,
+            unfocusedContainerColor = Color.DarkGray,
+            disabledContainerColor = Color.DarkGray,
+            errorContainerColor = Color.DarkGray,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black,
+            cursorColor = Color.Black
+        )
+    )
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun searchBar(modifier: Modifier = Modifier, viewModel: ManageReturnsViewModel)
+{
+    var text by remember { mutableStateOf(viewModel.textOnSearchBar.value ?: "") }
+
+    TextField(
+        value = text,
+        onValueChange = { text = it; viewModel.setTextOnSearchBar(it) },
         modifier = modifier.height(40.dp),
         placeholder = { Text(stringResource(R.string.search), color = Color.Black) },
         leadingIcon = {

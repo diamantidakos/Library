@@ -19,7 +19,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
-import com.mgiandia.library.memorydao.BorrowerCategoryDAOMemory
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
 
 @SuppressLint("ComposableNaming")

@@ -28,7 +28,6 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
 public class ManageBooksActivity extends AppCompatActivity implements ManageBooksView, SearchView.OnQueryTextListener
 {
     ManageBooksPresenter presenter;
@@ -79,46 +78,6 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
                 presenter.onStartAddNew();
             }
         });
-
-        /*
-        model.getSearchListView().observe(this, value ->
-        {
-            if (value != null)
-            {
-                searchListView = value;
-            }
-        });
-        */
-
-        /*
-        itemListView = (ListView) findViewById(R.id.item_list_view);
-        itemListView.setAdapter(adapter);
-        itemListView.setTextFilterEnabled(true);
-
-        searchListView = (SearchView) findViewById(R.id.items_list_search_view);
-        searchListView.setIconifiedByDefault(false);
-        searchListView.setOnQueryTextListener(this);
-
-        presenter = new ManageBooksPresenter(this, new BookDAOMemory(), new AuthorDAOMemory(), new PublisherDAOMemory());
-
-        findViewById(R.id.item_add_new).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                presenter.onStartAddNew();
-            }
-        });
-
-        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
-            }
-        });
-        */
     }
 
     /**

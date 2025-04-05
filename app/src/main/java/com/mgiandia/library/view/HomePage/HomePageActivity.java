@@ -2,8 +2,6 @@ package com.mgiandia.library.view.HomePage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
@@ -12,7 +10,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
@@ -26,7 +23,6 @@ import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersActi
  * <p>
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  */
-
 public class HomePageActivity extends AppCompatActivity implements HomePageView {
     private static boolean initialized = false;
 
