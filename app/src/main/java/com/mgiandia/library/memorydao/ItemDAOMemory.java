@@ -2,7 +2,6 @@ package com.mgiandia.library.memorydao;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.mgiandia.library.dao.ItemDAO;
 import com.mgiandia.library.domain.Item;
 
@@ -38,6 +37,21 @@ public class ItemDAOMemory implements ItemDAO {
         for (Item item : entities)
         {
             if (item.getBook().getTitle().equals(title))
+            {
+                result.add(item);
+            }
+        }
+
+        return result;
+    }
+
+    public List<Item> findByBookTitle(String itemTitle, String bookTitle)
+    {
+        List<Item> result = new ArrayList<>();
+
+        for (Item item : entities)
+        {
+            if (item.getBook().getTitle().contains(itemTitle) && item.getBook().getTitle().equals(bookTitle))
             {
                 result.add(item);
             }

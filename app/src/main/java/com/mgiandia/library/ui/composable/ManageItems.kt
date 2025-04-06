@@ -730,34 +730,3 @@ fun searchBar(modifier: Modifier = Modifier, viewModel: ManageItemsViewModel)
         )
     )
 }
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun searchBar(query: String, onQueryChanged: (String) -> Unit, modifier: Modifier = Modifier)
-{
-    TextField(
-        value = query,
-        onValueChange = onQueryChanged,
-        modifier = modifier.height(40.dp),
-        placeholder = { Text(stringResource(R.string.search), color = Color.Black) },
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = "Search Icon",
-                tint = Color.Black
-            )
-        },
-        singleLine = true,
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.DarkGray,
-            unfocusedContainerColor = Color.DarkGray,
-            disabledContainerColor = Color.DarkGray,
-            errorContainerColor = Color.DarkGray,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = Color.Black,
-            unfocusedIndicatorColor = Color.Black,
-            cursorColor = Color.Black
-        )
-    )
-}

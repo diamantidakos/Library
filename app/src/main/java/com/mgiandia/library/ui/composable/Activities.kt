@@ -91,12 +91,3 @@ fun showManageLoansViewSearch(composeView: ComposeView, viewModel: ManageLoansVi
 fun showManageReturnsView(composeView: ComposeView, viewModel: ManageReturnsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageReturnsPage(modifier, vm) }
 
 fun showManageReturnsViewSearch(composeView: ComposeView, viewModel: ManageReturnsViewModel) = showView(composeView, viewModel) { modifier, vm -> drawManageReturnsPageSearch(modifier, vm) }
-
-fun showEmptyView(composeView: ComposeView)
-{
-    composeView.apply {
-        setContent {
-            Greeting("Hello world")
-        }
-    }
-}

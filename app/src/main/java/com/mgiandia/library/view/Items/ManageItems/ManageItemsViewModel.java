@@ -9,9 +9,7 @@ import com.mgiandia.library.memorydao.BookDAOMemory;
 import com.mgiandia.library.memorydao.ItemDAOMemory;
 import com.mgiandia.library.ui.model.ButtonClicked;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class ManageItemsViewModel extends ViewModel implements ButtonClicked
 {
@@ -52,18 +50,7 @@ public class ManageItemsViewModel extends ViewModel implements ButtonClicked
 
     public List<Item> findItemsByTitle(String title)
     {
-        List<Item> items = itemDAO.findByBookTitle(title);
-        Iterator<Item> iterator = items.iterator();
-        while (iterator.hasNext())
-        {
-            Item item = iterator.next();
-            if (item.getBook().getTitle() != selectedBookTitle.getValue())
-            {
-                iterator.remove();
-            }
-        }
-
-        return items;
+        return itemDAO.findByBookTitle(title, selectedBookTitle.getValue());
     }
 
     public String getBookTitle(int bookID)

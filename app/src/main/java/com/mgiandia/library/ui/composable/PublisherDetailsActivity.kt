@@ -41,10 +41,7 @@ fun drawPublisherDetailsPage(modifier: Modifier = Modifier, viewModel: Publisher
 
         welcomeText(stringResource(R.string.actions))
 
-        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
-        {
-            displayButton(R.string.edit_user, 50, 200, viewModel)
-            displayButton(R.string.show_books, 50, 200, viewModel)
-        }
+        displayButton(R.string.edit_user, 50, 200, viewModel)
+        displayButton(R.string.show_books, 50, 200, viewModel)
     }
 }
