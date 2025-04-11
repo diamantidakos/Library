@@ -126,19 +126,18 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
 
         if (requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
-            finish();
-            startActivity(getIntent());
-
             //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
         else if (requestCode == 1)
         {
             //clear_search_bar();
-
             if (resultCode == Activity.RESULT_OK)
                 presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
+
+        finish();
+        startActivity(getIntent());
     }
 
     /**

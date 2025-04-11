@@ -236,7 +236,5 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
             recreate();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
-        else if(requestCode == 100)
-            recreate();
     }
 }

@@ -197,7 +197,5 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
             recreate();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
-        else if(requestCode == 100)
-            recreate();
     }
 }

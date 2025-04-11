@@ -137,7 +137,7 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
         // if the save button is clicked, save the author
         model.observeClicks(this, buttonTextResId ->
         {
-            if (buttonTextResId != null && getFirstName() != null && getLastName() != null)
+            if (buttonTextResId != null && getFirstName() != null && getLastName() != null && buttonTextResId.equals(R.string.complete_registration))
             {
                 presenter.onSaveAuthor();
             }

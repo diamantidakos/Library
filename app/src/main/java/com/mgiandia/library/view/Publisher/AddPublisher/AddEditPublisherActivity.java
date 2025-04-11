@@ -262,7 +262,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
 
         model.observeClicks(this, buttonTextResId ->
         {
-            if (buttonTextResId != null && validFields())
+            if (buttonTextResId != null && validFields() && buttonTextResId.equals(R.string.complete_registration))
             {
                 presenter.onSavePublisher();
             }

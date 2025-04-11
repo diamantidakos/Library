@@ -307,7 +307,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
 
         model.observeClicks(this, buttonTextResId ->
         {
-            if (buttonTextResId != null && validFields())
+            if (buttonTextResId != null && validFields() && buttonTextResId.equals(R.string.complete_registration))
             {
                 presenter.onSaveBorrower();
             }
