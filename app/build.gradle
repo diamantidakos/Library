@@ -57,6 +57,7 @@ dependencies {
     implementation libs.androidx.material3
     implementation libs.androidx.lifecycle.runtime.ktx
     implementation libs.androidx.runtime.livedata
+    testImplementation libs.ext.junit
     androidTestImplementation platform(libs.androidx.compose.bom)
     androidTestImplementation libs.androidx.ui.test.junit4
     debugImplementation libs.androidx.ui.tooling
@@ -66,6 +67,10 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
     debugImplementation libs.androidx.ui.test.manifest
+
+    androidTestImplementation(libs.androidx.uiautomator)
+    testImplementation libs.androidx.uiautomator
+    testImplementation libs.androidx.monitor
 
     //implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //implementation 'androidx.recyclerview:recyclerview:1.2.1'
