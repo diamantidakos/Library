@@ -46,7 +46,6 @@ fun drawAddEditBorrower(modifier: Modifier = Modifier, viewModel: AddEditBorrowe
         displayRow(R.string.email, viewModel, "email")
         Spacer(modifier = Modifier.height(32.dp))
 
-
         Text(text = stringResource(id = R.string.address), fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
 
         displayRow(R.string.country, true, viewModel)

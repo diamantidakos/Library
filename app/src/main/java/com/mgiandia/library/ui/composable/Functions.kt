@@ -160,13 +160,12 @@ fun optionMenu(publishers: List<String>, viewModel: AddEditPublisherViewModel, d
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ComposableNaming")
 @Composable
-fun optionMenu(borrowers: List<String>, viewModel: AddEditBorrowerViewModel)
+fun optionMenu(users: List<String>, viewModel: AddEditBorrowerViewModel)
 {
-    val selectUserTypeIndex = viewModel.userTypePosition.value ?: 0
-
+    val selectedUserTypeIndex = viewModel.userTypePosition.value?.minus(1) ?: 0
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(borrowers[selectUserTypeIndex]) }
-    var selectedIndex by remember { mutableIntStateOf(selectUserTypeIndex) }
+    var selectedText by remember { mutableStateOf(users[selectedUserTypeIndex]) }
+    var selectedIndex by remember { mutableIntStateOf(selectedUserTypeIndex) }
 
     viewModel.setUserTypePosition(selectedIndex + 1)
 
@@ -185,7 +184,7 @@ fun optionMenu(borrowers: List<String>, viewModel: AddEditBorrowerViewModel)
 
             ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false })
             {
-                borrowers.forEachIndexed { index, item ->
+                users.forEachIndexed { index, item ->
                     DropdownMenuItem(
                         text = { Text(text = item) },
                         onClick = {

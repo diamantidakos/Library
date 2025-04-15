@@ -64,7 +64,7 @@ public class ManagePublishersActivity extends AppCompatActivity implements Manag
         {
             if (value != null)
             {
-                ArrayList<Publisher> publishers = new ArrayList<>(model.findByName(value));
+                ArrayList<Publisher> publishers = new ArrayList<>(model.findByName(value.trim()));
                 model.setPublishers(publishers);
                 ActivitiesKt.showManagePublishersViewSearch(composeView, model);
             }

@@ -53,6 +53,16 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManageBooksView(composeView, model);
 
+        if (getAttachedAuthorID() != null)
+        {
+            model.setAttachedAuthorID(getAttachedAuthorID());
+        }
+
+        if (getAttachedPublisherID() != null)
+        {
+            model.setAttachedPublisherID(getAttachedPublisherID());
+        }
+
         model.getSelectedBookID().observe(this, value ->
         {
             if (value != null)
@@ -65,9 +75,24 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
         {
             if (value != null)
             {
-                ArrayList<Book> books = new ArrayList<>(model.findBooks(value));
-                model.setBooks(books);
-                ActivitiesKt.showManageBooksViewSearch(composeView, model);
+                if (getAttachedAuthorID() == null && getAttachedPublisherID() == null)
+                {
+                    ArrayList<Book> books = new ArrayList<>(model.findBooks(value.trim()));
+                    model.setBooks(books);
+                    ActivitiesKt.showManageBooksViewSearch(composeView, model);
+                }
+                else if (getAttachedAuthorID() != null && getAttachedPublisherID() == null)
+                {
+                    ArrayList<Book> books = new ArrayList<>(model.findBooks(value.trim(), getAttachedAuthorID()));
+                    model.setBooks(books);
+                    ActivitiesKt.showManageBooksViewSearch(composeView, model);
+                }
+                else if (getAttachedAuthorID() == null && getAttachedPublisherID() != null)
+                {
+                    ArrayList<Book> books = new ArrayList<>(model.findBooksByTitleAndPublisherID(value.trim(), getAttachedPublisherID()));
+                    model.setBooks(books);
+                    ActivitiesKt.showManageBooksViewSearch(composeView, model);
+                }
             }
         });
 

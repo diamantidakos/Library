@@ -63,7 +63,7 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
         {
             if (value != null)
             {
-                ArrayList<Author> authors = new ArrayList<>(model.findAuthors(value));
+                ArrayList<Author> authors = new ArrayList<>(model.findAuthors(value.trim()));
                 model.setAuthors(authors);
                 ActivitiesKt.showManageAuthorsViewSearch(composeView, model);
             }

@@ -10,7 +10,27 @@ import com.mgiandia.library.view.Book.ManageBooks.ManageBooksViewModel
 @Composable
 fun drawManageBooksPage(modifier: Modifier = Modifier, viewModel: ManageBooksViewModel)
 {
-    val allBooks: ArrayList<Book> = ArrayList(viewModel.allBooks)
+    val allBooks: ArrayList<Book>
+    val authorID = viewModel.attachedAuthorID.value
+    val publisherID = viewModel.attachedPublisherID.value
+
+    if (authorID != null && publisherID != null)
+    {
+        allBooks = ArrayList(viewModel.findBooksByAuthorIDAndPublisherID(authorID, publisherID))
+    }
+    else if (authorID == null && publisherID != null)
+    {
+        allBooks = ArrayList(viewModel.findBooksByPublisherID(publisherID))
+    }
+    else if (authorID != null)
+    {
+        allBooks = ArrayList(viewModel.findBooksByAuthorID(authorID))
+    }
+    else
+    {
+        allBooks = ArrayList(viewModel.allBooks)
+    }
+
     drawBooksListScreen(modifier, viewModel, allBooks)
 }
 

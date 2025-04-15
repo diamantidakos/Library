@@ -64,7 +64,7 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
         {
             if (value != null)
             {
-                ArrayList<Borrower> borrowers = new ArrayList<>(model.findBorrowers(value));
+                ArrayList<Borrower> borrowers = new ArrayList<>(model.findBorrowers(value.trim()));
                 model.setBorrowers(borrowers);
                 ActivitiesKt.showManageBorrowersViewSearch(composeView, model);
             }

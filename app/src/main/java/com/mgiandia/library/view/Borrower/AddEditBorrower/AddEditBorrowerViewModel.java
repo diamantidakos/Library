@@ -2,7 +2,6 @@ package com.mgiandia.library.view.Borrower.AddEditBorrower;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.mgiandia.library.dao.BorrowerCategoryDAO;
 import com.mgiandia.library.dao.BorrowerDAO;
 import com.mgiandia.library.dao.CountryDAO;
@@ -12,7 +11,6 @@ import com.mgiandia.library.memorydao.BorrowerCategoryDAOMemory;
 import com.mgiandia.library.memorydao.BorrowerDAOMemory;
 import com.mgiandia.library.memorydao.CountryDAOMemory;
 import com.mgiandia.library.ui.model.ButtonClicked;
-
 import java.util.ArrayList;
 import java.util.List;
 

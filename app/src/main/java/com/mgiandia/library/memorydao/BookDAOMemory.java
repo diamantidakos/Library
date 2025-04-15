@@ -1,6 +1,7 @@
 package com.mgiandia.library.memorydao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +18,8 @@ import com.mgiandia.library.domain.Book;
  *
  */
 
-public class BookDAOMemory implements BookDAO {
+public class BookDAOMemory implements BookDAO
+{
     protected static ArrayList<Book> entities = new ArrayList<Book>();
 
     /**
@@ -85,16 +87,113 @@ public class BookDAOMemory implements BookDAO {
     }
 
     @Override
-    public Set<Book> findByAuthorName(String authorName) {
+    public Set<Book> findByAuthorName(String authorName)
+    {
         Set<Book> result = new HashSet<>();
-        for(Book b: entities){
-            for(Author a: b.getAuthors()){
-                if (a.getLastName().contains(authorName)){
+        for(Book b: entities)
+        {
+            for(Author a: b.getAuthors())
+            {
+                if (a.getLastName().contains(authorName))
+                {
                     result.add(b);
                     break;
                 }
             }
         }
+        return result;
+    }
+
+    @Override
+    public Set<Book> findByAuthorID(int authorID)
+    {
+        Set<Book> result = new HashSet<>();
+        for(Book b : entities)
+        {
+            for (Author a : b.getAuthors())
+            {
+                if (a.getId() == authorID)
+                {
+                    result.add(b);
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public Set<Book> findByTitleAndAuthorID(String title, int authorID)
+    {
+        Set<Book> result = new HashSet<>();
+        for (Book b : entities)
+        {
+            if (b.getTitle().contains(title))
+            {
+                for (Author a : b.getAuthors())
+                {
+                    if (a.getId() == authorID)
+                    {
+                        result.add(b);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public Set<Book> findByPublisherID(int publisherID)
+    {
+        Set<Book> result = new HashSet<>();
+        for(Book b : entities)
+        {
+            if (b.getPublisher().getId() == publisherID)
+            {
+                result.add(b);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public Set<Book> findByAuthorIDAndPublisherID(int authorID, int publisherID)
+    {
+        Set<Book> result = new HashSet<>();
+        for (Book b : entities)
+        {
+            if (b.getPublisher().getId() == publisherID)
+            {
+                for (Author a : b.getAuthors())
+                {
+                    if (a.getId() == authorID)
+                    {
+                        result.add(b);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public Set<Book> findByTitleAndPublisherID(String title, int publisherID)
+    {
+        Set<Book> result = new HashSet<>();
+        for (Book b : entities)
+        {
+            if (b.getTitle().contains(title) && b.getPublisher().getId() == publisherID)
+            {
+                result.add(b);
+            }
+        }
+
         return result;
     }
 }
