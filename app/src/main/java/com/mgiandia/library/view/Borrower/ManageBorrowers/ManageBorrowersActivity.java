@@ -98,7 +98,8 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
      * @param query Θέτει το κείμενο ως query
      * @return false
      */
-    public boolean onQueryTextSubmit(String query) {
+    public boolean onQueryTextSubmit(String query)
+    {
         return false;
     }
 
@@ -126,6 +127,9 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
 
         if (requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
+            finish();
+            startActivity(getIntent());
+
             //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
@@ -135,9 +139,6 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
             if (resultCode == Activity.RESULT_OK)
                 presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
-
-        finish();
-        startActivity(getIntent());
     }
 
     /**
