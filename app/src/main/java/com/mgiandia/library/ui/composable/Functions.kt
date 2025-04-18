@@ -67,7 +67,7 @@ import com.mgiandia.library.view.Returns.ManageReturns.ManageReturnsViewModel
 fun optionMenu(publishers: List<String>, viewModel: AddEditBookViewModel)
 {
     val selectedPublisher = viewModel.publisher.value ?: publishers[0]
-    val selectedPublisherIndex = viewModel.publisherPosition.value ?: 0
+    val selectedPublisherIndex = publishers.indexOf(selectedPublisher)
 
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(selectedPublisher) }
