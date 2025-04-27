@@ -1,6 +1,7 @@
 package com.mgiandia.library.androidTest.view.HomePage;
 
 import static org.junit.Assert.assertTrue;
+import android.content.Context;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
@@ -12,7 +13,8 @@ import org.junit.Before;
 
 public class HomePageActivityObject
 {
-    public static String APP_NAME = String.valueOf(R.string.app_name);
+    private static final Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    public static String APP_NAME = context.getString(R.string.app_name);
     public static String APP_PACKAGE = "com.mgiandia.library";
     private UiDevice mDevice;
     UiObject libraryAppMainActivity;
@@ -98,7 +100,7 @@ public class HomePageActivityObject
     {
         //UiObject borrowersBtn = mDevice.findObject(new UiSelector().resourceId("com.mgiandia.library:id/btn_borrowers")); // resource-id
 
-        UiObject borrowersBtn = mDevice.findObject(new UiSelector().text(String.valueOf(R.string.manage_borrowers)).className(android.widget.Button.class));
+        UiObject borrowersBtn = mDevice.findObject(new UiSelector().text(context.getString(R.string.manage_borrowers)).className(android.widget.Button.class));
         borrowersBtn.click();
         mDevice.waitForIdle();
     }

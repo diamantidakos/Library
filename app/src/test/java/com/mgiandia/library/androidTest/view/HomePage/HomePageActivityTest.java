@@ -1,6 +1,7 @@
 package com.mgiandia.library.androidTest.view.HomePage;
 
 import static org.junit.Assert.assertTrue;
+import android.content.Context;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.uiautomator.UiDevice;
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class HomePageActivityTest
 {
+    private final Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
     private UiDevice mDevice;
     private HomePageActivityObject homePage;
 
@@ -31,7 +33,7 @@ public class HomePageActivityTest
     {
         homePage.verifyHomePageVisible();
         homePage.clickBorrowersButton();
-        UiObject borrowersTitle = mDevice.findObject(new UiSelector().text(String.valueOf(R.string.manage_borrowers)));
+        UiObject borrowersTitle = mDevice.findObject(new UiSelector().text(context.getString(R.string.manage_borrowers)));
         assertTrue(borrowersTitle.exists());
     }
 }
