@@ -63,6 +63,6 @@ fun drawAddEditBorrower(modifier: Modifier = Modifier, viewModel: AddEditBorrowe
         displayRow(R.string.zip, viewModel, "zip")
         Spacer(modifier = Modifier.height(32.dp))
 
-        displayButton(R.string.complete_registration, 55, 160, viewModel)
+        displayButton(R.string.complete_registration, stringResource(R.string.complete_registration), 55, 160, viewModel)
     }
 }

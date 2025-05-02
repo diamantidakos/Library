@@ -29,7 +29,7 @@ fun drawAuthorDetailsPage(modifier: Modifier = Modifier, viewModel: AuthorDetail
         displayRow(R.string.last_name, viewModel, "lastName")
         displayRow(R.string.books_written, viewModel, "booksNum")
         welcomeText(stringResource(R.string.actions))
-        displayButton(R.string.edit_user, 50, 200, viewModel)
-        displayButton(R.string.show_books, 50, 200, viewModel)
+        displayButton(R.string.edit_user, stringResource(R.string.edit_user), 50, 200, viewModel)
+        displayButton(R.string.show_books, stringResource(R.string.show_books), 50, 200, viewModel)
     }
 }

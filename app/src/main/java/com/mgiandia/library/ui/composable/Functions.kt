@@ -38,6 +38,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
@@ -45,21 +46,13 @@ import com.mgiandia.library.domain.Book
 import com.mgiandia.library.ui.model.ButtonClicked
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
 import com.mgiandia.library.view.Author.AuthorDetails.AuthorDetailsViewModel
-import com.mgiandia.library.view.Author.ManageAuthors.ManageAuthorsViewModel
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel
 import com.mgiandia.library.view.Book.BookDetails.BookDetailsViewModel
-import com.mgiandia.library.view.Book.ManageBooks.ManageBooksViewModel
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerViewModel
 import com.mgiandia.library.view.Borrower.BorrowerDetails.BorrowerDetailsViewModel
-import com.mgiandia.library.view.Borrower.ManageBorrowers.ManageBorrowersViewModel
-import com.mgiandia.library.view.HomePage.HomePageViewModel
-import com.mgiandia.library.view.Items.ManageItems.ManageItemsViewModel
 import com.mgiandia.library.view.Loans.AddLoan.AddLoanViewModel
-import com.mgiandia.library.view.Loans.ManageLoans.ManageLoansViewModel
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherViewModel
-import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersViewModel
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsViewModel
-import com.mgiandia.library.view.Returns.ManageReturns.ManageReturnsViewModel
 
 
 // All reusable functions I wrote, to create the ui
@@ -857,268 +850,12 @@ fun displayButton(@StringRes labelResId: Int, labelText: String, height : Int, w
         onClick = { viewModel.buttonClicked(labelResId) },
         modifier = Modifier
             .height(height.dp).width(width.dp).padding(5.dp)
-            .semantics {  contentDescription = labelText},
+            .semantics { contentDescription = labelText },
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
         shape = RoundedCornerShape(0, 0, 0, 0),
     )
     {
-        Text(text = labelText, color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditBookViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditAuthorViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditPublisherViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: AddEditBorrowerViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: BookDetailsViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: AddLoanViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: AuthorDetailsViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageItemsViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageBooksViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageAuthorsViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageBorrowersViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManagePublishersViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageLoansViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: BorrowerDetailsViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: PublisherDetailsViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), color = Color.White)
-    }
-}
-
-@SuppressLint("ComposableNaming")
-@Composable
-fun displayButton(@StringRes textResId: Int, height: Int, width: Int, viewModel: ManageReturnsViewModel)
-{
-    Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
-        enabled = true,
-        colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
-    )
-    {
-        Text(text = stringResource(textResId), fontSize = 12.sp, color = Color.White)
+        Text(text = labelText, softWrap = false, overflow = TextOverflow.Visible, color = Color.White)
     }
 }

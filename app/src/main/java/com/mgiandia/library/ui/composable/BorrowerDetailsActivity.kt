@@ -44,8 +44,8 @@ fun drawBorrowerDetailsPage(modifier: Modifier = Modifier, viewModel: BorrowerDe
 
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically)
         {
-            displayButton(R.string.delete_user, 50, 200, viewModel)
-            displayButton(R.string.edit_user, 50, 200, viewModel)
+            displayButton(R.string.delete_user, stringResource(R.string.delete_user), 50, 200, viewModel)
+            displayButton(R.string.edit_user, stringResource(R.string.edit_user), 50, 200, viewModel)
         }
     }
 }

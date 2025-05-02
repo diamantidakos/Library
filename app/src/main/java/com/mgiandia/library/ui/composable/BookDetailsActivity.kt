@@ -32,6 +32,6 @@ fun drawBookDetailsPage(modifier: Modifier = Modifier, viewModel: BookDetailsVie
         welcomeText(stringResource(R.string.authors_title_text))
         displayAuthors(viewModel)
         welcomeText(stringResource(R.string.actions))
-        displayButton(R.string.edit_user, 50, 200, viewModel)
+        displayButton(R.string.edit_user, stringResource(R.string.edit_user), 50, 200, viewModel)
     }
 }

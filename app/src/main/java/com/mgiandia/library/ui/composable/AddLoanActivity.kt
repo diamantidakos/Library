@@ -36,6 +36,6 @@ fun drawAddLoan(modifier: Modifier = Modifier, viewModel: AddLoanViewModel)
         displayRow(R.string.book, viewModel, allBooks)
         Spacer(modifier = Modifier.height(16.dp))
 
-        displayButton(R.string.complete_registration, 50, 200, viewModel)
+        displayButton(R.string.complete_registration, stringResource(R.string.complete_registration), 50, 200, viewModel)
     }
 }

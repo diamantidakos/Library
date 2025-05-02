@@ -47,6 +47,6 @@ fun drawEditBookPage(modifier: Modifier = Modifier, viewModel: AddEditBookViewMo
         displayRow(R.string.authors_title_text, viewModel, authorsNameList)
         Spacer(modifier = Modifier.height(16.dp))
 
-        displayButton(R.string.complete_registration, 50, 200, viewModel)
+        displayButton(R.string.complete_registration, stringResource(R.string.complete_registration), 50, 200, viewModel)
     }
 }

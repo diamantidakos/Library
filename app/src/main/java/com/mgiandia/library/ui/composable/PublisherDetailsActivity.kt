@@ -41,7 +41,7 @@ fun drawPublisherDetailsPage(modifier: Modifier = Modifier, viewModel: Publisher
 
         welcomeText(stringResource(R.string.actions))
 
-        displayButton(R.string.edit_user, 50, 200, viewModel)
-        displayButton(R.string.show_books, 50, 200, viewModel)
+        displayButton(R.string.edit_user, stringResource(R.string.edit_user), 50, 200, viewModel)
+        displayButton(R.string.show_books, stringResource(R.string.show_books), 50, 200, viewModel)
     }
 }

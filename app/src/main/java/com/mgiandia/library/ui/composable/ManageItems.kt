@@ -57,8 +57,9 @@ import kotlin.math.absoluteValue
 
 
 /**
- * param --> το όνομα σε μορφή String (βιβλίου, συγγραφέα, κλπ)
- * return --> ένα χρώμα ανάλογα με το hashCode του ονόματος
+ * Επιστρέφει ένα χρώμα ανάλογα με το hashCode του String που δέχεται σαν παράμετρο
+ * @param --> το όνομα σε μορφή String (βιβλίου, συγγραφέα, κλπ)
+ * @return Color
  */
 fun generateColor(name: String): Color
 {
@@ -77,7 +78,7 @@ fun drawItemListScreen(modifier: Modifier = Modifier, viewModel: ManageItemsView
         {
             searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
             Spacer(modifier = modifier.width(10.dp))
-            displayButton(R.string.add_new_item, 65, 120, viewModel)
+            displayButton(R.string.add_new_item, stringResource(R.string.add_new_item), 65, 120, viewModel)
         }
 
         LazyColumn(modifier = modifier.fillMaxSize())
@@ -125,15 +126,6 @@ fun itemRow(title: String, stateChar: String, id: Int, state: String, viewModel:
         // Thin separator line
         HorizontalDivider(modifier = Modifier.padding(top = 8.dp), thickness = 0.5.dp, color = Color.Black)
     }
-
-
-
-    /*
-    Box(modifier = Modifier.fillMaxWidth().padding(8.dp).padding(12.dp))
-    {
-        Text(text = item)
-    }
-    */
 }
 
 @SuppressLint("ComposableNaming")
@@ -146,7 +138,7 @@ fun drawBooksListScreen(modifier: Modifier = Modifier, viewModel: ManageBooksVie
         {
             searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel = viewModel)
             Spacer(modifier = modifier.width(10.dp))
-            displayButton(R.string.add_new_item, 65, 120, viewModel)
+            displayButton(R.string.add_new_item, stringResource(R.string.add_new_item), 65, 120, viewModel)
         }
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -208,7 +200,7 @@ fun drawBorrowerListScreen(modifier: Modifier = Modifier, viewModel: ManageBorro
         {
             searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
             Spacer(modifier = modifier.width(10.dp))
-            displayButton(R.string.add_new_item, 65, 120, viewModel)
+            displayButton(R.string.add_new_item, stringResource(R.string.add_new_item), 65, 120, viewModel)
         }
 
         LazyColumn(modifier = modifier.fillMaxSize())
@@ -268,7 +260,7 @@ fun drawPublisherListScreen(modifier: Modifier = Modifier, viewModel: ManagePubl
         {
             searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
             Spacer(modifier = modifier.width(10.dp))
-            displayButton(R.string.add_new_item, 65, 120, viewModel)
+            displayButton(R.string.add_new_item, stringResource(R.string.add_new_item), 65, 120, viewModel)
         }
 
         LazyColumn(modifier = modifier.fillMaxSize())
@@ -329,7 +321,7 @@ fun drawAuthorListScreen(modifier: Modifier = Modifier, viewModel: ManageAuthors
         {
             searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
             Spacer(modifier = modifier.width(10.dp))
-            displayButton(R.string.add_new_item, 65, 120, viewModel)
+            displayButton(R.string.add_new_item, stringResource(R.string.add_new_item), 65, 120, viewModel)
         }
 
         LazyColumn(modifier = modifier.fillMaxSize())
@@ -389,7 +381,7 @@ fun drawLoanListScreen(modifier: Modifier = Modifier, viewModel: ManageLoansView
         {
             searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
             Spacer(modifier = modifier.width(10.dp))
-            displayButton(R.string.add_new_item, 65, 120, viewModel)
+            displayButton(R.string.add_new_item, stringResource(R.string.add_new_item), 65, 120, viewModel)
         }
 
         LazyColumn(modifier = modifier.fillMaxSize())
@@ -449,7 +441,7 @@ fun drawManageReturnsScreen(modifier: Modifier = Modifier, viewModel: ManageRetu
         {
             searchBar(modifier = modifier.height(60.dp).weight(3f), viewModel)
             Spacer(modifier = modifier.width(10.dp))
-            displayButton(R.string.add_new_item, 65, 120, viewModel)
+            displayButton(R.string.add_new_item, stringResource(R.string.add_new_item), 65, 120, viewModel)
         }
 
         LazyColumn(modifier = modifier.fillMaxSize())
