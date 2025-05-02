@@ -36,10 +36,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mgiandia.library.R
 import com.mgiandia.library.domain.Book
+import com.mgiandia.library.ui.model.ButtonClicked
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorViewModel
 import com.mgiandia.library.view.Author.AuthorDetails.AuthorDetailsViewModel
 import com.mgiandia.library.view.Author.ManageAuthors.ManageAuthorsViewModel
@@ -845,19 +848,22 @@ fun welcomeText(txt: String)
     Text(txt)
 }
 
+
 @SuppressLint("ComposableNaming")
 @Composable
-fun displayButton(@StringRes textResId: Int, height : Int, width: Int, viewModel: HomePageViewModel)
+fun displayButton(@StringRes labelResId: Int, labelText: String, height : Int, width: Int, viewModel: ButtonClicked)
 {
     Button(
-        onClick = { viewModel.buttonClicked(textResId) },
-        modifier = Modifier.height(height.dp).width(width.dp).padding(5.dp),
+        onClick = { viewModel.buttonClicked(labelResId) },
+        modifier = Modifier
+            .height(height.dp).width(width.dp).padding(5.dp)
+            .semantics {  contentDescription = labelText},
         enabled = true,
         colors = ButtonDefaults.buttonColors(Color.Gray),
-        shape = RoundedCornerShape(0, 0, 0, 0)
+        shape = RoundedCornerShape(0, 0, 0, 0),
     )
     {
-        Text(text = stringResource(textResId), color = Color.White)
+        Text(text = labelText, color = Color.White)
     }
 }
 

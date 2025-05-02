@@ -23,24 +23,24 @@ fun drawHomePage(modifier: Modifier = Modifier, viewModel: HomePageViewModel)
     {
         displayLibraryIcon()
         welcomeText(stringResource(R.string.welcome_message))
-        displayButton(R.string.manage_borrowers, 50, 400, viewModel)
+        displayButton(R.string.manage_borrowers, stringResource(R.string.manage_borrowers),50, 400, viewModel)
 
         Row()
         {
-            displayButton(R.string.manage_books, 50, 200, viewModel)
-            displayButton(R.string.manage_items, 50, 200, viewModel)
+            displayButton(R.string.manage_books, stringResource(R.string.manage_books),50, 200, viewModel)
+            displayButton(R.string.manage_items, stringResource(R.string.manage_items),50, 200, viewModel)
         }
 
         Row()
         {
-            displayButton(R.string.manage_loans, 50, 200, viewModel)
-            displayButton(R.string.manage_returns, 50, 200, viewModel)
+            displayButton(R.string.manage_loans, stringResource(R.string.manage_loans),50, 200, viewModel)
+            displayButton(R.string.manage_returns, stringResource(R.string.manage_returns),50, 200, viewModel)
         }
 
         Row()
         {
-            displayButton(R.string.manage_authors, 50, 200, viewModel)
-            displayButton(R.string.manage_publishers, 50, 200, viewModel)
+            displayButton(R.string.manage_authors, stringResource(R.string.manage_authors),50, 200, viewModel)
+            displayButton(R.string.manage_publishers, stringResource(R.string.manage_publishers),50, 200, viewModel)
         }
     }
 }

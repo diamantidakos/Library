@@ -1,4 +1,4 @@
-package com.mgiandia.library.androidTest.view.HomePage;
+package com.mgiandia.library.view.HomePage;
 
 import static org.junit.Assert.assertTrue;
 import android.content.Context;
@@ -6,6 +6,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 import com.mgiandia.library.R;
 import org.junit.Before;
@@ -67,18 +68,9 @@ public class HomePageActivityObject
         // In some devices "Apps" is part of contentDescription
         if (!allAppsButton.exists())
         {
-            allAppsButton = mDevice.findObject(new UiSelector().descriptionContains("Apps"));
+            UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
+            appViews.swipeUp(10);
         }
-
-        // Simulate a click to bring up the All Apps screen.
-        allAppsButton.clickAndWaitForNewWindow();
-
-//		UiObject appsTab = mDevice.findObject(new UiSelector().text("Apps"));
-//		// Simulate a click to enter the Apps tab.
-//		appsTab.click();
-
-        // Simulate a user swiping until finding the application
-//		UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
 
         // Create a UiSelector to find the Library app and simulate
         // a user click to launch the app.
@@ -92,7 +84,10 @@ public class HomePageActivityObject
 
     public void verifyHomePageVisible()
     {
-        UiObject title = mDevice.findObject(new UiSelector().text(APP_NAME).className(android.widget.TextView.class));
+        UiObject title = mDevice.findObject(
+                new UiSelector()
+                        .text(APP_NAME)
+                        .className(android.widget.TextView.class));
         assertTrue(title.exists());
     }
 
@@ -100,7 +95,9 @@ public class HomePageActivityObject
     {
         //UiObject borrowersBtn = mDevice.findObject(new UiSelector().resourceId("com.mgiandia.library:id/btn_borrowers")); // resource-id
 
-        UiObject borrowersBtn = mDevice.findObject(new UiSelector().text(context.getString(R.string.manage_borrowers)).className(android.widget.Button.class));
+        UiObject borrowersBtn = mDevice.findObject(
+                new UiSelector()
+                        .descriptionContains(context.getString(R.string.manage_borrowers)));
         borrowersBtn.click();
         mDevice.waitForIdle();
     }

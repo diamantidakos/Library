@@ -1,4 +1,4 @@
-package com.mgiandia.library.androidTest.view.HomePage;
+package com.mgiandia.library.view.HomePage;
 
 import static org.junit.Assert.assertTrue;
 import android.content.Context;
@@ -33,7 +33,10 @@ public class HomePageActivityTest
     {
         homePage.verifyHomePageVisible();
         homePage.clickBorrowersButton();
-        UiObject borrowersTitle = mDevice.findObject(new UiSelector().text(context.getString(R.string.manage_borrowers)));
+        UiObject borrowersTitle = mDevice
+                .findObject(
+                        new UiSelector()
+                                .text(context.getString(R.string.manage_borrowers)));
         assertTrue(borrowersTitle.exists());
     }
 }
