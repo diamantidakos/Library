@@ -16,7 +16,7 @@ public class HomePageActivityObject
 {
     private static final Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
     public static String APP_NAME = context.getString(R.string.app_name);
-    public static String APP_PACKAGE = "com.mgiandia.library";
+    public static String APP_PACKAGE = "com.mgiandia.library.view.HomePage";
     private UiDevice mDevice;
     UiObject libraryAppMainActivity;
 
