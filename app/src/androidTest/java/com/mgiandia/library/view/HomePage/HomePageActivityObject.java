@@ -9,14 +9,15 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 import com.mgiandia.library.R;
+import com.mgiandia.library.view.AbstractActivityObject;
 import org.junit.Before;
 
 
-public class HomePageActivityObject
+public class HomePageActivityObject extends AbstractActivityObject
 {
     private static final Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
     public static String APP_NAME = context.getString(R.string.app_name);
-    public static String APP_PACKAGE = "com.mgiandia.library.view.HomePage";
+    public static String APP_PACKAGE = "com.mgiandia.library";
     private UiDevice mDevice;
     UiObject libraryAppMainActivity;
 
