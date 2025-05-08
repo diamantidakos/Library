@@ -18,6 +18,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject2;
+import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
 
@@ -39,6 +40,7 @@ public class HomePageActivityTest extends SystemTest
     private static final int LAUNCH_TIMEOUT = 5000;
     public static String BASIC_SAMPLE_PACKAGE = "com.mgiandia.library";
 
+    private HomePageActivityObject homePageActivityObject;
 
     @Before
     public void startMainActivityFromHomeScreen()
@@ -64,6 +66,12 @@ public class HomePageActivityTest extends SystemTest
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)), LAUNCH_TIMEOUT);
     }
 
+    @After
+    public void tearDown(){
+        mDevice.pressBack();
+        mDevice.pressBack();
+    }
+
     @Test
     public void checkPreconditions()
     {
@@ -71,16 +79,20 @@ public class HomePageActivityTest extends SystemTest
     }
 
     @Test
-    public void clickBorrowersButton()
-    {
+    public void clickBorrowersButton() throws UiObjectNotFoundException {
         // Type text and then press the button.
         //mDevice.findObject(By.res(BASIC_SAMPLE_PACKAGE, "editTextUserInput")).setText(STRING_TO_BE_TYPED);
         //mDevice.findObject(By.res(BASIC_SAMPLE_PACKAGE, new UiSelector().resourceId("com.mgiandia.library:id/btn_borrowers"))).click();
         //mDevice.findObject(By.res(BASIC_SAMPLE_PACKAGE, "manage_borrowers")).click();
 
-        UiObject2 borrowersButton = mDevice.wait(Until.findObject(By.text(getApplicationContext().getResources().getString(R.string.manage_borrowers))), LAUNCH_TIMEOUT);
-        borrowersButton.click();
-        assertThat(borrowersButton, notNullValue());
+        homePageActivityObject = new HomePageActivityObject(mDevice);
+        homePageActivityObject.clickBorrowersButton();
+        homePageActivityObject.verifyBorrowerVisible("Γιακουμάκης");
+
+
+//        UiObject2 borrowersButton = mDevice.wait(Until.findObject(By.text(getApplicationContext().getResources().getString(R.string.manage_borrowers))), LAUNCH_TIMEOUT);
+//        borrowersButton.click();
+//        assertThat(borrowersButton, notNullValue());
         //mDevice.pressBack();
 
         // Verify the test is displayed in the Ui
@@ -134,12 +146,10 @@ public class HomePageActivityTest extends SystemTest
     }
 
     @Test
-    public void clickPublishersButton()
-    {
-        UiObject2 publishersBtn = mDevice.wait(Until.findObject(By.text(getApplicationContext().getResources().getString(R.string.manage_publishers))), LAUNCH_TIMEOUT);
-        publishersBtn.click();
-        assertThat(publishersBtn, notNullValue());
-        //mDevice.pressBack();
+    public void testShowPublishersList() throws UiObjectNotFoundException {
+        homePageActivityObject = new HomePageActivityObject(mDevice);
+        homePageActivityObject.clickPublishersButton();
+        homePageActivityObject.verifyPublisherVisible("McGraw-Hill Education");
     }
 
     /*

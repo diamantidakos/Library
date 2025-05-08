@@ -80,7 +80,7 @@ public class HomePageActivityObject extends AbstractActivityObject
 
         // Validate that the package name is the expected one
         libraryAppMainActivity = mDevice.findObject(new UiSelector().packageName(APP_PACKAGE));
-        assertTrue("Unable to detect EquationSolvingApp", libraryAppMainActivity.exists());
+        assertTrue("Unable to detect Library App", libraryAppMainActivity.exists());
     }
 
     public void verifyHomePageVisible()
@@ -92,6 +92,21 @@ public class HomePageActivityObject extends AbstractActivityObject
         assertTrue(title.exists());
     }
 
+    public void verifyPublisherVisible(String publisher){
+        UiObject publisherText = mDevice.findObject(
+                new UiSelector()
+                        .descriptionContains(publisher));
+        assertTrue(publisherText.exists());
+    }
+
+    public void verifyBorrowerVisible(String publisher){
+        UiObject publisherObj = mDevice.findObject(
+                new UiSelector()
+                        .textContains(publisher));
+
+        assertTrue(publisherObj.exists());
+    }
+
     public void clickBorrowersButton() throws UiObjectNotFoundException
     {
         //UiObject borrowersBtn = mDevice.findObject(new UiSelector().resourceId("com.mgiandia.library:id/btn_borrowers")); // resource-id
@@ -99,7 +114,16 @@ public class HomePageActivityObject extends AbstractActivityObject
         UiObject borrowersBtn = mDevice.findObject(
                 new UiSelector()
                         .descriptionContains(context.getString(R.string.manage_borrowers)));
-        borrowersBtn.click();
+        borrowersBtn.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+    }
+
+    public void clickPublishersButton() throws UiObjectNotFoundException
+    {
+        UiObject publishersBtn = mDevice.findObject(
+                new UiSelector()
+                        .descriptionContains(context.getString(R.string.manage_publishers)));
+        publishersBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
 }

@@ -36,6 +36,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -299,7 +301,8 @@ fun publisherItem(name: String, booksNum: Int, id: Int, viewModel: ManagePublish
             // Book details
             Column(modifier = Modifier.weight(1f))
             {
-                Text(name, color = Color.White, fontSize = 16.sp)
+                Text(name, color = Color.White, fontSize = 16.sp,
+                    modifier = Modifier.semantics { contentDescription = name })
                 Text("${stringResource(R.string.books_number)} $booksNum", color = Color.Gray, fontSize = 12.sp)
             }
 
