@@ -10,7 +10,10 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +21,7 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Loan;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
+import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Loans.AddLoan.AddLoansActivity;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
@@ -27,7 +31,7 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManageLoansActivity extends AppCompatActivity implements ManageLoansView, SearchView.OnQueryTextListener
+public class ManageLoansActivity extends AbstractActivityObject implements ManageLoansView, SearchView.OnQueryTextListener
 {
     private ManageLoansPresenter presenter;
 
@@ -47,7 +51,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
         setContentView(R.layout.manage_items_compose);
         adapter = new AdvancedListAdapter(this);
 
-        ManageLoansViewModel model = new ViewModelProvider(this).get(ManageLoansViewModel.class);
+        ManageLoansViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(ManageLoansViewModel.class);
         presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
@@ -56,7 +60,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
         int borrowerID = getAttachedBorrowerID();
         model.setBorrowerID(borrowerID);
 
-        model.getSelectedLoanID().observe(this, value ->
+        model.getSelectedLoanID().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {
@@ -64,7 +68,7 @@ public class ManageLoansActivity extends AppCompatActivity implements ManageLoan
             }
         });
 
-        model.getTextOnSearchBar().observe(this, value ->
+        model.getTextOnSearchBar().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {

@@ -7,9 +7,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorActivity;
 import com.mgiandia.library.view.Book.ManageBooks.ManageBooksActivity;
 
@@ -21,7 +24,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDetailsView
+public class AuthorDetailsActivity extends AbstractActivityObject implements AuthorDetailsView
 {
     private String firstName, lastName, booksWritten, ID;
 
@@ -146,7 +149,7 @@ public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_author_details);
 
-        AuthorDetailsViewModel model = new ViewModelProvider(this).get(AuthorDetailsViewModel.class);
+        AuthorDetailsViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(AuthorDetailsViewModel.class);
         presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);

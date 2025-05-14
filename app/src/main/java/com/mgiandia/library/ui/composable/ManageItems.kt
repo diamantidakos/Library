@@ -209,7 +209,7 @@ fun drawBorrowerListScreen(modifier: Modifier = Modifier, viewModel: ManageBorro
         {
             items(borrowers)
             {
-                item -> borrowerItem(item.firstName, item.lastName, item.borrowerNo, item.loans.size, viewModel)
+                item -> borrowerItem(item.firstName, item.lastName, item.borrowerNo, item.countPendingItems(), viewModel)
             }
         }
     }
@@ -452,7 +452,6 @@ fun drawManageReturnsScreen(modifier: Modifier = Modifier, viewModel: ManageRetu
             items(copies)
             {
                 item -> copyItem(item.item.book.title, item.borrower, item.id, item.item.itemNumber, viewModel)
-                //item -> loanItem(item.item.book.title, item.borrower, item.id, item.item.itemNumber, viewModel)
             }
         }
     }

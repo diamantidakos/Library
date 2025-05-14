@@ -6,11 +6,16 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.AbstractActivityObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +26,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AddEditBookActivity extends AppCompatActivity implements AddEditBookView
+public class AddEditBookActivity extends AbstractActivityObject implements AddEditBookView
 {
     private AddEditBookViewModel model;
     private String bookTitle, publisher, ISBN, publication, publicationYear;
@@ -177,7 +182,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
 
     private void getValuesFromViewModel()
     {
-        model.getTitle().observe(this, bName ->
+        model.getTitle().observe((LifecycleOwner) this, bName ->
         {
             if (bName != null)
             {
@@ -185,7 +190,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
             }
         });
 
-        model.getPublisher().observe(this, i ->
+        model.getPublisher().observe((LifecycleOwner) this, i ->
         {
             if (i != null)
             {
@@ -193,7 +198,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
             }
         });
 
-        model.getPublisherPosition().observe(this, i ->
+        model.getPublisherPosition().observe((LifecycleOwner) this, i ->
         {
             if (i != null)
             {
@@ -201,7 +206,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
             }
         });
 
-        model.getISBN().observe(this, i ->
+        model.getISBN().observe((LifecycleOwner) this, i ->
         {
             if (i != null)
             {
@@ -209,7 +214,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
             }
         });
 
-        model.getPublication().observe(this, i ->
+        model.getPublication().observe((LifecycleOwner) this, i ->
         {
             if (i != null)
             {
@@ -217,7 +222,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
             }
         });
 
-        model.getPublicationYear().observe(this, i ->
+        model.getPublicationYear().observe((LifecycleOwner) this, i ->
         {
             if (i != null)
             {
@@ -225,7 +230,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
             }
         });
 
-        model.getAuthors().observe(this, i ->
+        model.getAuthors().observe((LifecycleOwner) this, i ->
         {
             if (i != null)
             {
@@ -233,7 +238,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
             }
         });
 
-        model.getSelectedAuthorsPositions().observe(this, indexes ->
+        model.getSelectedAuthorsPositions().observe((LifecycleOwner) this, indexes ->
         {
             if (indexes != null)
             {
@@ -251,10 +256,9 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_edit_book);
 
-        model = new ViewModelProvider(this).get(AddEditBookViewModel.class);
+        model = new ViewModelProvider((ViewModelStoreOwner) this).get(AddEditBookViewModel.class);
         final AddEditBookPresenter presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);

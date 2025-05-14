@@ -1,16 +1,23 @@
 package com.mgiandia.library.view.Returns.ManageReturns;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +25,7 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Loan;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
+import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
 /**
@@ -26,13 +34,21 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManageReturnsActivity extends AppCompatActivity implements ManageReturnsView, SearchView.OnQueryTextListener
+public class ManageReturnsActivity extends AbstractActivityObject implements ManageReturnsView, SearchView.OnQueryTextListener
 {
     private ManageReturnsPresenter presenter;
 
     private ListView itemListView;
     //private SearchView searchListView;
     private AdvancedListAdapter adapter;
+    private ManageReturnsViewModel model;
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        finish();
+    }
 
     /**
      * Δημιουργεί to layout και αρχικοποιεί
@@ -46,7 +62,7 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
         setContentView(R.layout.manage_items_compose);
         adapter = new AdvancedListAdapter(this);
 
-        ManageReturnsViewModel model = new ViewModelProvider(this).get(ManageReturnsViewModel.class);
+        model = new ViewModelProvider((ViewModelStoreOwner) this).get(ManageReturnsViewModel.class);
         presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
@@ -55,7 +71,7 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
         int borrowerID = getAttachedBorrowerID();
         model.setBorrowerID(borrowerID);
 
-        model.getSelectedLoanID().observe(this, value ->
+        model.getSelectedLoanID().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {
@@ -63,7 +79,7 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
             }
         });
 
-        model.getTextOnSearchBar().observe(this, value ->
+        model.getTextOnSearchBar().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {
@@ -146,9 +162,12 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
             .setPositiveButton("Επιστρέψτε",
             new DialogInterface.OnClickListener()
             {
+                @SuppressLint("UnsafeIntentLaunch")
                 public void onClick(DialogInterface dialog, int id)
                 {
                     presenter.onChangeItemState(tmp, true);
+                    model.removeLoan(tmp);
+                    refreshActivity();
                 }
             })
             .setNeutralButton("Ακύρωση",
@@ -165,10 +184,16 @@ public class ManageReturnsActivity extends AppCompatActivity implements ManageRe
                 public void onClick(DialogInterface dialog, int id)
                 {
                     presenter.onChangeItemState(tmp, false);
-                    finish();
-                    startActivity(getIntent());
+                    model.removeLoan(tmp);
+                    refreshActivity();
                 }
             }).create().show();
+    }
+
+    private void refreshActivity()
+    {
+        finish();
+        startActivity(getIntent());
     }
 
     /**

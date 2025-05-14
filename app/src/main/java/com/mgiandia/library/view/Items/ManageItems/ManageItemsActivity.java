@@ -9,7 +9,10 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +20,7 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
+import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
 /**
@@ -25,7 +29,7 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManageItemsActivity extends AppCompatActivity implements ManageItemsView, SearchView.OnQueryTextListener
+public class ManageItemsActivity extends AbstractActivityObject implements ManageItemsView, SearchView.OnQueryTextListener
 {
     private ManageItemsPresenter presenter;
 
@@ -45,7 +49,7 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
         setContentView(R.layout.manage_items_compose);
         adapter = new AdvancedListAdapter(this);
 
-        ManageItemsViewModel model = new ViewModelProvider(this).get(ManageItemsViewModel.class);
+        ManageItemsViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(ManageItemsViewModel.class);
         presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
@@ -56,7 +60,7 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
         String bookTitle = model.getBookTitle(bookID);
         model.setSelectedBookTitle(bookTitle);
 
-        model.getSelectedItemID().observe(this, value ->
+        model.getSelectedItemID().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {
@@ -64,7 +68,7 @@ public class ManageItemsActivity extends AppCompatActivity implements ManageItem
             }
         });
 
-        model.getTextOnSearchBar().observe(this, value ->
+        model.getTextOnSearchBar().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {

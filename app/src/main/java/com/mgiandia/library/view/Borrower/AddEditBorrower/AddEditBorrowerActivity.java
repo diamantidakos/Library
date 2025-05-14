@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.List;
 import java.util.Objects;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.AbstractActivityObject;
 
 /**
  * @author Νίκος Σαραντινός
@@ -18,7 +22,7 @@ import com.mgiandia.library.ui.composable.ActivitiesKt;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AddEditBorrowerActivity extends AppCompatActivity implements AddEditBorrowerView
+public class AddEditBorrowerActivity extends AbstractActivityObject implements AddEditBorrowerView
 {
     private String firstName, lastName, phone, email, city, street, number, zipCode;
     private int userTypePosition, countryPosition;
@@ -188,7 +192,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
 
     private void getValuesFromViewModel()
     {
-        model.getFirstName().observe(this, p ->
+        model.getFirstName().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -196,7 +200,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
             }
         });
 
-        model.getLastName().observe(this, p ->
+        model.getLastName().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -204,7 +208,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
             }
         });
 
-        model.getUserTypePosition().observe(this, p ->
+        model.getUserTypePosition().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -212,7 +216,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
             }
         });
 
-        model.getPhone().observe(this, p ->
+        model.getPhone().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -220,7 +224,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
             }
         });
 
-        model.getEmail().observe(this, p ->
+        model.getEmail().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -228,7 +232,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
             }
         });
 
-        model.getCountryPosition().observe(this, p ->
+        model.getCountryPosition().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -236,7 +240,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
             }
         });
 
-        model.getCity().observe(this, p ->
+        model.getCity().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -244,7 +248,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
             }
         });
 
-        model.getStreet().observe(this, p ->
+        model.getStreet().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -252,7 +256,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
             }
         });
 
-        model.getNumber().observe(this, p ->
+        model.getNumber().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -260,7 +264,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
             }
         });
 
-        model.getZipCode().observe(this, p ->
+        model.getZipCode().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -281,7 +285,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_borrower);
 
-        model = new ViewModelProvider(this).get(AddEditBorrowerViewModel.class);
+        model = new ViewModelProvider((ViewModelStoreOwner) this).get(AddEditBorrowerViewModel.class);
         final AddEditBorrowerPresenter presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);

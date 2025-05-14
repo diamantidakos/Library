@@ -9,13 +9,17 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.ArrayList;
 import java.util.List;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
+import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
 import com.mgiandia.library.view.Borrower.BorrowerDetails.BorrowerDetailsActivity;
 import com.mgiandia.library.view.Loans.ManageLoans.ManageLoansActivity;
@@ -28,7 +32,7 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManageBorrowersActivity extends AppCompatActivity implements ManageBorrowersView, SearchView.OnQueryTextListener {
+public class ManageBorrowersActivity extends AbstractActivityObject implements ManageBorrowersView, SearchView.OnQueryTextListener {
     ManageBorrowersPresenter presenter;
 
     private ListView itemListView;
@@ -46,13 +50,13 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
         setContentView(R.layout.manage_items_compose);
 
         adapter = new AdvancedListAdapter(this);
-        ManageBorrowersViewModel model = new ViewModelProvider(this).get(ManageBorrowersViewModel.class);
+        ManageBorrowersViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(ManageBorrowersViewModel.class);
         presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
         ActivitiesKt.showManageBorrowersView(composeView, model);
 
-        model.getSelectedBorrowerID().observe(this, value ->
+        model.getSelectedBorrowerID().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {
@@ -60,7 +64,7 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
             }
         });
 
-        model.getTextOnSearchBar().observe(this, value ->
+        model.getTextOnSearchBar().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {
@@ -127,9 +131,6 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
 
         if (requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
-            finish();
-            startActivity(getIntent());
-
             //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
@@ -139,6 +140,14 @@ public class ManageBorrowersActivity extends AppCompatActivity implements Manage
             if (resultCode == Activity.RESULT_OK)
                 presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
+
+        refreshActivity();
+    }
+
+    private void refreshActivity()
+    {
+        finish();
+        startActivity(getIntent());
     }
 
     /**

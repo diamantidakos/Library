@@ -5,12 +5,16 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.List;
 import java.util.Objects;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Publisher;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.AbstractActivityObject;
 
 /**
  * @author Νίκος Σαραντινός
@@ -18,7 +22,7 @@ import com.mgiandia.library.ui.composable.ActivitiesKt;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AddEditPublisherActivity extends AppCompatActivity implements AddEditPublisherView
+public class AddEditPublisherActivity extends AbstractActivityObject implements AddEditPublisherView
 {
     private String name, phone, email, city, street, number, zipCode;
     private int countryPosition;
@@ -147,7 +151,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
     @Override
     public void showErrorMessage(String title, String message)
     {
-        new AlertDialog.Builder(AddEditPublisherActivity.this)
+        new AlertDialog.Builder(getApplicationContext())
                 .setCancelable(true)
                 .setTitle(title)
                 .setMessage(message)
@@ -161,7 +165,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
 
     private void getValuesFromViewModel()
     {
-        model.getName().observe(this, p ->
+        model.getName().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -169,7 +173,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
             }
         });
 
-        model.getPhone().observe(this, p ->
+        model.getPhone().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -177,7 +181,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
             }
         });
 
-        model.getEmail().observe(this, p ->
+        model.getEmail().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -185,7 +189,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
             }
         });
 
-        model.getCountryPosition().observe(this, p ->
+        model.getCountryPosition().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -193,7 +197,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
             }
         });
 
-        model.getCity().observe(this, p ->
+        model.getCity().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -201,7 +205,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
             }
         });
 
-        model.getStreet().observe(this, p ->
+        model.getStreet().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -209,7 +213,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
             }
         });
 
-        model.getNumber().observe(this, p ->
+        model.getNumber().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -217,7 +221,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
             }
         });
 
-        model.getZipCode().observe(this, p ->
+        model.getZipCode().observe((LifecycleOwner) this, p ->
         {
             if (p != null)
             {
@@ -238,7 +242,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_publisher);
 
-        model = new ViewModelProvider(this).get(AddEditPublisherViewModel.class);
+        model = new ViewModelProvider((ViewModelStoreOwner) this).get(AddEditPublisherViewModel.class);
         final AddEditPublisherPresenter presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);

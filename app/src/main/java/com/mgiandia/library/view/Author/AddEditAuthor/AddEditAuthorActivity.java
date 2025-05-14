@@ -5,10 +5,15 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.AbstractActivityObject;
+
 import java.util.Objects;
 
 /**
@@ -17,7 +22,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AddEditAuthorActivity extends AppCompatActivity implements AddEditAuthorView
+public class AddEditAuthorActivity extends AbstractActivityObject implements AddEditAuthorView
 {
     private String firstName, lastName;
 
@@ -81,7 +86,7 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
      */
     public void showErrorMessage(String title, String message)
     {
-        new AlertDialog.Builder(AddEditAuthorActivity.this)
+        new AlertDialog.Builder(getApplicationContext())
         .setCancelable(true)
         .setTitle(title)
         .setMessage(message)
@@ -100,7 +105,7 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_author);
 
-        AddEditAuthorViewModel model = new ViewModelProvider(this).get(AddEditAuthorViewModel.class);
+        AddEditAuthorViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(AddEditAuthorViewModel.class);
         final AddEditAuthorPresenter presenter = model.getPresenter(this);
 
         // find the compose view object
@@ -117,7 +122,7 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
         }
 
         // Get what the user writes in the first name field, and save it in a variable --> firstName, removing the spaces before and after the word (trim())
-        model.getFirstName().observe(this, fName ->
+        model.getFirstName().observe((LifecycleOwner) this, fName ->
         {
             if (fName != null)
             {
@@ -126,7 +131,7 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
         });
 
         // Get what the user writes in the last name field, and save it in a variable --> lastName, removing the spaces before and after the word (trim())
-        model.getLastName().observe(this, lName ->
+        model.getLastName().observe((LifecycleOwner) this, lName ->
         {
             if (lName != null)
             {

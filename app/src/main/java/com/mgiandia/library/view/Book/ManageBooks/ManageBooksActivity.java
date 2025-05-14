@@ -9,7 +9,10 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +20,7 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
+import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
 import com.mgiandia.library.view.Book.BookDetails.BookDetailsActivity;
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsActivity;
@@ -28,7 +32,7 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManageBooksActivity extends AppCompatActivity implements ManageBooksView, SearchView.OnQueryTextListener
+public class ManageBooksActivity extends AbstractActivityObject implements ManageBooksView, SearchView.OnQueryTextListener
 {
     ManageBooksPresenter presenter;
     private ListView itemListView;
@@ -47,7 +51,7 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
         setContentView(R.layout.manage_items_compose);
         adapter = new AdvancedListAdapter(this);
 
-        ManageBooksViewModel model = new ViewModelProvider(this).get(ManageBooksViewModel.class);
+        ManageBooksViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(ManageBooksViewModel.class);
         presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
@@ -63,7 +67,7 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
             model.setAttachedPublisherID(getAttachedPublisherID());
         }
 
-        model.getSelectedBookID().observe(this, value ->
+        model.getSelectedBookID().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {
@@ -71,7 +75,7 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
             }
         });
 
-        model.getTextOnSearchBar().observe(this, value ->
+        model.getTextOnSearchBar().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {
@@ -156,9 +160,6 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
 
         if(requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
-            finish();
-            startActivity(getIntent());
-
             //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
@@ -169,6 +170,14 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
             if(resultCode == Activity.RESULT_OK)
                 presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
+
+        refreshActivity();
+    }
+
+    private void refreshActivity()
+    {
+        finish();
+        startActivity(getIntent());
     }
 
     /**

@@ -12,6 +12,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,6 +24,7 @@ import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel;
 
@@ -31,7 +34,7 @@ import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class BookDetailsActivity extends AppCompatActivity implements BookDetailsView
+public class BookDetailsActivity extends AbstractActivityObject implements BookDetailsView
 {
     String bookID, bookTitle, publisher, ISBN, publication, year;
     List<String> authors, selectedAuthors;
@@ -126,7 +129,7 @@ public class BookDetailsActivity extends AppCompatActivity implements BookDetail
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
 
-        BookDetailsViewModel model = new ViewModelProvider(this).get(BookDetailsViewModel.class);
+        BookDetailsViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(BookDetailsViewModel.class);
         presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);

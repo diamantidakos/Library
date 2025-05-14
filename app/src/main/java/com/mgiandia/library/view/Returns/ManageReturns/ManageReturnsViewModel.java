@@ -52,6 +52,12 @@ public class ManageReturnsViewModel extends ViewModel implements ButtonClicked
         return loans;
     }
 
+    public void removeLoan(int loanID)
+    {
+        Loan loan = loanDAO.find(loanID);
+        loanDAO.delete(loan);
+    }
+
     public void setTextOnSearchBar(String textOnSearchBar)
     {
         this.textOnSearchBar.setValue(textOnSearchBar);

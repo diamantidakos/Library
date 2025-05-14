@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import java.util.List;
 import java.util.Objects;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.AbstractActivityObject;
 
 /**
  * @author Νίκος Σαραντινός
@@ -18,7 +22,7 @@ import com.mgiandia.library.ui.composable.ActivitiesKt;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AddLoansActivity extends AppCompatActivity implements AddLoansView
+public class AddLoansActivity extends AbstractActivityObject implements AddLoansView
 {
     int selectedBookID;
     boolean bookChecked = false;
@@ -91,7 +95,7 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_loan);
 
-        AddLoanViewModel model = new ViewModelProvider(this).get(AddLoanViewModel.class);
+        AddLoanViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(AddLoanViewModel.class);
         AddLoansPresenter presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);
@@ -105,7 +109,7 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
             model.setBorrowerFullName(borrower.getFirstName() + " " + borrower.getLastName());
         }
 
-        model.getSelectedBookID().observe(this, value ->
+        model.getSelectedBookID().observe((LifecycleOwner) this, value ->
         {
             if (value != null)
             {

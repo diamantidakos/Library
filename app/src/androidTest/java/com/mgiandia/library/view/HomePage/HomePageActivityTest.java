@@ -3,26 +3,19 @@ package com.mgiandia.library.view.HomePage;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.hamcrest.core.IsNull.nullValue;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 
-import androidx.test.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
-import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.UiObjectNotFoundException;
-import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
 
-import com.mgiandia.library.R;
 import com.mgiandia.library.view.SystemTest;
 
 import org.junit.After;
@@ -30,24 +23,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
-
 
 @RunWith(AndroidJUnit4.class)
 public class HomePageActivityTest extends SystemTest
 {
-    private UiDevice mDevice;
-    private static final int LAUNCH_TIMEOUT = 5000;
-    public static String BASIC_SAMPLE_PACKAGE = "com.mgiandia.library";
+    private UiDevice mDevice = UiDevice.getInstance(getInstrumentation());;
+    private final int LAUNCH_TIMEOUT = super.launchTimeOut;
+    public final String BASIC_SAMPLE_PACKAGE = super.appPackage;
+    private HomePageActivityObject homePageActivityObject = new HomePageActivityObject(mDevice);
 
-    private HomePageActivityObject homePageActivityObject;
 
     @Before
     public void startMainActivityFromHomeScreen()
     {
-        // Initialize UiDevice instance
-        mDevice = UiDevice.getInstance(getInstrumentation());
-
         // Start from the home screen
         mDevice.pressHome();
 
@@ -67,10 +55,17 @@ public class HomePageActivityTest extends SystemTest
     }
 
     @After
-    public void tearDown(){
+    public void tearDown()
+    {
         mDevice.pressBack();
         mDevice.pressBack();
     }
+
+//    @After
+//    public void goBackToHomePage()
+//    {
+//        mDevice.pressHome();
+//    }
 
     @Test
     public void checkPreconditions()
@@ -79,92 +74,53 @@ public class HomePageActivityTest extends SystemTest
     }
 
     @Test
-    public void clickBorrowersButton() throws UiObjectNotFoundException {
-        // Type text and then press the button.
-        //mDevice.findObject(By.res(BASIC_SAMPLE_PACKAGE, "editTextUserInput")).setText(STRING_TO_BE_TYPED);
-        //mDevice.findObject(By.res(BASIC_SAMPLE_PACKAGE, new UiSelector().resourceId("com.mgiandia.library:id/btn_borrowers"))).click();
-        //mDevice.findObject(By.res(BASIC_SAMPLE_PACKAGE, "manage_borrowers")).click();
-
-        homePageActivityObject = new HomePageActivityObject(mDevice);
+    public void testBorrowersButtonClick() throws UiObjectNotFoundException
+    {
         homePageActivityObject.clickBorrowersButton();
         homePageActivityObject.verifyBorrowerVisible("Γιακουμάκης");
-
-
-//        UiObject2 borrowersButton = mDevice.wait(Until.findObject(By.text(getApplicationContext().getResources().getString(R.string.manage_borrowers))), LAUNCH_TIMEOUT);
-//        borrowersButton.click();
-//        assertThat(borrowersButton, notNullValue());
-        //mDevice.pressBack();
-
-        // Verify the test is displayed in the Ui
-        //UiObject2 changedText = mDevice.wait(Until.findObject(By.res(BASIC_SAMPLE_PACKAGE, "textToBeChanged")), 500);
-        //assertThat(changedText.getText(), is(equalTo(STRING_TO_BE_TYPED)));
     }
 
     @Test
-    public void clickBooksButton()
+    public void testBooksButtonClick() throws UiObjectNotFoundException
     {
-        UiObject2 booksBtn = mDevice.wait(Until.findObject(By.text(getApplicationContext().getResources().getString(R.string.manage_books))), LAUNCH_TIMEOUT);
-        booksBtn.click();
-        assertThat(booksBtn, notNullValue());
-        //mDevice.pressBack();
+        homePageActivityObject.clickBooksButton();
+        homePageActivityObject.verifyBookVisible("The Odyssey");
     }
 
     @Test
-    public void clickAuthorsButton()
+    public void testAuthorsButtonClick() throws UiObjectNotFoundException
     {
-        UiObject2 authorsBtn = mDevice.wait(Until.findObject(By.text(getApplicationContext().getResources().getString(R.string.manage_authors))), LAUNCH_TIMEOUT);
-        authorsBtn.click();
-        assertThat(authorsBtn, notNullValue());
-        //mDevice.pressBack();
+        homePageActivityObject.clickAuthorsButton();
+        homePageActivityObject.verifyAuthorVisible("Αβέρωφ");
     }
 
     @Test
-    public void clickLoansButton()
+    public void testLoansButtonClick() throws UiObjectNotFoundException
     {
-        UiObject2 loansBtn = mDevice.wait(Until.findObject(By.text(getApplicationContext().getResources().getString(R.string.manage_loans))), LAUNCH_TIMEOUT);
-        loansBtn.click();
-        assertThat(loansBtn, notNullValue());
-        //mDevice.pressBack();
+        homePageActivityObject.clickLoansButton();
+        homePageActivityObject.verifyLoanVisible("The Odyssey");
     }
 
     @Test
-    public void clickItemsButton()
+    public void testItemsButtonClick() throws UiObjectNotFoundException
     {
-        UiObject2 itemsBtn = mDevice.wait(Until.findObject(By.text(getApplicationContext().getResources().getString(R.string.manage_items))), LAUNCH_TIMEOUT);
-        itemsBtn.click();
-        assertThat(itemsBtn, notNullValue());
-        //mDevice.pressBack();
+        homePageActivityObject.clickItemsButton();
+        homePageActivityObject.verifyItemsVisible("Don Quixote");
     }
 
+//    @Test
+//    public void testReturnsButtonClick() throws UiObjectNotFoundException
+//    {
+//        homePageActivityObject.clickReturnsButton();
+//        homePageActivityObject.verifyReturnsVisible("Don Quixote");
+//    }
+
     @Test
-    public void clickReturnsButton()
+    public void testShowPublishersList() throws UiObjectNotFoundException
     {
-        UiObject2 returnsBtn = mDevice.wait(Until.findObject(By.text(getApplicationContext().getResources().getString(R.string.manage_returns))), LAUNCH_TIMEOUT);
-        returnsBtn.click();
-        assertThat(returnsBtn, notNullValue());
-        //mDevice.pressBack();
-    }
-
-    @Test
-    public void testShowPublishersList() throws UiObjectNotFoundException {
-        homePageActivityObject = new HomePageActivityObject(mDevice);
         homePageActivityObject.clickPublishersButton();
         homePageActivityObject.verifyPublisherVisible("McGraw-Hill Education");
     }
-
-    /*
-    @Test
-    public void testChangeText_newActivity()
-    {
-        // Type text and then press the button.
-        mDevice.findObject(By.res(BASIC_SAMPLE_PACKAGE, "editTextUserInput")).setText(STRING_TO_BE_TYPED);
-        mDevice.findObject(By.res(BASIC_SAMPLE_PACKAGE, "activityChangeTextBtn")).click();
-
-        // Verify the test is displayed in the Ui
-        UiObject2 changedText = mDevice.wait(Until.findObject(By.res(BASIC_SAMPLE_PACKAGE, "show_text_view")), 500);
-        assertThat(changedText.getText(), is(equalTo(STRING_TO_BE_TYPED)));
-    }
-    */
 
     /**
      * Uses package manager to find the package name of the device launcher. Usually this package

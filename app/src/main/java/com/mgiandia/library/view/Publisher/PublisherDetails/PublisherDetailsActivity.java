@@ -7,9 +7,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Publisher;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Book.ManageBooks.ManageBooksActivity;
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherActivity;
 import java.util.Objects;
@@ -20,7 +23,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class PublisherDetailsActivity extends AppCompatActivity implements PublisherDetailsView
+public class PublisherDetailsActivity extends AbstractActivityObject implements PublisherDetailsView
 {
     /**
      * Ξεκινάει το activity ManageBooksActivity
@@ -178,7 +181,7 @@ public class PublisherDetailsActivity extends AppCompatActivity implements Publi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publisher_details);
 
-        model = new ViewModelProvider(this).get(PublisherDetailsViewModel.class);
+        model = new ViewModelProvider((ViewModelStoreOwner) this).get(PublisherDetailsViewModel.class);
         presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);

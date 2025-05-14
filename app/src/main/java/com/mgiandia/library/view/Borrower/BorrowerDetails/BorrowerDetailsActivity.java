@@ -9,9 +9,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
 import java.util.Objects;
 
@@ -21,7 +24,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class BorrowerDetailsActivity extends AppCompatActivity implements BorrowerDetailsView
+public class BorrowerDetailsActivity extends AbstractActivityObject implements BorrowerDetailsView
 {
     /**
      * Ξεκινάει το activity AddEditAuthorActivity
@@ -207,7 +210,7 @@ public class BorrowerDetailsActivity extends AppCompatActivity implements Borrow
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrower_details);
 
-        model = new ViewModelProvider(this).get(BorrowerDetailsViewModel.class);
+        model = new ViewModelProvider((ViewModelStoreOwner) this).get(BorrowerDetailsViewModel.class);
         presenter = model.getPresenter(this);
 
         ComposeView composeView = findViewById(R.id.compose_view);

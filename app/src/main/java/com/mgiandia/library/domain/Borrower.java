@@ -204,7 +204,7 @@ public class Borrower  {
      * δανειζόμενος και δεν έχει επιστρέψει.
      * @return Ο αριθμός των αντιτύπων που δεν έχουν επιστραφεί.
      */
-    private int countPendingItems() {
+    public int countPendingItems() {
         int pendingItems = 0;
         for (Loan loan : loans) {
             if (loan.isPending()) {
