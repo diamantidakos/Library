@@ -22,7 +22,7 @@ import com.mgiandia.library.view.AbstractActivityObject;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AddLoansActivity extends AbstractActivityObject implements AddLoansView
+public class AddLoansActivity extends AppCompatActivity implements AddLoansView
 {
     int selectedBookID;
     boolean bookChecked = false;

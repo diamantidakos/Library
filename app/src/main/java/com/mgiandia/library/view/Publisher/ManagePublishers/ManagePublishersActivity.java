@@ -30,7 +30,7 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManagePublishersActivity extends AbstractActivityObject implements ManagePublishersView, SearchView.OnQueryTextListener
+public class ManagePublishersActivity extends AppCompatActivity implements ManagePublishersView, SearchView.OnQueryTextListener
 {
     ManagePublishersPresenter presenter;
 

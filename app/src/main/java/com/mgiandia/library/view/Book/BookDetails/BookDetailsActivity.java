@@ -34,7 +34,7 @@ import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class BookDetailsActivity extends AbstractActivityObject implements BookDetailsView
+public class BookDetailsActivity extends AppCompatActivity implements BookDetailsView
 {
     String bookID, bookTitle, publisher, ISBN, publication, year;
     List<String> authors, selectedAuthors;

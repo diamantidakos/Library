@@ -34,7 +34,7 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManageReturnsActivity extends AbstractActivityObject implements ManageReturnsView, SearchView.OnQueryTextListener
+public class ManageReturnsActivity extends AppCompatActivity implements ManageReturnsView, SearchView.OnQueryTextListener
 {
     private ManageReturnsPresenter presenter;
 

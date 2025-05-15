@@ -22,7 +22,7 @@ import com.mgiandia.library.view.AbstractActivityObject;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AddEditPublisherActivity extends AbstractActivityObject implements AddEditPublisherView
+public class AddEditPublisherActivity extends AppCompatActivity implements AddEditPublisherView
 {
     private String name, phone, email, city, street, number, zipCode;
     private int countryPosition;

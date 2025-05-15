@@ -22,7 +22,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AddEditAuthorActivity extends AbstractActivityObject implements AddEditAuthorView
+public class AddEditAuthorActivity extends AppCompatActivity implements AddEditAuthorView
 {
     private String firstName, lastName;
 

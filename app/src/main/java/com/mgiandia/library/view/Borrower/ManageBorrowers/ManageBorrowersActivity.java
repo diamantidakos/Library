@@ -32,7 +32,7 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManageBorrowersActivity extends AbstractActivityObject implements ManageBorrowersView, SearchView.OnQueryTextListener {
+public class ManageBorrowersActivity extends AppCompatActivity implements ManageBorrowersView, SearchView.OnQueryTextListener {
     ManageBorrowersPresenter presenter;
 
     private ListView itemListView;

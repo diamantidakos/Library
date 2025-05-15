@@ -24,7 +24,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AuthorDetailsActivity extends AbstractActivityObject implements AuthorDetailsView
+public class AuthorDetailsActivity extends AppCompatActivity implements AuthorDetailsView
 {
     private String firstName, lastName, booksWritten, ID;
 

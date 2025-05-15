@@ -31,41 +31,22 @@ public class HomePageActivityTest extends SystemTest
     private final int LAUNCH_TIMEOUT = super.launchTimeOut;
     public final String BASIC_SAMPLE_PACKAGE = super.appPackage;
     private HomePageActivityObject homePageActivityObject = new HomePageActivityObject(mDevice);
+    private Context context = getApplicationContext();
 
 
     @Before
     public void startMainActivityFromHomeScreen()
     {
-        // Start from the home screen
         mDevice.pressHome();
 
-        // Wait for launcher
-        final String launcherPackage = getLauncherPackageName();
-        assertThat(launcherPackage, notNullValue());
-        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)), LAUNCH_TIMEOUT);
-
-        // Launch the blueprint app
-        Context context = getApplicationContext();
-        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);    // Clear out any previous instances
+        final Intent intent = new Intent();
+        intent.setClassName(BASIC_SAMPLE_PACKAGE, BASIC_SAMPLE_PACKAGE + ".view.HomePage.HomePageActivity");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
 
-        // Wait for the app to appear
+        // Wait for activity to appear
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)), LAUNCH_TIMEOUT);
     }
-
-    @After
-    public void tearDown()
-    {
-        mDevice.pressBack();
-        mDevice.pressBack();
-    }
-
-//    @After
-//    public void goBackToHomePage()
-//    {
-//        mDevice.pressHome();
-//    }
 
     @Test
     public void checkPreconditions()

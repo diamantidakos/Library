@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -426,13 +427,13 @@ fun displayRow(labelRes: Int, viewModel: AddEditAuthorViewModel, label: String)
         {
             var title by remember { mutableStateOf(viewModel.firstName.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "firstNameField" })
         }
         else if (label == "surname")
         {
             var title by remember { mutableStateOf(viewModel.lastName.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "lastNameField" })
         }
     }
 }

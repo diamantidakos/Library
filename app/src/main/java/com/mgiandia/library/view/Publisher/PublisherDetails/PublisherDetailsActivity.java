@@ -23,7 +23,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class PublisherDetailsActivity extends AbstractActivityObject implements PublisherDetailsView
+public class PublisherDetailsActivity extends AppCompatActivity implements PublisherDetailsView
 {
     /**
      * Ξεκινάει το activity ManageBooksActivity

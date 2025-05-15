@@ -24,7 +24,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class BorrowerDetailsActivity extends AbstractActivityObject implements BorrowerDetailsView
+public class BorrowerDetailsActivity extends AppCompatActivity implements BorrowerDetailsView
 {
     /**
      * Ξεκινάει το activity AddEditAuthorActivity
