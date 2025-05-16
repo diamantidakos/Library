@@ -326,7 +326,7 @@ fun multiselectMenu(authorsList: List<String>, viewModel: AddEditBookViewModel)
             readOnly = true,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
-            modifier = Modifier.menuAnchor()
+            modifier = Modifier.menuAnchor().semantics { contentDescription = "authorsField" }
         )
 
         ExposedDropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false })
@@ -368,25 +368,25 @@ fun displayRow(labelRes: Int, viewModel: AddEditBookViewModel, label: String)
         {
             var title by remember { mutableStateOf(viewModel.title.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setTitle(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setTitle(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "titleField" })
         }
         else if (label == "isbn")
         {
             var isbn by remember { mutableStateOf(viewModel.isbn.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = isbn, singleLine = true, onValueChange = { isbn = it; viewModel.setISBN(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = isbn, singleLine = true, onValueChange = { isbn = it; viewModel.setISBN(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "isbnField" })
         }
         else if (label == "publication")
         {
             var publication by remember { mutableStateOf(viewModel.publication.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = publication, singleLine = true, onValueChange = { publication = it; viewModel.setPublication(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = publication, singleLine = true, onValueChange = { publication = it; viewModel.setPublication(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "publicationField" })
         }
         else if (label == "year")
         {
             var year by remember { mutableStateOf(viewModel.publicationYear.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = year, singleLine = true, onValueChange = { year = it; viewModel.setPublicationYear(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = year, singleLine = true, onValueChange = { year = it; viewModel.setPublicationYear(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "yearField" })
         }
     }
 }
@@ -464,43 +464,43 @@ fun displayRow(labelRes: Int, viewModel: AddEditPublisherViewModel, label : Stri
         {
             var title by remember { mutableStateOf(viewModel.name.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "name" })
         }
         else if (label == "phone")
         {
             var title by remember { mutableStateOf(viewModel.phone.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setPhone(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setPhone(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "phone" })
         }
         else if (label == "email")
         {
             var title by remember { mutableStateOf(viewModel.email.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setEmail(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setEmail(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "email" })
         }
         else if (label == "city")
         {
             var title by remember { mutableStateOf(viewModel.city.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "city" })
         }
         else if (label == "street")
         {
             var title by remember { mutableStateOf(viewModel.street.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setStreet(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setStreet(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "street" })
         }
         else if (label == "number")
         {
             var title by remember { mutableStateOf(viewModel.number.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setNumber(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setNumber(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "number" })
         }
         else if (label == "zip")
         {
             var title by remember { mutableStateOf(viewModel.zipCode.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setZipCode(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setZipCode(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "zip" })
         }
     }
 }
@@ -546,49 +546,49 @@ fun displayRow(labelRes: Int, viewModel: AddEditBorrowerViewModel, label : Strin
         {
             var title by remember { mutableStateOf(viewModel.firstName.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setFirstName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "firstName" })
         }
         else if (label == "surname")
         {
             var title by remember { mutableStateOf(viewModel.lastName.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setLastName(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "lastName" })
         }
         else if (label == "phone")
         {
             var title by remember { mutableStateOf(viewModel.phone.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setPhone(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setPhone(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "phone" })
         }
         else if (label == "email")
         {
             var title by remember { mutableStateOf(viewModel.email.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setEmail(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setEmail(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "email" })
         }
         else if (label == "city")
         {
             var title by remember { mutableStateOf(viewModel.city.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setCity(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "city" })
         }
         else if (label == "street")
         {
             var title by remember { mutableStateOf(viewModel.street.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setStreet(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setStreet(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "street" })
         }
         else if (label == "number")
         {
             var title by remember { mutableStateOf(viewModel.number.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setNumber(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setNumber(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "number" })
         }
         else if (label == "zip")
         {
             var title by remember { mutableStateOf(viewModel.zipCode.value ?: "") }
             Text(text = stringResource(id = labelRes), fontSize = 14.sp, modifier = Modifier.width(100.dp))
-            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setZipCode(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp))
+            TextField(value = title, singleLine = true, onValueChange = { title = it; viewModel.setZipCode(it) }, modifier = Modifier.fillMaxWidth().padding(start = 10.dp).semantics { contentDescription = "zip" })
         }
     }
 }

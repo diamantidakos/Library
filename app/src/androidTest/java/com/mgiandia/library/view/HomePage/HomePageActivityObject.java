@@ -85,20 +85,6 @@ public class HomePageActivityObject extends AbstractActivityObject
         assertTrue("Unable to detect Library App", libraryAppMainActivity.exists());
     }
 
-    public void getBackToHomePage()
-    {
-        mDevice.pressHome();
-    }
-
-    public void verifyHomePageVisible()
-    {
-        UiObject title = mDevice.findObject(
-                new UiSelector()
-                        .text(APP_NAME)
-                        .className(android.widget.TextView.class));
-        assertTrue(title.exists());
-    }
-
     public void verifyBorrowerVisible(String publisher)
     {
         UiObject publisherObj = mDevice.findObject(new UiSelector().textContains(publisher));

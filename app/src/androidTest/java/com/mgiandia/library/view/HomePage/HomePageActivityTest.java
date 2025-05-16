@@ -89,12 +89,12 @@ public class HomePageActivityTest extends SystemTest
         homePageActivityObject.verifyItemsVisible("Don Quixote");
     }
 
-//    @Test
-//    public void testReturnsButtonClick() throws UiObjectNotFoundException
-//    {
-//        homePageActivityObject.clickReturnsButton();
-//        homePageActivityObject.verifyReturnsVisible("Don Quixote");
-//    }
+    @Test
+    public void testReturnsButtonClick() throws UiObjectNotFoundException
+    {
+        homePageActivityObject.clickReturnsButton();
+        homePageActivityObject.verifyReturnsVisible("Don Quixote");
+    }
 
     @Test
     public void testShowPublishersList() throws UiObjectNotFoundException
