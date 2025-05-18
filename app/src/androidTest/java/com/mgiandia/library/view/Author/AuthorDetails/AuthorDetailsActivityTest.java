@@ -26,7 +26,7 @@ public class AuthorDetailsActivityTest extends SystemTest
     private UiDevice mDevice = UiDevice.getInstance(getInstrumentation());;
     private final int LAUNCH_TIMEOUT = super.launchTimeOut;
     public final String BASIC_SAMPLE_PACKAGE = super.appPackage;
-    private AuthorDetailsActivityObject addEditAuthorActivityObject = new AuthorDetailsActivityObject(mDevice);
+    private AuthorDetailsActivityObject authorDetailsActivityObject = new AuthorDetailsActivityObject(mDevice);
     private Context context = getApplicationContext();
 
 
@@ -54,13 +54,17 @@ public class AuthorDetailsActivityTest extends SystemTest
     @Test
     public void testEditUserButtonClick() throws UiObjectNotFoundException
     {
-        addEditAuthorActivityObject.clickEditButton();
+        authorDetailsActivityObject.clickEditButton();
+        authorDetailsActivityObject.changeSurname();
+        authorDetailsActivityObject.clickSaveButton();
+        authorDetailsActivityObject.verifyAuthorIsVisible();
     }
 
     @Test
     public void testShowBooksButtonClick() throws UiObjectNotFoundException
     {
-        addEditAuthorActivityObject.clickAppearBooksButton();
+        authorDetailsActivityObject.clickAppearBooksButton();
+        authorDetailsActivityObject.verifyBookIsVisible();
     }
 
     /**

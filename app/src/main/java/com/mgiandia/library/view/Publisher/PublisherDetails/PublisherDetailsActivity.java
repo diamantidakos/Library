@@ -14,6 +14,8 @@ import com.mgiandia.library.domain.Publisher;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.view.Book.ManageBooks.ManageBooksActivity;
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherActivity;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
+
 import java.util.Objects;
 
 /**
@@ -22,7 +24,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class PublisherDetailsActivity extends AppCompatActivity implements PublisherDetailsView
+public class PublisherDetailsActivity extends AbstractLibraryActivity implements PublisherDetailsView
 {
     /**
      * Ξεκινάει το activity ManageBooksActivity

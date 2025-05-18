@@ -45,7 +45,7 @@ public class AddEditAuthorActivityTest extends SystemTest
 
         // Launch the app directly to the Add/Edit Author screen
         final Intent intent = new Intent();
-        intent.setClassName(BASIC_SAMPLE_PACKAGE, BASIC_SAMPLE_PACKAGE + ".view.Author.AddEditAuthor.AddEditAuthorActivity");
+        intent.setClassName(BASIC_SAMPLE_PACKAGE, BASIC_SAMPLE_PACKAGE + ".view.HomePage.HomePageActivity");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
 
@@ -62,9 +62,11 @@ public class AddEditAuthorActivityTest extends SystemTest
     @Test
     public void testAddNewAuthor() throws UiObjectNotFoundException
     {
+        addEditAuthorActivityObject.navigateToScreen();
         addEditAuthorActivityObject.fillFirstNameField();
         addEditAuthorActivityObject.fillLastNameField();
         addEditAuthorActivityObject.clickSaveButton();
+        addEditAuthorActivityObject.verifyNewAuthorIsVisible();
     }
 
     /**

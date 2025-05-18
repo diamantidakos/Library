@@ -15,6 +15,8 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
+
 import java.util.Objects;
 
 /**
@@ -23,7 +25,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class BorrowerDetailsActivity extends AppCompatActivity implements BorrowerDetailsView
+public class BorrowerDetailsActivity extends AbstractLibraryActivity implements BorrowerDetailsView
 {
     /**
      * Ξεκινάει το activity AddEditAuthorActivity

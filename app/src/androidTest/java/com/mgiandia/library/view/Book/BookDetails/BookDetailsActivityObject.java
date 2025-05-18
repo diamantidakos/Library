@@ -79,4 +79,24 @@ public class BookDetailsActivityObject extends AbstractActivityObject
         saveBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
+
+    public void changeISBN() throws UiObjectNotFoundException
+    {
+        UiObject isbnField = mDevice.findObject(new UiSelector().description("isbnField"));
+        isbnField.clearTextField();
+        isbnField.setText("5555");
+    }
+
+    public void clickSaveButton() throws UiObjectNotFoundException
+    {
+        UiObject saveBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.complete_registration)));
+        saveBtn.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+    }
+
+    public void verifyBookIsVisible()
+    {
+        UiObject bookObj = mDevice.findObject(new UiSelector().textContains("The Odyssey"));
+        assertTrue(bookObj.exists());
+    }
 }

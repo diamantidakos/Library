@@ -65,6 +65,17 @@ public class AddEditAuthorActivityObject extends AbstractActivityObject
         assertTrue("Unable to detect Library App", libraryAppAddEditAuthorActivity.exists());
     }
 
+    public void navigateToScreen() throws UiObjectNotFoundException
+    {
+        UiObject booksBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_authors)));
+        booksBtn.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+
+        UiObject newBookBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.add_new_item)));
+        newBookBtn.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+    }
+
     public void fillFirstNameField() throws UiObjectNotFoundException
     {
         UiObject firstNameField = mDevice.findObject(new UiSelector().description("firstNameField"));
@@ -84,5 +95,11 @@ public class AddEditAuthorActivityObject extends AbstractActivityObject
         UiObject saveBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.complete_registration)));
         saveBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
+    }
+
+    public void verifyNewAuthorIsVisible()
+    {
+        UiObject authorObj = mDevice.findObject(new UiSelector().textContains("LastName"));
+        assertTrue(authorObj.exists());
     }
 }

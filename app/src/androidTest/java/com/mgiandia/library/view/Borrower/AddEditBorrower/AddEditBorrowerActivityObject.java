@@ -138,4 +138,10 @@ public class AddEditBorrowerActivityObject extends AbstractActivityObject
         saveBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
+
+    public void verifyNewBorrowerIsVisible()
+    {
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("LastName"));
+        assertTrue(borrowerObj.exists());
+    }
 }

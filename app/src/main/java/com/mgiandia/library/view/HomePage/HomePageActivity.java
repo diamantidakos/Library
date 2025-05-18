@@ -17,13 +17,15 @@ import com.mgiandia.library.view.Author.ManageAuthors.ManageAuthorsActivity;
 import com.mgiandia.library.view.Book.ManageBooks.ManageBooksActivity;
 import com.mgiandia.library.view.Borrower.ManageBorrowers.ManageBorrowersActivity;
 import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersActivity;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 
 /**
  * @author Νίκος Σαραντινός
  * <p>
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  */
-public class HomePageActivity extends AppCompatActivity implements HomePageView {
+public class HomePageActivity extends AbstractLibraryActivity implements HomePageView
+{
     private static boolean initialized = false;
 
     /**

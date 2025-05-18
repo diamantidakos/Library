@@ -60,7 +60,9 @@ public class AddEditBookActivityTest extends SystemTest
         addEditBookActivityObject.fillPublicationField();
         addEditBookActivityObject.fillYearField();
         addEditBookActivityObject.fillAuthorsField();
+        addEditBookActivityObject.scrollToBottom();
         addEditBookActivityObject.clickSaveButton();
+        addEditBookActivityObject.verifyNewBookIsVisible();
     }
 
     /**

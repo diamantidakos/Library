@@ -14,6 +14,7 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.Objects;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AddEditBookActivity extends AppCompatActivity implements AddEditBookView
+public class AddEditBookActivity extends AbstractLibraryActivity implements AddEditBookView
 {
     private AddEditBookViewModel model;
     private String bookTitle, publisher, ISBN, publication, publicationYear;

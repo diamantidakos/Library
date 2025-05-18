@@ -65,28 +65,67 @@ public class PublisherDetailsActivityObject extends AbstractActivityObject
         assertTrue("Unable to detect Library App", libraryPublisherDetailsActivity.exists());
     }
 
-    public void navigateToScreen() throws UiObjectNotFoundException
+    private void navigateToScreen() throws UiObjectNotFoundException
     {
         UiObject booksBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_publishers)));
         booksBtn.clickAndWaitForNewWindow();
-        mDevice.waitForIdle();
-
-        UiObject newBookBtn = mDevice.findObject(new UiSelector().textContains("Addison Wesley"));
-        newBookBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
 
     public void clickEditButton() throws UiObjectNotFoundException
     {
+        navigateToScreen();
+
+        UiObject newBookBtn = mDevice.findObject(new UiSelector().textContains("Addison Wesley"));
+        newBookBtn.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+
+        super.scrollToBottom();
+
         UiObject saveBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.edit_user)));
         saveBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
 
+    public void changeName() throws UiObjectNotFoundException
+    {
+        UiObject nameField = mDevice.findObject(new UiSelector().description("name"));
+        nameField.clearTextField();
+        nameField.setText("Name");
+    }
+
+    public void clickSaveButton() throws UiObjectNotFoundException
+    {
+        UiObject saveBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.complete_registration)));
+        saveBtn.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+    }
+
+    public void verifyPublisherVisible()
+    {
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("Name"));
+        assertTrue(borrowerObj.exists());
+    }
+
     public void clickShowBooksButton() throws UiObjectNotFoundException
     {
+        navigateToScreen();
+
+        UiObject newBookBtn = mDevice.findObject(new UiSelector().textContains("McGraw-Hill Education"));
+        newBookBtn.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+
+        UiScrollable scrollView = new UiScrollable(new UiSelector().scrollable(true));
+        scrollView.scrollForward();
+
         UiObject saveBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.show_books)));
         saveBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
+    }
+
+    public void verifyBooksVisible()
+    {
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("The Odyssey"));
+        assertTrue(borrowerObj.exists());
     }
 }

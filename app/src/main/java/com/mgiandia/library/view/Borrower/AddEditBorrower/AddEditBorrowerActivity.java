@@ -14,6 +14,7 @@ import java.util.Objects;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 
 /**
  * @author Νίκος Σαραντινός
@@ -21,7 +22,7 @@ import com.mgiandia.library.ui.composable.ActivitiesKt;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class AddEditBorrowerActivity extends AppCompatActivity implements AddEditBorrowerView
+public class AddEditBorrowerActivity extends AbstractLibraryActivity implements AddEditBorrowerView
 {
     private String firstName, lastName, phone, email, city, street, number, zipCode;
     private int userTypePosition, countryPosition;

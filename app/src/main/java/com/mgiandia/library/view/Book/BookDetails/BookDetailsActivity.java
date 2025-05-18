@@ -25,6 +25,7 @@ import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 
 /**
  * @author Νίκος Σαραντινός
@@ -32,7 +33,7 @@ import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class BookDetailsActivity extends AppCompatActivity implements BookDetailsView
+public class BookDetailsActivity extends AbstractLibraryActivity implements BookDetailsView
 {
     String bookID, bookTitle, publisher, ISBN, publication, year;
     List<String> authors, selectedAuthors;

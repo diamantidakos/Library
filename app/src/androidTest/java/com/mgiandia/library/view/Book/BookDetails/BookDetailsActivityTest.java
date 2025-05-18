@@ -55,6 +55,10 @@ public class BookDetailsActivityTest extends SystemTest
     public void testBookDetailsScreen() throws UiObjectNotFoundException
     {
         bookDetailsActivityObject.clickEditButton();
+        bookDetailsActivityObject.changeISBN();
+        bookDetailsActivityObject.scrollToBottom();
+        bookDetailsActivityObject.clickSaveButton();
+        bookDetailsActivityObject.verifyBookIsVisible();
     }
 
     /**

@@ -21,6 +21,7 @@ import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherActivity;
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsActivity;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
 /**
@@ -29,7 +30,7 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManagePublishersActivity extends AppCompatActivity implements ManagePublishersView, SearchView.OnQueryTextListener
+public class ManagePublishersActivity extends AbstractLibraryActivity implements ManagePublishersView, SearchView.OnQueryTextListener
 {
     ManagePublishersPresenter presenter;
 

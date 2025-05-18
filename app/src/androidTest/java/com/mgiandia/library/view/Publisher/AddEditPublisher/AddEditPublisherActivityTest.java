@@ -64,6 +64,7 @@ public class AddEditPublisherActivityTest extends SystemTest
         addEditPublisherActivityObject.scrollToBottom();
         addEditPublisherActivityObject.fillZipCodeField();
         addEditPublisherActivityObject.clickSaveButton();
+        addEditPublisherActivityObject.verifyNewPublisherIsVisible();
     }
 
     /**

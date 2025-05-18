@@ -54,17 +54,18 @@ public class BorrowerDetailsActivityTest extends SystemTest
     @Test
     public void testEditBorrower() throws UiObjectNotFoundException
     {
-        borrowerDetailsActivityObject.navigateToScreen();
-        borrowerDetailsActivityObject.scrollToBottom();
         borrowerDetailsActivityObject.clickEditButton();
+        borrowerDetailsActivityObject.changeSurname();
+        borrowerDetailsActivityObject.scrollToBottom();
+        borrowerDetailsActivityObject.clickSaveButton();
+        borrowerDetailsActivityObject.verifyBorrowerVisible();
     }
 
     @Test
     public void testDeleteBorrower() throws UiObjectNotFoundException
     {
-        borrowerDetailsActivityObject.navigateToScreen();
-        borrowerDetailsActivityObject.scrollToBottom();
         borrowerDetailsActivityObject.clickDeleteButton();
+        borrowerDetailsActivityObject.verifyBorrowerNotVisible();
     }
 
     /**

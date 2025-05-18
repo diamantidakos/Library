@@ -20,6 +20,7 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
 /**
@@ -28,7 +29,7 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManageItemsActivity extends AppCompatActivity implements ManageItemsView, SearchView.OnQueryTextListener
+public class ManageItemsActivity extends AbstractLibraryActivity implements ManageItemsView, SearchView.OnQueryTextListener
 {
     private ManageItemsPresenter presenter;
 

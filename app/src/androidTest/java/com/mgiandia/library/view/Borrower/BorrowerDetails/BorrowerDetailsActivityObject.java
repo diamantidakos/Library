@@ -1,5 +1,6 @@
 package com.mgiandia.library.view.Borrower.BorrowerDetails;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
@@ -65,28 +66,66 @@ public class BorrowerDetailsActivityObject extends AbstractActivityObject
         assertTrue("Unable to detect Library App", libraryBorrowerDetailsActivity.exists());
     }
 
-    public void navigateToScreen() throws UiObjectNotFoundException
+    private void navigateToScreen() throws UiObjectNotFoundException
     {
         UiObject borrowersBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_borrowers)));
         borrowersBtn.clickAndWaitForNewWindow();
-        mDevice.waitForIdle();
-
-        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("Ακρίδας"));
-        borrowerObj.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
 
     public void clickEditButton() throws UiObjectNotFoundException
     {
+        navigateToScreen();
+
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("Ακρίδας"));
+        borrowerObj.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+
+        super.scrollToBottom();
+
         UiObject saveBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.edit_user)));
         saveBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
 
+    public void changeSurname() throws UiObjectNotFoundException
+    {
+        UiObject lastNameField = mDevice.findObject(new UiSelector().description("lastName"));
+        lastNameField.clearTextField();
+        lastNameField.setText("LastName");
+    }
+
+    public void clickSaveButton() throws UiObjectNotFoundException
+    {
+        UiObject saveBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.complete_registration)));
+        saveBtn.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+    }
+
+    public void verifyBorrowerVisible()
+    {
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("LastName"));
+        assertTrue(borrowerObj.exists());
+    }
+
     public void clickDeleteButton() throws UiObjectNotFoundException
     {
+        navigateToScreen();
+
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("Λύτρου"));
+        borrowerObj.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+
+        super.scrollToBottom();
+
         UiObject saveBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.delete_user)));
         saveBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
+    }
+
+    public void verifyBorrowerNotVisible()
+    {
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("Λύτρου"));
+        assertFalse(borrowerObj.exists());
     }
 }

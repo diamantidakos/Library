@@ -131,4 +131,10 @@ public class AddEditPublisherActivityObject extends AbstractActivityObject
         saveBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
+
+    public void verifyNewPublisherIsVisible()
+    {
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("Name"));
+        assertTrue(borrowerObj.exists());
+    }
 }

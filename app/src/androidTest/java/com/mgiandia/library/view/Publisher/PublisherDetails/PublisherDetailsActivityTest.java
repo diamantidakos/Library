@@ -54,17 +54,18 @@ public class PublisherDetailsActivityTest extends SystemTest
     @Test
     public void testClickEditButton() throws UiObjectNotFoundException
     {
-        publisherDetailsActivityObject.navigateToScreen();
-        publisherDetailsActivityObject.scrollToBottom();
         publisherDetailsActivityObject.clickEditButton();
+        publisherDetailsActivityObject.changeName();
+        publisherDetailsActivityObject.scrollToBottom();
+        publisherDetailsActivityObject.clickSaveButton();
+        publisherDetailsActivityObject.verifyPublisherVisible();
     }
 
     @Test
     public void testClickAppearBooksButton() throws UiObjectNotFoundException
     {
-        publisherDetailsActivityObject.navigateToScreen();
-        publisherDetailsActivityObject.scrollToBottom();
         publisherDetailsActivityObject.clickShowBooksButton();
+        publisherDetailsActivityObject.verifyBooksVisible();
     }
 
     /**

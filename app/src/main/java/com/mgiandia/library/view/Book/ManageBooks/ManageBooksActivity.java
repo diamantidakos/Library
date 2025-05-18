@@ -23,6 +23,7 @@ import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
 import com.mgiandia.library.view.Book.BookDetails.BookDetailsActivity;
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsActivity;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
 /**
@@ -31,7 +32,7 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-public class ManageBooksActivity extends AppCompatActivity implements ManageBooksView, SearchView.OnQueryTextListener
+public class ManageBooksActivity extends AbstractLibraryActivity implements ManageBooksView, SearchView.OnQueryTextListener
 {
     ManageBooksPresenter presenter;
     private ListView itemListView;

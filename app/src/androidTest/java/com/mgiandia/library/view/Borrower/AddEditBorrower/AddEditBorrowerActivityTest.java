@@ -65,6 +65,8 @@ public class AddEditBorrowerActivityTest extends SystemTest
         addEditBorrowerActivityObject.fillNumberField();
         addEditBorrowerActivityObject.fillZipCodeField();
         addEditBorrowerActivityObject.clickSaveButton();
+        addEditBorrowerActivityObject.scrollToBottom();
+        addEditBorrowerActivityObject.verifyNewBorrowerIsVisible();
     }
 
     /**

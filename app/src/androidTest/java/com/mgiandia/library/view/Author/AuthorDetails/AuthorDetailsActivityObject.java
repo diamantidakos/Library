@@ -80,18 +80,44 @@ public class AuthorDetailsActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
+    public void changeSurname() throws UiObjectNotFoundException
+    {
+        UiObject lastNameField = mDevice.findObject(new UiSelector().description("lastNameField"));
+        lastNameField.clearTextField();
+        lastNameField.setText("LastName");
+    }
+
+    public void clickSaveButton() throws UiObjectNotFoundException
+    {
+        UiObject saveBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.complete_registration)));
+        saveBtn.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+    }
+
+    public void verifyAuthorIsVisible()
+    {
+        UiObject authorObj = mDevice.findObject(new UiSelector().textContains("LastName"));
+        assertTrue(authorObj.exists());
+    }
+
     public void clickAppearBooksButton() throws UiObjectNotFoundException
     {
         UiObject authorsBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_authors)));
         authorsBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
 
-        UiObject authorObj = mDevice.findObject(new UiSelector().textContains("Αβέρωφ"));
+        UiObject authorObj = mDevice.findObject(new UiSelector().textContains("Γεωργιάδης"));
         authorObj.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
 
         UiObject saveBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.show_books)));
         saveBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
+    }
+
+    public void verifyBookIsVisible()
+    {
+        UiObject bookObj = mDevice.findObject(new UiSelector().textContains("Don Quixote"));
+        assertTrue(bookObj.exists());
     }
 }

@@ -121,4 +121,10 @@ public class AddEditBookActivityObject extends AbstractActivityObject
         saveBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
+
+    public void verifyNewBookIsVisible()
+    {
+        UiObject bookObj = mDevice.findObject(new UiSelector().textContains("Title"));
+        assertTrue(bookObj.exists());
+    }
 }
