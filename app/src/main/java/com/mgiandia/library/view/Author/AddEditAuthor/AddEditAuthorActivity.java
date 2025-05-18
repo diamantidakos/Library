@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
-import com.mgiandia.library.view.AbstractActivityObject;
 
 import java.util.Objects;
 

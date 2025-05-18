@@ -21,7 +21,6 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Loan;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
-import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Loans.AddLoan.AddLoansActivity;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 

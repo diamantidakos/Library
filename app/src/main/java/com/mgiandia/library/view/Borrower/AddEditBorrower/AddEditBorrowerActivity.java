@@ -14,7 +14,6 @@ import java.util.Objects;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
-import com.mgiandia.library.view.AbstractActivityObject;
 
 /**
  * @author Νίκος Σαραντινός

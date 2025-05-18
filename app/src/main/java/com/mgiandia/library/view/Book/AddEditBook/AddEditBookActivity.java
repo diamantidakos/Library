@@ -3,7 +3,7 @@ package com.mgiandia.library.view.Book.AddEditBook;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.LifecycleOwner;
@@ -14,7 +14,6 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
-import com.mgiandia.library.view.AbstractActivityObject;
 
 import java.util.ArrayList;
 import java.util.List;

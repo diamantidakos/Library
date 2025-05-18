@@ -19,7 +19,6 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Publisher;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
-import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherActivity;
 import com.mgiandia.library.view.Publisher.PublisherDetails.PublisherDetailsActivity;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;

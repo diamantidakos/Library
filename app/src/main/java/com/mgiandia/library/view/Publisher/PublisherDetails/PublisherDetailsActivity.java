@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Publisher;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
-import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Book.ManageBooks.ManageBooksActivity;
 import com.mgiandia.library.view.Publisher.AddPublisher.AddEditPublisherActivity;
 import java.util.Objects;

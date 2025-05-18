@@ -12,7 +12,6 @@ import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 
 import com.mgiandia.library.R;
-import com.mgiandia.library.view.AbstractActivityObject;
 
 import org.junit.Before;
 

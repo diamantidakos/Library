@@ -1,17 +1,14 @@
 package com.mgiandia.library.view.Returns.ManageReturns;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.LifecycleOwner;
@@ -25,7 +22,6 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Loan;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
-import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
 /**

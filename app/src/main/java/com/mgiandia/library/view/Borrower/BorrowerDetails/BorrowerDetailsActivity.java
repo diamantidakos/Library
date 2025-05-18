@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
-import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
 import java.util.Objects;
 

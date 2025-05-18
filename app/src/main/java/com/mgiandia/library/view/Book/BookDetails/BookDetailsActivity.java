@@ -8,7 +8,7 @@ import android.view.Gravity;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,15 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
+
 import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Author;
 import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
-import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
-import com.mgiandia.library.view.Book.AddEditBook.AddEditBookViewModel;
 
 /**
  * @author Νίκος Σαραντινός

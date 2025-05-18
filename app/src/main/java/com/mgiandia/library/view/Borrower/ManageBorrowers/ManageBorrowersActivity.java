@@ -19,7 +19,6 @@ import com.mgiandia.library.R;
 import com.mgiandia.library.domain.Borrower;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
-import com.mgiandia.library.view.AbstractActivityObject;
 import com.mgiandia.library.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
 import com.mgiandia.library.view.Borrower.BorrowerDetails.BorrowerDetailsActivity;
 import com.mgiandia.library.view.Loans.ManageLoans.ManageLoansActivity;
