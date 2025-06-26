@@ -33,12 +33,12 @@ public class HomePageActivityTest extends SystemTest
     private HomePageActivityObject homePageActivityObject = new HomePageActivityObject(mDevice);
     private Context context = getApplicationContext();
 
-
     @Before
     public void startMainActivityFromHomeScreen()
     {
         mDevice.pressHome();
 
+        // Launch the app from the home page
         final Intent intent = new Intent();
         intent.setClassName(BASIC_SAMPLE_PACKAGE, BASIC_SAMPLE_PACKAGE + ".view.HomePage.HomePageActivity");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -72,20 +72,20 @@ public class HomePageActivityTest extends SystemTest
     public void testAuthorsButtonClick() throws UiObjectNotFoundException
     {
         homePageActivityObject.clickAuthorsButton();
-        homePageActivityObject.verifyAuthorVisible("Αβέρωφ");
+        homePageActivityObject.verifyAuthorVisible("Βυζάντιος");
     }
 
     @Test
     public void testLoansButtonClick() throws UiObjectNotFoundException
     {
-        homePageActivityObject.clickLoansButton();
-        homePageActivityObject.verifyLoanVisible("The Odyssey");
+        homePageActivityObject.clickLoansButton("Δραγούμης");
+        homePageActivityObject.verifyLoanVisible("Don Quixote");
     }
 
     @Test
     public void testItemsButtonClick() throws UiObjectNotFoundException
     {
-        homePageActivityObject.clickItemsButton();
+        homePageActivityObject.clickItemsButton("Don Quixote");
         homePageActivityObject.verifyItemsVisible("Don Quixote");
     }
 
@@ -102,44 +102,4 @@ public class HomePageActivityTest extends SystemTest
         homePageActivityObject.clickPublishersButton();
         homePageActivityObject.verifyPublisherVisible("McGraw-Hill Education");
     }
-
-    /**
-     * Uses package manager to find the package name of the device launcher. Usually this package
-     * is "com.android.launcher" but can be different at times. This is a generic solution which
-     * works on all platforms.`
-     */
-    private String getLauncherPackageName()
-    {
-        // Create launcher Intent
-        final Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-
-        // Use PackageManager to get the launcher package name
-        PackageManager pm = getApplicationContext().getPackageManager();
-        ResolveInfo resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return resolveInfo.activityInfo.packageName;
-    }
-
-
-    /*
-    @Before
-    public void setUp() throws Exception
-    {
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        homePage = new HomePageActivityObject(mDevice);
-        homePage.navigateToApp();
-    }
-
-    @Test
-    public void testBorrowersButtonNavigation() throws Exception
-    {
-        homePage.verifyHomePageVisible();
-        homePage.clickBorrowersButton();
-        UiObject borrowersTitle = mDevice
-                .findObject(
-                        new UiSelector()
-                                .text(context.getString(R.string.manage_borrowers)));
-        assertTrue(borrowersTitle.exists());
-    }
-    */
 }

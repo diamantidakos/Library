@@ -35,7 +35,7 @@ public class AddEditBorrowerActivityTest extends SystemTest
     {
         mDevice.pressHome();
 
-        // Launch the app directly to the Add/Edit Author screen
+        // Launch the app from the home page
         final Intent intent = new Intent();
         intent.setClassName(BASIC_SAMPLE_PACKAGE, BASIC_SAMPLE_PACKAGE + ".view.HomePage.HomePageActivity");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -55,34 +55,17 @@ public class AddEditBorrowerActivityTest extends SystemTest
     public void testAddEditBorrower() throws UiObjectNotFoundException
     {
         addEditBorrowerActivityObject.navigateToScreen();
-        addEditBorrowerActivityObject.fillFirstNameField();
-        addEditBorrowerActivityObject.fillLastNameField();
-        addEditBorrowerActivityObject.fillPhoneField();
-        addEditBorrowerActivityObject.fillEmailField();
-        addEditBorrowerActivityObject.fillCityField();
+        addEditBorrowerActivityObject.fillFirstNameField("FirstName");
+        addEditBorrowerActivityObject.fillLastNameField("LastName");
+        addEditBorrowerActivityObject.fillPhoneField("6900000000");
+        addEditBorrowerActivityObject.fillEmailField("email@gmail.com");
+        addEditBorrowerActivityObject.fillCityField("Athens");
         addEditBorrowerActivityObject.scrollToBottom();
-        addEditBorrowerActivityObject.fillStreetField();
-        addEditBorrowerActivityObject.fillNumberField();
-        addEditBorrowerActivityObject.fillZipCodeField();
+        addEditBorrowerActivityObject.fillStreetField("Street");
+        addEditBorrowerActivityObject.fillNumberField("10");
+        addEditBorrowerActivityObject.fillZipCodeField("11632");
         addEditBorrowerActivityObject.clickSaveButton();
         addEditBorrowerActivityObject.scrollToBottom();
-        addEditBorrowerActivityObject.verifyNewBorrowerIsVisible();
-    }
-
-    /**
-     * Uses package manager to find the package name of the device launcher. Usually this package
-     * is "com.android.launcher" but can be different at times. This is a generic solution which
-     * works on all platforms.`
-     */
-    private String getLauncherPackageName()
-    {
-        // Create launcher Intent
-        final Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-
-        // Use PackageManager to get the launcher package name
-        PackageManager pm = getApplicationContext().getPackageManager();
-        ResolveInfo resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return resolveInfo.activityInfo.packageName;
+        addEditBorrowerActivityObject.verifyNewBorrowerIsVisible("LastName");
     }
 }

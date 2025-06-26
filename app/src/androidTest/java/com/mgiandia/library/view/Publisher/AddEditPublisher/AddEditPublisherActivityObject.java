@@ -22,7 +22,6 @@ public class AddEditPublisherActivityObject extends AbstractActivityObject
     private final String APP_NAME = super.appName;
     public final String APP_PACKAGE = super.appPackage;
     private UiDevice mDevice;
-    UiObject libraryAddEditPublisherActivity;
 
     public AddEditPublisherActivityObject(UiDevice mDevice)
     {
@@ -34,40 +33,13 @@ public class AddEditPublisherActivityObject extends AbstractActivityObject
         return APP_NAME;
     }
 
-    @Before
-    public void setUp() throws Exception {
-        navigateToApp();
-    }
-
-    public void navigateToApp() throws UiObjectNotFoundException
-    {
-        // Simulate a short press on the HOME button.
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        mDevice.pressHome();
-
-        // Bring up the All Apps screen (requires English locale)
-        UiObject allAppsButton = null;
-        allAppsButton = mDevice.findObject(new UiSelector().text("Apps"));
-
-        // In some devices "Apps" is part of contentDescription
-        if (!allAppsButton.exists()) {
-            UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
-            appViews.swipeUp(10);
-        }
-
-        // Create a UiSelector to find the Library app and simulate
-        // a user click to launch the app.
-        UiObject libraryApp = mDevice.findObject(new UiSelector().className(android.widget.TextView.class.getName()).text(APP_NAME));
-        libraryApp.clickAndWaitForNewWindow();
-
-        // Validate that the package name is the expected one
-        libraryAddEditPublisherActivity = mDevice.findObject(new UiSelector().packageName(APP_PACKAGE));
-        assertTrue("Unable to detect Library App", libraryAddEditPublisherActivity.exists());
-    }
-
     public void navigateToScreen() throws UiObjectNotFoundException
     {
         UiObject booksBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_publishers)));
+        if (!booksBtn.exists())
+        {
+            mDevice.pressBack();
+        }
         booksBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
 
@@ -76,53 +48,53 @@ public class AddEditPublisherActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
-    public void fillNameField() throws UiObjectNotFoundException
+    public void fillNameField(String name) throws UiObjectNotFoundException
     {
         UiObject nameField = mDevice.findObject(new UiSelector().description("name"));
         nameField.clearTextField();
-        nameField.setText("Name");
+        nameField.setText(name);
     }
 
-    public void fillPhoneField() throws UiObjectNotFoundException
+    public void fillPhoneField(String phone) throws UiObjectNotFoundException
     {
         UiObject phoneField = mDevice.findObject(new UiSelector().description("phone"));
         phoneField.clearTextField();
-        phoneField.setText("6974338842");
+        phoneField.setText(phone);
     }
 
-    public void fillEmailField() throws UiObjectNotFoundException
+    public void fillEmailField(String email) throws UiObjectNotFoundException
     {
         UiObject emailField = mDevice.findObject(new UiSelector().description("email"));
         emailField.clearTextField();
-        emailField.setText("email@gmail.com");
+        emailField.setText(email);
     }
 
-    public void fillCityField() throws UiObjectNotFoundException
+    public void fillCityField(String city) throws UiObjectNotFoundException
     {
         UiObject cityField = mDevice.findObject(new UiSelector().description("city"));
         cityField.clearTextField();
-        cityField.setText("Athens");
+        cityField.setText(city);
     }
 
-    public void fillStreetField() throws UiObjectNotFoundException
+    public void fillStreetField(String street) throws UiObjectNotFoundException
     {
         UiObject streetField = mDevice.findObject(new UiSelector().description("street"));
         streetField.clearTextField();
-        streetField.setText("Street");
+        streetField.setText(street);
     }
 
-    public void fillNumberField() throws UiObjectNotFoundException
+    public void fillNumberField(String number) throws UiObjectNotFoundException
     {
         UiObject numberField = mDevice.findObject(new UiSelector().description("number"));
         numberField.clearTextField();
-        numberField.setText("10");
+        numberField.setText(number);
     }
 
-    public void fillZipCodeField() throws UiObjectNotFoundException
+    public void fillZipCodeField(String zipCode) throws UiObjectNotFoundException
     {
         UiObject zipField = mDevice.findObject(new UiSelector().description("zip"));
         zipField.clearTextField();
-        zipField.setText("11632");
+        zipField.setText(zipCode);
     }
 
     public void clickSaveButton() throws UiObjectNotFoundException
@@ -132,9 +104,9 @@ public class AddEditPublisherActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
-    public void verifyNewPublisherIsVisible()
+    public void verifyNewPublisherIsVisible(String name)
     {
-        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("Name"));
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains(name));
         assertTrue(borrowerObj.exists());
     }
 }

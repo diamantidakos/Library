@@ -1,42 +1,30 @@
-package com.mgiandia.library.view.Author.AddEditAuthor;
+package com.mgiandia.library.view.Loans.ManageLoans;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsNull.notNullValue;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
-import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
-import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
 
-import com.mgiandia.library.R;
-import com.mgiandia.library.view.HomePage.HomePageActivityObject;
 import com.mgiandia.library.view.SystemTest;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-
-@RunWith(AndroidJUnit4.class)
-public class AddEditAuthorActivityTest extends SystemTest
+public class ManageLoansActivityTest extends SystemTest
 {
     private UiDevice mDevice = UiDevice.getInstance(getInstrumentation());;
     private final int LAUNCH_TIMEOUT = super.launchTimeOut;
     public final String BASIC_SAMPLE_PACKAGE = super.appPackage;
-    private AddEditAuthorActivityObject addEditAuthorActivityObject = new AddEditAuthorActivityObject(mDevice);
+    private ManageLoansActivityObject manageLoansActivityObject = new ManageLoansActivityObject(mDevice);
     private Context context = getApplicationContext();
-
 
     @Before
     public void startAddEditAuthorActivityFromHomeScreen()
@@ -60,12 +48,9 @@ public class AddEditAuthorActivityTest extends SystemTest
     }
 
     @Test
-    public void testAddNewAuthor() throws UiObjectNotFoundException
+    public void testAddNewLoan() throws UiObjectNotFoundException
     {
-        addEditAuthorActivityObject.navigateToScreen();
-        addEditAuthorActivityObject.fillFirstNameField("FirstName");
-        addEditAuthorActivityObject.fillLastNameField("LastName");
-        addEditAuthorActivityObject.clickSaveButton();
-        addEditAuthorActivityObject.verifyNewAuthorIsVisible("LastName");
+        manageLoansActivityObject.navigateToScreen("Δραγούμης");
+        manageLoansActivityObject.verifyLoansAreVisible("Don Quixote");
     }
 }

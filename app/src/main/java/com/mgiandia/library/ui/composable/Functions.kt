@@ -266,7 +266,7 @@ fun optionMenu(books: List<Book>, viewModel: AddLoanViewModel)
                 readOnly = true,
                 singleLine = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                modifier = Modifier.menuAnchor()
+                modifier = Modifier.menuAnchor().semantics { contentDescription = "bookField" }
             )
 
             ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false })

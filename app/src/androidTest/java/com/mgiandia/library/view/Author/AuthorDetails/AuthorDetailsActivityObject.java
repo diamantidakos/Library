@@ -22,7 +22,6 @@ public class AuthorDetailsActivityObject extends AbstractActivityObject
     private final String APP_NAME = super.appName;
     public final String APP_PACKAGE = super.appPackage;
     private UiDevice mDevice;
-    UiObject libraryAppAddEditAuthorActivity;
 
     public AuthorDetailsActivityObject(UiDevice mDevice)
     {
@@ -34,44 +33,13 @@ public class AuthorDetailsActivityObject extends AbstractActivityObject
         return APP_NAME;
     }
 
-    @Before
-    public void setUp() throws Exception {
-        navigateToApp();
-    }
-
-    public void navigateToApp() throws UiObjectNotFoundException
-    {
-        // Simulate a short press on the HOME button.
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        mDevice.pressHome();
-
-        // Bring up the All Apps screen (requires English locale)
-        UiObject allAppsButton = null;
-        allAppsButton = mDevice.findObject(new UiSelector().text("Apps"));
-
-        // In some devices "Apps" is part of contentDescription
-        if (!allAppsButton.exists()) {
-            UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
-            appViews.swipeUp(10);
-        }
-
-        // Create a UiSelector to find the Library app and simulate
-        // a user click to launch the app.
-        UiObject libraryApp = mDevice.findObject(new UiSelector().className(android.widget.TextView.class.getName()).text(APP_NAME));
-        libraryApp.clickAndWaitForNewWindow();
-
-        // Validate that the package name is the expected one
-        libraryAppAddEditAuthorActivity = mDevice.findObject(new UiSelector().packageName(APP_PACKAGE));
-        assertTrue("Unable to detect Library App", libraryAppAddEditAuthorActivity.exists());
-    }
-
-    public void clickEditButton() throws UiObjectNotFoundException
+    public void clickEditButton(String authorName) throws UiObjectNotFoundException
     {
         UiObject authorsBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_authors)));
         authorsBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
 
-        UiObject authorObj = mDevice.findObject(new UiSelector().textContains("Αβέρωφ"));
+        UiObject authorObj = mDevice.findObject(new UiSelector().textContains(authorName));
         authorObj.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
 
@@ -80,11 +48,11 @@ public class AuthorDetailsActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
-    public void changeSurname() throws UiObjectNotFoundException
+    public void changeSurname(String surname) throws UiObjectNotFoundException
     {
         UiObject lastNameField = mDevice.findObject(new UiSelector().description("lastNameField"));
         lastNameField.clearTextField();
-        lastNameField.setText("LastName");
+        lastNameField.setText(surname);
     }
 
     public void clickSaveButton() throws UiObjectNotFoundException
@@ -94,19 +62,19 @@ public class AuthorDetailsActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
-    public void verifyAuthorIsVisible()
+    public void verifyAuthorIsVisible(String name)
     {
-        UiObject authorObj = mDevice.findObject(new UiSelector().textContains("LastName"));
+        UiObject authorObj = mDevice.findObject(new UiSelector().textContains(name));
         assertTrue(authorObj.exists());
     }
 
-    public void clickAppearBooksButton() throws UiObjectNotFoundException
+    public void clickAppearBooksButton(String authorName) throws UiObjectNotFoundException
     {
         UiObject authorsBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_authors)));
         authorsBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
 
-        UiObject authorObj = mDevice.findObject(new UiSelector().textContains("Γεωργιάδης"));
+        UiObject authorObj = mDevice.findObject(new UiSelector().textContains(authorName));
         authorObj.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
 
@@ -115,9 +83,9 @@ public class AuthorDetailsActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
-    public void verifyBookIsVisible()
+    public void verifyBookIsVisible(String bookName)
     {
-        UiObject bookObj = mDevice.findObject(new UiSelector().textContains("Don Quixote"));
+        UiObject bookObj = mDevice.findObject(new UiSelector().textContains(bookName));
         assertTrue(bookObj.exists());
     }
 }

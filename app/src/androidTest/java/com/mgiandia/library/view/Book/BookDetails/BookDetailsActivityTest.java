@@ -35,7 +35,7 @@ public class BookDetailsActivityTest extends SystemTest
     {
         mDevice.pressHome();
 
-        // Launch the app directly to the Add/Edit Author screen
+        // Launch the app from the home page
         final Intent intent = new Intent();
         intent.setClassName(BASIC_SAMPLE_PACKAGE, BASIC_SAMPLE_PACKAGE + ".view.HomePage.HomePageActivity");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -54,27 +54,10 @@ public class BookDetailsActivityTest extends SystemTest
     @Test
     public void testBookDetailsScreen() throws UiObjectNotFoundException
     {
-        bookDetailsActivityObject.clickEditButton();
-        bookDetailsActivityObject.changeISBN();
+        bookDetailsActivityObject.clickEditButton("The Odyssey");
+        bookDetailsActivityObject.changeISBN("5555");
         bookDetailsActivityObject.scrollToBottom();
         bookDetailsActivityObject.clickSaveButton();
-        bookDetailsActivityObject.verifyBookIsVisible();
-    }
-
-    /**
-     * Uses package manager to find the package name of the device launcher. Usually this package
-     * is "com.android.launcher" but can be different at times. This is a generic solution which
-     * works on all platforms.`
-     */
-    private String getLauncherPackageName()
-    {
-        // Create launcher Intent
-        final Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-
-        // Use PackageManager to get the launcher package name
-        PackageManager pm = getApplicationContext().getPackageManager();
-        ResolveInfo resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return resolveInfo.activityInfo.packageName;
+        bookDetailsActivityObject.verifyBookIsVisible("The Odyssey");
     }
 }

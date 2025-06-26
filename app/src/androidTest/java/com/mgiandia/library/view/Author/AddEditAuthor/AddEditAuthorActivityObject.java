@@ -22,7 +22,6 @@ public class AddEditAuthorActivityObject extends AbstractActivityObject
     private final String APP_NAME = super.appName;
     public final String APP_PACKAGE = super.appPackage;
     private UiDevice mDevice;
-    UiObject libraryAppAddEditAuthorActivity;
 
     public AddEditAuthorActivityObject(UiDevice mDevice)
     {
@@ -32,37 +31,6 @@ public class AddEditAuthorActivityObject extends AbstractActivityObject
     public String getAppName()
     {
         return APP_NAME;
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        navigateToApp();
-    }
-
-    public void navigateToApp() throws UiObjectNotFoundException
-    {
-        // Simulate a short press on the HOME button.
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        mDevice.pressHome();
-
-        // Bring up the All Apps screen (requires English locale)
-        UiObject allAppsButton = null;
-        allAppsButton = mDevice.findObject(new UiSelector().text("Apps"));
-
-        // In some devices "Apps" is part of contentDescription
-        if (!allAppsButton.exists()) {
-            UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
-            appViews.swipeUp(10);
-        }
-
-        // Create a UiSelector to find the Library app and simulate
-        // a user click to launch the app.
-        UiObject libraryApp = mDevice.findObject(new UiSelector().className(android.widget.TextView.class.getName()).text(APP_NAME));
-        libraryApp.clickAndWaitForNewWindow();
-
-        // Validate that the package name is the expected one
-        libraryAppAddEditAuthorActivity = mDevice.findObject(new UiSelector().packageName(APP_PACKAGE));
-        assertTrue("Unable to detect Library App", libraryAppAddEditAuthorActivity.exists());
     }
 
     public void navigateToScreen() throws UiObjectNotFoundException
@@ -76,18 +44,18 @@ public class AddEditAuthorActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
-    public void fillFirstNameField() throws UiObjectNotFoundException
+    public void fillFirstNameField(String firstName) throws UiObjectNotFoundException
     {
         UiObject firstNameField = mDevice.findObject(new UiSelector().description("firstNameField"));
         firstNameField.clearTextField();
-        firstNameField.setText("FirstName");
+        firstNameField.setText(firstName);
     }
 
-    public void fillLastNameField() throws UiObjectNotFoundException
+    public void fillLastNameField(String lastName) throws UiObjectNotFoundException
     {
         UiObject lastNameField = mDevice.findObject(new UiSelector().description("lastNameField"));
         lastNameField.clearTextField();
-        lastNameField.setText("LastName");
+        lastNameField.setText(lastName);
     }
 
     public void clickSaveButton() throws UiObjectNotFoundException
@@ -97,9 +65,9 @@ public class AddEditAuthorActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
-    public void verifyNewAuthorIsVisible()
+    public void verifyNewAuthorIsVisible(String name)
     {
-        UiObject authorObj = mDevice.findObject(new UiSelector().textContains("LastName"));
+        UiObject authorObj = mDevice.findObject(new UiSelector().textContains(name));
         assertTrue(authorObj.exists());
     }
 }

@@ -20,7 +20,6 @@ public class HomePageActivityObject extends AbstractActivityObject
     private final String APP_NAME = super.appName;
     public final String APP_PACKAGE = super.appPackage;
     private UiDevice mDevice;
-    UiObject libraryAppMainActivity;
 
     public HomePageActivityObject(UiDevice mDevice)
     {
@@ -32,60 +31,6 @@ public class HomePageActivityObject extends AbstractActivityObject
         return APP_NAME;
     }
 
-    @Before
-    public void setUp() throws Exception {
-        navigateToApp();
-    }
-
-    /*
-    public void navigateToApp() throws UiObjectNotFoundException
-    {
-        mDevice.pressHome();
-        UiObject allAppsButton = mDevice.findObject(new UiSelector().text("Apps").descriptionContains("Apps"));
-
-        if (!allAppsButton.exists())
-        {
-            throw new RuntimeException("Apps button not found");
-        }
-        allAppsButton.clickAndWaitForNewWindow();
-
-        UiScrollable appDrawer = new UiScrollable(new UiSelector().scrollable(true));
-        appDrawer.scrollIntoView(new UiSelector().text(APP_NAME));
-
-        UiObject libraryApp = mDevice.findObject(new UiSelector().className(android.widget.TextView.class).text(APP_NAME));
-        libraryApp.clickAndWaitForNewWindow();
-
-        mDevice.wait(Until.hasObject(By.pkg(APP_PACKAGE)), 5000);
-    }
-    */
-
-
-    public void navigateToApp() throws UiObjectNotFoundException
-    {
-        // Simulate a short press on the HOME button.
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        mDevice.pressHome();
-
-        // Bring up the All Apps screen (requires English locale)
-        UiObject allAppsButton = null;
-        allAppsButton = mDevice.findObject(new UiSelector().text("Apps"));
-
-        // In some devices "Apps" is part of contentDescription
-        if (!allAppsButton.exists()) {
-            UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
-            appViews.swipeUp(10);
-        }
-
-        // Create a UiSelector to find the Library app and simulate
-        // a user click to launch the app.
-        UiObject libraryApp = mDevice.findObject(new UiSelector().className(android.widget.TextView.class.getName()).text(APP_NAME));
-        libraryApp.clickAndWaitForNewWindow();
-
-        // Validate that the package name is the expected one
-        libraryAppMainActivity = mDevice.findObject(new UiSelector().packageName(APP_PACKAGE));
-        assertTrue("Unable to detect Library App", libraryAppMainActivity.exists());
-    }
-
     public void verifyBorrowerVisible(String publisher)
     {
         UiObject publisherObj = mDevice.findObject(new UiSelector().textContains(publisher));
@@ -95,6 +40,10 @@ public class HomePageActivityObject extends AbstractActivityObject
     public void clickBorrowersButton() throws UiObjectNotFoundException
     {
         UiObject borrowersBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_borrowers)));
+        if (!borrowersBtn.exists())
+        {
+            mDevice.pressBack();
+        }
         borrowersBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
@@ -108,6 +57,10 @@ public class HomePageActivityObject extends AbstractActivityObject
     public void clickBooksButton() throws UiObjectNotFoundException
     {
         UiObject booksBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_books)));
+        if (!booksBtn.exists())
+        {
+            mDevice.pressBack();
+        }
         booksBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
@@ -120,7 +73,8 @@ public class HomePageActivityObject extends AbstractActivityObject
 
     public void clickAuthorsButton() throws UiObjectNotFoundException
     {
-        UiObject authorsBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_authors)));
+        mDevice.pressBack();
+        UiObject authorsBtn = mDevice.findObject(new UiSelector().text(context.getString(R.string.manage_authors)));
         authorsBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
@@ -131,11 +85,17 @@ public class HomePageActivityObject extends AbstractActivityObject
         assertTrue(loanObj.exists());
     }
 
-    public void clickLoansButton() throws UiObjectNotFoundException
+    public void clickLoansButton(String borrowerName) throws UiObjectNotFoundException
     {
         UiObject borrowersBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_loans)));
+        if (!borrowersBtn.exists())
+        {
+            mDevice.pressBack();
+        }
         borrowersBtn.clickAndWaitForNewWindow();
-        UiObject loansBtn = mDevice.findObject(new UiSelector().textContains("Ακρίδας"));
+        mDevice.waitForIdle();
+
+        UiObject loansBtn = mDevice.findObject(new UiSelector().textContains(borrowerName));
         loansBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
@@ -146,11 +106,17 @@ public class HomePageActivityObject extends AbstractActivityObject
         assertTrue(itemObj.exists());
     }
 
-    public void clickItemsButton() throws UiObjectNotFoundException
+    public void clickItemsButton(String itemName) throws UiObjectNotFoundException
     {
         UiObject borrowersBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_items)));
+        if (!borrowersBtn.exists())
+        {
+            mDevice.pressBack();
+        }
         borrowersBtn.clickAndWaitForNewWindow();
-        UiObject loansBtn = mDevice.findObject(new UiSelector().textContains("Don Quixote"));
+        mDevice.waitForIdle();
+
+        UiObject loansBtn = mDevice.findObject(new UiSelector().textContains(itemName));
         loansBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
@@ -164,7 +130,13 @@ public class HomePageActivityObject extends AbstractActivityObject
     public void clickReturnsButton() throws UiObjectNotFoundException
     {
         UiObject borrowersBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_returns)));
+        if (!borrowersBtn.exists())
+        {
+            mDevice.pressBack();
+        }
         borrowersBtn.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+
         UiObject loansBtn = mDevice.findObject(new UiSelector().textContains("Δραγούμης"));
         loansBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
@@ -172,17 +144,17 @@ public class HomePageActivityObject extends AbstractActivityObject
 
     public void verifyPublisherVisible(String publisher)
     {
-        UiObject publisherText = mDevice.findObject(
-                new UiSelector()
-                        .descriptionContains(publisher));
+        UiObject publisherText = mDevice.findObject(new UiSelector().descriptionContains(publisher));
         assertTrue(publisherText.exists());
     }
 
     public void clickPublishersButton() throws UiObjectNotFoundException
     {
-        UiObject publishersBtn = mDevice.findObject(
-                new UiSelector()
-                        .descriptionContains(context.getString(R.string.manage_publishers)));
+        UiObject publishersBtn = mDevice.findObject(new UiSelector().descriptionContains(context.getString(R.string.manage_publishers)));
+        if (!publishersBtn.exists())
+        {
+            mDevice.pressBack();
+        }
         publishersBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }

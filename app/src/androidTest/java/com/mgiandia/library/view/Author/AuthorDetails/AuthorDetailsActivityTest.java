@@ -35,7 +35,7 @@ public class AuthorDetailsActivityTest extends SystemTest
     {
         mDevice.pressHome();
 
-        // Launch the app directly to the Add/Edit Author screen
+        // Launch the app from the home page
         final Intent intent = new Intent();
         intent.setClassName(BASIC_SAMPLE_PACKAGE, BASIC_SAMPLE_PACKAGE + ".view.HomePage.HomePageActivity");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -54,33 +54,16 @@ public class AuthorDetailsActivityTest extends SystemTest
     @Test
     public void testEditUserButtonClick() throws UiObjectNotFoundException
     {
-        authorDetailsActivityObject.clickEditButton();
-        authorDetailsActivityObject.changeSurname();
+        authorDetailsActivityObject.clickEditButton("Αβέρωφ");
+        authorDetailsActivityObject.changeSurname("LastName");
         authorDetailsActivityObject.clickSaveButton();
-        authorDetailsActivityObject.verifyAuthorIsVisible();
+        authorDetailsActivityObject.verifyAuthorIsVisible("LastName");
     }
 
     @Test
     public void testShowBooksButtonClick() throws UiObjectNotFoundException
     {
-        authorDetailsActivityObject.clickAppearBooksButton();
-        authorDetailsActivityObject.verifyBookIsVisible();
-    }
-
-    /**
-     * Uses package manager to find the package name of the device launcher. Usually this package
-     * is "com.android.launcher" but can be different at times. This is a generic solution which
-     * works on all platforms.`
-     */
-    private String getLauncherPackageName()
-    {
-        // Create launcher Intent
-        final Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-
-        // Use PackageManager to get the launcher package name
-        PackageManager pm = getApplicationContext().getPackageManager();
-        ResolveInfo resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return resolveInfo.activityInfo.packageName;
+        authorDetailsActivityObject.clickAppearBooksButton("Γεωργιάδης");
+        authorDetailsActivityObject.verifyBookIsVisible("Don Quixote");
     }
 }

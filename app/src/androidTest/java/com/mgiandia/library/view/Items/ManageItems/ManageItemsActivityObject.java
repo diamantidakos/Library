@@ -1,29 +1,23 @@
-package com.mgiandia.library.view.Publisher.ManagePublishers;
-
-import static org.junit.Assert.assertTrue;
+package com.mgiandia.library.view.Items.ManageItems;
 
 import android.content.Context;
 
-import androidx.test.InstrumentationRegistry;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
-import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.view.AbstractActivityObject;
 
-import org.junit.Before;
-
-public class ManagePublishersActivityObject extends AbstractActivityObject
+public class ManageItemsActivityObject extends AbstractActivityObject
 {
     private final Context context = super.context;
     private final String APP_NAME = super.appName;
     public final String APP_PACKAGE = super.appPackage;
     private UiDevice mDevice;
 
-    public ManagePublishersActivityObject(UiDevice mDevice)
+    public ManageItemsActivityObject(UiDevice mDevice)
     {
         this.mDevice = mDevice;
     }
@@ -33,9 +27,9 @@ public class ManagePublishersActivityObject extends AbstractActivityObject
         return APP_NAME;
     }
 
-    public void clickPublisherItem(String publisher) throws UiObjectNotFoundException
+    public void clickItem(String bookTitle, String bookID) throws UiObjectNotFoundException
     {
-        UiObject booksBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_publishers)));
+        UiObject booksBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_items)));
         if (!booksBtn.exists())
         {
             mDevice.pressBack();
@@ -43,8 +37,12 @@ public class ManagePublishersActivityObject extends AbstractActivityObject
         booksBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
 
-        UiObject bookObj = mDevice.findObject(new UiSelector().textContains(publisher));
+        UiObject bookObj = mDevice.findObject(new UiSelector().textContains(bookTitle));
         bookObj.clickAndWaitForNewWindow();
+        mDevice.waitForIdle();
+
+        UiObject bookItem = mDevice.findObject(new UiSelector().textContains(bookID));
+        bookItem.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
 }

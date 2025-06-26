@@ -23,7 +23,6 @@ public class BorrowerDetailsActivityObject extends AbstractActivityObject
     private final String APP_NAME = super.appName;
     public final String APP_PACKAGE = super.appPackage;
     private UiDevice mDevice;
-    UiObject libraryBorrowerDetailsActivity;
 
     public BorrowerDetailsActivityObject(UiDevice mDevice)
     {
@@ -35,49 +34,22 @@ public class BorrowerDetailsActivityObject extends AbstractActivityObject
         return APP_NAME;
     }
 
-    @Before
-    public void setUp() throws Exception {
-        navigateToApp();
-    }
-
-    public void navigateToApp() throws UiObjectNotFoundException
-    {
-        // Simulate a short press on the HOME button.
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        mDevice.pressHome();
-
-        // Bring up the All Apps screen (requires English locale)
-        UiObject allAppsButton = null;
-        allAppsButton = mDevice.findObject(new UiSelector().text("Apps"));
-
-        // In some devices "Apps" is part of contentDescription
-        if (!allAppsButton.exists()) {
-            UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
-            appViews.swipeUp(10);
-        }
-
-        // Create a UiSelector to find the Library app and simulate
-        // a user click to launch the app.
-        UiObject libraryApp = mDevice.findObject(new UiSelector().className(android.widget.TextView.class.getName()).text(APP_NAME));
-        libraryApp.clickAndWaitForNewWindow();
-
-        // Validate that the package name is the expected one
-        libraryBorrowerDetailsActivity = mDevice.findObject(new UiSelector().packageName(APP_PACKAGE));
-        assertTrue("Unable to detect Library App", libraryBorrowerDetailsActivity.exists());
-    }
-
     private void navigateToScreen() throws UiObjectNotFoundException
     {
         UiObject borrowersBtn = mDevice.findObject(new UiSelector().textContains(context.getString(R.string.manage_borrowers)));
+        if (!borrowersBtn.exists())
+        {
+            mDevice.pressBack();
+        }
         borrowersBtn.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }
 
-    public void clickEditButton() throws UiObjectNotFoundException
+    public void clickEditButton(String name) throws UiObjectNotFoundException
     {
         navigateToScreen();
 
-        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("Ακρίδας"));
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains(name));
         borrowerObj.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
 
@@ -88,11 +60,11 @@ public class BorrowerDetailsActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
-    public void changeSurname() throws UiObjectNotFoundException
+    public void changeSurname(String lastName) throws UiObjectNotFoundException
     {
         UiObject lastNameField = mDevice.findObject(new UiSelector().description("lastName"));
         lastNameField.clearTextField();
-        lastNameField.setText("LastName");
+        lastNameField.setText(lastName);
     }
 
     public void clickSaveButton() throws UiObjectNotFoundException
@@ -102,17 +74,17 @@ public class BorrowerDetailsActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
-    public void verifyBorrowerVisible()
+    public void verifyBorrowerVisible(String name)
     {
-        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("LastName"));
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains(name));
         assertTrue(borrowerObj.exists());
     }
 
-    public void clickDeleteButton() throws UiObjectNotFoundException
+    public void clickDeleteButton(String name) throws UiObjectNotFoundException
     {
         navigateToScreen();
 
-        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("Λύτρου"));
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains(name));
         borrowerObj.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
 
@@ -123,9 +95,9 @@ public class BorrowerDetailsActivityObject extends AbstractActivityObject
         mDevice.waitForIdle();
     }
 
-    public void verifyBorrowerNotVisible()
+    public void verifyBorrowerNotVisible(String name)
     {
-        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains("Λύτρου"));
+        UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains(name));
         assertFalse(borrowerObj.exists());
     }
 }
