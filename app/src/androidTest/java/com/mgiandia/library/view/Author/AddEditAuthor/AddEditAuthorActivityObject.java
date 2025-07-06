@@ -4,28 +4,23 @@ import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 
-import androidx.test.InstrumentationRegistry;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
-import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 
 import com.mgiandia.library.R;
 import com.mgiandia.library.view.AbstractActivityObject;
-
-import org.junit.Before;
 
 public class AddEditAuthorActivityObject extends AbstractActivityObject
 {
     private final Context context = super.context;
     private final String APP_NAME = super.appName;
     public final String APP_PACKAGE = super.appPackage;
-    private UiDevice mDevice;
 
     public AddEditAuthorActivityObject(UiDevice mDevice)
     {
-        this.mDevice = mDevice;
+        super(mDevice);
     }
 
     public String getAppName()

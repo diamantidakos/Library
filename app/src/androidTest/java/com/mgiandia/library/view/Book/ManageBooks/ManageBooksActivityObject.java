@@ -21,11 +21,11 @@ public class ManageBooksActivityObject extends AbstractActivityObject
     private final Context context = super.context;
     private final String APP_NAME = super.appName;
     public final String APP_PACKAGE = super.appPackage;
-    private UiDevice mDevice;
+
 
     public ManageBooksActivityObject(UiDevice mDevice)
     {
-        this.mDevice = mDevice;
+        super(mDevice);
     }
 
     public String getAppName()

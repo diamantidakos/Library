@@ -16,11 +16,11 @@ public class AddLoanActivityObject extends AbstractActivityObject
     private final Context context = super.context;
     private final String APP_NAME = super.appName;
     public final String APP_PACKAGE = super.appPackage;
-    private UiDevice mDevice;
+
 
     public AddLoanActivityObject(UiDevice mDevice)
     {
-        this.mDevice = mDevice;
+        super(mDevice);
     }
 
     public String getAppName()
