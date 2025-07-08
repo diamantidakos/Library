@@ -16,11 +16,6 @@ import org.junit.Before;
 
 public class HomePageActivityObject extends AbstractActivityObject
 {
-    private final Context context = super.context;
-    private final String APP_NAME = super.appName;
-    public final String APP_PACKAGE = super.appPackage;
-
-
     public HomePageActivityObject(UiDevice mDevice)
     {
         super(mDevice);
@@ -28,7 +23,7 @@ public class HomePageActivityObject extends AbstractActivityObject
 
     public String getAppName()
     {
-        return APP_NAME;
+        return appName;
     }
 
     public void verifyBorrowerVisible(String publisher)

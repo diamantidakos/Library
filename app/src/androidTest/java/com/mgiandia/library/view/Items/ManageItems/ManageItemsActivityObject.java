@@ -12,11 +12,6 @@ import com.mgiandia.library.view.AbstractActivityObject;
 
 public class ManageItemsActivityObject extends AbstractActivityObject
 {
-    private final Context context = super.context;
-    private final String APP_NAME = super.appName;
-    public final String APP_PACKAGE = super.appPackage;
-
-
     public ManageItemsActivityObject(UiDevice mDevice)
     {
         super(mDevice);
@@ -24,7 +19,7 @@ public class ManageItemsActivityObject extends AbstractActivityObject
 
     public String getAppName()
     {
-        return APP_NAME;
+        return appName;
     }
 
     public void clickItem(String bookTitle, String bookID) throws UiObjectNotFoundException

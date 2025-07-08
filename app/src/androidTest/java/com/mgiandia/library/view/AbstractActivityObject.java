@@ -12,19 +12,23 @@ import com.mgiandia.library.R;
 
 public abstract class AbstractActivityObject
 {
-    public final Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-    public final String appName = context.getString(R.string.app_name);
-    public final String appPackage = "com.mgiandia.library";
+    protected Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    protected String appName = context.getString(R.string.app_name);
+    protected String appPackage = "com.mgiandia.library";
     protected UiDevice mDevice;
 
-    public AbstractActivityObject(UiDevice mDevice) {
+    public AbstractActivityObject(UiDevice mDevice)
+    {
         this.mDevice = mDevice;
     }
 
     public void scrollToBottom() throws UiObjectNotFoundException
     {
-//        UiScrollable scrollView = new UiScrollable(new UiSelector().scrollable(true));
-//        scrollView.scrollForward();
-        mDevice.swipe(500, 500, 500, 1500, 10);
+        UiScrollable scrollView = new UiScrollable(new UiSelector().scrollable(true));
+        if (scrollView.exists())
+        {
+            scrollView.scrollForward();
+        }
+        //mDevice.swipe(500, 500, 500, 1500, 10);
     }
 }

@@ -18,11 +18,6 @@ import org.junit.Before;
 
 public class PublisherDetailsActivityObject extends AbstractActivityObject
 {
-    private final Context context = super.context;
-    private final String APP_NAME = super.appName;
-    public final String APP_PACKAGE = super.appPackage;
-
-
     public PublisherDetailsActivityObject(UiDevice mDevice)
     {
         super(mDevice);
@@ -30,7 +25,7 @@ public class PublisherDetailsActivityObject extends AbstractActivityObject
 
     public String getAppName()
     {
-        return APP_NAME;
+        return appName;
     }
 
     private void navigateToScreen() throws UiObjectNotFoundException

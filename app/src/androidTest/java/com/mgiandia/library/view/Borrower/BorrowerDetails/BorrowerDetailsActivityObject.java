@@ -19,11 +19,6 @@ import org.junit.Before;
 
 public class BorrowerDetailsActivityObject extends AbstractActivityObject
 {
-    private final Context context = super.context;
-    private final String APP_NAME = super.appName;
-    public final String APP_PACKAGE = super.appPackage;
-
-
     public BorrowerDetailsActivityObject(UiDevice mDevice)
     {
         super(mDevice);
@@ -31,7 +26,7 @@ public class BorrowerDetailsActivityObject extends AbstractActivityObject
 
     public String getAppName()
     {
-        return APP_NAME;
+        return appName;
     }
 
     private void navigateToScreen() throws UiObjectNotFoundException

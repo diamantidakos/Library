@@ -18,11 +18,6 @@ import org.junit.Before;
 
 public class ManageBorrowersActivityObject extends AbstractActivityObject
 {
-    private final Context context = super.context;
-    private final String APP_NAME = super.appName;
-    public final String APP_PACKAGE = super.appPackage;
-
-
     public ManageBorrowersActivityObject(UiDevice mDevice)
     {
         super(mDevice);
@@ -30,7 +25,7 @@ public class ManageBorrowersActivityObject extends AbstractActivityObject
 
     public String getAppName()
     {
-        return APP_NAME;
+        return appName;
     }
 
     public void clickBorrowerItem(String name) throws UiObjectNotFoundException

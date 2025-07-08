@@ -14,11 +14,6 @@ import com.mgiandia.library.view.AbstractActivityObject;
 
 public class ManageReturnsActivityObject extends AbstractActivityObject
 {
-    private final Context context = super.context;
-    private final String APP_NAME = super.appName;
-    public final String APP_PACKAGE = super.appPackage;
-
-
     public ManageReturnsActivityObject(UiDevice mDevice)
     {
         super(mDevice);
@@ -26,7 +21,7 @@ public class ManageReturnsActivityObject extends AbstractActivityObject
 
     public String getAppName()
     {
-        return APP_NAME;
+        return appName;
     }
 
     public void navigateToScreen(String borrowerName) throws UiObjectNotFoundException
@@ -47,7 +42,7 @@ public class ManageReturnsActivityObject extends AbstractActivityObject
 
     public void clickItem(String bookName) throws UiObjectNotFoundException
     {
-        UiObject bookObj = mDevice.findObject(new UiSelector().text(bookName));
+        UiObject bookObj = mDevice.findObject(new UiSelector().textContains(bookName));
         bookObj.clickAndWaitForNewWindow();
         mDevice.waitForIdle();
     }

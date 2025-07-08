@@ -18,11 +18,6 @@ import org.junit.Before;
 
 public class AddEditBorrowerActivityObject extends AbstractActivityObject
 {
-    private final Context context = super.context;
-    private final String APP_NAME = super.appName;
-    public final String APP_PACKAGE = super.appPackage;
-
-
     public AddEditBorrowerActivityObject(UiDevice mDevice)
     {
         super(mDevice);
@@ -30,7 +25,7 @@ public class AddEditBorrowerActivityObject extends AbstractActivityObject
 
     public String getAppName()
     {
-        return APP_NAME;
+        return appName;
     }
 
     public void navigateToScreen() throws UiObjectNotFoundException
@@ -114,6 +109,6 @@ public class AddEditBorrowerActivityObject extends AbstractActivityObject
     public void verifyNewBorrowerIsVisible(String borrowerName)
     {
         UiObject borrowerObj = mDevice.findObject(new UiSelector().textContains(borrowerName));
-        assertTrue(borrowerObj.exists());
+        assertTrue(borrowerObj.waitForExists(10000));
     }
 }

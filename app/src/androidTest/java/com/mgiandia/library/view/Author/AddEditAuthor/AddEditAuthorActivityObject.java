@@ -14,10 +14,6 @@ import com.mgiandia.library.view.AbstractActivityObject;
 
 public class AddEditAuthorActivityObject extends AbstractActivityObject
 {
-    private final Context context = super.context;
-    private final String APP_NAME = super.appName;
-    public final String APP_PACKAGE = super.appPackage;
-
     public AddEditAuthorActivityObject(UiDevice mDevice)
     {
         super(mDevice);
@@ -25,7 +21,7 @@ public class AddEditAuthorActivityObject extends AbstractActivityObject
 
     public String getAppName()
     {
-        return APP_NAME;
+        return appName;
     }
 
     public void navigateToScreen() throws UiObjectNotFoundException

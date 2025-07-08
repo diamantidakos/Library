@@ -13,11 +13,6 @@ import com.mgiandia.library.view.AbstractActivityObject;
 
 public class AddLoanActivityObject extends AbstractActivityObject
 {
-    private final Context context = super.context;
-    private final String APP_NAME = super.appName;
-    public final String APP_PACKAGE = super.appPackage;
-
-
     public AddLoanActivityObject(UiDevice mDevice)
     {
         super(mDevice);
@@ -25,7 +20,7 @@ public class AddLoanActivityObject extends AbstractActivityObject
 
     public String getAppName()
     {
-        return APP_NAME;
+        return appName;
     }
 
     public void navigateToScreen(String borrower) throws UiObjectNotFoundException
