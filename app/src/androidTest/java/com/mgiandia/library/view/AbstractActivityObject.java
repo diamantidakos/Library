@@ -29,6 +29,5 @@ public abstract class AbstractActivityObject
         {
             scrollView.scrollForward();
         }
-        //mDevice.swipe(500, 500, 500, 1500, 10);
     }
 }
