@@ -1,7 +1,9 @@
 package com.mgiandia.library.memorydao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.mgiandia.library.dao.AuthorDAO;
 import com.mgiandia.library.domain.Author;
@@ -13,7 +15,8 @@ import com.mgiandia.library.domain.Author;
  *
  */
 
-public class AuthorDAOMemory implements AuthorDAO {
+public class AuthorDAOMemory implements AuthorDAO
+{
     protected static ArrayList<Author> entities = new ArrayList<Author>();
 
     /**
@@ -54,6 +57,20 @@ public class AuthorDAOMemory implements AuthorDAO {
                 return author;
 
         return null;
+    }
+
+    public Set<Author> findByName(String name)
+    {
+        Set<Author> result = new HashSet<>();
+        for (Author author : entities)
+        {
+            if (author.getLastName().contains(name))
+            {
+                result.add(author);
+            }
+        }
+
+        return result;
     }
 
     /**

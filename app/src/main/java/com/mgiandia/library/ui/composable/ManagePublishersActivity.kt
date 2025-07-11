@@ -1,0 +1,26 @@
+package com.mgiandia.library.ui.composable
+
+import android.annotation.SuppressLint
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import com.mgiandia.library.domain.Publisher
+import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersViewModel
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun drawManagePublishersPage(modifier: Modifier = Modifier, viewModel: ManagePublishersViewModel)
+{
+    val allPublishers: ArrayList<Publisher> = ArrayList(viewModel.allPublishers)
+    drawPublisherListScreen(modifier, viewModel, allPublishers)
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun drawManagePublishersPageSearch(modifier: Modifier = Modifier, viewModel: ManagePublishersViewModel)
+{
+    val allPublishers = viewModel.publishers.value
+    if (allPublishers != null)
+    {
+        drawPublisherListScreen(modifier, viewModel, allPublishers)
+    }
+}

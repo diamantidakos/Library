@@ -48,4 +48,14 @@ public interface BookDAO
     Set<Book> findByTitle(String title);
 
     Set<Book> findByAuthorName(String authorName);
+
+    Set<Book> findByAuthorID(int authorID);
+
+    Set<Book> findByTitleAndAuthorID(String title, int authorID);
+
+    Set<Book> findByPublisherID(int publisherID);
+
+    Set<Book> findByAuthorIDAndPublisherID(int authorID, int publisherID);
+
+    Set<Book> findByTitleAndPublisherID(String title, int publisherID);
 }

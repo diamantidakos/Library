@@ -4,21 +4,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.AuthorDAOMemory;
+import com.mgiandia.library.domain.Author;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Author.AddEditAuthor.AddEditAuthorActivity;
 import com.mgiandia.library.view.Author.AuthorDetails.AuthorDetailsActivity;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
 /**
@@ -27,15 +30,12 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
-public class ManageAuthorsActivity extends AppCompatActivity implements ManageAuthorsView, SearchView.OnQueryTextListener
+public class ManageAuthorsActivity extends AbstractLibraryActivity implements ManageAuthorsView, SearchView.OnQueryTextListener
 {
-    ManageAuthorsPresenter presenter;
-
+    private ManageAuthorsPresenter presenter;
     private ListView itemListView;
-    private SearchView searchListView;
+    //private SearchView searchListView;
     private AdvancedListAdapter adapter;
-
 
     /**
      * Δημιουργεί to layout και αρχικοποιεί
@@ -46,35 +46,38 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_items);
+        setContentView(R.layout.manage_items_compose);
 
         adapter = new AdvancedListAdapter(this);
+        ManageAuthorsViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(ManageAuthorsViewModel.class);
+        presenter = model.getPresenter(this);
 
-        itemListView = (ListView) findViewById(R.id.item_list_view);
-        itemListView.setAdapter(adapter);
-        itemListView.setTextFilterEnabled(true);
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showManageAuthorsView(composeView, model);
 
-        searchListView = (SearchView) findViewById(R.id.items_list_search_view);
-        searchListView.setIconifiedByDefault(false);
-        searchListView.setOnQueryTextListener(this);
-
-        presenter = new ManageAuthorsPresenter(this, new AuthorDAOMemory());
-
-        findViewById(R.id.item_add_new).setOnClickListener(new View.OnClickListener()
+        model.getSelectedAuthorID().observe((LifecycleOwner) this, value ->
         {
-            @Override
-            public void onClick(View view)
+            if (value != null)
             {
-                presenter.onStartAddNew();
+                presenter.onClickItem(value);
             }
         });
 
-        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        model.getTextOnSearchBar().observe((LifecycleOwner) this, value ->
         {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            if (value != null)
             {
-                presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
+                ArrayList<Author> authors = new ArrayList<>(model.findAuthors(value.trim()));
+                model.setAuthors(authors);
+                ActivitiesKt.showManageAuthorsViewSearch(composeView, model);
+            }
+        });
+
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && buttonTextResId.equals(R.string.add_new_item))
+            {
+                presenter.onStartAddNew();
             }
         });
     }
@@ -108,12 +111,15 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
      * Αδειάζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
+    /*
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
         searchListView.clearFocus();
         presenter.onLoadSource();
     }
+
+     */
 
     /**
      * Αδείαζει την μπάρα αναζήτησης
@@ -128,16 +134,24 @@ public class ManageAuthorsActivity extends AppCompatActivity implements ManageAu
 
         if(requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
-            clear_search_bar();
+            //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
         else if(requestCode == 1)
         {
-            clear_search_bar();
+            //clear_search_bar();
 
             if(resultCode == Activity.RESULT_OK)
                 presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
+
+        refreshActivity();
+    }
+
+    private void refreshActivity()
+    {
+        finish();
+        startActivity(getIntent());
     }
 
     /**

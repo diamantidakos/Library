@@ -3,22 +3,22 @@ package com.mgiandia.library.view.Book.AddEditBook;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+
+import com.mgiandia.library.R;
+import com.mgiandia.library.domain.Author;
+import com.mgiandia.library.domain.Book;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.AuthorDAOMemory;
-import com.mgiandia.library.memorydao.BookDAOMemory;
-import com.mgiandia.library.memorydao.ItemDAOMemory;
-import com.mgiandia.library.memorydao.PublisherDAOMemory;
-import com.mgiandia.library.view.Util.MultiSelectSpinner;
+import java.util.Objects;
 
 /**
  * @author Νίκος Σαραντινός
@@ -26,9 +26,14 @@ import com.mgiandia.library.view.Util.MultiSelectSpinner;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
-public class AddEditBookActivity extends AppCompatActivity implements AddEditBookView
+public class AddEditBookActivity extends AbstractLibraryActivity implements AddEditBookView
 {
+    private AddEditBookViewModel model;
+    private String bookTitle, publisher, ISBN, publication, publicationYear;
+    private ArrayList<String> authors = new ArrayList<>();
+    private List<Integer> authorsIndexes = new ArrayList<>();
+    private int publisherPosition;
+
     /**
      * Εμφανίζει ένα μήνυμα τύπου alert με
      * τίτλο title και μήνυμα message.
@@ -42,6 +47,116 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(R.string.ok, null).create().show();
+    }
+
+    @Override
+    public void setBookTitle(String value)
+    {
+        bookTitle = value;
+    }
+
+    @Override
+    public String getBookTitle()
+    {
+        return bookTitle;
+    }
+
+    @Override
+    public void setPublisher(String value)
+    {
+        publisher = value;
+    }
+
+    @Override
+    public String getPublisher()
+    {
+        return publisher;
+    }
+
+    @Override
+    public void setISBN(String value)
+    {
+        ISBN = value;
+    }
+
+    @Override
+    public String getISBN()
+    {
+        return ISBN;
+    }
+
+    @Override
+    public void setPublication(String value)
+    {
+        publication = value;
+    }
+
+    @Override
+    public String getPublication()
+    {
+        return publication;
+    }
+
+    @Override
+    public void setYear(String value)
+    {
+        publicationYear = value;
+    }
+
+    @Override
+    public String getYear()
+    {
+        return publicationYear;
+    }
+
+    @Override
+    public void setAuthorList(List<String> names)
+    {
+        authors = (ArrayList<String>) names;
+    }
+
+    @Override
+    public void setPublisherList(List<String> names, String defaultName) {}
+
+    public List<String> getAuthorList()
+    {
+        return authors;
+    }
+
+    @Override
+    public List<Integer> getAuthorPositions()
+    {
+        return authorsIndexes;
+    }
+
+    @Override
+    public Integer getPublisherPosition()
+    {
+        return publisherPosition;
+    }
+
+    @Override
+    public Integer getAttachedBookID()
+    {
+        return this.getIntent().hasExtra("book_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("book_id") : -1;
+    }
+
+    @Override
+    public void setPublisherPosition(Integer value)
+    {
+        publisherPosition = value;
+    }
+
+    @Override
+    public void setAuthorPositions(List<Integer> value)
+    {
+        authorsIndexes = value;
+    }
+
+    @Override
+    public void setPageName(String value)
+    {
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 
     /**
@@ -58,165 +173,78 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     }
 
     /**
-     * Επιστρέφει τον τίτλο του βιβλίου.
-     * @return Ο τίτλος του βιβλίου
+     * @return true if user filled all fields, false otherwise
      */
-    public String getBookTitle()
+    private boolean validFields()
     {
-        return ((EditText)findViewById(R.id.edit_text_book_title)).getText().toString().trim();
+        return (getBookTitle() != null && getPublisher() != null && getPublisherPosition() != null && getISBN() != null && getPublication() != null && getYear() != null && getAuthorList() != null);
     }
 
-    /**
-     * Επιστρέφει το ISBN του βιβλίου.
-     * @return Το ISBN του βιβλίου
-     */
-    public String getISBN()
+    private void getValuesFromViewModel()
     {
-        return ((EditText)findViewById(R.id.edit_text_isbn)).getText().toString().trim();
-    }
+        model.getTitle().observe((LifecycleOwner) this, bName ->
+        {
+            if (bName != null)
+            {
+                setBookTitle(bName.trim());
+            }
+        });
 
-    /**
-     * Επιστρέφει το έτος δημοσίευσης του βιβλίου.
-     * @return Το έτος δημοσίευσης του βιβλίου
-     */
-    public String getPublication()
-    {
-        return ((EditText)findViewById(R.id.edit_text_publication)).getText().toString().trim();
-    }
+        model.getPublisher().observe((LifecycleOwner) this, i ->
+        {
+            if (i != null)
+            {
+                setPublisher(i.trim());
+            }
+        });
 
-    /**
-     * Επιστρέφει το έτος συγγραφής του βιβλίου.
-     * @return Το έτος συγγραφής του βιβλίου
-     */
-    public String getYear()
-    {
-        return ((EditText)findViewById(R.id.edit_text_publicationyear)).getText().toString().trim();
-    }
+        model.getPublisherPosition().observe((LifecycleOwner) this, i ->
+        {
+            if (i != null)
+            {
+                setPublisherPosition(i);
+            }
+        });
 
-    /**
-     * Επιστρέφει την θέση του συγγραφέα.
-     * @return Η θέση του συγγραφέα
-     */
-    public Integer getPublisherPosition()
-    {
-        int pos = ((Spinner)findViewById(R.id.edit_text_publisher)).getSelectedItemPosition();
-        return pos == 0 ? null : pos;
-    }
+        model.getISBN().observe((LifecycleOwner) this, i ->
+        {
+            if (i != null)
+            {
+                setISBN(i.trim());
+            }
+        });
 
-    /**
-     * Επιστρέφει τις θέσεις των βιβλίων του συγγραφέα.
-     * @return Οι θέσεις των βιβλίων του συγγραφέα
-     */
-    public List<Integer> getAuthorPositions()
-    {
-        List<Integer> positions = new ArrayList<>();
-        boolean[] indexes = ((MultiSelectSpinner)findViewById(R.id.edit_text_authors)).getItemsIndexes();
+        model.getPublication().observe((LifecycleOwner) this, i ->
+        {
+            if (i != null)
+            {
+                setPublication(i.trim());
+            }
+        });
 
-        for(int i = 0; i < indexes.length; i++)
-            if(indexes[i])
-                positions.add(i+1);
+        model.getPublicationYear().observe((LifecycleOwner) this, i ->
+        {
+            if (i != null)
+            {
+                setYear(i.trim());
+            }
+        });
 
-        return positions;
-    }
+        model.getAuthors().observe((LifecycleOwner) this, i ->
+        {
+            if (i != null)
+            {
+                setAuthorList(i);
+            }
+        });
 
-    /**
-     * Επιστρέφει το id του βιβλίου.
-     * @return Το id του βιβλίου
-     */
-    public Integer getAttachedBookID()
-    {
-        return this.getIntent().hasExtra("book_id") ? this.getIntent().getExtras().getInt("book_id") : null;
-    }
-
-    /**
-     * Θέτει τον τίτλο του βιβλίου
-     * @param value Ο τίτλος του βιβλίου
-     */
-    public void setBookTitle(String value)
-    {
-        ((EditText)findViewById(R.id.edit_text_book_title)).setText(value);
-    }
-
-    /**
-     * Θέτει την θέση του συγγραφέα.
-     * @param value Η θέση του συγγραφέα.
-     */
-    public void setPublisherPosition(Integer value)
-    {
-        ((Spinner)findViewById(R.id.edit_text_publisher)).setSelection(value);
-    }
-
-    /**
-     * Θέτει το ISBN του βιβλίου
-     * @param value Το ISBN του βιβλίου
-     */
-    public void setISBN(String value)
-    {
-        ((EditText)findViewById(R.id.edit_text_isbn)).setText(value);
-    }
-
-    /**
-     * Θέτει την ημερομηνία έκδοσης του βιβλίου
-     * @param value Η ημερομηνία έκδοσης του βιβλίου
-     */
-    public void setPublication(String value)
-    {
-        ((EditText)findViewById(R.id.edit_text_publication)).setText(value);
-    }
-
-    /**
-     * Θέτει το έτος του βιβλίου
-     * @param value Η το έτος του βιβλίου
-     */
-    public void setYear(String value)
-    {
-        ((EditText)findViewById(R.id.edit_text_publicationyear)).setText(value);
-    }
-
-    /**
-     * Θέτει τις θέσεις των συγγραφέων
-     * @param value Οι θέσεις των συγγραφέων.
-     */
-    public void setAuthorPositions(List<Integer> value)
-    {
-        for(int i = 0; i < value.size(); i++)
-            value.set(i, value.get(i)-1);
-
-        ((MultiSelectSpinner)findViewById(R.id.edit_text_authors)).setSelectedItems(value);
-    }
-
-    /**
-     * Θέτει το όνομα της σελίδας.
-     * @param value το όνομα της σελίδας
-     */
-    public void setPageName(String value)
-    {
-        getSupportActionBar().setTitle(value);
-    }
-
-    /**
-     * Θέτει την λίστα των συγγραφέων.
-     * @param names Τα ονόματα των συγγραφέων
-     */
-    public void setAuthorList(List<String> names)
-    {
-        ((MultiSelectSpinner) findViewById(R.id.edit_text_authors)).setItems(names);
-        setAuthorPositions(new ArrayList<Integer>());
-    }
-
-    /**
-     * Θέτει την λίστα των συγγραφέων με ονόματα
-     * names και με όνομα προεπιλογής defaultName
-     * @param names Η λίστα των ονομάτων
-     * @param defaultName Το προκαθορισμένο όνομα
-     */
-    public void setPublisherList(List<String> names, String defaultName)
-    {
-        names.add(0, defaultName);
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, names);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ((Spinner) findViewById(R.id.edit_text_publisher)).setAdapter(adapter);
+        model.getSelectedAuthorsPositions().observe((LifecycleOwner) this, indexes ->
+        {
+            if (indexes != null)
+            {
+                setAuthorPositions(indexes);
+            }
+        });
     }
 
     /**
@@ -229,10 +257,38 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_book);
-        final AddEditBookPresenter presenter = new AddEditBookPresenter(this, new BookDAOMemory(), new PublisherDAOMemory(), new AuthorDAOMemory(), new ItemDAOMemory());
 
-        findViewById(R.id.complete_registration_button).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        model = new ViewModelProvider((ViewModelStoreOwner) this).get(AddEditBookViewModel.class);
+        final AddEditBookPresenter presenter = model.getPresenter(this);
+
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.drawEditBookPage(composeView, model);
+
+        int bookID = getAttachedBookID();
+        Book book = model.findBook(bookID);
+        if (book != null)
+        {
+            model.setTitle(book.getTitle());
+            model.setPublisher(book.getPublisher().getName());
+            model.setISBN(book.getIsbn().toString());
+            model.setPublication(book.getPublication());
+            model.setPublicationYear(Integer.toString(book.getPublicationYear()));
+
+            ArrayList<String> authors = new ArrayList<>();
+            for (Author a : book.getAuthors())
+            {
+                authors.add(a.getFirstName() + " " + a.getLastName());
+            }
+            model.setAuthors(authors);
+        }
+
+        getValuesFromViewModel();
+
+        // if the save button is clicked, save the book
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && validFields() && buttonTextResId.equals(R.string.complete_registration))
+            {
                 presenter.onSaveBook();
             }
         });

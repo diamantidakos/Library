@@ -1,15 +1,20 @@
 package com.mgiandia.library.view.Author.AddEditAuthor;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.AuthorDAOMemory;
+import com.mgiandia.library.domain.Author;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
+
+import java.util.Objects;
 
 /**
  * @author Νίκος Σαραντινός
@@ -17,22 +22,47 @@ import com.mgiandia.library.memorydao.AuthorDAOMemory;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
-public class AddEditAuthorActivity extends AppCompatActivity implements AddEditAuthorView
+public class AddEditAuthorActivity extends AbstractLibraryActivity implements AddEditAuthorView
 {
-    /**
-     * Εμφανίζει ενα μήνυμα τύπου alert με
-     * τίτλο title και μήνυμα message.
-     * @param title Ο τίτλος του μηνύματος
-     * @param message Το περιεχόμενο του μηνύματος
-     */
-    public void showErrorMessage(String title, String message)
+    private String firstName, lastName;
+
+    @Override
+    public String getFirstName()
     {
-        new AlertDialog.Builder(AddEditAuthorActivity.this)
-        .setCancelable(true)
-        .setTitle(title)
-        .setMessage(message)
-        .setPositiveButton(R.string.ok, null).create().show();
+        return firstName;
+    }
+
+    @Override
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    @Override
+    public Integer getAttachedAuthorID()
+    {
+        return this.getIntent().hasExtra("author_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("author_id") : -1;
+    }
+
+    @Override
+    public void setFirstName(String value)
+    {
+        firstName = value;
+    }
+
+    @Override
+    public void setLastName(String value)
+    {
+        lastName = value;
+    }
+
+    /**
+     * Θέτει το όνομα της σελίδας.
+     * @param value το όνομα της σελίδας
+     */
+    public void setPageName(String value)
+    {
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 
     /**
@@ -49,58 +79,20 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
     }
 
     /**
-     * Επιστρέφει το πρώτο όνομα του συγγραφέα.
-     * @return Το πρώτο όνομα του συγγραφέα
+     * Εμφανίζει ενα μήνυμα τύπου alert με
+     * τίτλο title και μήνυμα message.
+     * @param title Ο τίτλος του μηνύματος
+     * @param message Το περιεχόμενο του μηνύματος
      */
-    public String getFirstName()
+    public void showErrorMessage(String title, String message)
     {
-        return ((EditText)findViewById(R.id.edit_text_first_name)).getText().toString().trim();
+        new AlertDialog.Builder(getApplicationContext())
+        .setCancelable(true)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(R.string.ok, null).create().show();
     }
 
-    /**
-     * Επιστρέφει το επώνυμο του συγγραφέα.
-     * @return Το επώνυμο του συγγραφέα
-     */
-    public String getLastName()
-    {
-        return ((EditText)findViewById(R.id.edit_text_last_name)).getText().toString().trim();
-    }
-
-    /**
-     * Επιστρέφει το id του συγγραφέα.
-     * @return Το id του συγγραφέα
-     */
-    public Integer getAttachedAuthorID()
-    {
-        return this.getIntent().hasExtra("author_id") ? this.getIntent().getExtras().getInt("author_id") : null;
-    }
-
-    /**
-     * Θέτει το πρώτο όνομα του συγγραφέα.
-     * @param value Το πρώτο όνομα του συγγραφέα
-     */
-    public void setFirstName(String value)
-    {
-        ((EditText)findViewById(R.id.edit_text_first_name)).setText(value);
-    }
-
-    /**
-     * Θέτει το επώνυμο του συγγραφέα.
-     * @param value Το επώνυμο του συγγραφέα
-     */
-    public void setLastName(String value)
-    {
-        ((EditText)findViewById(R.id.edit_text_last_name)).setText(value);
-    }
-
-    /**
-     * Θέτει το όνομα της σελίδας.
-     * @param value το όνομα της σελίδας
-     */
-    public void setPageName(String value)
-    {
-        getSupportActionBar().setTitle(value);
-    }
 
     /**
      * Δημιουργεί to layout και αρχικοποιεί
@@ -112,10 +104,45 @@ public class AddEditAuthorActivity extends AppCompatActivity implements AddEditA
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_author);
-        final AddEditAuthorPresenter presenter = new AddEditAuthorPresenter(this, new AuthorDAOMemory());
 
-        findViewById(R.id.complete_registration_button).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
+        AddEditAuthorViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(AddEditAuthorViewModel.class);
+        final AddEditAuthorPresenter presenter = model.getPresenter(this);
+
+        // find the compose view object
+        ComposeView composeView = findViewById(R.id.compose_view);
+        // set the appropriate composable as content
+        ActivitiesKt.showAddEditAuthorView(composeView, model);
+
+        int authorID = getAttachedAuthorID();
+        Author author = model.findAuthor(authorID);
+        if (author != null)
+        {
+            model.setFirstName(author.getFirstName());
+            model.setLastName(author.getLastName());
+        }
+
+        // Get what the user writes in the first name field, and save it in a variable --> firstName, removing the spaces before and after the word (trim())
+        model.getFirstName().observe((LifecycleOwner) this, fName ->
+        {
+            if (fName != null)
+            {
+                setFirstName(fName.trim());
+            }
+        });
+
+        // Get what the user writes in the last name field, and save it in a variable --> lastName, removing the spaces before and after the word (trim())
+        model.getLastName().observe((LifecycleOwner) this, lName ->
+        {
+            if (lName != null)
+            {
+                setLastName(lName.trim());
+            }
+        });
+
+        // if the save button is clicked, save the author
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && getFirstName() != null && getLastName() != null && buttonTextResId.equals(R.string.complete_registration))
             {
                 presenter.onSaveAuthor();
             }

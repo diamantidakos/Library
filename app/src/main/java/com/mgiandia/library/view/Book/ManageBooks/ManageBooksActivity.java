@@ -4,24 +4,26 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 import com.mgiandia.library.R;
-import com.mgiandia.library.memorydao.AuthorDAOMemory;
-import com.mgiandia.library.memorydao.BookDAOMemory;
-import com.mgiandia.library.memorydao.PublisherDAOMemory;
+import com.mgiandia.library.domain.Book;
+import com.mgiandia.library.ui.composable.ActivitiesKt;
 import com.mgiandia.library.util.Quadruple;
 import com.mgiandia.library.view.Book.AddEditBook.AddEditBookActivity;
 import com.mgiandia.library.view.Book.BookDetails.BookDetailsActivity;
 import com.mgiandia.library.view.Items.ManageItems.ManageItemsActivity;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 import com.mgiandia.library.view.Util.AdvancedListAdapter;
 
 /**
@@ -30,13 +32,11 @@ import com.mgiandia.library.view.Util.AdvancedListAdapter;
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  *
  */
-
-public class ManageBooksActivity extends AppCompatActivity implements ManageBooksView, SearchView.OnQueryTextListener
+public class ManageBooksActivity extends AbstractLibraryActivity implements ManageBooksView, SearchView.OnQueryTextListener
 {
     ManageBooksPresenter presenter;
-
     private ListView itemListView;
-    private SearchView searchListView;
+    //private SearchView searchListView;
     private AdvancedListAdapter adapter;
 
     /**
@@ -48,35 +48,63 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_items);
-
+        setContentView(R.layout.manage_items_compose);
         adapter = new AdvancedListAdapter(this);
 
-        itemListView = (ListView) findViewById(R.id.item_list_view);
-        itemListView.setAdapter(adapter);
-        itemListView.setTextFilterEnabled(true);
+        ManageBooksViewModel model = new ViewModelProvider((ViewModelStoreOwner) this).get(ManageBooksViewModel.class);
+        presenter = model.getPresenter(this);
 
-        searchListView = (SearchView) findViewById(R.id.items_list_search_view);
-        searchListView.setIconifiedByDefault(false);
-        searchListView.setOnQueryTextListener(this);
+        ComposeView composeView = findViewById(R.id.compose_view);
+        ActivitiesKt.showManageBooksView(composeView, model);
 
-        presenter = new ManageBooksPresenter(this, new BookDAOMemory(), new AuthorDAOMemory(), new PublisherDAOMemory());
-
-        findViewById(R.id.item_add_new).setOnClickListener(new View.OnClickListener()
+        if (getAttachedAuthorID() != null)
         {
-            @Override
-            public void onClick(View view)
+            model.setAttachedAuthorID(getAttachedAuthorID());
+        }
+
+        if (getAttachedPublisherID() != null)
+        {
+            model.setAttachedPublisherID(getAttachedPublisherID());
+        }
+
+        model.getSelectedBookID().observe((LifecycleOwner) this, value ->
+        {
+            if (value != null)
             {
-                presenter.onStartAddNew();
+                presenter.onClickItem(value);
             }
         });
 
-        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        model.getTextOnSearchBar().observe((LifecycleOwner) this, value ->
         {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            if (value != null)
             {
-                presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
+                if (getAttachedAuthorID() == null && getAttachedPublisherID() == null)
+                {
+                    ArrayList<Book> books = new ArrayList<>(model.findBooks(value.trim()));
+                    model.setBooks(books);
+                    ActivitiesKt.showManageBooksViewSearch(composeView, model);
+                }
+                else if (getAttachedAuthorID() != null && getAttachedPublisherID() == null)
+                {
+                    ArrayList<Book> books = new ArrayList<>(model.findBooks(value.trim(), getAttachedAuthorID()));
+                    model.setBooks(books);
+                    ActivitiesKt.showManageBooksViewSearch(composeView, model);
+                }
+                else if (getAttachedAuthorID() == null && getAttachedPublisherID() != null)
+                {
+                    ArrayList<Book> books = new ArrayList<>(model.findBooksByTitleAndPublisherID(value.trim(), getAttachedPublisherID()));
+                    model.setBooks(books);
+                    ActivitiesKt.showManageBooksViewSearch(composeView, model);
+                }
+            }
+        });
+
+        model.observeClicks(this, buttonTextResId ->
+        {
+            if (buttonTextResId != null && buttonTextResId.equals(R.string.add_new_item))
+            {
+                presenter.onStartAddNew();
             }
         });
     }
@@ -110,12 +138,14 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
      * Αδείαζει το κείμενο που βρίσκεται
      * μέσα στην μπάρα αναζήτησης.
      */
+    /*
     private void clear_search_bar()
     {
         searchListView.setQuery("", false);
         searchListView.clearFocus();
         presenter.onLoadSource();
     }
+    */
 
     /**
      * Αδειάζει την μπάρα αναζήτησης
@@ -130,16 +160,24 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
 
         if(requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
-            clear_search_bar();
+            //clear_search_bar();
             presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
         else if(requestCode == 1)
         {
-            clear_search_bar();
+            //clear_search_bar();
 
             if(resultCode == Activity.RESULT_OK)
                 presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
+
+        refreshActivity();
+    }
+
+    private void refreshActivity()
+    {
+        finish();
+        startActivity(getIntent());
     }
 
     /**
@@ -199,7 +237,7 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
      */
     public void setPageName(String value)
     {
-        getSupportActionBar().setTitle(value);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(value);
     }
 
     /**
@@ -208,7 +246,7 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
      */
     public Integer getAttachedAuthorID()
     {
-        return this.getIntent().hasExtra("author_id") ? this.getIntent().getExtras().getInt("author_id") : null;
+        return this.getIntent().hasExtra("author_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("author_id") : null;
     }
 
     /**
@@ -217,7 +255,7 @@ public class ManageBooksActivity extends AppCompatActivity implements ManageBook
      */
     public Integer getAttachedPublisherID()
     {
-        return this.getIntent().hasExtra("publisher_id") ? this.getIntent().getExtras().getInt("publisher_id") : null;
+        return this.getIntent().hasExtra("publisher_id") ? Objects.requireNonNull(this.getIntent().getExtras()).getInt("publisher_id") : null;
     }
 
     /**

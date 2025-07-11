@@ -8,20 +8,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LibraryTheme">
         <activity
-            android:name=".view.EmptyActivity"
-            android:exported="true"
-            android:label="@string/title_activity_empty"
-            android:theme="@style/Theme.LibraryTheme"/>
-        <activity
-            android:name=".view.ComposeActivity"
-            android:exported="true"
-            android:label="@string/title_activity_compose"
-            android:theme="@style/Theme.LibraryTheme" />
-        <activity
-            android:name=".view.reservation.BookReservationActivity"
-            android:exported="true"
-            android:label="Κράτηση βιβλίου" />
-        <activity
             android:name=".view.Book.Search.BookSearchActivity"
             android:exported="true"
             android:label="Αναζήτηση βιβλίου" />

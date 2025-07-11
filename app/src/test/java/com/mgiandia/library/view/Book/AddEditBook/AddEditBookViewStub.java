@@ -80,6 +80,11 @@ public class AddEditBookViewStub implements AddEditBookView
         return position;
     }
 
+    @Override
+    public String getPublisher() {
+        return "";
+    }
+
     public String getISBN()
     {
         return isbn;
@@ -113,6 +118,11 @@ public class AddEditBookViewStub implements AddEditBookView
     public void setPublisherPosition(Integer value)
     {
         position = value;
+    }
+
+    @Override
+    public void setPublisher(String value) {
+
     }
 
     public void setISBN(String value)

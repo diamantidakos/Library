@@ -1,6 +1,7 @@
 package com.mgiandia.library.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.mgiandia.library.domain.Author;
 
@@ -37,6 +38,8 @@ public interface AuthorDAO
      * @return Ο συγγραφέας που βρέθηκε ή null
      */
     Author find(int authorId);
+
+    Set<Author> findByName(String name);
 
     /**
      * Επιστρέφει τον επόμενο κωδικό που μπορεί να αποδοθεί σε έναν συγγραφέα.

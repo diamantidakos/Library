@@ -2,8 +2,6 @@ package com.mgiandia.library.view.HomePage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.compose.ui.platform.ComposeView;
@@ -12,7 +10,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.mgiandia.library.R;
 import com.mgiandia.library.memorydao.MemoryInitializer;
 import com.mgiandia.library.ui.composable.ActivitiesKt;
@@ -20,14 +17,15 @@ import com.mgiandia.library.view.Author.ManageAuthors.ManageAuthorsActivity;
 import com.mgiandia.library.view.Book.ManageBooks.ManageBooksActivity;
 import com.mgiandia.library.view.Borrower.ManageBorrowers.ManageBorrowersActivity;
 import com.mgiandia.library.view.Publisher.ManagePublishers.ManagePublishersActivity;
+import com.mgiandia.library.view.Util.AbstractLibraryActivity;
 
 /**
  * @author Νίκος Σαραντινός
  * <p>
  * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
  */
-
-public class HomePageActivity extends AppCompatActivity implements HomePageView {
+public class HomePageActivity extends AbstractLibraryActivity implements HomePageView
+{
     private static boolean initialized = false;
 
     /**
@@ -39,11 +37,11 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_page_compose);
 
-        final HomePagePresenter presenter = new HomePagePresenter(this);
-
         HomePageViewModel model = new ViewModelProvider(this).get(HomePageViewModel.class);
+        HomePagePresenter presenter = model.getPresenter(this);
 
         // Create the observer which updates the UI.
         final Observer<Integer> clickObserver = buttonLabelResId -> {

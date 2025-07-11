@@ -1,6 +1,7 @@
 package com.mgiandia.library.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.mgiandia.library.domain.Publisher;
 
@@ -26,6 +27,8 @@ public interface PublisherDAO
      * @return Οι εκδοτικοί οίκοι
      */
     List<Publisher> findAll();
+
+    Set<Publisher> findByName(String name);
 
     /**
      * Αποθηκεύει έναν εκδοτικό οίκο.

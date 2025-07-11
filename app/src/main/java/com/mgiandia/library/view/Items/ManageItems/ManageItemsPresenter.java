@@ -133,7 +133,6 @@ public class ManageItemsPresenter
     void doAddNewItem()
     {
         addOneBookCopy(book);
-        view.refresh();
         view.showToast("Προστέθηκε με επιτυχία ένα καινούργιο αντίτυπο του βιβλίου στη συλλογή!");
     }
 

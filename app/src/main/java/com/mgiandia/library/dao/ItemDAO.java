@@ -43,6 +43,10 @@ public interface ItemDAO {
      */
     List<Item> findAll();
 
+    List<Item> findByBookTitle(String title);
+
+    List<Item> findByBookTitle(String itemTitle, String bookTitle);
+
     /**
      * Επιστρέφει τον επόμενο διαθέσιμο κωδικό που μπορεί να χρησιμοποιηθεί από ένα αντίτυπο.
      * @return Ο επόμενος διαθέσιμος κωδικός αντιτύπου.

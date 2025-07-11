@@ -84,4 +84,18 @@
     <string name="show_copies">Αντίτυπα</string>
     <string name="title_activity_compose">ComposeActivity</string>
     <string name="title_activity_empty">EmptyActivity</string>
+
+    <string name="publisher_default_country">Ελλάδα</string>
+    <string name="undergraduate_student">Προπτυχιακός Φοιτητής</string>
+    <string name="graduate_student">Μεταπτυχιακός Φοιτητής</string>
+    <string name="master_student">Διδακτορικός Φοιτητής</string>
+    <string name="dep_member">Μέλος Δ.Ε.Π</string>
+    <string name="professor">Καθηγητής</string>
+
+    <string name="from">Από</string>
+    <string name="books_number">Σύνολο βιβλίων</string>
+    <string name="loans_number">Σύνολο δανεισμών</string>
+    <string name="loan">Δανεισμός</string>
+    <string name="copy">Αντίτυπο</string>
+    <string name="uniqueID">Μοναδικός Κωδικός</string>
 </resources>

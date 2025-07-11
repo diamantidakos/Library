@@ -12,6 +12,7 @@ import com.mgiandia.library.domain.Book;
 import com.mgiandia.library.domain.ISBN;
 import com.mgiandia.library.domain.Item;
 import com.mgiandia.library.domain.Publisher;
+import com.mgiandia.library.memorydao.BookDAOMemory;
 
 /**
  * @author Νίκος Σαραντινός
@@ -45,6 +46,11 @@ public class AddEditBookPresenter {
                 return false;
 
         return true;
+    }
+
+    public AddEditBookPresenter(AddEditBookView view)
+    {
+        this.view = view;
     }
 
     /**
@@ -121,7 +127,7 @@ public class AddEditBookPresenter {
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε ακριβώς 4 αριθμητικά ψηφία το Έτος.");
         else if(publisherID == null)
             view.showErrorMessage("Σφάλμα!", "Επιλέξτε Εκδοτικό Οίκο.");
-        else if(authorIDs.size() == 0)
+        else if(authorIDs.isEmpty())
             view.showErrorMessage("Σφάλμα!", "Επιλέξτε τουλάχιστον ένα Συγγραφέα.");
         else
         {
@@ -138,7 +144,7 @@ public class AddEditBookPresenter {
                 for(Integer authorID : authorIDs)
                     authors.find(authorID).addBook(bookTmp);
 
-                view.successfullyFinishActivity("Επιτυχής Προσθήκη του Βιβλίου '"+title+"'!");
+                view.successfullyFinishActivity("Επιτυχής Προσθήκη του Βιβλίου '" + title + "'!");
             }
             else//update
             {
@@ -154,7 +160,7 @@ public class AddEditBookPresenter {
                 for(Integer authorID : authorIDs)
                     authors.find(authorID).addBook(attachedBook);
 
-                view.successfullyFinishActivity("Επιτυχής Τροποποίηση του Βιβλίου '"+title+"'!");
+                view.successfullyFinishActivity("Επιτυχής Τροποποίηση του Βιβλίου '" + title + "'!");
             }
         }
     }
