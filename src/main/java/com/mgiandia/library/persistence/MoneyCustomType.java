@@ -27,13 +27,15 @@ public class MoneyCustomType implements CompositeUserType<Money>{
 		}
 		return null;
 	}
-
+	
 	@Override
-	public Money instantiate(ValueAccess values, SessionFactoryImplementor sessionFactory) {
+	public Money instantiate(ValueAccess values) {
 		BigDecimal amount = values.getValue(0, BigDecimal.class);
 		String currency = values.getValue(1, String.class);
 		return new Money(amount, currency);
 	}
+
+	
 
 	@Override
 	public Class<?> embeddable() {
@@ -81,6 +83,8 @@ public class MoneyCustomType implements CompositeUserType<Money>{
 	public Money replace(Money detached, Money managed, Object owner) {
 		return detached;
 	}
+
+	
 
 	
 	
